@@ -23,7 +23,6 @@ namespace Wild8.Models
         public int Id { get; set; }
         public int userId { get; set; }
         public int staffId { get; set; }
-        public int totalPrice { get; set; }
         public System.DateTime orderDate { get; set; }
         public System.DateTime acceptanceDate { get; set; }
     

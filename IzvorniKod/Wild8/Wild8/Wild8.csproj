@@ -52,6 +52,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -174,10 +176,53 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\AddOn.cs">
+      <DependentUpon>Wild8Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>Wild8Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Meal.cs">
+      <DependentUpon>Wild8Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MealAddOn.cs">
+      <DependentUpon>Wild8Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MealCategory.cs">
+      <DependentUpon>Wild8Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MealType.cs">
+      <DependentUpon>Wild8Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>Wild8Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderMeal.cs">
+      <DependentUpon>Wild8Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderMealAddOn.cs">
+      <DependentUpon>Wild8Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>Wild8Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Wild8Model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Wild8Model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Wild8Model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Wild8Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Wild8Model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Wild8Model.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\PasswordHash.cs" />
@@ -193,8 +238,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\Wild8Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Wild8Model.edmx</DependentUpon>
+      <LastGenOutput>Wild8Model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Wild8Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Wild8Model.edmx</DependentUpon>
+      <LastGenOutput>Wild8Model.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\Wild8Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Wild8Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Wild8Model.edmx.diagram">
+      <DependentUpon>Wild8Model.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -209,7 +271,9 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Home\homepage.css" />
     <Content Include="Views\Home\homepage.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -244,7 +308,9 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

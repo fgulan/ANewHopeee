@@ -19,7 +19,6 @@ namespace Wild8.Models
         {
             this.MealAddOns = new HashSet<MealAddOn>();
             this.OrderMealAddOns = new HashSet<OrderMealAddOn>();
-            this.OrderMealsAddOns = new HashSet<OrderMealsAddOn>();
         }
     
         public string name { get; set; }
@@ -29,7 +28,5 @@ namespace Wild8.Models
         public virtual ICollection<MealAddOn> MealAddOns { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderMealAddOn> OrderMealAddOns { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderMealsAddOn> OrderMealsAddOns { get; set; }
     }
 }

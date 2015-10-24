@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7eabfe7bb4b0432b9b505f8281cf1344" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="Wild8DBModel.AddOn" Width="1.5" PointX="7.5" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wild8DBModel.Address" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wild8DBModel.MealAddOn" Width="1.5" PointX="9.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wild8DBModel.MealCategory" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wild8DBModel.Meal" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wild8DBModel.MealType" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wild8DBModel.OrderMealAddOn" Width="1.5" PointX="9.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wild8DBModel.OrderMeal" Width="1.5" PointX="7.5" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wild8DBModel.Order" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wild8DBModel.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="Wild8DBModel.FK_MealAddOns_addOnId" ManuallyRouted="false" />
+        <AssociationConnector Association="Wild8DBModel.FK_OrderMealAddOns_AddOns" ManuallyRouted="false" />
+        <AssociationConnector Association="Wild8DBModel.FK_Users_Addresses" ManuallyRouted="false" />
+        <AssociationConnector Association="Wild8DBModel.FK_MealAddOns_Meals" ManuallyRouted="false" />
+        <AssociationConnector Association="Wild8DBModel.FK_Meals_MealCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="Wild8DBModel.FK_MealTypes_Meals" ManuallyRouted="false" />
+        <AssociationConnector Association="Wild8DBModel.FK_OrderMeals_MealTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="Wild8DBModel.FK_OrderMealAddOns_OrderMeals" ManuallyRouted="false" />
+        <AssociationConnector Association="Wild8DBModel.FK_OrderMeals_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="Wild8DBModel.FK_Orders_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="Wild8DBModel.FK_Orders_UserStaff" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
