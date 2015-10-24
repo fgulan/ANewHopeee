@@ -12,21 +12,24 @@ namespace Wild8.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Address
+    public partial class AddOn
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Address()
+        public AddOn()
         {
-            this.Users = new HashSet<User>();
+            this.MealAddOns = new HashSet<MealAddOn>();
+            this.OrderMealAddOns = new HashSet<OrderMealAddOn>();
+            this.OrderMealsAddOns = new HashSet<OrderMealsAddOn>();
         }
     
+        public string name { get; set; }
         public int id { get; set; }
-        public string streetAddress { get; set; }
-        public string postalCode { get; set; }
-        public string city { get; set; }
-        public string country { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<MealAddOn> MealAddOns { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderMealAddOn> OrderMealAddOns { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderMealsAddOn> OrderMealsAddOns { get; set; }
     }
 }

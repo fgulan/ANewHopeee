@@ -12,21 +12,25 @@ namespace Wild8.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Address
+    public partial class Meal
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Address()
+        public Meal()
         {
-            this.Users = new HashSet<User>();
+            this.MealAddOns = new HashSet<MealAddOn>();
+            this.MealTypes = new HashSet<MealType>();
         }
     
+        public string name { get; set; }
+        public string description { get; set; }
+        public string picture { get; set; }
+        public Nullable<int> categoryID { get; set; }
         public int id { get; set; }
-        public string streetAddress { get; set; }
-        public string postalCode { get; set; }
-        public string city { get; set; }
-        public string country { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<MealAddOn> MealAddOns { get; set; }
+        public virtual MealCategory MealCategory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MealType> MealTypes { get; set; }
     }
 }
