@@ -8,6 +8,7 @@ namespace Wild8
     {
         public void Configuration(IAppBuilder app)
         {
+            Utils.PasswordHash.Main(null);
             ConfigureAuth(app);
         }
     }
