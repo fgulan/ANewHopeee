@@ -22,6 +22,17 @@
           <Property Name="city" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="country" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar(max)" />
+          <Property Name="comment" Type="ntext" Nullable="false" />
+          <Property Name="mealId" Type="int" />
+          <Property Name="commentTime" Type="datetime" Nullable="false" />
+          <Property Name="userId" Type="int" />
+        </EntityType>
         <EntityType Name="MealAddOns">
           <Key>
             <PropertyRef Name="Id" />
@@ -36,6 +47,15 @@
           </Key>
           <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MealGrade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mealId" Type="int" Nullable="false" />
+          <Property Name="grade" Type="smallint" Nullable="false" />
+          <Property Name="userId" Type="int" />
         </EntityType>
         <EntityType Name="Meals">
           <Key>
@@ -77,10 +97,27 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="orderUserId" Type="int" Nullable="false" />
           <Property Name="staffId" Type="int" Nullable="false" />
           <Property Name="orderDate" Type="smalldatetime" Nullable="false" />
           <Property Name="acceptanceDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userAddressId" Type="int" />
+          <Property Name="addressId" Type="int" />
+          <Property Name="phone" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserAddressTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="adressId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -93,7 +130,6 @@
           <Property Name="email" Type="nvarchar" MaxLength="120" Nullable="false" />
           <Property Name="phoneNumber" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="userType" Type="int" Nullable="false" />
-          <Property Name="addressId" Type="int" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <Association Name="FK_MealAddOns_addOnId">
@@ -117,6 +153,54 @@
             </Principal>
             <Dependent Role="MealAddOns">
               <PropertyRef Name="mealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MealComments_Meals">
+          <End Role="Meals" Type="Self.Meals" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meals">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="mealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MealComments_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MealGrade_Meals">
+          <End Role="Meals" Type="Self.Meals" Multiplicity="1" />
+          <End Role="MealGrade" Type="Self.MealGrade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meals">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MealGrade">
+              <PropertyRef Name="mealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MealGrade_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="MealGrade" Type="Self.MealGrade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MealGrade">
+              <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -192,15 +276,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Orders_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+        <Association Name="FK_Orders_UserOrder">
+          <End Role="OrderUser" Type="Self.OrderUser" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="id" />
+            <Principal Role="OrderUser">
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Orders">
-              <PropertyRef Name="userId" />
+              <PropertyRef Name="orderUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -216,28 +300,68 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Users_Addresses">
-          <End Role="Addresses" Type="Self.Addresses" Multiplicity="1" />
-          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+        <Association Name="FK_OrderUser_Addresses">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="0..1" />
+          <End Role="OrderUser" Type="Self.OrderUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Addresses">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Users">
+            <Dependent Role="OrderUser">
               <PropertyRef Name="addressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderUser_UserAddressTable">
+          <End Role="UserAddressTable" Type="Self.UserAddressTable" Multiplicity="0..1" />
+          <End Role="OrderUser" Type="Self.OrderUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAddressTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderUser">
+              <PropertyRef Name="userAddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAdressTable_Adresses">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="1" />
+          <End Role="UserAddressTable" Type="Self.UserAddressTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserAddressTable">
+              <PropertyRef Name="adressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAdressTable_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserAddressTable" Type="Self.UserAddressTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserAddressTable">
+              <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Wild8DBModelStoreContainer">
           <EntitySet Name="AddOns" EntityType="Self.AddOns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MealAddOns" EntityType="Self.MealAddOns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MealCategories" EntityType="Self.MealCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MealGrade" EntityType="Self.MealGrade" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Meals" EntityType="Self.Meals" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MealTypes" EntityType="Self.MealTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderMealAddOns" EntityType="Self.OrderMealAddOns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderMeals" EntityType="Self.OrderMeals" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderUser" EntityType="Self.OrderUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAddressTable" EntityType="Self.UserAddressTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_MealAddOns_addOnId" Association="Self.FK_MealAddOns_addOnId">
             <End Role="AddOns" EntitySet="AddOns" />
@@ -246,6 +370,22 @@
           <AssociationSet Name="FK_MealAddOns_Meals" Association="Self.FK_MealAddOns_Meals">
             <End Role="Meals" EntitySet="Meals" />
             <End Role="MealAddOns" EntitySet="MealAddOns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MealComments_Meals" Association="Self.FK_MealComments_Meals">
+            <End Role="Meals" EntitySet="Meals" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MealComments_Users" Association="Self.FK_MealComments_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MealGrade_Meals" Association="Self.FK_MealGrade_Meals">
+            <End Role="Meals" EntitySet="Meals" />
+            <End Role="MealGrade" EntitySet="MealGrade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MealGrade_Users" Association="Self.FK_MealGrade_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MealGrade" EntitySet="MealGrade" />
           </AssociationSet>
           <AssociationSet Name="FK_Meals_MealCategories" Association="Self.FK_Meals_MealCategories">
             <End Role="MealCategories" EntitySet="MealCategories" />
@@ -271,17 +411,29 @@
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderMeals" EntitySet="OrderMeals" />
           </AssociationSet>
-          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
-            <End Role="Users" EntitySet="Users" />
+          <AssociationSet Name="FK_Orders_UserOrder" Association="Self.FK_Orders_UserOrder">
+            <End Role="OrderUser" EntitySet="OrderUser" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_UserStaff" Association="Self.FK_Orders_UserStaff">
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_Users_Addresses" Association="Self.FK_Users_Addresses">
+          <AssociationSet Name="FK_OrderUser_Addresses" Association="Self.FK_OrderUser_Addresses">
             <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="OrderUser" EntitySet="OrderUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderUser_UserAddressTable" Association="Self.FK_OrderUser_UserAddressTable">
+            <End Role="UserAddressTable" EntitySet="UserAddressTable" />
+            <End Role="OrderUser" EntitySet="OrderUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAdressTable_Adresses" Association="Self.FK_UserAdressTable_Adresses">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="UserAddressTable" EntitySet="UserAddressTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAdressTable_Users" Association="Self.FK_UserAdressTable_Users">
             <End Role="Users" EntitySet="Users" />
+            <End Role="UserAddressTable" EntitySet="UserAddressTable" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -307,7 +459,21 @@
           <Property Name="postalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Addresses" FromRole="Addresses" ToRole="Users" />
+          <NavigationProperty Name="OrderUsers" Relationship="Self.FK_OrderUser_Addresses" FromRole="Addresses" ToRole="OrderUser" />
+          <NavigationProperty Name="UserAddressTables" Relationship="Self.FK_UserAdressTable_Adresses" FromRole="Addresses" ToRole="UserAddressTable" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mealId" Type="Int32" />
+          <Property Name="commentTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="userId" Type="Int32" />
+          <NavigationProperty Name="Meal" Relationship="Self.FK_MealComments_Meals" FromRole="Comments" ToRole="Meals" />
+          <NavigationProperty Name="User" Relationship="Self.FK_MealComments_Users" FromRole="Comments" ToRole="Users" />
         </EntityType>
         <EntityType Name="MealAddOn">
           <Key>
@@ -327,6 +493,17 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Meals" Relationship="Self.FK_Meals_MealCategories" FromRole="MealCategories" ToRole="Meals" />
         </EntityType>
+        <EntityType Name="MealGrade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mealId" Type="Int32" Nullable="false" />
+          <Property Name="grade" Type="Int16" Nullable="false" />
+          <Property Name="userId" Type="Int32" />
+          <NavigationProperty Name="Meal" Relationship="Self.FK_MealGrade_Meals" FromRole="MealGrade" ToRole="Meals" />
+          <NavigationProperty Name="User" Relationship="Self.FK_MealGrade_Users" FromRole="MealGrade" ToRole="Users" />
+        </EntityType>
         <EntityType Name="Meal">
           <Key>
             <PropertyRef Name="id" />
@@ -336,8 +513,10 @@
           <Property Name="picture" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
           <Property Name="categoryID" Type="Int32" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_MealComments_Meals" FromRole="Meals" ToRole="Comments" />
           <NavigationProperty Name="MealAddOns" Relationship="Self.FK_MealAddOns_Meals" FromRole="Meals" ToRole="MealAddOns" />
           <NavigationProperty Name="MealCategory" Relationship="Self.FK_Meals_MealCategories" FromRole="Meals" ToRole="MealCategories" />
+          <NavigationProperty Name="MealGrades" Relationship="Self.FK_MealGrade_Meals" FromRole="Meals" ToRole="MealGrade" />
           <NavigationProperty Name="MealTypes" Relationship="Self.FK_MealTypes_Meals" FromRole="Meals" ToRole="MealTypes" />
         </EntityType>
         <EntityType Name="MealType">
@@ -377,13 +556,36 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="orderUserId" Type="Int32" Nullable="false" />
           <Property Name="staffId" Type="Int32" Nullable="false" />
           <Property Name="orderDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="acceptanceDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="OrderMeals" Relationship="Self.FK_OrderMeals_Orders" FromRole="Orders" ToRole="OrderMeals" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Orders_Users" FromRole="Orders" ToRole="Users" />
-          <NavigationProperty Name="User1" Relationship="Self.FK_Orders_UserStaff" FromRole="Orders" ToRole="Users" />
+          <NavigationProperty Name="OrderUser" Relationship="Self.FK_Orders_UserOrder" FromRole="Orders" ToRole="OrderUser" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Orders_UserStaff" FromRole="Orders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="OrderUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userAddressId" Type="Int32" />
+          <Property Name="addressId" Type="Int32" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_OrderUser_Addresses" FromRole="OrderUser" ToRole="Addresses" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_UserOrder" FromRole="OrderUser" ToRole="Orders" />
+          <NavigationProperty Name="UserAddressTable" Relationship="Self.FK_OrderUser_UserAddressTable" FromRole="OrderUser" ToRole="UserAddressTable" />
+        </EntityType>
+        <EntityType Name="UserAddressTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="adressId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_UserAdressTable_Adresses" FromRole="UserAddressTable" ToRole="Addresses" />
+          <NavigationProperty Name="OrderUsers" Relationship="Self.FK_OrderUser_UserAddressTable" FromRole="UserAddressTable" ToRole="OrderUser" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserAdressTable_Users" FromRole="UserAddressTable" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -396,11 +598,11 @@
           <Property Name="email" Type="String" MaxLength="120" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="phoneNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="userType" Type="Int32" Nullable="false" />
-          <Property Name="addressId" Type="Int32" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Address" Relationship="Self.FK_Users_Addresses" FromRole="Users" ToRole="Addresses" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
-          <NavigationProperty Name="Orders1" Relationship="Self.FK_Orders_UserStaff" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_MealComments_Users" FromRole="Users" ToRole="Comments" />
+          <NavigationProperty Name="MealGrades" Relationship="Self.FK_MealGrade_Users" FromRole="Users" ToRole="MealGrade" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_UserStaff" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="UserAddressTables" Relationship="Self.FK_UserAdressTable_Users" FromRole="Users" ToRole="UserAddressTable" />
         </EntityType>
         <Association Name="FK_MealAddOns_addOnId">
           <End Role="AddOns" Type="Self.AddOn" Multiplicity="0..1" />
@@ -426,15 +628,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Users_Addresses">
-          <End Role="Addresses" Type="Self.Address" Multiplicity="1" />
-          <End Role="Users" Type="Self.User" Multiplicity="*" />
+        <Association Name="FK_OrderUser_Addresses">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="OrderUser" Type="Self.OrderUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Addresses">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Users">
+            <Dependent Role="OrderUser">
               <PropertyRef Name="addressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAdressTable_Adresses">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="1" />
+          <End Role="UserAddressTable" Type="Self.UserAddressTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserAddressTable">
+              <PropertyRef Name="adressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MealComments_Meals">
+          <End Role="Meals" Type="Self.Meal" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meals">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="mealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MealComments_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -459,6 +697,30 @@
             </Principal>
             <Dependent Role="Meals">
               <PropertyRef Name="categoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MealGrade_Meals">
+          <End Role="Meals" Type="Self.Meal" Multiplicity="1" />
+          <End Role="MealGrade" Type="Self.MealGrade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meals">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MealGrade">
+              <PropertyRef Name="mealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MealGrade_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="MealGrade" Type="Self.MealGrade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MealGrade">
+              <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -510,15 +772,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Orders_Users">
-          <End Role="Users" Type="Self.User" Multiplicity="1" />
+        <Association Name="FK_Orders_UserOrder">
+          <End Role="OrderUser" Type="Self.OrderUser" Multiplicity="1" />
           <End Role="Orders" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="id" />
+            <Principal Role="OrderUser">
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Orders">
-              <PropertyRef Name="userId" />
+              <PropertyRef Name="orderUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -534,16 +796,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Wild8DBConnection" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK_OrderUser_UserAddressTable">
+          <End Role="UserAddressTable" Type="Self.UserAddressTable" Multiplicity="0..1" />
+          <End Role="OrderUser" Type="Self.OrderUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAddressTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderUser">
+              <PropertyRef Name="userAddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAdressTable_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="UserAddressTable" Type="Self.UserAddressTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserAddressTable">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Wild8DBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AddOns" EntityType="Self.AddOn" />
           <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="MealAddOns" EntityType="Self.MealAddOn" />
           <EntitySet Name="MealCategories" EntityType="Self.MealCategory" />
+          <EntitySet Name="MealGrades" EntityType="Self.MealGrade" />
           <EntitySet Name="Meals" EntityType="Self.Meal" />
           <EntitySet Name="MealTypes" EntityType="Self.MealType" />
           <EntitySet Name="OrderMealAddOns" EntityType="Self.OrderMealAddOn" />
           <EntitySet Name="OrderMeals" EntityType="Self.OrderMeal" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="OrderUsers" EntityType="Self.OrderUser" />
+          <EntitySet Name="UserAddressTables" EntityType="Self.UserAddressTable" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_MealAddOns_addOnId" Association="Self.FK_MealAddOns_addOnId">
             <End Role="AddOns" EntitySet="AddOns" />
@@ -553,9 +843,21 @@
             <End Role="AddOns" EntitySet="AddOns" />
             <End Role="OrderMealAddOns" EntitySet="OrderMealAddOns" />
           </AssociationSet>
-          <AssociationSet Name="FK_Users_Addresses" Association="Self.FK_Users_Addresses">
+          <AssociationSet Name="FK_OrderUser_Addresses" Association="Self.FK_OrderUser_Addresses">
             <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="OrderUser" EntitySet="OrderUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAdressTable_Adresses" Association="Self.FK_UserAdressTable_Adresses">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="UserAddressTable" EntitySet="UserAddressTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MealComments_Meals" Association="Self.FK_MealComments_Meals">
+            <End Role="Meals" EntitySet="Meals" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MealComments_Users" Association="Self.FK_MealComments_Users">
             <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
           <AssociationSet Name="FK_MealAddOns_Meals" Association="Self.FK_MealAddOns_Meals">
             <End Role="Meals" EntitySet="Meals" />
@@ -564,6 +866,14 @@
           <AssociationSet Name="FK_Meals_MealCategories" Association="Self.FK_Meals_MealCategories">
             <End Role="MealCategories" EntitySet="MealCategories" />
             <End Role="Meals" EntitySet="Meals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MealGrade_Meals" Association="Self.FK_MealGrade_Meals">
+            <End Role="Meals" EntitySet="Meals" />
+            <End Role="MealGrade" EntitySet="MealGrades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MealGrade_Users" Association="Self.FK_MealGrade_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MealGrade" EntitySet="MealGrades" />
           </AssociationSet>
           <AssociationSet Name="FK_MealTypes_Meals" Association="Self.FK_MealTypes_Meals">
             <End Role="Meals" EntitySet="Meals" />
@@ -581,13 +891,21 @@
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderMeals" EntitySet="OrderMeals" />
           </AssociationSet>
-          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
-            <End Role="Users" EntitySet="Users" />
+          <AssociationSet Name="FK_Orders_UserOrder" Association="Self.FK_Orders_UserOrder">
+            <End Role="OrderUser" EntitySet="OrderUsers" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_UserStaff" Association="Self.FK_Orders_UserStaff">
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderUser_UserAddressTable" Association="Self.FK_OrderUser_UserAddressTable">
+            <End Role="UserAddressTable" EntitySet="UserAddressTables" />
+            <End Role="OrderUser" EntitySet="OrderUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAdressTable_Users" Association="Self.FK_UserAdressTable_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserAddressTable" EntitySet="UserAddressTables" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -595,7 +913,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Wild8DBModelStoreContainer" CdmEntityContainer="Wild8DBConnection">
+        <EntityContainerMapping StorageEntityContainer="Wild8DBModelStoreContainer" CdmEntityContainer="Wild8DBEntities1">
           <EntitySetMapping Name="AddOns">
             <EntityTypeMapping TypeName="Wild8DBModel.AddOn">
               <MappingFragment StoreEntitySet="AddOns">
@@ -615,6 +933,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="Wild8DBModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="comment1" ColumnName="comment" />
+                <ScalarProperty Name="mealId" ColumnName="mealId" />
+                <ScalarProperty Name="commentTime" ColumnName="commentTime" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="MealAddOns">
             <EntityTypeMapping TypeName="Wild8DBModel.MealAddOn">
               <MappingFragment StoreEntitySet="MealAddOns">
@@ -629,6 +959,16 @@
               <MappingFragment StoreEntitySet="MealCategories">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MealGrades">
+            <EntityTypeMapping TypeName="Wild8DBModel.MealGrade">
+              <MappingFragment StoreEntitySet="MealGrade">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="mealId" ColumnName="mealId" />
+                <ScalarProperty Name="grade" ColumnName="grade" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -675,10 +1015,29 @@
             <EntityTypeMapping TypeName="Wild8DBModel.Order">
               <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="orderUserId" ColumnName="orderUserId" />
                 <ScalarProperty Name="staffId" ColumnName="staffId" />
                 <ScalarProperty Name="orderDate" ColumnName="orderDate" />
                 <ScalarProperty Name="acceptanceDate" ColumnName="acceptanceDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderUsers">
+            <EntityTypeMapping TypeName="Wild8DBModel.OrderUser">
+              <MappingFragment StoreEntitySet="OrderUser">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="userAddressId" ColumnName="userAddressId" />
+                <ScalarProperty Name="addressId" ColumnName="addressId" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAddressTables">
+            <EntityTypeMapping TypeName="Wild8DBModel.UserAddressTable">
+              <MappingFragment StoreEntitySet="UserAddressTable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="adressId" ColumnName="adressId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -692,7 +1051,6 @@
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
                 <ScalarProperty Name="userType" ColumnName="userType" />
-                <ScalarProperty Name="addressId" ColumnName="addressId" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

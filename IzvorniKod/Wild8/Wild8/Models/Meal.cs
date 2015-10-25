@@ -17,7 +17,9 @@ namespace Wild8.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Meal()
         {
+            this.Comments = new HashSet<Comment>();
             this.MealAddOns = new HashSet<MealAddOn>();
+            this.MealGrades = new HashSet<MealGrade>();
             this.MealTypes = new HashSet<MealType>();
         }
     
@@ -28,8 +30,12 @@ namespace Wild8.Models
         public int id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MealAddOn> MealAddOns { get; set; }
         public virtual MealCategory MealCategory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MealGrade> MealGrades { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MealType> MealTypes { get; set; }
     }

@@ -12,24 +12,21 @@ namespace Wild8.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Address
+    public partial class UserAddressTable
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Address()
+        public UserAddressTable()
         {
             this.OrderUsers = new HashSet<OrderUser>();
-            this.UserAddressTables = new HashSet<UserAddressTable>();
         }
     
-        public int id { get; set; }
-        public string streetAddress { get; set; }
-        public string postalCode { get; set; }
-        public string city { get; set; }
-        public string country { get; set; }
+        public int Id { get; set; }
+        public int userId { get; set; }
+        public int adressId { get; set; }
     
+        public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderUser> OrderUsers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserAddressTable> UserAddressTables { get; set; }
+        public virtual User User { get; set; }
     }
 }

@@ -177,51 +177,63 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddOn.cs">
-      <DependentUpon>Wild8Model.tt</DependentUpon>
+      <DependentUpon>Wild8Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Address.cs">
-      <DependentUpon>Wild8Model.tt</DependentUpon>
+      <DependentUpon>Wild8Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>Wild8Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Meal.cs">
-      <DependentUpon>Wild8Model.tt</DependentUpon>
+      <DependentUpon>Wild8Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MealAddOn.cs">
-      <DependentUpon>Wild8Model.tt</DependentUpon>
+      <DependentUpon>Wild8Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MealCategory.cs">
-      <DependentUpon>Wild8Model.tt</DependentUpon>
+      <DependentUpon>Wild8Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MealGrade.cs">
+      <DependentUpon>Wild8Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MealType.cs">
-      <DependentUpon>Wild8Model.tt</DependentUpon>
+      <DependentUpon>Wild8Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs">
-      <DependentUpon>Wild8Model.tt</DependentUpon>
+      <DependentUpon>Wild8Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderMeal.cs">
-      <DependentUpon>Wild8Model.tt</DependentUpon>
+      <DependentUpon>Wild8Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderMealAddOn.cs">
-      <DependentUpon>Wild8Model.tt</DependentUpon>
+      <DependentUpon>Wild8Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderUser.cs">
+      <DependentUpon>Wild8Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>Wild8Model.tt</DependentUpon>
+      <DependentUpon>Wild8Models.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Wild8Model.Context.cs">
+    <Compile Include="Models\UserAddressTable.cs">
+      <DependentUpon>Wild8Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Wild8Models.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Wild8Model.Context.tt</DependentUpon>
+      <DependentUpon>Wild8Models.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Wild8Model.cs">
+    <Compile Include="Models\Wild8Models.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Wild8Model.tt</DependentUpon>
+      <DependentUpon>Wild8Models.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Wild8Model.Designer.cs">
+    <Compile Include="Models\Wild8Models.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Wild8Model.edmx</DependentUpon>
+      <DependentUpon>Wild8Models.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -238,24 +250,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\Wild8Model.Context.tt">
+    <Content Include="Models\Wild8Models.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Wild8Model.edmx</DependentUpon>
-      <LastGenOutput>Wild8Model.Context.cs</LastGenOutput>
+      <DependentUpon>Wild8Models.edmx</DependentUpon>
+      <LastGenOutput>Wild8Models.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Wild8Model.tt">
+    <Content Include="Models\Wild8Models.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Wild8Model.edmx</DependentUpon>
-      <LastGenOutput>Wild8Model.cs</LastGenOutput>
+      <DependentUpon>Wild8Models.edmx</DependentUpon>
+      <LastGenOutput>Wild8Models.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\Wild8Model.edmx">
+    <EntityDeploy Include="Models\Wild8Models.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Wild8Model.Designer.cs</LastGenOutput>
+      <LastGenOutput>Wild8Models.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Wild8Model.edmx.diagram">
-      <DependentUpon>Wild8Model.edmx</DependentUpon>
+    <Content Include="Models\Wild8Models.edmx.diagram">
+      <DependentUpon>Wild8Models.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

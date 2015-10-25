@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Doctor\Desktop\Wild8\anewhopeee\IzvorniKod\Wild8\Wild8\Models\Wild8Model.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Doctor\Desktop\Wild8\anewhopeee\IzvorniKod\Wild8\Wild8\Models\Wild8Models.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -13,10 +13,10 @@ namespace Wild8.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Wild8DBConnection : DbContext
+    public partial class Wild8DBEntities1 : DbContext
     {
-        public Wild8DBConnection()
-            : base("name=Wild8DBConnection")
+        public Wild8DBEntities1()
+            : base("name=Wild8DBEntities1")
         {
         }
     
@@ -27,13 +27,17 @@ namespace Wild8.Models
     
         public virtual DbSet<AddOn> AddOns { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<MealAddOn> MealAddOns { get; set; }
         public virtual DbSet<MealCategory> MealCategories { get; set; }
+        public virtual DbSet<MealGrade> MealGrades { get; set; }
         public virtual DbSet<Meal> Meals { get; set; }
         public virtual DbSet<MealType> MealTypes { get; set; }
         public virtual DbSet<OrderMealAddOn> OrderMealAddOns { get; set; }
         public virtual DbSet<OrderMeal> OrderMeals { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderUser> OrderUsers { get; set; }
+        public virtual DbSet<UserAddressTable> UserAddressTables { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
 }

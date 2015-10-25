@@ -17,8 +17,10 @@ namespace Wild8.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.Comments = new HashSet<Comment>();
+            this.MealGrades = new HashSet<MealGrade>();
             this.Orders = new HashSet<Order>();
-            this.Orders1 = new HashSet<Order>();
+            this.UserAddressTables = new HashSet<UserAddressTable>();
         }
     
         public string userName { get; set; }
@@ -28,13 +30,15 @@ namespace Wild8.Models
         public string email { get; set; }
         public string phoneNumber { get; set; }
         public int userType { get; set; }
-        public int addressId { get; set; }
         public int id { get; set; }
     
-        public virtual Address Address { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MealGrade> MealGrades { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders1 { get; set; }
+        public virtual ICollection<UserAddressTable> UserAddressTables { get; set; }
     }
 }

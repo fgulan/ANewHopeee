@@ -21,14 +21,14 @@ namespace Wild8.Models
         }
     
         public int Id { get; set; }
-        public int userId { get; set; }
+        public int orderUserId { get; set; }
         public int staffId { get; set; }
         public System.DateTime orderDate { get; set; }
         public System.DateTime acceptanceDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderMeal> OrderMeals { get; set; }
+        public virtual OrderUser OrderUser { get; set; }
         public virtual User User { get; set; }
-        public virtual User User1 { get; set; }
     }
 }
