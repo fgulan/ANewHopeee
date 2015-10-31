@@ -1,0 +1,151 @@
+PROGRAMSKO INŽINJERSTVO
+
+Programsko inženjerstvo bavi se teorijama, metodama i alatima za profesionalno oblikovanje programske potpore
+
+Cijena programske potpore sastoji se iz cijena: razvoja, oblikovanja, ispitivanja i održavanja.
+Cijena održavanja programske potpore veća je od cijene razvoja i oblikovanja.
+
+U širem smislu, programska potpora uključuje računalni program i dokumentaciju: zahtjevi na sustav, modeli arhitekture i oblikovanja, korisnički priručnici.
+
+Programsko inženjerstvo:
+  1.) sistematski i organiziran pristup procesu izrade
+  2.) upotrebljavati prikladne alate i tehnike ovisno o problemu koji treba riješiti, ograničenjima u procesu izrade i postojećim resursima.
+  3.) proces rješavanja problema kupaca i korisnika (ponekad je rješenje: kupi, ne razvijaj)
+
+Inženjeri sustava (računalnog) su uključeni u specificiranje sustava, oblikovanju arhitekture, integraciju i postavljanju u korisničko okruženje.
+
+Proces programskog inžinjerstva:          !!!!
+  1.) Specifikacija
+  2.) Oblikovanje i implementacija
+  3.) Validacija i verifikacija
+  4.) Evolucija
+
+Model - pojednostavljeno predstavljanje procesa iz određene perspektive.
+Vrste:                   Perspektive modela:
+  4.) Evolucija
+  1.) Vodopadni               1.) Tijek podataka
+  2.) Evolucijski             2.) Uloge i akcije
+  3.) Komponentni             3.) Tijek posla
+
+Cijena programske potpore sadrži cijenu specifikacije, oblikovanja, ispitivanja i održavanja. 50% cjene je razvoj a 50% cijene je ispitivanje.
+
+Programski proizvod mora osigurati traženu funkcionalnost i performanse, te mora biti prihvatljiv korisniku, pouzdan i mora se moći održavati.
+
+Dionici su svi koji sudjeluju razvoju, ispitivanju, održavanju i korištenju proizvoda.
+Dionici mogu biti: Kupac, Korisnik, Programer, Rukovoditelj razvoja
+
+Povećanje učinkovitosti specijalizacijom čini sustav manje razumljivim i može smanjiti mogućnost održavanja ili ponovnog korištenja.
+Povećanje lakoće korištenja (npr. uključivanje uputa tijekom rada) može smanjiti učinkovitost.
+
+Izazovi programskog inžinjerstva:
+Heterogenost(portabilnost), vrije isporuke, provjerenje, promijena zahtijeva, složenost.
+
+Vrste projekata:
+  1.) Korektivni projekti (popravljanje pogrešaka)
+  2.) Adaptivni projekti  (obnavljanje funkcionalnosti)
+  3.) Unaprijeđujući (dodavanje funkcionalnosti)
+  4.) Reinžinjerstvo
+  5.) Novi projekti
+  6.) Integrativni (novi projekt napravljen korištenjem nekog postojeceg frameworka)
+  7.) Hibridni
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+INŽINJERSTVO ZAHTJEVA
+
+CASE = Computer-Aided Software Engineering
+
+To je postupak pronalaženja, analiziranja, strukturiranja, dokumentiranja i provjere korisnički zahtijevanih usluga sustava, te ograničenja u uporabi.
+Zahtjevi sami za sebe su opisi usluga sustava i ograničenja koja se generiraju tijekom procesa inženjerstva zahtjeva.
+
+Podijela po razini detalja:
+  1.) Zahtijevi korisnika
+  2.) Zahtijevi sustava (ograničenja ...)
+  3.) Specifikacija programske potpore (krajnja dokumentacija, tutoriali...)
+
+Zahtijevi korisnika:
+  1.) Funkcionalni zahtijevi (što sustav treba raditi)
+  2.) Nefunkcionalni (Zahtjevi programskog produkta, Organizacijski zahtjevi, Vanjski zahtjevi)
+  3.) Zahtijevi domene primjene (ograničenja domene sustava)
+
+Izražavanje zahtjeva sustava :
+  1.) Slobodnim jezikom
+  2.) Jezik za opis oblikovanja (npr. SDL)
+  3.) Grafička notacija (npr. UML)
+  4.) Matematička specifikacija (FSM, teorija skupova i sl.)
+
+Procesi inžinjerstva zahtijeva:
+Proces predstavlja strukturiran (organiziran) skup aktivnosti koji  vodi nekom cilju.
+Ciljevi:
+  1.) opisati temeljne inženjerske aktivnosti i njihove odnose u generiranju i dokumentaciji zahtjeva.
+  2.) upoznati se s tehnikama za izlučivanje i analizu zahtjeva
+  3.) opisati validaciju zahtjeva i ulogu recenzenta
+  4.) analizirati upravljanje zahtjevima (engl. requirements management) kao potporu procesu inženjerstva zahtjeva
+
+Dva modela procesa zahtijeva:
+  1.) Klasićni
+  2.) Spiralni
+
+Generičke aktivnosti inžinjerstva zahtijeva:
+  1.) Studija izvedivosti( dali je sustav isplativ, )
+  2.) Izlučivanje zahtjeva (muzanje kupca što on to hoće, intervijui)
+  3.) validacija zahtijeva (neophodnosti zahtjeva, koenzistentnost i kompletnost, mogućnost ostvarenja)
+  4.) upravljanje zahtijevima
+
+Validacija zahtijeva
+
+Cilj validacije je pokazati da dokument zahtjeva predstavlja prihvatljiv opis sustava koji naručitelj doista želi.
+Tehnike validacije:
+  1.) recenzija zahtijeva
+  2.) izrada prototipa
+  3.) generiranje slučajnih zahtijeva
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+UML
+
+UML je jezika za:
+  1.) Vizualizaciju
+  2.) Specifikaciju
+  3.) Oblikovanje
+  4.) Dokumentiranje
+
+Osnovni elementi UML-a:
+  1.) Stvari:
+    a) strukturne stvari(klase, sučelja, objekti, aktori, signali, procesi...)
+    b) ponašanja (interakcije stanja)
+    c) grupiranja
+    d) označavanja (opisni elementi)
+  2.) Relacije:
+    a) Asocijacije
+    b) Generalizacije
+    c) Realizacije
+    d) Ovisnosti
+  3.) Dijagrami
+
+Dijagrami u UML-u:
+  1.) Statični:
+    a) obrazci upotrebe
+    b) dijagrami razreda
+    c) dijagrami objekata
+    d) dijagrami komponenata
+    e) dijagrami razmiještaja
+  2.) Dinamični:
+    a) Sekvencijski dijagrami
+    b) komunikacijski dijagrami
+    c) dijagrami stanja
+    d) dijagrami aktivnosti
+
+OBRAZCI UPOTREBE:
+Opisuju se AKTORI u interakciji s uslugama sustava.
+Skup obrazaca uporabe opisuje sve moguće interakcije sustava
+Tri temeljna elementa u modelima obrazaca uporabe su: obrasci uporabe, aktori i odnosi (relacije, engl. relations) među njima.
+
+Dijagram obrazaca upotrebe opisuje obrazce upotrebe, aktore i njihova odnose.
+
+Aktori su vanjski objekti koji komuniciraju sa sustavom.
+Aktor ima jedinstveno ime.
+
+Poveznice obrazaca upotrebe:
+  1.) Asocijacija - komunikacija instance aktora i instance obrazca upotrebe
+  2.) Proširenje  - Odnos od proširene upotrebe do osnovne upotrebe(extend)
+  3.) Obuhvačanje - Odnos od osnovnog obrazca do uključenog obrazca(include)
+  4.) Poopčenje   - odnos izmedu opčeg i specifičnog zadatka
