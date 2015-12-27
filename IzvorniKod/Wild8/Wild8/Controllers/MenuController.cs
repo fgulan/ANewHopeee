@@ -11,7 +11,7 @@ namespace Wild8.Controllers
     {
         public List<MealViewModel> GetMeals(string category)
         {
-            ;
+            return null; // samo da ne bude error
         }
 
         public void GoToMeal(string mealName)
