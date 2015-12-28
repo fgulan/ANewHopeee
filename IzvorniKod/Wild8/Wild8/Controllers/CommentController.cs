@@ -23,7 +23,7 @@ namespace Wild8.Controllers
             return _controller;
         }
 
-        public void SaveMealComment(string mealName, int grade, string message, string username)
+        public void SaveMealComment(int mealId, int grade, string message, string username)
         {
             lock (_controller)
             {
@@ -40,14 +40,13 @@ namespace Wild8.Controllers
             }
         }
 
-        public List<Comment> LoadMealComments(string mealName)
+        public List<Comment> LoadMealComments(int mealId)
         {
             List<Comment> comments;
 
             lock (_controller)
             {
-                comments = null; // ovo će se maknuti
-                // TODO: Dohvati komentare
+                comments = GetCommentsFor(mealId);
             }
 
             return comments;
@@ -59,8 +58,22 @@ namespace Wild8.Controllers
 
             lock (_controller)
             {
-                comments = null; // ovo će se maknuti
-                // TODO: Dohvati komentare
+                comments = GetCommentsFor(null);
+            }
+
+            return comments;
+        }
+
+        private List<Comment> GetCommentsFor(int? mealId)
+        {
+            List<Comment> comments = null;
+
+            using (var db = new Wild8DBEntities1())
+            {
+                var query = (from c in db.Comments
+                             where c.mealId == mealId
+                             select c);
+                comments = query.ToList();
             }
 
             return comments;
