@@ -23,6 +23,8 @@ namespace Wild8.DAL
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<OrderMealAddOn> OrderMealAddOns { get; set; }
         public DbSet<MealType> MealTypes { get; set; }
+        public DbSet<MealAddOn> MealAddOns { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -13,6 +13,6 @@ namespace Wild8.Models
         public string ImagePath { get; set; }
         public int CategoryID { get; set; }
         public virtual Category Category { get; set; }
-        public virtual ICollection<AddOn> AddOns { get; set; }
+        public virtual ICollection<MealAddOn> AddOns { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace Wild8.Models
     {
         [Key, Column("MealID", Order = 0)]
         public int MealID { get; set; }
-        [Key, Column("Name", Order = 1)]
+        [Key, Column("MealTypeName", Order = 1)]
         public string MealTypeName { get; set; }
         public virtual Meal Meal { get; set; }
         public decimal Price { get; set; }

@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MealsController.cs" />
     <Compile Include="DAL\RestaurauntContext.cs" />
     <Compile Include="DAL\RestaurauntInitializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -139,6 +140,7 @@
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Meal.cs" />
+    <Compile Include="Models\MealAddOn.cs" />
     <Compile Include="Models\MealType.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
@@ -180,6 +182,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Meals\Create.cshtml" />
+    <Content Include="Views\Meals\Delete.cshtml" />
+    <Content Include="Views\Meals\Details.cshtml" />
+    <Content Include="Views\Meals\Edit.cshtml" />
+    <Content Include="Views\Meals\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

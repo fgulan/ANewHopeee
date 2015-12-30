@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace Wild8.Models
 {
-    public class AddOn
+    public class MealAddOn
     {
-        [Key]
+        [Key, Column("MealID", Order = 0)]
+        public int MealID { get; set; }
+        [Key, Column("AddOnID", Order = 1)]
         public string AddOnID { get; set; }
-        public decimal Price { get; set; }
-
-        public virtual ICollection<Meal> Meals { get; set; }
     }
 }
