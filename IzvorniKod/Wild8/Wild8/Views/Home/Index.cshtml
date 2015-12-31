@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿
+@model Wild8.StaticInfo.RestaurauntInfo
+
+@{
+    ViewBag.Title = "Details";
+}
+<!DOCTYPE html>
 <!--
    ___   _  __           __ __
   / _ | / |/ /__ _    __/ // /__  ___  ___ ___ ___
@@ -167,8 +173,8 @@
         <hr class="featurette-divider">
         <div class="featurette">
             <img class="featurette-image img-circle pull-left img-responsive" src="images/owner.jpeg">
-            <h2 class="featurette-heading">Vlasnik: <span class="text-muted">Mateo Marcelić</span></h2>
-            <p class="lead">Rođen kao 3. član obitelji Marcelić, u Zadru, 30. prosinca 1994. godine. Školovan u gimnaziji Jurja Barakovića u Zadru, prirodoslovno-matematički smjer. Kao neuspješni student FER-a uspješnu karijeru potražuje u ugostiteljstvu. Porijeklo iz ribarske obitelji nudilo je dobro poznavanje ribarstva, ribarskih običaja, te ribarskih tehnika koje mu omogućuju da to iskoristi za vrhunsku pripremu jela s ribom i morskim plodovima, osobito na gradelama. Duboko ukorijenjena tradicija u njegovoj obitelji pogodovala je stvaranju bogate kuhinje pune morskih delikatesa. Svoje kuharske i gurmanske vještine utemeljio je u svom prvom restoranu "Wild8" u Zagrebu na ljeto 2014. godine, gdje ubrzo ostvaruje visok ugled. Kasnije, svoje vještine proširuje na ostala jela pripremljena na roštilju i uspješno postaje poznat po cijeloj Republici kao vlasnik najboljeg restorana koji priprema jela s roštilja.</p>
+            <h2 class="featurette-heading">Vlasnik: <span class="text-muted">@Html.DisplayFor(model => model.OwnerName)</span></h2>
+            <p class="lead">@Html.DisplayFor(model => model.OwnerHomepageInfo)</p>
         </div>
         <hr class="featurette-divider">
         <!-- /FEATURETTES -->

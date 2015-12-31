@@ -4,15 +4,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 
 namespace Wild8.StaticInfo
 {
     public class RestaurauntInfo
     {
-        private static readonly string DataFilePath = "C:\\test.txt";
+        private static readonly string DataFilePath = HostingEnvironment.MapPath("/App_Data/info.dat");
         private static readonly RestaurauntInfo instance;
         private Object lockObject = new Object();
 
+        private volatile string ownerName;
+        public string OwnerName { get { return ownerName; } set { ownerName = value; SaveData(); } }
+
+        private volatile string restaurauntName;
+        public string RestaurauntName { get { return restaurauntName; } set { restaurauntName = value; SaveData(); } }
 
         private volatile string ownerHomepageInfo;
         public string OwnerHomepageInfo { get { return ownerHomepageInfo; } set { ownerHomepageInfo = value; SaveData(); } }
@@ -60,8 +66,14 @@ namespace Wild8.StaticInfo
 
         private void Initialize()
         {
-            ownerHomepageInfo = "Odsgdsfdsg";
-            ownerHomepagePhotoPath = "dfdffsdsd";
+            ownerName = "Mateo Marcelic";
+            restaurauntName = "Wild 8";
+            ownerHomepageInfo = "Rođen kao 3. član obitelji Marcelić, u Zadru, 30. prosinca 1994. godine." + " Školovan u gimnaziji Jurja Barakovića u Zadru, prirodoslovno-matematički smjer."
+                +" Kao neuspješni student FER-a uspješnu karijeru potražuje u ugostiteljstvu. Porijeklo iz ribarske obitelji nudilo je dobro poznavanje ribarstva,"
+                +" ribarskih običaja, te ribarskih tehnika koje mu omogućuju da to iskoristi za vrhunsku pripremu jela s ribom i morskim plodovima, osobito na gradelama."
+                +" Duboko ukorijenjena tradicija u njegovoj obitelji pogodovala je stvaranju bogate kuhinje pune morskih delikatesa. Svoje kuharske i gurmanske vještine utemeljio je u svom prvom restoranu \"Wild8\" u Zagrebu na ljeto 2014. godine,"
+                +" gdje ubrzo ostvaruje visok ugled. Kasnije, svoje vještine proširuje na ostala jela pripremljena na roštilju i uspješno postaje poznat po cijeloj Republici kao vlasnik najboljeg restorana koji priprema jela s roštilja.";
+            ownerHomepagePhotoPath = "images/owner";
             ownerContactInfo = "dfdsfds";
             ownerContactPhotoPath = "fddsfsdfsdfsdf";
             ownerCity = ";fdfsfs";
