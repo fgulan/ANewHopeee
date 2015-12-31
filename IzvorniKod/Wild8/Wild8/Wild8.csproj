@@ -155,6 +155,21 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\carousel_images\Wild8_delivery.jpg" />
+    <Content Include="images\carousel_images\Wild8_interior.jpg" />
+    <Content Include="images\carousel_images\Wild8_sample_food.jpg" />
+    <Content Include="images\favicon.png" />
+    <Content Include="images\featurette_optional.jpg" />
+    <Content Include="images\featurette_restaurant.jpg" />
+    <Content Include="images\marketing_images\marketing_30min.jpg" />
+    <Content Include="images\marketing_images\marketing_satisfaction.png" />
+    <Content Include="images\marketing_images\marketing_veggie.jpg" />
+    <Content Include="images\owner.jpeg" />
+    <Content Include="images\owner_signature.png" />
+    <Content Include="images\owner_small.jpg" />
+    <Content Include="images\page-loader.gif" />
+    <Content Include="images\wild8logo.png" />
+    <Content Include="images\wild8_favicon.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -169,6 +184,13 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Home\homepage.css" />
+    <Content Include="Views\Home\homepage.html" />
+    <Content Include="Views\Home\menu.css" />
+    <Content Include="Views\Home\menu.html" />
+    <Content Include="Views\Home\navbar_hide.js" />
+    <Content Include="Views\Home\price_update.js" />
+    <Content Include="Views\Home\star_rating.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

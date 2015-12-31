@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Wild8.StaticInfo;
 
 namespace Wild8.Controllers
 {
@@ -10,7 +11,7 @@ namespace Wild8.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View(RestaurauntInfo.Instance);
         }
 
         public ActionResult About()
