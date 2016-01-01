@@ -17,13 +17,13 @@
 <head>
     <title>Wild8.me | Restoran</title>
     <link rel="shortcut icon" href="images/favicon.png">
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="homepage.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/homepage.css" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="navbar_hide.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/navbar_hide.js"></script>
     <script type="text/javascript">
         $(document).ready(function()
         {
@@ -38,43 +38,6 @@
 </head>
 
 <body>
-    <a name="top"></a>
-    <!-- NAVBAR -->
-    <div id="header-wrap">
-        <nav class="navbar navbar-inverse navbar-static-top" id="header">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#wildNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="@Url.Action("Index", "Home")">Wild8</a>
-                </div>
-                <div class="collapse navbar-collapse" id="wildNavbar">
-                    <ul class="nav navbar-nav">
-                        <li class="active">
-                            <a href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-home"></span> Početna</a>
-                        </li>
-                        <li>
-                            <a href="menu.html"><span class="glyphicon glyphicon-cutlery"></span> Jelovnik</a>
-                        </li>
-                        <li>
-                            <a href="comments.html"><span class="glyphicon glyphicon-comment"></span> Komentari</a>
-                        </li>
-                        <li>
-                            <a href="contact_us.html"><span class="glyphicon glyphicon-globe"></span> Kontakt</a>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> 0</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
     <!-- Carousel
     ================================================== -->
     <div id="wildCarousel" class="carousel slide">
@@ -86,7 +49,7 @@
         </ol>
         <div class="carousel-inner">
             <div class="item active">
-                <img src="images/carousel_images/Wild8_interior.jpg" class="img-responsive">
+                <img src="~/images/carousel_images/Wild8_interior.jpg" class="img-responsive">
                 <div class="container">
                     <div class="carousel-caption">
                         <h1>Wild8</h1>
@@ -98,7 +61,7 @@
                 </div>
             </div>
             <div class="item">
-                <img src="images/carousel_images/Wild8_sample_food.jpg" class="img-responsive">
+                <img src="~/images/carousel_images/Wild8_sample_food.jpg" class="img-responsive">
                 <div class="container">
                     <div class="carousel-caption">
                         <h1>Širok izbor</h1>
@@ -110,7 +73,7 @@
                 </div>
             </div>
             <div class="item">
-                <img src="images/carousel_images/Wild8_delivery.jpg" class="img-responsive">
+                <img src="~/images/carousel_images/Wild8_delivery.jpg" class="img-responsive">
                 <div class="container">
                     <div class="carousel-caption">
                         <h1 style="text-color: black" class="header_special">Besplatna dostava</h1>
@@ -134,7 +97,7 @@
         <!-- Three columns of text below the carousel -->
         <div class="row">
             <div class="col-md-4 text-center">
-                <img class="img-circle" src="images/marketing_images/marketing_30min.jpg">
+                <img class="img-circle" src="~/images/marketing_images/marketing_30min.jpg">
                 <h2>Dostava u 30 min</h2>
                 <p>Garantirana dostava unutar 30 minuta, inače ne plaćate narudžbu.</p>
                 <p>
@@ -142,7 +105,7 @@
                 </p>
             </div>
             <div class="col-md-4 text-center">
-                <img class="img-circle" src="images/marketing_images/marketing_satisfaction.png">
+                <img class="img-circle" src="~/images/marketing_images/marketing_satisfaction.png">
                 <h2>100% customer satisfaction</h2>
                 <p>Rated 5/5 on every order.</p>
                 <p>
@@ -150,7 +113,7 @@
                 </p>
             </div>
             <div class="col-md-4 text-center">
-                <img class="img-circle" src="images/marketing_images/marketing_veggie.jpg">
+                <img class="img-circle" src="~/images/marketing_images/marketing_veggie.jpg">
                 <h2>Vegeterijanski izbor</h2>
                 <p>Ponuda vegeterijanskih jela s roštilja.</p>
                 <p>
@@ -164,7 +127,7 @@
         <!-- anchor link for carousel button -->
         <hr class="featurette-divider">
         <div class="featurette">
-            <img class="featurette-image img-circle pull-right img-responsive" src="images/featurette_restaurant.jpg">
+            <img class="featurette-image img-circle pull-right img-responsive" src="~/images/featurette_restaurant.jpg">
             <h2 class="featurette-heading">Restoran: <span class="text-muted">Wild8</span></h2>
             <p class="lead">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar faucibus neque, nec rhoncus nunc ultrices sit amet. Curabitur ac sagittis neque, vel egestas est. Aenean elementum, erat at aliquet hendrerit, elit nisl posuere tortor, id suscipit diam dui sed nisi. Morbi sollicitudin massa vel tortor consequat, eget semper nisl fringilla. Maecenas at hendrerit odio. Sed in mi eu quam suscipit bibendum quis at orci. Pellentesque fermentum nisl purus, et iaculis lectus pharetra sit amet.
@@ -172,7 +135,7 @@
         </div>
         <hr class="featurette-divider">
         <div class="featurette">
-            <img class="featurette-image img-circle pull-left img-responsive" src="images/owner.jpeg">
+            <img class="featurette-image img-circle pull-left img-responsive" src="~/images/owner.jpeg">
             <h2 class="featurette-heading">Vlasnik: <span class="text-muted">@Html.DisplayFor(model => model.OwnerName)</span></h2>
             <p class="lead">@Html.DisplayFor(model => model.OwnerHomepageInfo)</p>
         </div>

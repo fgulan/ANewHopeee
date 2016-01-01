@@ -128,6 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MealsController.cs" />
     <Compile Include="DAL\RestaurauntContext.cs" />
@@ -184,13 +185,12 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\Home\homepage.css" />
-    <Content Include="Views\Home\homepage.html" />
-    <Content Include="Views\Home\menu.css" />
-    <Content Include="Views\Home\menu.html" />
-    <Content Include="Views\Home\navbar_hide.js" />
-    <Content Include="Views\Home\price_update.js" />
-    <Content Include="Views\Home\star_rating.js" />
+    <Content Include="Content\comments.css" />
+    <Content Include="Content\comments.min.css" />
+    <Content Include="Content\homepage.css" />
+    <Content Include="Scripts\navbar_hide.js" />
+    <Content Include="Scripts\price_update.js" />
+    <Content Include="Scripts\star_rating.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -202,14 +202,14 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Meals\Create.cshtml" />
     <Content Include="Views\Meals\Delete.cshtml" />
     <Content Include="Views\Meals\Details.cshtml" />
     <Content Include="Views\Meals\Edit.cshtml" />
     <Content Include="Views\Meals\Index.cshtml" />
+    <Content Include="Views\Comments\Create.cshtml" />
+    <Content Include="Views\Comments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

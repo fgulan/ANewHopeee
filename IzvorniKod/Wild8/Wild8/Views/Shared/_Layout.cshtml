@@ -8,31 +8,44 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <div id="header-wrap">
+        <nav class="navbar navbar-inverse navbar-static-top" id="header">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#wildNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="@Url.Action("Index", "Home")">Wild8</a>
+                </div>
+                <div class="collapse navbar-collapse" id="wildNavbar">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-home"></span> Početna</a>
+                        </li>
+                        <li>
+                            <a href="menu.html"><span class="glyphicon glyphicon-cutlery"></span> Jelovnik</a>
+                        </li>
+                        <li>
+                            <a href="comments.html"><span class="glyphicon glyphicon-comment"></span> Komentari</a>
+                        </li>
+                        <li>
+                            <a href="contact_us.html"><span class="glyphicon glyphicon-globe"></span> Kontakt</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> 0</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Meals", "Index", "Meals")</li>
-                </ul>
-            </div>
-        </div>
+        </nav>
     </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

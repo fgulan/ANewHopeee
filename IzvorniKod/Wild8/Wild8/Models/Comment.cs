@@ -11,7 +11,8 @@ namespace Wild8.Models
         public string Username { get; set; }
         public string Message { get; set; }
         public int Grade { get; set; }
-        public int MealID { get; set; }
+        public DateTime CommentDate { get; set; }
+        public int? MealID { get; set; }
         public virtual Meal Meal { get; set; }
     }
 }

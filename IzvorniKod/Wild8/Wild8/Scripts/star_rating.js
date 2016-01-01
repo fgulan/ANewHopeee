@@ -94,7 +94,7 @@ var __slice = [].slice;
     });
 })(window.jQuery, window);
 $(function() {
-    return $(".stars").stars();
+    return $('#stars').stars();
 });
 $(document).ready(function() {
     $('#stars').on('stars:change', function(e, value) {
