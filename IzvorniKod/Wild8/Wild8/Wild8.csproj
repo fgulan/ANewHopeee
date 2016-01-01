@@ -58,14 +58,18 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -131,6 +135,7 @@
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MealsController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="DAL\RestaurauntContext.cs" />
     <Compile Include="DAL\RestaurauntInitializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -143,6 +148,7 @@
     <Compile Include="Models\Meal.cs" />
     <Compile Include="Models\MealAddOn.cs" />
     <Compile Include="Models\MealType.cs" />
+    <Compile Include="Models\ModelViews\MenuModelView.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\OrderMealAddOn.cs" />
@@ -152,6 +158,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\menu.css" />
+    <Content Include="Content\menu.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -209,6 +217,7 @@
     <Content Include="Views\Meals\Edit.cshtml" />
     <Content Include="Views\Meals\Index.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

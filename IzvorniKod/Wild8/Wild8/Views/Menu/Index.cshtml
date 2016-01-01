@@ -1,0 +1,280 @@
+﻿@model MenuModelView
+
+@{ 
+    ViewBag.Title = "Index";
+}
+<!--
+   ___   _  __           __ __
+  / _ | / |/ /__ _    __/ // /__  ___  ___ ___ ___
+ / __ |/    / -_) |/|/ / _  / _ \/ _ \/ -_) -_) -_)
+/_/ |_/_/|_/\__/|__,__/_//_/\___/ .__/\__/\__/\__/
+                               /_/
+-->
+
+<head>
+    <title>Wild8.me | Jelovnik</title>
+    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/comments.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/navbar_hide.js"></script>
+    <script type="text/javascript" src="~/Scripts/star_rating.js"></script>
+    <script>
+        $(function(){
+        var $select = $(".1-10");
+        for (i=1;i<=10;i++){
+            $select.append($('<option></option>').val(i).html(i))
+        }
+    });
+    </script>
+    <script>
+    $(document).on('click', '.expand', function(){
+      $("span[aria-expanded='true']").removeClass("glyphicon-chevron-down");
+      $("span[aria-expanded='true']").addClass("glyphicon-chevron-up");
+
+    });
+    </script>
+    <script>
+    $(document).on('click', '.accordion-toggle', function(){
+      $("span[aria-expanded='false']").removeClass("glyphicon-chevron-up");
+      $("span[aria-expanded='false']").addClass("glyphicon-chevron-down");
+
+    });
+    </script>
+</head>
+
+<body>
+    <!-- Meals -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-2">
+
+                <form role="form">
+
+                    <div class="form-group">
+                        <label for="sel1">Kategorija:</label>
+                        <select class="form-control" id="sel1">
+                            <!--Print all categories-->
+                            @{ 
+                                foreach(string cat in Model.categories)
+                                {
+                                    <option>cat</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sel2">Sortiranje:</label>
+                        <select class="form-control" id="sel2">
+                            <option>Ime (A-Ž)</option>
+                            <option>Ime (Ž-A)</option>
+                            <option>Cijena (najviše prvo)</option>
+                            <option>Cijena (najniže prvo)</option>
+                            <option>Popularnost (više naručivane)</option>
+                            <option>Ocjena (najviše prvo)</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3>Sve Kategorije</h3></div>
+                <div class="panel-body">
+                    <table class="table table-condensed" style="border-collapse:collapse;">
+
+                        <thead id="head-underline">
+                            <tr>
+                                <th>Slika jela</th>
+                                <th>Naziv jela</th>
+                                <th>Opis jela</th>
+                                <th>Veličina/Količina</th>
+                                <th class="order-head">Naruči</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="displayed">
+                            <tr>
+                                <td class="img-col"><img class="food-image img-responsive" src="http://lorempixel.com/200/200"></img></td>
+                                <td class="name-col meal-hot">Ime jela 1</td>
+                                <td class="desc-col">opis jela 1</td>
+                                <td class="size-col">
+                                    <ul>
+                                        <li><input type="radio" name="velicina1" value="50.00" checked="checked"> Velika</li>
+                                        <li><input type="radio" name="velicina1" value="40.00"> Srednja</li>
+                                        <li><input type="radio" name="velicina1" value="30.00"> Mala</li>
+                                    </ul>
+
+                                    <select class="1-10"></select>
+                                </td>
+                                <td class="add-col">
+                                    <button type="button" class="btn btn-warning pull-right">Dodaj</button>
+                                    <label class="pull-right"></label>
+
+                                </td>
+                                <td class="expand-col">
+
+                                    <span class="glyphicon glyphicon-chevron-down expand accordion-toggle" data-toggle="collapse" data-target="#food1"></span>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td colspan="12" class="hiddenRow">
+                                    <div class="accordian-body collapse" id="food1">
+                                        <table>
+                                            <tbody>
+                                                <tr><td><input type="checkbox" name="dodatak1" value="5.50"> Tartar umak</td><td> + 5.50 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak2" value="3.50"> Majoneza</td><td> + 3.50 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak3" value="3.25"> Ketchup</td><td> + 3.25 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak4" value="7.25"> Kajmak</td><td> + 7.25 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak5" value="6.99"> Ajvar</td><td> + 6.99 HRK</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="img-col"><img class="food-image img-responsive" src="http://lorempixel.com/200/200"></img></td>
+                                <td class="name-col">Ime jela 2</td>
+                                <td class="desc-col">opis jela 2</td>
+                                <td class="size-col">
+
+                                    <ul>
+                                        <li><input type="radio" name="velicina2" value="50.00" checked="checked"> Velika</li>
+                                        <li><input type="radio" name="velicina2" value="40.00"> Srednja</li>
+                                        <li><input type="radio" name="velicina2" value="30.00"> Mala</li>
+                                    </ul>
+
+                                    <select class="1-10"></select>
+                                </td>
+                                <td class="add-col">
+                                    <button type="button" class="btn btn-warning pull-right">Dodaj</button>
+                                    <label class="pull-right"></label>
+
+                                </td>
+                                <td class="expand-col"><span class="glyphicon glyphicon-chevron-down expand accordion-toggle" data-toggle="collapse" data-target="#food2"></span></td>
+
+                            </tr>
+                            <tr>
+                                <td colspan="12" class="hiddenRow">
+                                    <div class="accordian-body collapse" id="food2">
+                                        <table>
+                                            <tbody>
+                                                <tr><td><input type="checkbox" name="dodatak1" value="5.50"> Tartar umak</td><td> + 5.50 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak2" value="3.50"> Majoneza</td><td> + 3.50 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak3" value="3.25"> Ketchup</td><td> + 3.25 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak4" value="7.25"> Kajmak</td><td> + 7.25 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak5" value="6.99"> Ajvar</td><td> + 6.99 HRK</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="img-col"><img class="food-image img-responsive" src="http://lorempixel.com/200/200"></img></td>
+                                <td class="name-col meal-hot">Ime jela 3</td>
+                                <td class="desc-col">opis jela 3</td>
+                                <td class="size-col">
+                                    <ul>
+                                        <li><input type="radio" name="velicina3" value="50.00" checked="checked"> Velika</li>
+                                        <li><input type="radio" name="velicina3" value="40.00"> Srednja</li>
+                                        <li><input type="radio" name="velicina3" value="30.00"> Mala</li>
+                                    </ul>
+
+                                    <select class="1-10"></select>
+                                </td>
+                                <td class="add-col">
+                                    <button type="button" class="btn btn-warning pull-right">Dodaj</button>
+                                    <label class="pull-right"></label>
+
+                                </td>
+                                <td class="expand-col"><span class="glyphicon glyphicon-chevron-down expand accordion-toggle" data-toggle="collapse" data-target="#food3"></span></td>
+
+                            </tr>
+                            <tr>
+                                <td colspan="12" class="hiddenRow">
+                                    <div class="accordian-body collapse" id="food3">
+                                        <table>
+                                            <tbody>
+                                                <tr><td><input type="checkbox" name="dodatak1" value="5.50"> Tartar umak</td><td> + 5.50 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak2" value="3.50"> Majoneza</td><td> + 3.50 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak3" value="3.25"> Ketchup</td><td> + 3.25 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak4" value="7.25"> Kajmak</td><td> + 7.25 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak5" value="6.99"> Ajvar</td><td> + 6.99 HRK</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="img-col"><img class="food-image img-responsive" src="http://lorempixel.com/200/200"></img></td>
+                                <td class="name-col">Ime jela 4</td>
+                                <td class="desc-col">opis jela 4</td>
+                                <td class="size-col">
+                                    <ul>
+                                        <li><input type="radio" name="velicina4" value="50.00" checked="checked"> Velika</li>
+                                        <li><input type="radio" name="velicina4" value="40.00"> Srednja</li>
+                                        <li><input type="radio" name="velicina4" value="30.00"> Mala</li>
+                                    </ul>
+
+                                    <select class="1-10"></select>
+                                </td>
+                                <td class="add-col">
+                                    <button type="button" class="btn btn-warning pull-right">Dodaj</button>
+                                    <label class="pull-right"></label>
+
+                                </td>
+                                <td class="expand-col"><span class="glyphicon glyphicon-chevron-down expand accordion-toggle" data-toggle="collapse" data-target="#food4"></span></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="12" class="hiddenRow">
+                                    <div class="accordian-body collapse" id="food4">
+                                        <table>
+                                            <tbody>
+                                                <tr><td><input type="checkbox" name="dodatak1" value="5.50"> Tartar umak</td><td> + 5.50 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak2" value="3.50"> Majoneza</td><td> + 3.50 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak3" value="3.25"> Ketchup</td><td> + 3.25 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak4" value="7.25"> Kajmak</td><td> + 7.25 HRK</td></tr>
+                                                <tr><td><input type="checkbox" name="dodatak5" value="6.99"> Ajvar</td><td> + 6.99 HRK</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <footer>
+        <hr class="featurette-divider">
+        <p class="pull-right">
+            <a href="#top">Idi na vrh</a>
+        </p>
+        <p>
+            © Wild8 ugostiteljski obrt. · <a href="personnelLogin.html">Prijava osoblja</a>
+        </p>
+    </footer>
+</body>
+
+</html>

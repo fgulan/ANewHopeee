@@ -40,6 +40,16 @@ namespace Wild8.DAL
             meals.ForEach(s => context.Meals.Add(s));
             context.SaveChanges();
 
+            var types = new List<MealType>
+            {
+                new MealType { MealID = 1, MealTypeName = "Mala porcija" },
+                new MealType { MealID = 1, MealTypeName = "Velika porcija" },
+                new MealType { MealID = 2, MealTypeName = "Mala porcija" },
+                new MealType { MealID = 2, MealTypeName = "Velika porcija" }
+            };
+            types.ForEach(t => context.MealTypes.Add(t));
+            context.SaveChanges();
+            
             var mealAddOns = new List<MealAddOn>
             {
                 new MealAddOn {MealID = 1, AddOnID = "Kajmak" },

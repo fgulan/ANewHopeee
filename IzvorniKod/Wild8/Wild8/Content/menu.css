@@ -1,0 +1,161 @@
+﻿/*
+   ___   _  __           __ __
+  / _ | / |/ /__ _    __/ // /__  ___  ___ ___ ___
+ / __ |/    / -_) |/|/ / _  / _ \/ _ \/ -_) -_) -_)
+/_/ |_/_/|_/\__/|__,__/_//_/\___/ .__/\__/\__/\__/
+                               /_/
+*/
+
+/*GLOBAL*/
+
+body
+{
+    padding-bottom: 40px;
+    color: #5a5a5a;
+    position: relative;
+}
+
+/*navbar brand font*/
+
+.navbar-brand
+{
+    color: crimson !important;
+    font-weight: bold;
+    font-style: italic;
+}
+
+#header-wrap {
+    width: 100%;
+    position: fixed;
+    height: 50px;
+    z-index: 999;
+}
+
+.meal-name{
+  text-align: right;
+}
+
+.form-group{
+  display:inline-block;
+}
+
+footer
+{
+    margin-left: 50px;
+    padding-left: 40px;
+    margin-right: 50px;
+    padding-right: 40px;
+}
+
+.container{
+  padding-top: 70px;
+}
+
+.hot-label{
+    color: red;
+    font-variant-caps: all-small-caps;
+    font-weight: bolder;
+}
+
+.food-image{
+  max-width: 100px;
+  max-height: 100%;
+}
+.img-col{
+  width: 100px;
+}
+.name-col{
+  width:100px;
+  min-width: 75px;
+}
+.desc-col{
+  width:300px;
+  min-width:90px;
+}
+.size-col{
+  width:280px;
+}
+.expand-col{
+  vertical-align: bottom !important;
+}
+.expand{
+  float:right;
+}
+.expand:hover{
+  cursor:pointer;
+}
+.table>thead>tr>th{
+  border: none;
+}
+.order-head{
+  text-align:center;
+}
+ul{
+    padding-left: 0px;
+    list-style-type: none;
+}
+#head-underline{
+  border-bottom: 4px solid #ddd;
+}
+.btn-warning{
+  margin-left:15px;
+}
+
+@media screen and (max-width: 600px){
+  /* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr {
+		display: block;
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+  #head-underline, .img-col{
+    border: none !important;
+  }
+
+	td {
+		/* Behave  like a "row" */
+		border: none !important;
+	  position: relative;
+	}
+  .hiddenRow{
+    border:none;
+  }
+	td:before {
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+	}
+  .expand-col{
+    vertical-align: top !important;
+    padding: 15px !important;
+
+  }
+  .btn-warning{
+    float:none !important;
+  }
+  .accordion-toggle{
+    width: 20px;
+    height: 20px;
+  }
+  .accordian-body > table > tbody > tr > td:nth-child(2) {
+    margin-left:30%;
+  }
+  .hiddenRow{
+    border-bottom: 1px solid #ddd !important;
+    margin-bottom: 2px;
+  }
+  .btn-warning{
+    margin-left:0px;
+  }
+
+}
