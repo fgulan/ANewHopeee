@@ -134,7 +134,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MealsController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="DAL\RestaurauntContext.cs" />
     <Compile Include="DAL\RestaurauntInitializer.cs" />
@@ -211,13 +210,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Meals\Create.cshtml" />
-    <Content Include="Views\Meals\Delete.cshtml" />
-    <Content Include="Views\Meals\Details.cshtml" />
-    <Content Include="Views\Meals\Edit.cshtml" />
-    <Content Include="Views\Meals\Index.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
-    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Menu\MenuView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

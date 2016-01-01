@@ -25,7 +25,7 @@ namespace Wild8.Controllers
         }
 
         // GET: Menu
-        public ActionResult Index()
+        public ActionResult MenuView()
         {
             MenuModelView modelView = new MenuModelView();
             List<MealWithPrice> mealWPrice = new List<MealWithPrice>();
