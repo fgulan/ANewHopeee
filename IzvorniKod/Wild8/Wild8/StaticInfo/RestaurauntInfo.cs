@@ -37,6 +37,18 @@ namespace Wild8.StaticInfo
 
         private volatile string ownerAddress;
         public string OwnerAddress { get { return ownerAddress; } set { ownerAddress = value; SaveData(); } }
+		
+		private volatile string ownerPhone;
+		public string OwnerPhone { get {return ownerPhone; } set { ownerPhone = value; SaveData(); }}
+		
+		private volatile string ownerEMail;
+		public string OwnerEMail { get {return ownerEMail; } set { ownerEMail = value; SaveData(); }}
+		
+		private volatile string workTime;
+		public string WorkTime { get {return workTime; } set { workTime = value; SaveData(); }}
+		
+		private volatile string ownerContactsInfo;
+		public string OwnerContactsInfo { get {return ownerContactsInfo; } set { ownerContactsInfo = value; SaveData(); }}
 
 
         private volatile string firstHomepagePhotoPath;
@@ -76,8 +88,16 @@ namespace Wild8.StaticInfo
             ownerHomepagePhotoPath = "images/owner";
             ownerContactInfo = "dfdsfds";
             ownerContactPhotoPath = "fddsfsdfsdfsdf";
-            ownerCity = ";fdfsfs";
-            ownerAddress = "dfdsfsd";
+            ownerCity = "poštanski broj, ime grada";
+            ownerAddress = "nekakva adresa";
+			ownerPhone = "+(385) 1234 1234";
+			ownerEMail = "restaurant@wild8.me";
+			workTime = "Radno vrijeme svakim danom od 08:00 do 23:00";
+			ownerContactsInfo = "“Kuhanje je moja strast, moja antistres terapija. Moj hobi koji je prerastao u stil života."
+				+ " Otkad znam za sebe kuham, a sve se moje slobodne aktivnosti i prijateljska druženja odvijaju upravo u meni najdražoj prostoriji – kuhinji."
+				+ " Kuhanje ne doživljavam kao rad, više kao neku vrstu osobnog zadovoljstva. Kroz kuhanje sam upoznao mnoštvo divnih ljudi koji dijele slične interese,"
+				+ " te s nekima postao i jako dobar izvan tog kuharskog svijeta, što je jedna od ljepših stvari koje mi je kuhanje donijelo. A kada dobivate pohvale od vjernih gostiju,"
+				+ " to zadovoljstvo ne može zamijeniti ništa. Na kraju dana legnete u krevet napunjeni pozitivnom energijom, koja vam daje snage za nove radne pobjede!”";
             firstHomepagePhotoPath = "dfsfsf";
             secondHomepagePhotoPath = "fdsfdsfsd";
             thirdHomepagePhotoPath = "dfdsfd";
