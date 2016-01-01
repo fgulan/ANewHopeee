@@ -1,8 +1,6 @@
-﻿@model IEnumerable<Wild8.Models.Comment>
+﻿@model MealWithPrice
 
-@{
-    ViewBag.Title = "Index";
-}
+<!DOCTYPE html>
 <!--
    ___   _  __           __ __
   / _ | / |/ /__ _    __/ // /__  ___  ___ ___ ___
@@ -10,65 +8,97 @@
 /_/ |_/_/|_/\__/|__,__/_//_/\___/ .__/\__/\__/\__/
                                /_/
 -->
-
+<html>
 <head>
-    <title>Wild8.me | Komentari</title>
+    <title>Wild8.me | Naziv jela</title>
+
     <link rel="shortcut icon" href="~/images/favicon.png">
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="~/Content/comments.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/comments.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/meal.css" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/navbar_hide.js"></script>
+    <script type="text/javascript" src="~/Scripts/price_update.js"></script>
     <script type="text/javascript" src="~/Scripts/star_rating.js"></script>
+    <script type="text/javascript" src="~/Scripts/navbar_hide.js"></script>
+
     <script>
-        $('#collapseOne').on('show.bs.collapse', function()
-        {
-            $('.panel-heading').animate(
-            {
-                backgroundColor: "#515151"
-            }, 500);
-        })
-
-        $('#collapseOne').on('hide.bs.collapse', function()
-        {
-            $('.panel-heading').animate(
-            {
-                backgroundColor: "#00B4FF"
-            }, 500);
-        })
+        $(function(){
+        var $select = $(".1-10");
+        for (i=1;i<=10;i++){
+            $select.append($('<option></option>').val(i).html(i))
+        }
+    });
     </script>
-
 </head>
-
 <body>
-    <!-- COMMENT SECTION -->
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
+                <img class="img-responsive meal-image" src="images/carousel_images/Wild8_sample_food.jpg" />
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-4">
+                <h3>@Html.DisplayFor(model => model.Meal.Name)</h3>
+                <p>@Html.DisplayFor(model => model.Meal.Description)</p>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-2">
+                <table>
+                    <tbody>
+                        @foreach (var mealAddOn in Model.Meal.AddOns)
+                        {
+                            <tr><td><input type="checkbox" name="@Model.Meal.Name" value="@mealAddOn.AddOn.Price">@mealAddOn.AddOn.AddOnID</td><td> + @mealAddOn.AddOn.Price HRK</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-1">
+                <ul>
+                    @foreach (var type in Model.Types)
+                    {
+                        <li><input type="radio" name="@Model.Meal.Name" value="@type.Price">@type.MealTypeName</li>
+                    }
+                </ul>
+            </div>
+
+            <div class="col-md-1">
+                <select class="1-10"></select>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-warning pull-right">Dodaj</button>
+                <label id="sum" class="pull-right">35.99 HRK</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
                 <h2 class="page-header">Komentari</h2>
                 <section class="comment-list">
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Meal.Comments)
                     {
                         <article class="row">
-                            <div class="col-md-10 col-sm-10">
+                            <div>
                                 <div class="panel panel-default arrow left">
                                     <div class="panel-body">
                                         <header class="text-right">
                                             <div class="comment-user">
-                                                <i class="fa fa-user">@Html.DisplayFor(modelItem => item.Username)</i>
+                                                <i class="fa fa-user"></i>@Html.DisplayFor(itemModel => item.Username)
                                             </div>
                                             <time class="comment-date" datetime="16-12-2014 01:05">
-                                                <i class="fa fa-clock-o">@Html.DisplayFor(modelItem => item.CommentDate)</i>
+                                                <i class="fa fa-clock-o"></i> @Html.DisplayFor(itemModel => item.CommentDate)
                                             </time>
                                         </header>
                                         <div class="comment-post">
                                             <p>
-                                                @Html.DisplayFor(modelItem => item.Message)
+                                                @Html.DisplayFor(itemModel => item.Message)
                                             </p>
                                         </div>
-                                        <p class="text-right">@Html.DisplayFor(modelItem => item.Grade)<span class="glyphicon glyphicon-star"></span>
+                                        <p class="text-right">
+                                            @Html.DisplayFor(itemModel => item.Grade) <span class="glyphicon glyphicon-star"></span>
                                         </p>
                                     </div>
                                 </div>
@@ -79,7 +109,6 @@
             </div>
         </div>
     </div>
-
     <footer>
         <hr class="featurette-divider">
         <p class="pull-right">
@@ -89,7 +118,6 @@
             © Wild8 ugostiteljski obrt. · <a href="personnelLogin.html">Prijava osoblja</a>
         </p>
     </footer>
-
     <div class="panel-group" id="accordion">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -101,7 +129,10 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse">
                 <div class="panel-body commentbox-style">
-                    <form class="form-signin" action="/Comments/AddNewComment" method="post">
+                    <form class="form-signin" action="/Meals/AddNewComment" method="post">
+                        <div class="form-group">
+                            <input type="hidden" name="ID" value=@Html.DisplayFor(model => model.Meal.MealID)>
+                        </div>
                         <div class="form-group">
                             <label for="usr">Korisničko ime:</label>
                             <input type="text" class="form-control" id="usr" name="Username" placeholder="korisničko ime" required autofocus="">
@@ -128,3 +159,4 @@
         </div>
     </div>
 </body>
+</html>

@@ -2,8 +2,6 @@ $(document).ready(function(){
 
     $(".meal-hot").prepend("<div class='hot-label'><span class='glyphicon glyphicon-fire'></span> HOT! </div>");
 
-
-
     $("#sel1").change(function(){
         var catSel = $("#sel1").val();
         $(".panel-heading>h3").html(catSel);

@@ -7,16 +7,15 @@ namespace Wild8.Models.ModelViews
 {
     public class MenuModelView
     {
-        public List<string> categories { get; set; }
-        public List<MealWithPrice> meals { get; set; }
+        public List<string> Categories { get; set; }
+        public List<MealWithPrice> Meals { get; set; }
 
     }
 
-    public partial class MealWithPrice
+    public class MealWithPrice
     {
-        public Meal meal { get; set; }
-        public List<AddOn> addons { get; set; }
-        public List<MealType> types { get; set; }
-        public Boolean isHot { get; set; }
+        public Meal Meal { get; set; }
+        public List<MealType> Types { get; set; }
+        public Boolean IsHot { get; set; }
     }
 }

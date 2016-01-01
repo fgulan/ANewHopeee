@@ -14,7 +14,7 @@
 <head>
     <title>Wild8.me | Jelovnik</title>
 
-    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="shortcut icon" href="~/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/menu.css" />
     <meta charset="utf-8">
@@ -61,7 +61,7 @@
                         <select class="form-control" id="sel1">
                             <!--Print all categories-->
                             @{ 
-                                foreach(string cat in Model.categories)
+                                foreach(string cat in Model.Categories)
                                 {
                                     <option>@cat</option>
                                 }
@@ -101,18 +101,20 @@
                         </thead>
 
                         <tbody class="displayed">
-                            @foreach (var item in Model.meals)
+                            @foreach (var item in Model.Meals)
                             {
                                 <tr>
                                     <!--Todo put image of a meal here-->
-                                    <td class="img-col"><img class="food-image img-responsive" src="http://lorempixel.com/200/200"></td>
-                                    <td class="name-col">@item.meal.Name</td>
-                                    <td class="desc-col">@item.meal.Description</td>
+                                    <td class="img-col">
+                                        <a href="@Url.Action("Details", "Meals", new { id=item.Meal.MealID })"><img class="food-image img-responsive" src="http://lorempixel.com/200/200"></a>
+                                    </td>
+                                    <td class="name-col">@item.Meal.Name</td>
+                                    <td class="desc-col">@item.Meal.Description</td>
                                     <td class="size-col">
                                             <ul>
-                                            @foreach (var type in item.types)
+                                            @foreach (var type in item.Types)
                                             {
-                                                <li><input type="radio" name="@item.meal.Name" value="@type.Price">@type.MealTypeName</li>
+                                                <li><input type="radio" name="@item.Meal.Name" checked="checked" value="@type.Price">@type.MealTypeName</li>
                                             }
                                             </ul>
                                         <select class="1-10"></select>
@@ -132,9 +134,9 @@
                                         <div class="accordian-body collapse" id="food1">
                                             <table>
                                                 <tbody>
-                                                    @foreach(var addon in item.addons)
+                                                    @foreach(var mealAddOn in item.Meal.AddOns)
                                                     {
-                                                        <tr><td><input type="checkbox" name="@item.meal.Name" value="@addon.Price" >@addon.AddOnID</td><td> + @addon.Price HRK</td></tr>
+                                                        <tr><td><input type="checkbox" name="@item.Meal.Name" value="@mealAddOn.AddOn.Price" >@mealAddOn.AddOn.AddOnID</td><td> + @mealAddOn.AddOn.Price HRK</td></tr>
                                                     }
                                                 </tbody>
                                             </table>

@@ -13,5 +13,8 @@ namespace Wild8.Models
         public int MealID { get; set; }
         [Key, Column("AddOnID", Order = 1)]
         public string AddOnID { get; set; }
+
+        public virtual Meal Meal { get; set; }
+        public virtual AddOn AddOn { get; set; }
     }
 }
