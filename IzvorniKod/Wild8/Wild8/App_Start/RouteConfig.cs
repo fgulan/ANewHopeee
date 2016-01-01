@@ -13,11 +13,6 @@ namespace Wild8
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
-                name: "Menu",
-                url: "Menu",
-                defaults: new { controller = "Menu", action = "MenuView" }
-            );
-            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

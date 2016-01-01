@@ -25,7 +25,7 @@ namespace Wild8.Controllers
         }
 
         // GET: Menu
-        public ActionResult MenuView()
+        public ActionResult Index()
         {
             MenuModelView modelView = new MenuModelView();
             List<MealWithPrice> mealWPrice = new List<MealWithPrice>();
@@ -49,8 +49,15 @@ namespace Wild8.Controllers
             foreach (Meal m in meals)
             {
                 MealWithPrice mwp = new MealWithPrice();
-                mwp.meal = m;
+                mwp.meal  = m;
                 mwp.types = db.MealTypes.Where(type => type.MealID == m.MealID).ToList();
+                mwp.isHot = false;
+                mwp.addons = new List<AddOn>();
+                foreach(var addon in m.AddOns)
+                {
+                    mwp.addons.Add(db.AddOns.Find(addon.AddOnID));      
+                }
+
                 mealWPrice.Add(mwp);
             }
             

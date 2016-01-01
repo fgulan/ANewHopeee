@@ -6,7 +6,7 @@ using Wild8.Models;
 
 namespace Wild8.DAL
 {
-    public class RestaurauntInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<RestaurauntContext>
+    public class RestaurauntInitializer : System.Data.Entity.DropCreateDatabaseAlways<RestaurauntContext>
     {
         protected override void Seed(RestaurauntContext context)
         {
@@ -42,18 +42,21 @@ namespace Wild8.DAL
 
             var types = new List<MealType>
             {
-                new MealType { MealID = 1, MealTypeName = "Mala porcija" },
-                new MealType { MealID = 1, MealTypeName = "Velika porcija" },
-                new MealType { MealID = 2, MealTypeName = "Mala porcija" },
-                new MealType { MealID = 2, MealTypeName = "Velika porcija" }
+                new MealType { MealID = 1, MealTypeName = "Mala porcija" ,  Price = 20 },
+                new MealType { MealID = 1, MealTypeName = "Velika porcija", Price = 30 },
+                new MealType { MealID = 2, MealTypeName = "Mala porcija",   Price = 10 },
+                new MealType { MealID = 2, MealTypeName = "Velika porcija", Price = 20 } 
             };
             types.ForEach(t => context.MealTypes.Add(t));
             context.SaveChanges();
             
             var mealAddOns = new List<MealAddOn>
             {
+                //Cevapi
                 new MealAddOn {MealID = 1, AddOnID = "Kajmak" },
                 new MealAddOn {MealID = 1, AddOnID = "Ajvar" },
+
+                //Juha
                 new MealAddOn {MealID = 2, AddOnID = "Luk" },
                 new MealAddOn {MealID = 2, AddOnID = "Salata" }
             };
