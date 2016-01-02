@@ -14,11 +14,11 @@ namespace Wild8.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddMeal(string MealID, string Type, int Count, string[] AddOns)
+        public int AddMeal(string MealID, string Type, int Count, string[] AddOns)
         {
             var nesto =Request.Form["Count"];
             Console.WriteLine(MealID);
-            return View();
+            return 1;
         }
     }
 }

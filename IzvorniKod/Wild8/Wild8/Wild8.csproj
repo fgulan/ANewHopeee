@@ -185,6 +185,7 @@
     <Content Include="images\page-loader.gif" />
     <Content Include="images\wild8logo.png" />
     <Content Include="images\wild8_favicon.png" />
+    <Content Include="Scripts\AddToCart.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

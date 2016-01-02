@@ -9,7 +9,7 @@ $(document).ready(function () {
 
     var basePrice = parseFloat($("input[checked='checked']").val().replace(/,/, '.'));
     var totalAddons = 0;
-    var quantity = 1;;
+    var quantity = 1;
     show_updated(quantity, basePrice, totalAddons, $(".displayed > tr"));
 
     $(".displayed > tr").each(function () {

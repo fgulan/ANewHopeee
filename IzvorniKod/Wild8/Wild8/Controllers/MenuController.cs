@@ -49,17 +49,13 @@ namespace Wild8.Controllers
             return View(modelView);
         }
 
+        [HttpPost]
         public string ChangeCategory(string categoryName)
         {
             Session["Category"] = categoryName;
             List<MealWithPrice> meals = loadMeals(categoryName);
             string res = JsonConvert.SerializeObject(meals);
             return res;
-        }
-
-        public void AddToBasket(int mealId, string size, int quantity, string[] addons)
-        {
-
         }
 
         private List<MealWithPrice> loadMeals(string categry) 
