@@ -6,7 +6,7 @@ using Wild8.Models.Cart;
 
 namespace Wild8.DAL
 {
-    public static class SessionExtensions
+    public static class SessionExtension
     {
         private const string CART_KEY = "CART";
         /// <summary> 
@@ -34,11 +34,11 @@ namespace Wild8.DAL
 
         public static Cart GetCart(HttpSessionStateBase session)
         {
-            Cart Cart = SessionExtensions.GetDataFromSession<Cart>(session, CART_KEY);
+            Cart Cart = SessionExtension.GetDataFromSession<Cart>(session, CART_KEY);
             if(Cart == null)
             {
                 Cart = new Cart();
-                SessionExtensions.SetDataToSession<Cart>(session, CART_KEY, Cart);
+                SessionExtension.SetDataToSession<Cart>(session, CART_KEY, Cart);
             }
             return Cart;
         }
