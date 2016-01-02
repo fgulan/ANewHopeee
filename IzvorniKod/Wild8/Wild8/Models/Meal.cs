@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,7 +14,9 @@ namespace Wild8.Models
         public string ImagePath { get; set; }
         public int CategoryID { get; set; }
         public virtual Category Category { get; set; }
+        [JsonIgnore]
         public virtual ICollection<MealAddOn> AddOns { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Comment> Comments { get; set; }
     }
 }

@@ -23,6 +23,7 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/Scripts/price_update.js"></script>
     <script type="text/javascript" src="~/Scripts/navbar_hide.js"></script>
+    <script type="text/javascript" src="~/Scripts/menu_view.js"></script>
 
     <script>
         $(function(){
@@ -33,18 +34,18 @@
     });
     </script>
     <script>
-    $(document).on('click', '.expand', function(){
-      $("span[aria-expanded='true']").removeClass("glyphicon-chevron-down");
-      $("span[aria-expanded='true']").addClass("glyphicon-chevron-up");
+        $(document).on('click', '.expand', function(){
+            $("span[aria-expanded='true']").removeClass("glyphicon-chevron-down");
+            $("span[aria-expanded='true']").addClass("glyphicon-chevron-up");
 
-    });
+        });
     </script>
     <script>
-    $(document).on('click', '.accordion-toggle', function(){
-      $("span[aria-expanded='false']").removeClass("glyphicon-chevron-up");
-      $("span[aria-expanded='false']").addClass("glyphicon-chevron-down");
+        $(document).on('click', '.accordion-toggle', function(){
+          $("span[aria-expanded='false']").removeClass("glyphicon-chevron-up");
+          $("span[aria-expanded='false']").addClass("glyphicon-chevron-down");
 
-    });
+        });
     </script>
 </head>
 
@@ -58,12 +59,19 @@
 
                     <div class="form-group">
                         <label for="sel1">Kategorija:</label>
-                        <select class="form-control" id="sel1">
+                        <select class="form-control" id="sel1" data-url='@Url.Action("ChangeCategory", "Menu")'>
                             <!--Print all categories-->
                             @{ 
                                 foreach(string cat in Model.Categories)
                                 {
-                                    <option>@cat</option>
+                                    if (cat.Equals(Model.activeCategory))
+                                    {
+                                        <option selected = "selected">@cat</option>
+                                    }
+                                    else
+                                    {
+                                        <option>@cat</option>
+                                    }
                                 }
                             }
                         </select>
@@ -127,7 +135,6 @@
                                     <td class="expand-col">
                                         <span class="glyphicon glyphicon-chevron-down expand accordion-toggle" data-toggle="collapse" data-target="#food1"></span>
                                     </td>
-
                                 </tr>
                                 <tr>
                                     <td colspan="12" class="hiddenRow">

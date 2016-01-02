@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,6 +14,7 @@ namespace Wild8.Models
         public int MealID { get; set; }
         [Key, Column("MealTypeName", Order = 1)]
         public string MealTypeName { get; set; }
+        [JsonIgnore]
         public virtual Meal Meal { get; set; }
         public decimal Price { get; set; }
     }
