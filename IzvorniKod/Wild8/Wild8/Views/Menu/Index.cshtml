@@ -97,7 +97,6 @@
                 <div class="panel-heading"><h3>Sve Kategorije</h3></div>
                 <div class="panel-body">
                     <table class="table table-condensed" style="border-collapse:collapse;">
-
                         <thead id="head-underline">
                             <tr>
                                 <th>Slika jela</th>
@@ -133,12 +132,12 @@
 
                                     </td>
                                     <td class="expand-col">
-                                        <span class="glyphicon glyphicon-chevron-down expand accordion-toggle" data-toggle="collapse" data-target="#food1"></span>
+                                        <span class="glyphicon glyphicon-chevron-down expand accordion-toggle" data-toggle="collapse" data-target="#@item.Meal.Name"></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="12" class="hiddenRow">
-                                        <div class="accordian-body collapse" id="food1">
+                                        <div class="accordian-body collapse" id="@item.Meal.Name">
                                             <table>
                                                 <tbody>
                                                     @foreach(var mealAddOn in item.Meal.AddOns)

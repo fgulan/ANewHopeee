@@ -55,7 +55,8 @@ namespace Wild8.Controllers
 
             List<MealWithPrice> meals = loadMeals(categoryName);
 
-            return JsonConvert.SerializeObject(meals);
+            string res = JsonConvert.SerializeObject(meals);
+            return res;
         }
 
         public void AddToBasket(int mealId, string size, int quantity, string[] addons)
