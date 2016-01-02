@@ -43,7 +43,7 @@ function addMealToTable(mealWPrice) {
     var meal = mealWPrice["Meal"];
     return '<tr>' +
 
-        //Picture
+        //Picture TODO: change to food picture
         '<td class="img-col"> <a href="@Url.Action("Details", "Meals", new { id=' + meal["MealID"] + ' })">'
         + '<img class="food-image img-responsive" src="http://lorempixel.com/200/200"></a>' +
 
@@ -78,6 +78,7 @@ function addSizes(mealWPrice) {
     
     for (var typeIndex in mealWPrice["Types"]) {
         var type = mealWPrice["Types"][typeIndex];
+
         sizes += '<li><input type="radio" name="' + mealWPrice["Meal"]["Name"]
               + '" checked="checked" value="' + type["Price"]
               + '">' + type["MealTypeName"] + '</li></ul>'
