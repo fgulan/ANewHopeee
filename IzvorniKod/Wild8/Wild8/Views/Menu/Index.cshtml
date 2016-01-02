@@ -27,14 +27,6 @@
     <script type="text/javascript" src="~/Scripts/AddToCart.js"></script>
 
     <script>
-        $(function(){
-        var $select = $(".1-10");
-        for (i=1;i<=10;i++){
-            $select.append($('<option></option>').val(i).html(i))
-        }
-    });
-    </script>
-    <script>
         $(document).on('click', '.expand', function(){
             $("span[aria-expanded='true']").removeClass("glyphicon-chevron-down");
             $("span[aria-expanded='true']").addClass("glyphicon-chevron-up");
@@ -139,13 +131,13 @@
                                             <label class="pull-right"></label>
                                         </td>
                                         <td class="expand-col">
-                                            <span class="glyphicon glyphicon-chevron-down expand accordion-toggle" data-toggle="collapse" data-target="#food1"></span>
+                                            <span class="glyphicon glyphicon-chevron-down expand accordion-toggle" data-toggle="collapse" data-target="#@item.Meal.Name"></span>
                                         </td>
 
                                     </tr>
                                     <tr>
                                         <td colspan="12" class="hiddenRow">
-                                            <div class="accordian-body collapse" id="food1">
+                                            <div class="accordian-body collapse" id="@item.Meal.Name">
                                                 <table>
                                                     <tbody>
                                                         @foreach (var mealAddOn in item.Meal.AddOns)

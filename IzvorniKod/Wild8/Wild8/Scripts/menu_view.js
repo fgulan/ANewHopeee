@@ -1,4 +1,15 @@
-﻿$(document).on('change', '#sel1', function () {
+﻿$(document).ready(function () {
+    fillSizes();
+})
+
+function fillSizes() {
+    var $select = $(".1-10");
+    for (i = 1; i <= 10; i++) {
+        $select.append($('<option></option>').val(i).html(i))
+    }
+}
+
+$(document).on('change', '#sel1', function () {
     var url = $("#sel1").data('url');
     var category = $("#sel1").find(":selected").text();
     $.ajax({
@@ -8,6 +19,7 @@
         success: function (mealList) {
             var meal_arr = JSON.parse(mealList);
             replaceMeals(meal_arr);
+
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             window.alert(textStatus);
@@ -34,7 +46,7 @@ function replaceMeals(data) {
 
         $(".displayed").append(meals).animate({
             opacity: 1.0
-        },600);
+        },600, fillSizes());
     })
     
 }
@@ -80,16 +92,17 @@ function addSizes(mealWPrice) {
         var type = mealWPrice["Types"][typeIndex];
 
         sizes += '<li><input type="radio" name="' + mealWPrice["Meal"]["Name"]
-              + '" checked="checked" value="' + type["Price"]
-              + '">' + type["MealTypeName"] + '</li></ul>'
-              + '<select class="1-10"></select>';
+              + '" checked="checked" value="' + type["Price"] + '#' + type["MealTypeName"]
+              + '">' + type["MealTypeName"] + '</li>';
     }
+    sizes += '</ul><select id="Count" name="Count" form="AddMealForm" class="1-10"></select>';
+
     return sizes;
 }
 
 function addButton() {
     return '<td class="add-col">'
-         + '<button type="button" class="btn btn-warning pull-right">Dodaj</button>'
+         + '<button type="submit" id="addMealButton" class="btn btn-warning pull-right">Dodaj</button>'
          + '<label class="pull-right"></label>'
          + '</td>'
 }
