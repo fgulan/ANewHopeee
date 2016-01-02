@@ -135,6 +135,7 @@
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MealsController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="DAL\RestaurauntContext.cs" />
@@ -183,11 +184,13 @@
     <Content Include="images\owner_signature.png" />
     <Content Include="images\owner_small.jpg" />
     <Content Include="images\page-loader.gif" />
+    <Content Include="images\Spinners\coffieLoading.gif" />
     <Content Include="images\wild8logo.png" />
     <Content Include="images\wild8_favicon.png" />
     <Content Include="Scripts\AddToCart.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="App_Data\info.dat" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -226,9 +229,7 @@
     <Content Include="Views\Contacts\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

@@ -1,7 +1,6 @@
 ﻿$(document).on('change', '#sel1', function () {
     var url = $("#sel1").data('url');
     var category = $("#sel1").find(":selected").text();
-
     $.ajax({
         type: "POST",
         url: url,
@@ -16,40 +15,54 @@
     })
 });
 
-function replaceMeals(data) {
-    $(".displayed").empty();  //Clear all the meals
+function addLoader() {
+    $(".displayed").append("<tr align='middle'>"
+                                    + "<td align='middle' id='mealLoader'><img src='/images/Spinners/coffieLoading.gif' alt='loading' /></td>"
+                                    + "</tr>").fadeIn();
+}
 
-    for (var index in data) {
-        addMealToTable(data[index]);
-    }
+function replaceMeals(data) {
+    $(".displayed").animate({
+        opacity: 0.0
+    }, 600, function () {
+        $(".displayed").empty();
+
+        var meals = '';
+        for (var index in data) {
+            meals += addMealToTable(data[index]);
+        }
+
+        $(".displayed").append(meals).animate({
+            opacity: 1.0
+        },600);
+    })
+    
 }
 
 function addMealToTable(mealWPrice) {
     var meal = mealWPrice["Meal"];
-    $(".displayed").append(
-        '<tr>',
+    return '<tr>' +
 
         //Picture
         '<td class="img-col"> <a href="@Url.Action("Details", "Meals", new { id=' + meal["MealID"] + ' })">'
-        + '<img class="food-image img-responsive" src="http://lorempixel.com/200/200"></a>',
+        + '<img class="food-image img-responsive" src="http://lorempixel.com/200/200"></a>' +
 
         //Name
-        addName(mealWPrice),
+        addName(mealWPrice) +
 
         //Description
-        '<td class="desc-col">' + meal["Description"] + '</td>',
+        '<td class="desc-col">' + meal["Description"] + '</td>' +
 
         //Sizes
-        addSizes(mealWPrice),
+        addSizes(mealWPrice) +
 
         //Dodaj button
-        addButton(),
+        addButton() +
 
         //Accordion button
-        addAccordionButton(meal),
-        '</tr>',
-        '<tr>' + addAccordionInfo(mealWPrice) + '</tr>'
-    );
+        addAccordionButton(meal) +
+        '</tr>' +
+        '<tr>' + addAccordionInfo(mealWPrice) + '</tr>';
 }
 
 function addName(mealWPrice) {
@@ -63,7 +76,8 @@ function addName(mealWPrice) {
 function addSizes(mealWPrice) {
     var sizes = '<td class="size-col"><ul>';
     
-    for (var type in mealWPrice["Types"]) {
+    for (var typeIndex in mealWPrice["Types"]) {
+        var type = mealWPrice["Types"][typeIndex];
         sizes += '<li><input type="radio" name="' + mealWPrice["Meal"]["Name"]
               + '" checked="checked" value="' + type["Price"]
               + '">' + type["MealTypeName"] + '</li></ul>'
