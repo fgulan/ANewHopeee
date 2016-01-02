@@ -130,3 +130,47 @@ D:\usr\repos\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Newtonsoft.Json.xml
 D:\usr\repos\anewhopeee\IzvorniKod\Wild8\Wild8\obj\Debug\Wild8.csprojResolveAssemblyReference.cache
 D:\usr\repos\anewhopeee\IzvorniKod\Wild8\Wild8\obj\Debug\Wild8.dll
 D:\usr\repos\anewhopeee\IzvorniKod\Wild8\Wild8\obj\Debug\Wild8.pdb
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\roslyn\csc.exe
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\roslyn\vbc.exe
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\roslyn\VBCSCompiler.exe
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Wild8.dll.config
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Wild8.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Wild8.pdb
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Antlr3.Runtime.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\EntityFramework.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\EntityFramework.SqlServer.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Newtonsoft.Json.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\System.Web.Helpers.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\System.Web.Mvc.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\System.Web.Optimization.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\System.Web.Razor.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\System.Web.WebPages.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\System.Web.WebPages.Razor.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\WebGrease.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\EntityFramework.xml
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\EntityFramework.SqlServer.xml
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Newtonsoft.Json.xml
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\System.Web.Helpers.xml
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\System.Web.Mvc.xml
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\System.Web.Optimization.xml
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\System.Web.Razor.xml
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\System.Web.WebPages.xml
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\System.Web.WebPages.Razor.xml
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Antlr3.Runtime.pdb
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\obj\Debug\Wild8.csprojResolveAssemblyReference.cache
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\obj\Debug\Wild8.dll
+C:\Users\Filip Gulan\Documents\OPP\anewhopeee\IzvorniKod\Wild8\Wild8\obj\Debug\Wild8.pdb

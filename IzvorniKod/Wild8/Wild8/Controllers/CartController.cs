@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace Wild8.Controllers
+{
+    public class CartController : Controller
+    {
+        // GET: Cart
+        public ActionResult Index()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddMeal(string MealID, string Type, int Count, string[] AddOns)
+        {
+            var nesto =Request.Form["Count"];
+            Console.WriteLine(MealID);
+            return View();
+        }
+    }
+}

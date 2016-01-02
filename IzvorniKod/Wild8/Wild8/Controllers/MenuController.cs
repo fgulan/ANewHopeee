@@ -52,9 +52,7 @@ namespace Wild8.Controllers
         public string ChangeCategory(string categoryName)
         {
             Session["Category"] = categoryName;
-
             List<MealWithPrice> meals = loadMeals(categoryName);
-
             return JsonConvert.SerializeObject(meals);
         }
 
