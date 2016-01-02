@@ -17,7 +17,6 @@ namespace Wild8.Controllers
         public MenuController()
         {
             db = new RestaurauntContext();
-
         }
 
         // GET: Menu
@@ -50,10 +49,11 @@ namespace Wild8.Controllers
         }
 
         [HttpPost]
-        public string ChangeCategory(string categoryName)
+        public string ChangeCategory(string categoryName, string sort)
         {
             Session["Category"] = categoryName;
             List<MealWithPrice> meals = loadMeals(categoryName);
+            sortMeals(meals, sort);
             string res = JsonConvert.SerializeObject(meals);
             return res;
         }
@@ -87,5 +87,23 @@ namespace Wild8.Controllers
             return categories;
         }
 
+        private void sortMeals(List<MealWithPrice> meals, string sort)
+        {
+            switch(sort)
+            {
+                case "Ime (A-Ž)":
+                    meals.OrderBy(m => m.Meal.Name); break;
+                case "Ime (Ž-A)":
+                    meals.OrderByDescending(m => m.Meal.Name); break;
+                case "Cijena (najviše prvo)":
+                    meals.OrderBy(m => m.Types.Max()); break;
+                case "Cijena (najniže prvo)":
+                    meals.OrderBy(m => m.Types.Min()); break;
+                case "Popularnost (više naručivane)":
+                    meals.OrderBy(m => m.IsHot); break;
+                case "Ocjena (najviše prvo)":
+                    break;
+            }
+        }
     }
 }

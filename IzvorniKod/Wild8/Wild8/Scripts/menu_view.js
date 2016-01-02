@@ -5,16 +5,17 @@
 $(document).on('change', '#sel1', function () {
     var url = $("#sel1").data('url');
     var category = $("#sel1").val();
+    var sort = $("#sel2").val();
+
     $(".panel-heading>h3").html(category).fadeIn(); //Replace heding 
 
     $.ajax({
         type: "POST",
         url: url,
-        data: { categoryName: category },
+        data: { categoryName: category, sort: sort},
         success: function (mealList) {
             var meal_arr = JSON.parse(mealList);
             replaceMeals(meal_arr);
-
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             window.alert(textStatus);
