@@ -30,13 +30,16 @@ function fillMissingInfo() {
 
 function calculateAndAtachPriceListeners() {
 
-    var basePrice = parseFloat($("input[checked='checked']").val().replace(/,/, '.'));
-    var totalAddons = 0;
-    var quantity = 1;
-    show_updated(quantity, basePrice, totalAddons, $(".displayed > tr"));
-
     $(".displayed > tr").each(function () {
         var $this = $(this);
+
+        var strBasePrice = $("input[checked='checked']", this).val();
+        if(strBasePrice != undefined) {
+            var basePrice = parseFloat(strBasePrice.replace(/,/, '.'));
+            var totalAddons = 0;
+            var quantity = 1;
+            show_updated(quantity, basePrice, totalAddons, $this);
+        }
         $(".size-col>ul>li>input", this).change(function () {
             basePrice = parseFloat($(this).val().replace(/,/, '.'));
             show_updated(quantity, basePrice, totalAddons, $this);
