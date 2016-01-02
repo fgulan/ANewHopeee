@@ -21,7 +21,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/price_update.js"></script>
     <script type="text/javascript" src="~/Scripts/navbar_hide.js"></script>
     <script type="text/javascript" src="~/Scripts/menu_view.js"></script>
     <script type="text/javascript" src="~/Scripts/AddToCart.js"></script>
@@ -116,12 +115,25 @@
                                         <td class="desc-col">@item.Meal.Description</td>
                                         <td class="size-col">
                                             <ul>
-                                                @foreach (var type in item.Types)
-                                                {
-                                                    <li>
-                                                        <input type="radio" name="Type" checked="checked" value="@(type.Price + "#" + type.MealTypeName)">
-                                                        @type.MealTypeName
-                                                    </li>
+                                                @{
+                                                    for (int i = 0, n = item.Types.Count; i < n; i++)
+                                                    {
+                                                        var type = item.Types[i];
+                                                        if (i == 0)
+                                                        {
+                                                            <li>
+                                                                <input type="radio" name="@item.Meal.Name" checked="checked" value="@(type.Price + "#" + type.MealTypeName)">
+                                                                @type.MealTypeName
+                                                            </li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li>
+                                                                <input type="radio" name="@item.Meal.Name" value="@(type.Price + "#" + type.MealTypeName)">
+                                                                @type.MealTypeName
+                                                            </li>
+                                                        }
+                                                    }
                                                 }
                                             </ul>
                                             <select id="Count" name="Count" form="AddMealForm" class="1-10"></select>
