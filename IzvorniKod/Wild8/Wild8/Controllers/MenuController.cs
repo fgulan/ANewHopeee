@@ -14,6 +14,13 @@ namespace Wild8.Controllers
     {
         private RestaurauntContext db;
 
+        public readonly static string BY_NAME = "Ime (A-Ž)";
+        public readonly static string BY_NAME_REVERSE = "Ime (Ž-A)";
+        public readonly static string BY_PRICE = "Cijena (najniže prvo)";
+        public readonly static string BY_PRICE_REVERSE = "Cijena (najviše prvo)";
+        public readonly static string BY_GRADE = "Ocjena (najviše prvo)";       
+        public readonly static string BY_POPULARITY = "Popularnost (više naručivane)";
+
         public MenuController()
         {
             db = new RestaurauntContext();
@@ -37,7 +44,9 @@ namespace Wild8.Controllers
             {
                 meals = loadMeals(cat);
             }
-            
+
+            sortMeals(meals, BY_NAME);
+
             MenuModelView modelView = new MenuModelView()
             {
                 activeCategory = cat,
@@ -89,20 +98,18 @@ namespace Wild8.Controllers
 
         private void sortMeals(List<MealWithPrice> meals, string sort)
         {
-            switch(sort)
-            {
-                case "Ime (A-Ž)":
-                    meals.OrderBy(m => m.Meal.Name); break;
-                case "Ime (Ž-A)":
-                    meals.OrderByDescending(m => m.Meal.Name); break;
-                case "Cijena (najviše prvo)":
-                    meals.OrderBy(m => m.Types.Max()); break;
-                case "Cijena (najniže prvo)":
-                    meals.OrderBy(m => m.Types.Min()); break;
-                case "Popularnost (više naručivane)":
-                    meals.OrderBy(m => m.IsHot); break;
-                case "Ocjena (najviše prvo)":
-                    break;
+            if(sort == BY_NAME) {
+                meals.Sort((m1,m2) => m1.Meal.Name.CompareTo(m2.Meal.Name));
+            } else if(sort == BY_NAME_REVERSE) {
+                meals.Sort((m1, m2) => -m1.Meal.Name.CompareTo(m2.Meal.Name));
+            } else if(sort == BY_PRICE) {
+                meals.Sort((m1,m2) => Decimal.Compare(m1.Types.Min().Price, m2.Types.Min().Price));
+            } else if(sort == BY_PRICE_REVERSE) {
+                meals.Sort((m1, m2) => -Decimal.Compare(m1.Types.Min().Price, m2.Types.Min().Price));
+            } else if(sort == BY_GRADE) {
+                meals.Sort((m1, m2) => m1.Meal.Grade - m2.Meal.Grade);
+            } else if(sort == BY_POPULARITY) {
+                meals.Sort((m1, m2) => m1.IsHot ? -1 : 1);
             }
         }
     }
