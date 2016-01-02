@@ -21,12 +21,19 @@ namespace Wild8.Controllers
         [HttpPost]
         public int AddMeal(int MealID, string Type, int Count, string[] AddOns)
         {
-
             Cart cart = SessionExtension.GetCart(Session);
             string name = Type.Split('#')[1];
             MealType MealType = db.MealTypes.Find(MealID, name);
+            CartItem CartItem = new CartItem(MealType, Count);
 
-            cart.AddItem(new CartItem(MealType, Count));
+            foreach (var item in AddOns)
+            {
+                var ID = item.Split('#')[1];
+                AddOn addOn = db.AddOns.Find(ID);
+                CartItem.AddMealAddOn(addOn);
+            }
+
+            cart.AddItem(CartItem);
             int count =cart.Count();
             Session["CartCount"] = count;
             return count;
