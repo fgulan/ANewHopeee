@@ -19,8 +19,8 @@
                 <div class="form-group">
                     <label for="ddlCategory" >Kategorija</label>
                     @Html.DropDownListFor(m => m.activeCategory,
-                            new SelectList(Model.Categories, "CategoryID", "Name", Model.activeCategory),
-                            new { id = "ddlCategory", @class = "form-control" })
+             new SelectList(Model.Categories, "CategoryID", "Name", Model.activeCategory),
+             new { id = "ddlCategory", @class = "form-control" })
                 </div>
 
                 <div class="form-group">
@@ -55,9 +55,8 @@
                         </thead>
 
                         <tbody class="displayed">
-                            @foreach(var item in Model.Meals)
-                            {
-                                Html.RenderPartial("MealsList", item);
+                            @{
+                                Html.RenderPartial("MealsList", Model.Meals);
                             }
                         </tbody>
                     </table>

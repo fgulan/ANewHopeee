@@ -61,9 +61,12 @@ namespace Wild8.Controllers
             MealType type = db.MealTypes.Find(mealID, mealTypeName);
             CartItem item = new CartItem(type, count);
 
-            foreach (var addOnName in addOnNames)
+            if (addOnNames != null)
             {
-                item.AddMealAddOn(db.AddOns.Find(addOnName));
+                foreach (var addOnName in addOnNames)
+                {
+                    item.AddMealAddOn(db.AddOns.Find(addOnName));
+                }
             }
 
             Cart cart = SessionExtension.GetCart(Session);

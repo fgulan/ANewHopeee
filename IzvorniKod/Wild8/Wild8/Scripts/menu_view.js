@@ -65,31 +65,7 @@ function registerListeners() {
     $("#ddlCategory").change(function (event) { loadMeals(event); });
     $("#sortSel").change(function (event) { loadMeals(event); });
 
-    $(".addToCartBtn").each(function (i) {      //Add click listener to every button
-        $(this).click(function () {
-            var url = $(this).data('url');                                                    //Get url
-            var mealID = $(this).attr('name');                                                //Button has mealId as name
-            var mealType = $('input:radio[name=Type' + mealID + ']:checked').val().split("#")[1]; //Get selected mealtype
-            var quantity = $('select[name=quantity' + mealID + '] option:selected').val();    //Get selected quantity
-            
-            var addOns = [];
-            $('input[name=addOn' + mealID + ']:checked:enabled').each(function (i) {
-                addOns[i] = $(this).val().split("#")[1];                                        //Get checked addons names
-            })
-
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: { mealID: mealID, count: quantity, mealTypeName: mealType, addOnNames: addOns },
-                success: function (count) {
-                    $("#cartCount").html('<span class="glyphicon glyphicon-shopping-cart"></span> ' + count);
-                },
-                error: function (xhr, status) {
-
-                }
-            });
-        })
-    });
+    registerAddToCartListeners();
 }
 
 function loadMeals(event) {
@@ -115,7 +91,10 @@ function loadMeals(event) {
                     $(".displayed").empty();
                     $(".displayed").append(partialView);
                     $(".panel-heading").html("<h3>"+categoryText+"</h3>").fadeIn();
+
                     calcualtePrice();
+                    registerAddToCartListeners();
+
                     $(".displayed").animate({ //Fade in
                         opacity: 1.0
                     },
@@ -126,4 +105,32 @@ function loadMeals(event) {
                 window.alert('Error. Status message: ' + status);
             }
         });
+}
+
+function registerAddToCartListeners() {
+    $(".addToCartBtn").each(function (i) {      //Add click listener to every button
+        $(this).click(function () {
+            var url = $(this).data('url');                                                    //Get url
+            var mealID = $(this).attr('name');                                                //Button has mealId as name
+            var mealType = $('input:radio[name=Type' + mealID + ']:checked').val().split("#")[1]; //Get selected mealtype
+            var quantity = $('select[name=quantity' + mealID + '] option:selected').val();    //Get selected quantity
+
+            var addOns = [];
+            $('input[name=addOn' + mealID + ']:checked:enabled').each(function (i) {
+                addOns[i] = $(this).val().split("#")[1];                                        //Get checked addons names
+            })
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { mealID: mealID, count: quantity, mealTypeName: mealType, addOnNames: addOns },
+                success: function (count) {
+                    $("#cartCount").html('<span class="glyphicon glyphicon-shopping-cart"></span> ' + count);
+                },
+                error: function (xhr, status) {
+
+                }
+            });
+        })
+    });
 }
