@@ -63,7 +63,33 @@ function registerListeners() {
     });
 
     $("#ddlCategory").change(function (event) { loadMeals(event); });
-    $("#sortSel").change(function (event) { loadMeals(event); }); 
+    $("#sortSel").change(function (event) { loadMeals(event); });
+
+    $(".addToCartBtn").each(function (i) {      //Add click listener to every button
+        $(this).click(function () {
+            var url = $(this).data('url');                                                    //Get url
+            var mealID = $(this).attr('name');                                                //Button has mealId as name
+            var mealType = $('input:radio[name=Type' + mealID + ']:checked').val().split("#")[1]; //Get selected mealtype
+            var quantity = $('select[name=quantity' + mealID + '] option:selected').val();    //Get selected quantity
+            
+            var addOns = [];
+            $('input[name=addOn' + mealID + ']:checked:enabled').each(function (i) {
+                addOns[i] = $(this).val().split("#")[1];                                        //Get checked addons names
+            })
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { mealID: mealID, count: quantity, mealTypeName: mealType, addOnNames: addOns },
+                success: function (count) {
+                    $("#cartCount").html('<span class="glyphicon glyphicon-shopping-cart"></span> ' + count);
+                },
+                error: function (xhr, status) {
+
+                }
+            });
+        })
+    });
 }
 
 function loadMeals(event) {

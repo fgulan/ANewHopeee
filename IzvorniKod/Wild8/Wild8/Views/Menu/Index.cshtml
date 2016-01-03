@@ -55,7 +55,10 @@
                         </thead>
 
                         <tbody class="displayed">
-                            @{Html.RenderPartial("MealsList", Model.Meals);}
+                            @foreach(var item in Model.Meals)
+                            {
+                                Html.RenderPartial("MealsList", item);
+                            }
                         </tbody>
                     </table>
                 </div>
