@@ -52,14 +52,14 @@ function show_updated(quant, base, addons, $caller) {
 }
 
 function registerListeners() {
-    $(document).on('click', '.expand', function () {
+
+    $(document).on('click', '.expand', function(){
         $("span[aria-expanded='true']").removeClass("glyphicon-chevron-down");
         $("span[aria-expanded='true']").addClass("glyphicon-chevron-up");
     });
-
-    $(document).on('click', '.expand', function () {
-        $("span[aria-expanded='true']").removeClass("glyphicon-chevron-down");
-        $("span[aria-expanded='true']").addClass("glyphicon-chevron-up");
+    $(document).on('click', '.accordion-toggle', function(){
+        $("span[aria-expanded='false']").removeClass("glyphicon-chevron-up");
+        $("span[aria-expanded='false']").addClass("glyphicon-chevron-down");
     });
 
     $("#ddlCategory").change(function (event) { loadMeals(event); });

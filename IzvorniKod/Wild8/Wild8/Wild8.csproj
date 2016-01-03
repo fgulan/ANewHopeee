@@ -209,7 +209,6 @@
     <Content Include="Content\comments.min.css" />
     <Content Include="Content\homepage.css" />
     <Content Include="Scripts\navbar_hide.js" />
-    <Content Include="Scripts\price_update.js" />
     <Content Include="Scripts\star_rating.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
