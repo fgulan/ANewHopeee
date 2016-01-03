@@ -7,9 +7,9 @@ namespace Wild8.Models.ModelViews
 {
     public class MenuModelView
     {
-        public List<string> Categories { get; set; }
+        public List<Category> Categories { get; set; }
         public List<MealWithPrice> Meals { get; set; }
-        public string activeCategory { get; set; }
+        public Category activeCategory { get; set; }
 
     }
 

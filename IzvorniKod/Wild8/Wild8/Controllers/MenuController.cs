@@ -12,65 +12,51 @@ namespace Wild8.Controllers
 {
     public class MenuController : Controller
     {
-        private RestaurauntContext db;
+        private RestaurauntContext db = new RestaurauntContext();
 
         public readonly static string BY_NAME = "Ime (A-Ž)";
         public readonly static string BY_NAME_REVERSE = "Ime (Ž-A)";
         public readonly static string BY_PRICE = "Cijena (najniže prvo)";
         public readonly static string BY_PRICE_REVERSE = "Cijena (najviše prvo)";
-        public readonly static string BY_GRADE = "Ocjena (najviše prvo)";       
+        public readonly static string BY_GRADE = "Ocjena (najviše prvo)";
         public readonly static string BY_POPULARITY = "Popularnost (više naručivane)";
-
-        public MenuController()
-        {
-            db = new RestaurauntContext();
-        }
 
         // GET: Menu
         public ActionResult Index()
         {
             List<MealWithPrice> mealWPrice = new List<MealWithPrice>();
-         
-            //If already selected category load that category again
-            string cat = (string)(Session["Category"]);
-            List<MealWithPrice> meals = new List<MealWithPrice>();
-            if (cat == null)
-            {
-                //TODO: load most wanted meals
-                meals = loadMeals("Jela s rostilja");
-                cat = "Jela s rostilja";
-            }
-            else
-            {
-                meals = loadMeals(cat);
-            }
 
+            //If already selected category load that category again
+            Category activeCategory = (Category)(Session["Category"]);
+            List<Category> catgories = db.Categories.ToList();
+            if (activeCategory == null)
+            {
+                activeCategory = catgories.First();
+            }
+            List<MealWithPrice> meals = loadMeals(activeCategory);
             sortMeals(meals, BY_NAME);
 
             MenuModelView modelView = new MenuModelView()
             {
-                activeCategory = cat,
+                activeCategory = catgories.First(),
                 Meals = meals,
-                Categories = loadCategories()
+                Categories = catgories
             };
-          
+
             return View(modelView);
         }
 
-        [HttpPost]
-        public string ChangeCategory(string categoryName, string sort)
+        [HttpGet]
+        public ActionResult ChangeCategory(int categoryId)
         {
-            Session["Category"] = categoryName;
-            List<MealWithPrice> meals = loadMeals(categoryName);
-            sortMeals(meals, sort);
-            string res = JsonConvert.SerializeObject(meals);
-            return res;
+            List<MealWithPrice> meals = loadMeals(db.Categories.Find(categoryId));
+            return PartialView("MealsList", meals);
         }
 
-        private List<MealWithPrice> loadMeals(string categry) 
+        private List<MealWithPrice> loadMeals(Category category)
         {
             List<MealWithPrice> mealWPrice = new List<MealWithPrice>();
-            foreach (Meal m in db.Meals.Where(meal => meal.Category.Name.Equals(categry)))
+            foreach (Meal m in category.Meals)
             {
                 MealWithPrice mwp = new MealWithPrice()
                 {
@@ -84,31 +70,30 @@ namespace Wild8.Controllers
             return mealWPrice;
         }
 
-        private List<string> loadCategories()
-        {
-            List<string> categories = new List<string>();
-
-            foreach(Category c in db.Categories)
-            {
-                categories.Add(c.Name);
-            }
-
-            return categories;
-        }
-
         private void sortMeals(List<MealWithPrice> meals, string sort)
         {
-            if(sort == BY_NAME) {
-                meals.Sort((m1,m2) => m1.Meal.Name.CompareTo(m2.Meal.Name));
-            } else if(sort == BY_NAME_REVERSE) {
+            if (sort == BY_NAME)
+            {
+                meals.Sort((m1, m2) => m1.Meal.Name.CompareTo(m2.Meal.Name));
+            }
+            else if (sort == BY_NAME_REVERSE)
+            {
                 meals.Sort((m1, m2) => -m1.Meal.Name.CompareTo(m2.Meal.Name));
-            } else if(sort == BY_PRICE) {
-                meals.Sort((m1,m2) => Decimal.Compare(m1.Types.Min().Price, m2.Types.Min().Price));
-            } else if(sort == BY_PRICE_REVERSE) {
+            }
+            else if (sort == BY_PRICE)
+            {
+                meals.Sort((m1, m2) => Decimal.Compare(m1.Types.Min().Price, m2.Types.Min().Price));
+            }
+            else if (sort == BY_PRICE_REVERSE)
+            {
                 meals.Sort((m1, m2) => -Decimal.Compare(m1.Types.Min().Price, m2.Types.Min().Price));
-            } else if(sort == BY_GRADE) {
+            }
+            else if (sort == BY_GRADE)
+            {
                 meals.Sort((m1, m2) => m1.Meal.Grade - m2.Meal.Grade);
-            } else if(sort == BY_POPULARITY) {
+            }
+            else if (sort == BY_POPULARITY)
+            {
                 meals.Sort((m1, m2) => m1.IsHot ? -1 : 1);
             }
         }

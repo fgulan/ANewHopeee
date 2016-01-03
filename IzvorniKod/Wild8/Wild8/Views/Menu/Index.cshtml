@@ -1,172 +1,62 @@
 ﻿@model MenuModelView
 
-@{ 
-    ViewBag.Title = "Index";
+@section Scripts
+{
+    <script type="text/javascript" src="~/Scripts/price_update.js"></script>
+
+    <script>
+    $(document).on('click', '.expand', function(){
+      $("span[aria-expanded='true']").removeClass("glyphicon-chevron-down");
+      $("span[aria-expanded='true']").addClass("glyphicon-chevron-up");
+    });
+    </script>
+    <script>
+    $(document).on('click', '.accordion-toggle', function(){
+      $("span[aria-expanded='false']").removeClass("glyphicon-chevron-up");
+      $("span[aria-expanded='false']").addClass("glyphicon-chevron-down");
+    });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#ddlCategory").change(function () {
+                $("#dvCategoryResults").load('@(Url.Action("ChangeCategory", "Menu"))?categoryId=' + $("#ddlCategory").val());
+            });
+        });
+    </script>  
 }
-<!--
-   ___   _  __           __ __
-  / _ | / |/ /__ _    __/ // /__  ___  ___ ___ ___
- / __ |/    / -_) |/|/ / _  / _ \/ _ \/ -_) -_) -_)
-/_/ |_/_/|_/\__/|__,__/_//_/\___/ .__/\__/\__/\__/
-                               /_/
--->
-
-<head>
-    <title>Wild8.me | Jelovnik</title>
-
-    <link rel="shortcut icon" href="~/images/favicon.png">
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css" />
+@section Styles
+{
     <link rel="stylesheet" type="text/css" href="~/Content/menu.css" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="~/Scripts/jquery-1.10.2.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/navbar_hide.js"></script>
-    <script type="text/javascript" src="~/Scripts/menu_view.js"></script>
-    <script type="text/javascript" src="~/Scripts/AddToCart.js"></script>
+}
 
-    <script>
-        $(document).on('click', '.expand', function(){
-            $("span[aria-expanded='true']").removeClass("glyphicon-chevron-down");
-            $("span[aria-expanded='true']").addClass("glyphicon-chevron-up");
-
-        });
-    </script>
-    <script>
-        $(document).on('click', '.accordion-toggle', function(){
-          $("span[aria-expanded='false']").removeClass("glyphicon-chevron-up");
-          $("span[aria-expanded='false']").addClass("glyphicon-chevron-down");
-
-        });
-    </script>
-</head>
-
-<body>
-    <!-- Meals -->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-sm-2">
-
-                <form role="form">
-
-                    <div class="form-group">
-                        <label for="sel1">Kategorija:</label>
-                        <select class="form-control" id="sel1" data-url='@Url.Action("ChangeCategory", "Menu")'>
-                            <!--Print all categories-->
-                            @{ 
-                                foreach(string cat in Model.Categories)
-                                {
-                                    if (cat.Equals(Model.activeCategory))
-                                    {
-                                        <option selected = "selected">@cat</option>
-                                    }
-                                    else
-                                    {
-                                        <option>@cat</option>
-                                    }
-                                }
-                            }
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="sel2">Sortiranje:</label>
-                        <select class="form-control" id="sel2">
-                            <option>Ime (A-Ž)</option>
-                            <option>Ime (Ž-A)</option>
-                            <option>Cijena (najviše prvo)</option>
-                            <option>Cijena (najniže prvo)</option>
-                            <option>Popularnost (više naručivane)</option>
-                            <option>Ocjena (najviše prvo)</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h3>Sve Kategorije</h3></div>
-                <div class="panel-body">
-                    <form class="form-AddMeal" id="AddMealForm" action="/Cart/AddMeal" method="post">
-                        <table class="table table-condensed" style="border-collapse:collapse;">
-                            <thead id="head-underline">
-                                <tr>
-                                    <th>Slika jela</th>
-                                    <th>Naziv jela</th>
-                                    <th>Opis jela</th>
-                                    <th>Veličina/Količina</th>
-                                    <th class="order-head">Naruči</th>
-                                </tr>
-                            </thead>
-
-                            <tbody class="displayed">
-                                @foreach (var item in Model.Meals)
-                                {
-                                    <tr>
-                                        <!--Todo put image of a meal here-->
-                                        <td class="img-col">
-                                            <a href="@Url.Action("Details", "Meals", new { id=item.Meal.MealID })"><img class="food-image img-responsive" src="http://lorempixel.com/200/200"></a>
-                                        </td>
-                                        <td class="name-col">
-                                            @item.Meal.Name
-                                            <input type="hidden" name="MealID" value=@Html.DisplayFor(model => item.Meal.MealID)>
-                                        </td>
-                                        <td class="desc-col">@item.Meal.Description</td>
-                                        <td class="size-col">
-                                            <ul>
-                                                @{
-                                                    for (int i = 0, n = item.Types.Count; i < n; i++)
-                                                    {
-                                                        var type = item.Types[i];
-                                                        if (i == 0)
-                                                        {
-                                                            <li>
-                                                                <input type="radio" name="@item.Meal.Name" checked="checked" value="@(type.Price + "#" + type.MealTypeName)">
-                                                                @type.MealTypeName
-                                                            </li>
-                                                        }
-                                                        else
-                                                        {
-                                                            <li>
-                                                                <input type="radio" name="@item.Meal.Name" value="@(type.Price + "#" + type.MealTypeName)">
-                                                                @type.MealTypeName
-                                                            </li>
-                                                        }
-                                                    }
-                                                }
-                                            </ul>
-                                            <select id="Count" name="Count" form="AddMealForm" class="1-10"></select>
-                                        </td>
-                                        <td class="add-col">
-                                            <button type="submit" id="addMealButton" class="btn btn-warning pull-right">Dodaj</button>
-                                            <label class="pull-right"></label>
-                                        </td>
-                                        <td class="expand-col">
-                                            <span class="glyphicon glyphicon-chevron-down expand accordion-toggle" data-toggle="collapse" data-target="#@item.Meal.Name"></span>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td colspan="12" class="hiddenRow">
-                                            <div class="accordian-body collapse" id="@item.Meal.Name">
-                                                <table>
-                                                    <tbody>
-                                                        @foreach (var mealAddOn in item.Meal.AddOns)
-                                                        {
-                                                            <tr><td><input type="checkbox" name="AddOns" value="@(mealAddOn.AddOn.Price + "#" + mealAddOn.AddOn.AddOnID)">@mealAddOn.AddOn.AddOnID</td><td> + @mealAddOn.AddOn.Price HRK</td></tr>
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-2">
+            <form role="form">
+                <div class="form-group">
+                    <label for="ddlCategory">Kategorija</label>
+                    @Html.DropDownListFor(m => m.activeCategory,
+                            new SelectList(Model.Categories, "CategoryID", "Name", Model.activeCategory),
+                            new { id = "ddlCategory", @class = "form-control" })
                 </div>
-            </div>
+
+                <div class="form-group">
+                    <label for="sel2">Sortiranje:</label>
+                    <select class="form-control" id="sel2">
+                        <option>Ime (A-Ž)</option>
+                        <option>Ime (Ž-A)</option>
+                        <option>Cijena (najviše prvo)</option>
+                        <option>Cijena (najniže prvo)</option>
+                        <option>Popularnost (više naručivane)</option>
+                        <option>Ocjena (najviše prvo)</option>
+                    </select>
+                </div>
+            </form>
         </div>
     </div>
-</body>
+
+    <div id="dvCategoryResults">
+        @{Html.RenderPartial("MealsList", Model.Meals);}
+    </div>
+</div>

@@ -1,0 +1,89 @@
+﻿@model IEnumerable<MealWithPrice>
+
+<div class="col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3>Sve Kategorije</h3></div>
+        <div class="panel-body">
+            <table class="table table-condensed" style="border-collapse:collapse;">
+                <thead id="head-underline">
+                    <tr>
+                        <th>Slika jela</th>
+                        <th>Naziv jela</th>
+                        <th>Opis jela</th>
+                        <th>Veličina/Količina</th>
+                        <th class="order-head">Naruči</th>
+                    </tr>
+                </thead>
+
+                <tbody class="displayed">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <!--Todo put image of a meal here-->
+                            <td class="img-col">
+                                <a href="@Url.Action("Details", "Meals", new { id=item.Meal.MealID })"><img class="food-image img-responsive" src="http://lorempixel.com/200/200"></a>
+                            </td>
+                            <td class="name-col">
+                                @item.Meal.Name
+                                <input type="hidden" name="MealID" value=@Html.DisplayFor(model => item.Meal.MealID)>
+                            </td>
+                            <td class="desc-col">@item.Meal.Description</td>
+                            <td class="size-col">
+                                <ul>
+                                    @{
+                                        for (int i = 0, n = item.Types.Count; i < n; i++)
+                                        {
+                                            var type = item.Types[i];
+                                            if (i == 0)
+                                            {
+                                                <li>
+                                                    <input type="radio" name="@item.Meal.Name" checked="checked" value="@(type.Price + "#" + type.MealTypeName)">
+                                                    @type.MealTypeName
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <input type="radio" name="@item.Meal.Name" value="@(type.Price + "#" + type.MealTypeName)">
+                                                    @type.MealTypeName
+                                                </li>
+                                            }
+                                        }
+                                    }
+                                </ul>
+                                <select id="Count" name="Count" form="AddMealForm" class="1-10">
+                                    @for (int i = 1; i <= 10; i++)
+                                    {
+                                        <option value="@i.ToString()">@i.ToString()</option>
+                                    }
+                                </select>
+                            </td>
+                            <td class="add-col">
+                                <button type="submit" id="addMealButton" class="btn btn-warning pull-right">Dodaj</button>
+                                <label class="pull-right"></label>
+                            </td>
+                            <td class="expand-col">
+                                <span class="glyphicon glyphicon-chevron-down expand accordion-toggle" data-toggle="collapse" data-target="#@item.Meal.MealID"></span>
+                            </td>
+
+                        </tr>
+                            <tr>
+                                <td colspan="12" class="hiddenRow">
+                                    <div class="accordian-body collapse" id="@item.Meal.MealID">
+                                        <table>
+                                            <tbody>
+                                                @foreach (var mealAddOn in item.Meal.AddOns)
+                                                {
+                                                    <tr><td><input type="checkbox" name="AddOns" value="@(mealAddOn.AddOn.Price + "#" + mealAddOn.AddOn.AddOnID)">@mealAddOn.AddOn.AddOnID</td><td> + @mealAddOn.AddOn.Price HRK</td></tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                                        }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

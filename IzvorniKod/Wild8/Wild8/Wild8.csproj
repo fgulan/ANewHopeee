@@ -210,7 +210,6 @@
     <Content Include="Scripts\navbar_hide.js" />
     <Content Include="Scripts\price_update.js" />
     <Content Include="Scripts\star_rating.js" />
-    <Content Include="Views\Meals\meal.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -231,6 +230,7 @@
     <Content Include="Views\Contacts\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Meals\Comment.cshtml" />
+    <Content Include="Views\Menu\MealsList.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
