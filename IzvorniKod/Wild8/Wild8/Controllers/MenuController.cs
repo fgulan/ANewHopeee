@@ -7,6 +7,7 @@ using Wild8.DAL;
 using Wild8.Models;
 using Wild8.Models.ModelViews;
 using Newtonsoft.Json;
+using Wild8.Models.Cart;
 
 namespace Wild8.Controllers
 {
@@ -52,6 +53,26 @@ namespace Wild8.Controllers
             List<MealWithPrice> meals = loadMeals(db.Categories.Find(categoryId));
             sortMeals(meals, sort);
             return PartialView("MealsList", meals);
+        }
+
+        [HttpPost]
+        public int AddToCart(int mealID, int count, string mealTypeName, string[] addOnNames)
+        {
+            MealType type = db.MealTypes.Find(mealID, mealTypeName);
+            CartItem item = new CartItem(type, count);
+
+            if (addOnNames != null)
+            {
+                foreach (var addOnName in addOnNames)
+                {
+                    item.AddMealAddOn(db.AddOns.Find(addOnName));
+                }
+            }
+
+            Cart cart = SessionExtension.GetCart(Session);
+            cart.AddItem(item);
+            SessionExtension.SetCartItemCount(cart.Count(), Session);
+            return cart.Count();
         }
 
         private List<MealWithPrice> loadMeals(Category category)

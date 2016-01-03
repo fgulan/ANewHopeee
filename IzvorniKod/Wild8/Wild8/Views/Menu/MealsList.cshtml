@@ -14,29 +14,28 @@
         <td class="desc-col">@item.Meal.Description</td>
         <td class="size-col">
             <ul>
-            @{
+            @{  
                 for (int i = 0, n = item.Types.Count; i < n; i++)
                 {
                     var type = item.Types[i];
                     if (i == 0)
                     {
                         <li>
-                            <!--Every radio buttton has to have the same name, all names are defirented with meal name-->
-                            <input type="radio" name="@("Type" + item.Meal.Name)" checked="checked" value="@(type.Price + "#" + type.MealTypeName)">
-                            @type.MealTypeName
+                            <!--Every radio buttton has to have the same name, all names are defirented with meal id-->
+                            <input type="radio" name="@("Type" + item.Meal.MealID)" checked="checked" value="@(type.Price + "#" + type.MealTypeName)">@type.MealTypeName
                         </li>
                     }
                     else
                     {
                         <li>
-                            <input type="radio" name="@("Type" + item.Meal.Name)" value="@(type.Price + "#" + type.MealTypeName)">
+                            <input type="radio" name="@("Type" + item.Meal.MealID)" value="@(type.Price + "#" + type.MealTypeName)">
                             @type.MealTypeName
                         </li>
                     }
                 }
             }
             </ul>
-            <select id="Count" name="Count" form="AddMealForm" class="1-10">
+            <select id="Count" name="@("quantity" + item.Meal.MealID)" form="AddMealForm" class="1-10">
             @for (int i = 1; i <= 10; i++)
             {
                 <option value="@i.ToString()">@i.ToString()</option>
@@ -44,7 +43,7 @@
             </select>
         </td>
         <td class="add-col">
-            <button type="submit" id="addMealButton" class="btn btn-warning pull-right">Dodaj</button>
+            <button type="submit" name="@item.Meal.MealID" data-url="@Url.Action("AddToCart", "Menu")" class="btn btn-warning pull-right addToCartBtn">Dodaj</button>
             <label class="pull-right"></label>
         </td>
         <td class="expand-col">
@@ -59,7 +58,7 @@
                         @foreach (var mealAddOn in item.Meal.AddOns)
                         {
                             <!--All addons have the same name, all names are defirented with meal name-->
-                            <tr><td><input type="checkbox" name="@("Addon" + item.Meal.Name)" value="@(mealAddOn.AddOn.Price + "#" + mealAddOn.AddOn.AddOnID)">@mealAddOn.AddOn.AddOnID</td><td> + @mealAddOn.AddOn.Price HRK</td></tr>
+                            <tr><td><input type="checkbox" name="@("addOn" + item.Meal.MealID)" value="@(mealAddOn.AddOn.Price + "#" + mealAddOn.AddOn.AddOnID)">@mealAddOn.AddOn.AddOnID</td><td> + @mealAddOn.AddOn.Price HRK</td></tr>
                         }
                     </tbody>
                 </table>

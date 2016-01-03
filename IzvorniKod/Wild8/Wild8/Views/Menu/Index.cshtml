@@ -20,8 +20,8 @@
                 <div class="form-group">
                     <label for="ddlCategory" >Kategorija</label>
                     @Html.DropDownListFor(m => m.activeCategory,
-                            new SelectList(Model.Categories, "CategoryID", "Name", Model.activeCategory),
-                            new { id = "ddlCategory", @class = "form-control" })
+             new SelectList(Model.Categories, "CategoryID", "Name", Model.activeCategory),
+             new { id = "ddlCategory", @class = "form-control" })
                 </div>
 
                 <div class="form-group">
@@ -56,7 +56,9 @@
                         </thead>
 
                         <tbody class="displayed">
-                            @{Html.RenderPartial("MealsList", Model.Meals);}
+                            @{
+                                Html.RenderPartial("MealsList", Model.Meals);
+                            }
                         </tbody>
                     </table>
                 </div>
