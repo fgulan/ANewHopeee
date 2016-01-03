@@ -1,0 +1,30 @@
+﻿@model Comment
+
+@{
+    Layout = null;
+}
+
+<article class="row">
+    <div>
+        <div class="panel panel-default arrow left">
+            <div class="panel-body">
+                <header class="text-right">
+                    <div class="comment-user">
+                        <i class="fa fa-user"></i>@Html.Display(Model.Username);
+                    </div>
+                    <time class="comment-date" datetime="16-12-2014 01:05">
+                        <i class="fa fa-clock-o"></i> @Html.Display(Model.CommentDate.ToLongDateString())
+                    </time>
+                </header>
+                <div class="comment-post">
+                    <p>
+                        @Html.Display(Model.Message)
+                    </p>
+                </div>
+                <p class="text-right">
+                    @Html.Display(Model.Grade.ToString()) <span class="glyphicon glyphicon-star"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</article>

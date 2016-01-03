@@ -23,87 +23,58 @@
     <script type="text/javascript" src="~/Scripts/price_update.js"></script>
     <script type="text/javascript" src="~/Scripts/star_rating.js"></script>
     <script type="text/javascript" src="~/Scripts/navbar_hide.js"></script>
-
-    <script>
-        $(function(){
-        var $select = $(".1-10");
-        for (i=1;i<=10;i++){
-            $select.append($('<option></option>').val(i).html(i))
-        }
-    });
-    </script>
+    <script type="text/javascript" src="~/Scripts/meals_view.js"></script>
 </head>
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <img class="img-responsive meal-image" src="images/carousel_images/Wild8_sample_food.jpg" />
+        <form action="@Url.Action("AddToCart","Meals")">
+            <div class="row">
+                <div class="col-md-6">
+                    <img class="img-responsive meal-image" src="images/carousel_images/Wild8_sample_food.jpg" />
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                    <h3 id="MealName">@Html.DisplayFor(model => model.Meal.Name)</h3>
+                    <p>@Html.DisplayFor(model => model.Meal.Description)</p>
+                </div>
             </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-4">
-                <h3>@Html.DisplayFor(model => model.Meal.Name)</h3>
-                <p>@Html.DisplayFor(model => model.Meal.Description)</p>
-            </div>
-        </div>
-        <div class="row">
+            <div class="row">
 
-            <div class="col-md-2">
-                <table>
-                    <tbody>
-                        @foreach (var mealAddOn in Model.Meal.AddOns)
+                <div class="col-md-2">
+                    <table>
+                        <tbody>
+                            @foreach (var mealAddOn in Model.Meal.AddOns)
+                            {
+                                <tr><td><input type="checkbox" value="@mealAddOn.AddOn.Price">@mealAddOn.AddOn.AddOnID</td><td> + @mealAddOn.AddOn.Price HRK</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-1">
+                    <ul>
+                        @foreach (var type in Model.Types)
                         {
-                            <tr><td><input type="checkbox" name="@Model.Meal.Name" value="@mealAddOn.AddOn.Price">@mealAddOn.AddOn.AddOnID</td><td> + @mealAddOn.AddOn.Price HRK</td></tr>
+                            <li><input type="radio" name="Types" value="@type.Price">@type.MealTypeName</li>
                         }
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-1">
-                <ul>
-                    @foreach (var type in Model.Types)
-                    {
-                        <li><input type="radio" name="@Model.Meal.Name" value="@type.Price">@type.MealTypeName</li>
-                    }
-                </ul>
-            </div>
+                    </ul>
+                </div>
 
-            <div class="col-md-1">
-                <select class="1-10"></select>
+                <div class="col-md-1">
+                    <select id="Count" name="Count" form="AddMealForm" class="1-10"></select>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-warning pull-right" id="addMealButton" >Dodaj</button>
+                    <label id="sum" class="pull-right">35.99 HRK</label>
+                </div>
             </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-warning pull-right">Dodaj</button>
-                <label id="sum" class="pull-right">35.99 HRK</label>
-            </div>
-        </div>
+        </form>
         <div class="row">
             <div class="col-md-6">
                 <h2 class="page-header">Komentari</h2>
                 <section class="comment-list">
                     @foreach (var item in Model.Meal.Comments)
                     {
-                        <article class="row">
-                            <div>
-                                <div class="panel panel-default arrow left">
-                                    <div class="panel-body">
-                                        <header class="text-right">
-                                            <div class="comment-user">
-                                                <i class="fa fa-user"></i>@Html.DisplayFor(itemModel => item.Username)
-                                            </div>
-                                            <time class="comment-date" datetime="16-12-2014 01:05">
-                                                <i class="fa fa-clock-o"></i> @Html.DisplayFor(itemModel => item.CommentDate)
-                                            </time>
-                                        </header>
-                                        <div class="comment-post">
-                                            <p>
-                                                @Html.DisplayFor(itemModel => item.Message)
-                                            </p>
-                                        </div>
-                                        <p class="text-right">
-                                            @Html.DisplayFor(itemModel => item.Grade) <span class="glyphicon glyphicon-star"></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
+                        Html.RenderPartial("~/Views/Meals/Comment", item);
                     }
                 </section>
             </div>
@@ -120,9 +91,9 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse">
                 <div class="panel-body commentbox-style">
-                    <form class="form-signin" action="/Meals/AddNewComment" method="post">
+                    <form class="form-signin" action="@Url.Action("AddNewComment","Meals")" method="post">
                         <div class="form-group">
-                            <input type="hidden" name="ID" value=@Html.DisplayFor(model => model.Meal.MealID)>
+                            <input type="hidden" name="ID" value=@Html.Display(Model.Meal.MealID.ToString())>
                         </div>
                         <div class="form-group">
                             <label for="usr">Korisničko ime:</label>
@@ -142,7 +113,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <button class="btn btn-lg btn-success btn-block" type="submit">Pošalji komentar</button>
+                            <button id="CommentButton" class="btn btn-lg btn-success btn-block" type="submit">Pošalji komentar</button>
                         </div>
                     </form>
                 </div>

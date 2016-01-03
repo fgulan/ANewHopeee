@@ -6,7 +6,6 @@
     var url = f.attr("action");
     var formData = f.serialize();
 
-
     $.ajax({
         type: "POST",
         url: url,

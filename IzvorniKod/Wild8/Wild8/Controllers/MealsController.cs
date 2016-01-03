@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Wild8.DAL;
 using Wild8.Models;
 using Wild8.Models.ModelViews;
+using Wild8.Models.Cart;
 
 namespace Wild8.Controllers
 {
@@ -42,7 +43,7 @@ namespace Wild8.Controllers
         // POST: Meals/AddNewComment
         // TODO shity stars
         [HttpPost]
-        public ActionResult AddNewComment(int ID, string Username, string Message, int? stars_existing)
+        public ActionResult AddNewComment(int ID, string Username, string Message, int? grade)
         {
             if (ModelState.IsValid)
             {
@@ -51,15 +52,31 @@ namespace Wild8.Controllers
                     CommentDate = DateTime.Now,
                     Message = Message,
                     Username = Username,
-                    Grade = 3,
+                    Grade = grade == null ? 5 : (int)grade,
                     MealID = ID
                 };
                 db.Comments.Add(newComment);
                 db.SaveChanges();
-                return RedirectToAction("Details", new { id = ID});
+                return PartialView("~/Views/Meals/Comment", newComment);
             }
 
-            return RedirectToAction("Details", new { id = ID });
+            return null;
+        }
+
+        //POST
+        public void AddToCart(int count, string mealTypeName, string[] addOnNames) 
+        {
+            MealType type = db.MealTypes.Find(meal.MealID, mealTypeName);
+            CartItem item = new CartItem(type, count);
+
+            foreach(var addOnName in addOnNames)
+            {
+                item.AddMealAddOn(db.AddOns.Find(addOnName));
+            }
+
+            Cart cart = SessionExtension.GetCart(Session);
+            cart.AddItem(item);
+            SessionExtension.SetCartItemCount(cart.Count(), Session);
         }
 
         protected override void Dispose(bool disposing)

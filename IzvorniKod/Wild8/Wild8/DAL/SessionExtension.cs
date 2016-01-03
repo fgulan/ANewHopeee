@@ -9,6 +9,8 @@ namespace Wild8.DAL
     public static class SessionExtension
     {
         private const string CART_KEY = "CART";
+        private const string CART_COUNT = "CartCount";
+
         /// <summary> 
         /// Get value. 
         /// </summary> 
@@ -41,6 +43,11 @@ namespace Wild8.DAL
                 SessionExtension.SetDataToSession<Cart>(session, CART_KEY, Cart);
             }
             return Cart;
+        }
+
+        public static void SetCartItemCount(int count, HttpSessionStateBase session)
+        {
+            session[CART_COUNT] = count;
         }
     }
 }

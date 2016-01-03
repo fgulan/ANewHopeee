@@ -230,6 +230,7 @@
     <Content Include="Views\Meals\Details.cshtml" />
     <Content Include="Views\Contacts\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Meals\Comment.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
