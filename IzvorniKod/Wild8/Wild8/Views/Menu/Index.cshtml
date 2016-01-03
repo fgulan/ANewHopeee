@@ -2,28 +2,7 @@
 
 @section Scripts
 {
-    <script type="text/javascript" src="~/Scripts/price_update.js"></script>
-
-    <script>
-    $(document).on('click', '.expand', function(){
-      $("span[aria-expanded='true']").removeClass("glyphicon-chevron-down");
-      $("span[aria-expanded='true']").addClass("glyphicon-chevron-up");
-    });
-    </script>
-    <script>
-    $(document).on('click', '.accordion-toggle', function(){
-      $("span[aria-expanded='false']").removeClass("glyphicon-chevron-up");
-      $("span[aria-expanded='false']").addClass("glyphicon-chevron-down");
-    });
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#ddlCategory").change(function () {
-                $("#dvCategoryResults").load('@(Url.Action("ChangeCategory", "Menu"))?categoryId=' + $("#ddlCategory").val());
-            });
-        });
-    </script>  
+    <script type="text/javascript" src="~/Scripts/menu_view.js"></script>
 }
 @section Styles
 {
@@ -33,17 +12,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-sm-2">
-            <form role="form">
+            <form role="form" id="selectionForm" data-url="@(Url.Action("ChangeCategory", "Menu"))">
                 <div class="form-group">
-                    <label for="ddlCategory">Kategorija</label>
+                    <label for="ddlCategory" >Kategorija</label>
                     @Html.DropDownListFor(m => m.activeCategory,
                             new SelectList(Model.Categories, "CategoryID", "Name", Model.activeCategory),
                             new { id = "ddlCategory", @class = "form-control" })
                 </div>
 
                 <div class="form-group">
-                    <label for="sel2">Sortiranje:</label>
-                    <select class="form-control" id="sel2">
+                    <label for="sortSel">Sortiranje:</label>
+                    <select class="form-control" id="sortSel">
                         <option>Ime (A-Ž)</option>
                         <option>Ime (Ž-A)</option>
                         <option>Cijena (najviše prvo)</option>
@@ -57,6 +36,27 @@
     </div>
 
     <div id="dvCategoryResults">
-        @{Html.RenderPartial("MealsList", Model.Meals);}
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3>Sve kategorije</h3></div> <!--Todo replace this with selected category-->
+                <div class="panel-body">
+                    <table class="table table-condensed" style="border-collapse:collapse;">
+                        <thead id="head-underline">
+                            <tr>
+                                <th>Slika jela</th>
+                                <th>Naziv jela</th>
+                                <th>Opis jela</th>
+                                <th>Veličina/Količina</th>
+                                <th class="order-head">Naruči</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="displayed">
+                            @{Html.RenderPartial("MealsList", Model.Meals);}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

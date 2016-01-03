@@ -46,10 +46,11 @@ namespace Wild8.Controllers
             return View(modelView);
         }
 
-        [HttpGet]
-        public ActionResult ChangeCategory(int categoryId)
+        [HttpPost]
+        public ActionResult ChangeCategory(int categoryId, string sort)
         {
             List<MealWithPrice> meals = loadMeals(db.Categories.Find(categoryId));
+            sortMeals(meals, sort);
             return PartialView("MealsList", meals);
         }
 
@@ -70,7 +71,7 @@ namespace Wild8.Controllers
             return mealWPrice;
         }
 
-        private void sortMeals(List<MealWithPrice> meals, string sort)
+        private static void sortMeals(List<MealWithPrice> meals, string sort)
         {
             if (sort == BY_NAME)
             {

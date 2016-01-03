@@ -1,4 +1,12 @@
 $(document).ready(function () {
+    calcualtePrice();
+});
+
+$(document).ajaxComplete(function () {
+    calcualtePrice();
+})
+
+function calcualtePrice() {
 
     var basePrice = parseFloat($("input[checked='checked']").val().replace(/,/, '.'));
     var totalAddons = 0;
@@ -27,7 +35,7 @@ $(document).ready(function () {
         });
 
     });
-});
+}
 
 function show_updated(quant, base, addons, $caller) {
     $price = $(".add-col > label", $caller);
