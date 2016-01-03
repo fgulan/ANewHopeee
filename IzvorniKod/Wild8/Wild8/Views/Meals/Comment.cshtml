@@ -1,24 +1,24 @@
 ﻿@model Comment
 
 <article class="row">
-    <div>
+    <div class="col-md-10 col-sm-10">
         <div class="panel panel-default arrow left">
             <div class="panel-body">
                 <header class="text-right">
                     <div class="comment-user">
-                        <i class="fa fa-user"></i>@Html.Display(Model.Username);
+                        <i class="fa fa-user">@Html.DisplayFor(model => model.Username)</i>
                     </div>
                     <time class="comment-date" datetime="16-12-2014 01:05">
-                        <i class="fa fa-clock-o"></i> @Html.Display(Model.CommentDate.ToLongDateString())
+                        <i class="fa fa-clock-o">@Html.DisplayFor(model => model.CommentDate)</i>
                     </time>
                 </header>
                 <div class="comment-post">
                     <p>
-                        @Html.Display(Model.Message)
+                        @Html.DisplayFor(model => model.Message)
                     </p>
                 </div>
                 <p class="text-right">
-                    @Html.Display(Model.Grade.ToString()) <span class="glyphicon glyphicon-star"></span>
+                    @Html.DisplayFor(model => model.Grade)<span class="glyphicon glyphicon-star"></span>
                 </p>
             </div>
         </div>
