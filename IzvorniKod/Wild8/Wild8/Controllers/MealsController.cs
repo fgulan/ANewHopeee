@@ -37,6 +37,7 @@ namespace Wild8.Controllers
                 Types = db.MealTypes.Where(type => type.MealID == meal.MealID).ToList(),
                 IsHot = false
             };
+
             return View(mwp);
         }
 

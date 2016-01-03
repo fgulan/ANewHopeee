@@ -1,41 +1,24 @@
 ﻿@model MealWithPrice
 
-<!DOCTYPE html>
-<!--
-   ___   _  __           __ __
-  / _ | / |/ /__ _    __/ // /__  ___  ___ ___ ___
- / __ |/    / -_) |/|/ / _  / _ \/ _ \/ -_) -_) -_)
-/_/ |_/_/|_/\__/|__,__/_//_/\___/ .__/\__/\__/\__/
-                               /_/
--->
-<html>
-<head>
-    <title>Wild8.me | Naziv jela</title>
-
-    <link rel="shortcut icon" href="~/images/favicon.png">
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/comments.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/meal.css" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/price_update.js"></script>
-    <script type="text/javascript" src="~/Scripts/star_rating.js"></script>
-    <script type="text/javascript" src="~/Scripts/navbar_hide.js"></script>
+@section Scripts
+{
     <script type="text/javascript" src="~/Scripts/meals_view.js"></script>
-</head>
-<body>
+}
+@section Styles
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/meal.css" />
+}
+
     <div class="container">
         <form action="@Url.Action("AddToCart","Meals")">
             <div class="row">
                 <div class="col-md-6">
-                    <img class="img-responsive meal-image" src="images/carousel_images/Wild8_sample_food.jpg" />
+                    <img class="img-responsive meal-image"  img-responsive" src="http://lorempixel.com/200/200" />
                 </div>
-                <div class="col-md-1"></div>
+                <div class="col-md-1"></div><!--Kaj je ovo??-->
                 <div class="col-md-4">
-                    <h3 id="MealName">@Html.DisplayFor(model => model.Meal.Name)</h3>
-                    <p>@Html.DisplayFor(model => model.Meal.Description)</p>
+                    <h3 id="MealName">@Html.Display(Model.Meal.Name)</h3>
+                    <p>@Html.Display(Model.Meal.Description)</p>
                 </div>
             </div>
             <div class="row">
@@ -45,7 +28,14 @@
                         <tbody>
                             @foreach (var mealAddOn in Model.Meal.AddOns)
                             {
-                                <tr><td><input type="checkbox" value="@mealAddOn.AddOn.Price">@mealAddOn.AddOn.AddOnID</td><td> + @mealAddOn.AddOn.Price HRK</td></tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" value="@mealAddOn.AddOn.Price">@mealAddOn.AddOn.AddOnID
+                                    </td>
+                                    <td> 
+                                        + @mealAddOn.AddOn.Price HRK
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>
@@ -120,5 +110,3 @@
             </div>
         </div>
     </div>
-</body>
-</html>
