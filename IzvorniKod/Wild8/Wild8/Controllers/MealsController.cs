@@ -44,7 +44,7 @@ namespace Wild8.Controllers
         // POST: Meals/AddNewComment
         // TODO shity stars
         [HttpPost]
-        public ActionResult AddNewComment(int ID, string Username, string Message, int? grade)
+        public ActionResult AddNewComment(int? ID, string Username, string Message, int? grade)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +58,10 @@ namespace Wild8.Controllers
                 };
                 db.Comments.Add(newComment);
                 db.SaveChanges();
-                return PartialView("~/Views/Meals/Comment", newComment);
+                List<Comment> comments = db.Meals.Find(ID).Comments.ToList();
+                comments.Sort((x, y) => DateTime.Compare(x.CommentDate, y.CommentDate));
+
+                return PartialView("~/Views/Meals/Comment.cshtml", comments);
             }
 
             return null;

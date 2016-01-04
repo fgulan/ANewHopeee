@@ -36,10 +36,11 @@
         <div class="col-md-12">
             <h2 class="page-header">Komentari</h2>
             <section class="comment-list">
-                @foreach (var item in Model)
-                {
-                    Html.RenderPartial("~/Views/Meals/Comment.cshtml", item);
-                }
+                <div id="comments">
+                  @{
+                      Html.RenderPartial("~/Views/Meals/Comment.cshtml", Model);
+                  }
+                </div>
             </section>
         </div>
     </div>
@@ -56,29 +57,31 @@
         </div>
         <div id="collapseOne" class="panel-collapse collapse">
             <div class="panel-body commentbox-style">
-                <form class="form-signin" action="/Comments/AddNewComment" method="post">
+                @using (Ajax.BeginForm("AddNewComment", "Comments", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "comments", LoadingElementId = "loader" }))
+                {
                     <div class="form-group">
                         <label for="usr">Korisničko ime:</label>
                         <input type="text" class="form-control" id="usr" name="Username" placeholder="korisničko ime" required autofocus="">
                     </div>
-                    <div class="form-group">
-                        <label for="comment">Komentar:</label>
-                        <textarea class="form-control" rows="5" id="comment" name="Message" placeholder="Upišite Vaš komentar ovdje." required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="rate">Ocjena: </label>
-                        <div class="container">
-                            <div class="row lead">
-                                <div id="stars-existing" class="stars" data-rating="3"></div>
-                                <p>
-                                    Ocijenili ste s <span id="count-existing">3</span> <span class="glyphicon glyphicon-star"></span>
-                                </p>
-                            </div>
+                        <div class="form-group">
+                            <label for="comment">Komentar:</label>
+                            <textarea class="form-control" rows="5" id="comment" name="Message" placeholder="Upišite Vaš komentar ovdje." required></textarea>
                         </div>
-                        <button class="btn btn-lg btn-success btn-block" type="submit">Pošalji komentar</button>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <label for="rate">Ocjena: </label>
+                            <div class="container">
+                                <div class="row lead">
+                                    <div id="stars-existing" class="stars" data-rating="3"></div>
+                                    <p>
+                                        Ocijenili ste s <span id="count-existing">3</span> <span class="glyphicon glyphicon-star"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-lg btn-success btn-block" value="Pošalji komentar">
+                        </div>
+                }
             </div>
         </div>
+
     </div>
 </div>

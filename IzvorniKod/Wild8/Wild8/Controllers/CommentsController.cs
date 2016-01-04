@@ -39,10 +39,13 @@ namespace Wild8.Controllers
                 };
                 db.Comments.Add(newComment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                List<Comment> comments = db.Comments.ToList();
+                comments.Sort((x, y) => DateTime.Compare(x.CommentDate, y.CommentDate));
+
+                return PartialView("~/Views/Meals/Comment.cshtml", comments);
             }
 
-            return RedirectToAction("Index");
+            return null;
         }
 
         protected override void Dispose(bool disposing)

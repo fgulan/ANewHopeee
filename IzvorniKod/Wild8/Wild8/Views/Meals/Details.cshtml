@@ -67,10 +67,11 @@
             <div class="col-md-6">
                 <h2 class="page-header">Komentari</h2>
                 <section class="comment-list">
-                    @foreach (var item in Model.Meal.Comments)
-                    {
-                        Html.RenderPartial("Comment", item);
-                    }
+                    <div id="comments">
+                        @{ 
+                            Html.RenderPartial("Comment", Model.Meal.Comments);
+                        }
+                    </div>
                 </section>
             </div>
         </div>
@@ -84,14 +85,14 @@
                     </a>
                 </h4>
             </div>
+
             <div id="collapseOne" class="panel-collapse collapse">
                 <div class="panel-body commentbox-style">
-                    <form class="form-signin" action="@Url.Action("AddNewComment","Meals")" method="post">
-                        <div class="form-group">
-                            <input type="hidden" name="ID" value=@Html.Display(Model.Meal.MealID.ToString())>
-                        </div>
+                    @using (Ajax.BeginForm("AddNewComment", "Meals", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "comments", LoadingElementId = "loader" }))
+                    {
                         <div class="form-group">
                             <label for="usr">Korisničko ime:</label>
+                            <input type="hidden" name="ID" value=@Html.DisplayFor(m => m.Meal.MealID)>
                             <input type="text" class="form-control" id="usr" name="Username" placeholder="korisničko ime" required autofocus="">
                         </div>
                         <div class="form-group">
@@ -108,9 +109,9 @@
                                     </p>
                                 </div>
                             </div>
-                            <button id="CommentButton" class="btn btn-lg btn-success btn-block" type="submit">Pošalji komentar</button>
+                            <input type="submit" class="btn btn-lg btn-success btn-block" value="Pošalji komentar">
                         </div>
-                    </form>
+                    }
                 </div>
             </div>
         </div>
