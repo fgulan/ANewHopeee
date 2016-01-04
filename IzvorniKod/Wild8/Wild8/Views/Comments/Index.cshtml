@@ -1,11 +1,9 @@
 ﻿@model IEnumerable<Wild8.Models.Comment>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Wild8 | Comments";
 }
-@section Title {
-    <title>Wild8 | Comments</title>    
-}
+
 @section Scripts
 {
     <script type="text/javascript" src="~/Scripts/meals_view.js"></script>
@@ -30,40 +28,17 @@
 }
 @section Styles
 {
-    <link rel="stylesheet" type="text/css" href="~/Content/meal.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/comments.css" />
 }
 <!-- COMMENT SECTION -->
 <div class="container">
-    <div class="row">
+        <div class="row">
         <div class="col-md-12">
             <h2 class="page-header">Komentari</h2>
             <section class="comment-list">
                 @foreach (var item in Model)
                 {
-                    <article class="row">
-                        <div class="col-md-10 col-sm-10">
-                            <div class="panel panel-default arrow left">
-                                <div class="panel-body">
-                                    <header class="text-right">
-                                        <div class="comment-user">
-                                            <i class="fa fa-user">@Html.DisplayFor(modelItem => item.Username)</i>
-                                        </div>
-                                        <time class="comment-date" datetime="16-12-2014 01:05">
-                                            <i class="fa fa-clock-o">@Html.DisplayFor(modelItem => item.CommentDate)</i>
-                                        </time>
-                                    </header>
-                                    <div class="comment-post">
-                                        <p>
-                                            @Html.DisplayFor(modelItem => item.Message)
-                                        </p>
-                                    </div>
-                                    <p class="text-right">
-                                        @Html.DisplayFor(modelItem => item.Grade)<span class="glyphicon glyphicon-star"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </article>
+                    Html.RenderPartial("~/Views/Meals/Comment.cshtml", item);
                 }
             </section>
         </div>
