@@ -193,6 +193,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="StaticInfo\RestaurauntInfo.cs" />
+    <Compile Include="Utils\LoginUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -276,6 +277,7 @@
     <Content Include="Views\Meals\Comment.cshtml" />
     <Content Include="Views\Menu\MealsList.cshtml" />
     <Content Include="Views\Meals\Comments.cshtml" />
+    <Content Include="Views\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Index\" />

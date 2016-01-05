@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Wild8.DAL;
 using Wild8.Models;
+using Wild8.Utils;
 
 namespace Wild8.Controllers
 {
@@ -22,7 +23,8 @@ namespace Wild8.Controllers
 
         public ActionResult Login(string username, string pass)
         {
-            //TODO: sanitize user input
+            username = LoginUtils.sanitize(username);
+            pass = LoginUtils.sanitize(pass);
 
             Employee employee = db.Employees.Find(username);
             if (employee == null)
@@ -30,24 +32,14 @@ namespace Wild8.Controllers
                 return HttpNotFound();
             }
 
-            if (SHA256Hash(pass) != employee.Password)
+            if (LoginUtils.SHA256Hash(pass) != employee.Password)
             {
                 return HttpNotFound();
             }
 
-            Session["User"] = username;
+            SessionExtension.SetUser(Session, employee);
 
             return Index();
-        }
-
-        public static String SHA256Hash(String value)
-        {
-            using (SHA256 hash = SHA256Managed.Create())
-            {
-                return String.Join("", hash
-                  .ComputeHash(Encoding.UTF8.GetBytes(value))
-                  .Select(item => item.ToString("x2")));
-            }
         }
     }
 }
