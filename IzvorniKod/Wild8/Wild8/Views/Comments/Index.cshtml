@@ -35,7 +35,7 @@
 <div class="container">
         <div class="row">
         <div class="col-md-12">
-            <h2 class="page-header">Komentari</h2>
+            <h2 class="page-header" id="commentHeader">Komentari</h2>
             <section class="comment-list">
                 <div id="comments">
                   @{
@@ -58,7 +58,7 @@
         </div>
         <div id="collapseOne" class="panel-collapse collapse">
             <div class="panel-body commentbox-style">
-                <form id="commentForm" action="@Url.Action("AddNewComment","Comments")">
+                <form id="commentForm" data-url="@Url.Action("AddNewComment","Comments")">
                     <div class="form-group">
                         <label for="usr">Korisničko ime:</label>
                         <input type="text" class="form-control" id="usr" name="Username" placeholder="korisničko ime" required autofocus="">

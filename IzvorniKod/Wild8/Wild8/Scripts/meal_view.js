@@ -1,8 +1,8 @@
 ﻿$(document).ready(function () {
 
     fillQuantity();
-    setPriceListener();
     setCommentListener();
+    setPriceListener();
 
 })
 
@@ -20,7 +20,7 @@ function setCommentListener() {
             return;
         }
 
-        var url = f.attr('action');
+        var url = f.attr('data-url');
         var data = f.serialize();
 
         $.ajax({

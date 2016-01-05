@@ -255,6 +255,8 @@
     <Content Include="Content\homepage.css" />
     <Content Include="Scripts\navbar_hide.js" />
     <Content Include="Scripts\star_rating.js" />
+    <Content Include="Views\Admin\AddEmployeeForm.html" />
+    <Content Include="Content\AddEmployeeFormStyle.css" />
     <Content Include="Views\Admin\Index.html" />
     <Content Include="Views\Admin\sb-admin.css" />
     <Content Include="Web.config" />

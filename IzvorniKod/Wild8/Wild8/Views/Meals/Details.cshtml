@@ -104,7 +104,7 @@
             <div id="collapseOne" class="panel-collapse collapse">
                 <div class="panel-body commentbox-style">
                     
-                    <form id="commentForm" action="@Url.Action("AddNewComment","Meals")"> 
+                    <form id="commentForm" data-url="@Url.Action("AddNewComment","Meals")"> 
                         <div class="form-group">
                             <label for="usr">Korisničko ime:</label>
                             <input type="hidden" name="ID" value=@Html.DisplayFor(m => m.Meal.MealID)>
