@@ -101,7 +101,7 @@ function loadMeals(event) {
                     600); //600 ms fade in
                 })
             },
-            error(xhr, status) {
+            error: function(xhr, status) {
                 window.alert('Error. Status message: ' + status);
             }
         });
