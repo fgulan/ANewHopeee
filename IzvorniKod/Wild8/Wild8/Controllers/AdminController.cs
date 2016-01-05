@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Wild8.DAL;
 using Wild8.Models;
+using Wild8.Utils;
 
 namespace Wild8.Controllers
 {
@@ -302,6 +303,7 @@ namespace Wild8.Controllers
             Employee e = new Employee
             {
                 EmployeeID = employeeId,
+                Password = LoginUtils.SHA256Hash(pass),
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
