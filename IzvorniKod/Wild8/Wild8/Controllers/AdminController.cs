@@ -33,7 +33,6 @@ namespace Wild8.Controllers
         ////////////////////////////////////
         //  Meal add, edit, delete
         ////////////////////////////////////
-
         [HttpPost]
         public void AcceptOrder(int orderId)
         {
@@ -62,7 +61,7 @@ namespace Wild8.Controllers
         public ActionResult EditDelMealPartialView(int mealID)
         {
             //Todo parital view for the chosen meal 
-            return PartialView();
+            return PartialView("", db.Meals.ToList());
         }
         
         //Every meal has a name and at least one type 
@@ -173,6 +172,94 @@ namespace Wild8.Controllers
 
 
         ////////////////////////////////////
+        //  Add delete addon
+        ////////////////////////////////////
+        [HttpPost]
+        public ActionResult AddDeleteAddOnPartial()
+        {
+            //Todo some parital view for this shit
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult AddAddonParitial()
+        {
+
+            return PartialView("", db.AddOns.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult DeleteAddonPartial()
+        {
+            return PartialView("", db.AddOns.ToList());
+        }
+
+        [HttpPost]
+        public bool AddAddon(string addOnName, string price)
+        {
+            var exists = db.AddOns.Find(addOnName);
+            if(exists != null) //If addon already exists
+            {
+                return false;
+            }
+
+            db.AddOns.Add(new AddOn() { AddOnID = addOnName, Price = Decimal.Parse(price) });
+            db.SaveChanges();
+
+            return true;
+        }
+
+        [HttpPost]
+        public void RemoveAddon(string addOnName)
+        {
+            db.AddOns.Remove(new AddOn() { AddOnID = addOnName});
+            db.SaveChanges();
+        }
+
+        ////////////////////////////////////
+        //  Add delete Category
+        ////////////////////////////////////
+        [HttpPost]
+        public ActionResult AddDeleteCategoryPartial()
+        {
+
+
+            return PartialView();
+        }
+
+        public ActionResult AddCategoryPartial()
+        {
+
+            return PartialView("", db.Categories.ToList());
+        }
+
+        public ActionResult RemoveCategoryPartial()
+        {
+
+            return PartialView("", db.Categories.ToList());
+        }
+
+        public bool AddCategory(string categoryName)
+        {
+            var exists = db.Categories.First(cat => cat.Name == categoryName);     
+            if(exists != null)
+            {
+                return false;
+            }
+
+            db.Categories.Add(new Category { Name = categoryName });
+            db.SaveChanges();
+
+            return true;
+        }
+
+        public void RemoveCategory(string categoryName)
+        {
+            db.Categories.Remove(new Category { Name = categoryName });
+            db.SaveChanges();
+        }
+
+        ////////////////////////////////////
         //  Statistic
         ////////////////////////////////////
         [HttpPost]
@@ -202,7 +289,7 @@ namespace Wild8.Controllers
         public ActionResult RemoveUserParital()
         {
             //Todo make remove user parital View
-            return PartialView();
+            return PartialView("", db.Employees.Where(e => !e.AdminRights).ToList());
         }
 
         public void AddEmployee(string employeeId, string pass, 

@@ -9,8 +9,9 @@ namespace Wild8.Models
     public class Category
     {
         public int CategoryID { get; set; }
+        
         public string Name { get; set; }
-        [JsonIgnore]
+
         public virtual ICollection<Meal> Meals { get; set; }
     }
 }
