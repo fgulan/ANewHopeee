@@ -102,7 +102,7 @@ namespace Wild8.Hubs
         {
             string name = Context.User.Identity.Name;
 
-            if (!_connections.GetConnections(name).Contains(Context.ConnectionId))
+            if (!_connections.GetConnection(name).Contains(Context.ConnectionId))
             {
                 _connections.Add(name, Context.ConnectionId);
             }

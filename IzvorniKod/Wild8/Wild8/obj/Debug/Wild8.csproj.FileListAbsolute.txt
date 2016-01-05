@@ -262,3 +262,14 @@ C:\Users\Filip Gulan\Documents\OPP1\nn\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Ant
 C:\Users\Filip Gulan\Documents\OPP1\nn\anewhopeee\IzvorniKod\Wild8\Wild8\obj\Debug\Wild8.csprojResolveAssemblyReference.cache
 C:\Users\Filip Gulan\Documents\OPP1\nn\anewhopeee\IzvorniKod\Wild8\Wild8\obj\Debug\Wild8.dll
 C:\Users\Filip Gulan\Documents\OPP1\nn\anewhopeee\IzvorniKod\Wild8\Wild8\obj\Debug\Wild8.pdb
+C:\Users\Fredi\Desktop\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\Fredi\Desktop\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\Fredi\Desktop\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Microsoft.Owin.dll
+C:\Users\Fredi\Desktop\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Fredi\Desktop\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Microsoft.Owin.Security.dll
+C:\Users\Fredi\Desktop\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Owin.dll
+C:\Users\Fredi\Desktop\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\Fredi\Desktop\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\Fredi\Desktop\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Microsoft.Owin.xml
+C:\Users\Fredi\Desktop\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Fredi\Desktop\anewhopeee\IzvorniKod\Wild8\Wild8\bin\Microsoft.Owin.Security.xml

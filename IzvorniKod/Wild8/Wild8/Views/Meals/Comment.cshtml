@@ -1,29 +1,26 @@
-﻿@model IEnumerable<Wild8.Models.Comment>
+﻿@model Comment
 
-            @foreach (var item in Model)
-            {
-                <article class="row">
-                    <div class="col-md-10 col-sm-10">
-                        <div class="panel panel-default arrow left">
-                            <div class="panel-body">
-                                <header class="text-right">
-                                    <div class="comment-user">
-                                        <i class="fa fa-user">@Html.DisplayFor(model => item.Username)</i>
-                                    </div>
-                                    <time class="comment-date" datetime="16-12-2014 01:05">
-                                        <i class="fa fa-clock-o">@Html.DisplayFor(model => item.CommentDate)</i>
-                                    </time>
-                                </header>
-                                <div class="comment-post">
-                                    <p>
-                                        @Html.DisplayFor(model => item.Message)
-                                    </p>
-                                </div>
-                                <p class="text-right">
-                                    @Html.DisplayFor(model => item.Grade) <span class="glyphicon glyphicon-star"></span>
-                                </p>
-                            </div>
-                        </div>
+<article class="row">
+    <div class="col-md-10 col-sm-10">
+        <div class="panel panel-default arrow left">
+            <div class="panel-body">
+                <header class="text-right">
+                    <div class="comment-user">
+                        <i class="fa fa-user">@Html.DisplayFor(m => m.Username)</i>
                     </div>
-                </article>
-            }
+                    <time class="comment-date" datetime="16-12-2014 01:05">
+                        <i class="fa fa-clock-o">@Html.DisplayFor(m => m.CommentDate)</i>
+                    </time>
+                </header>
+                <div class="comment-post">
+                    <p>
+                        @Html.DisplayFor(m => m.Message)
+                    </p>
+                </div>
+                <p class="text-right">
+                    @Html.DisplayFor(m => m.Grade) <span class="glyphicon glyphicon-star"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</article>

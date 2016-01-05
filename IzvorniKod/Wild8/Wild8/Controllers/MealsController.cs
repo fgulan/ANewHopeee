@@ -58,10 +58,8 @@ namespace Wild8.Controllers
                 };
                 db.Comments.Add(newComment);
                 db.SaveChanges();
-                List<Comment> comments = db.Meals.Find(ID).Comments.ToList();
-                comments.Sort((x, y) => DateTime.Compare(x.CommentDate, y.CommentDate));
 
-                return PartialView("~/Views/Meals/Comment.cshtml", comments);
+                return PartialView("~/Views/Meals/Comment.cshtml", newComment);
             }
 
             return null;
