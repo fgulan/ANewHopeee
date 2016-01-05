@@ -28,8 +28,7 @@
                     else
                     {
                         <li>
-                            <input type="radio" name="@("Type" + item.Meal.MealID)" value="@(type.Price + "#" + type.MealTypeName)">
-                            @type.MealTypeName
+                            <input type="radio" name="@("Type" + item.Meal.MealID)" value="@(type.Price + "#" + type.MealTypeName)">@type.MealTypeName
                         </li>
                     }
                 }

@@ -48,13 +48,27 @@
                 </div>
                 <div class="col-md-1">
                     <ul>
-                        @foreach (var type in Model.Types)
-                        {
-                            <li><input type="radio" name="Types" value="@type.Price">@type.MealTypeName</li>
+                        @{
+                            for (int i = 0, n = Model.Types.Count; i < n; i++)
+                            {
+                                var type = Model.Types[i];
+                                if (i == 0)
+                                {
+                                    <li>
+                                        <!--Every radio buttton has to have the same name, all names are defirented with meal id-->
+                                        <input type="radio" name="Type" checked="checked" value="@(type.Price + "#" + type.MealTypeName)">@type.MealTypeName
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <input type="radio" name="Type" value="@(type.Price + "#" + type.MealTypeName)">@type.MealTypeName
+                                    </li>
+                                }
+                            }
                         }
                     </ul>
                 </div>
-
                 <div class="col-md-1">
                     <select id="Count" name="Count" form="AddMealForm" class="1-10"></select>
                 </div>
