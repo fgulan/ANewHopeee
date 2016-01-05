@@ -42,8 +42,8 @@ namespace Wild8.DAL
 
             var types = new List<MealType>
             {
-                new MealType { MealID = 1, MealTypeName = "Mala porcija" ,  Price = 20 },
-                new MealType { MealID = 1, MealTypeName = "Velika porcija", Price = 30 },
+                new MealType { Meal = meals[0], MealTypeName = "Mala porcija" ,  Price = 20 },
+                new MealType { Meal = meals[0], MealTypeName = "Velika porcija", Price = 30 },
                 new MealType { MealID = 2, MealTypeName = "Mala porcija",   Price = 10 },
                 new MealType { MealID = 2, MealTypeName = "Velika porcija", Price = 20 } 
             };

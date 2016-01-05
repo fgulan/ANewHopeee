@@ -67,7 +67,7 @@ namespace Wild8.Hubs
 
             Clients.Client(connectionId).orderDeclined(message);
         }
-
+        
         //This method should be called when worker has logged seccesfully 
         public Task JoinWorkerGroup()
         {
