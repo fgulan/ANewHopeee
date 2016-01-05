@@ -18,13 +18,13 @@ namespace Wild8.Controllers
         // GET: Login
         public ActionResult Index()
         {
-            return RedirectToAction("LoginView");
+            return View();
         }
 
-        public ActionResult Login(string username, string pass)
+        public ActionResult Login(string username, string password)
         {
             username = LoginUtils.sanitize(username);
-            pass = LoginUtils.sanitize(pass);
+            password = LoginUtils.sanitize(password);
 
             Employee employee = db.Employees.Find(username);
             if (employee == null)
@@ -32,7 +32,7 @@ namespace Wild8.Controllers
                 return HttpNotFound();
             }
 
-            if (LoginUtils.SHA256Hash(pass) != employee.Password)
+            if (LoginUtils.SHA256Hash(password) != employee.Password)
             {
                 return HttpNotFound();
             }

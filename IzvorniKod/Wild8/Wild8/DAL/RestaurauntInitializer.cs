@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Wild8.Models;
+using Wild8.Utils;
 
 namespace Wild8.DAL
 {
@@ -18,7 +19,6 @@ namespace Wild8.DAL
                 new AddOn { AddOnID = "Ketchup", Price = 3.50M },
                 new AddOn { AddOnID = "Luk", Price = 3.50M },
                 new AddOn { AddOnID = "Salata", Price = 3.50M },
-
             };
             addOns.ForEach(s => context.AddOns.Add(s));
             context.SaveChanges();
@@ -45,11 +45,11 @@ namespace Wild8.DAL
                 new MealType { Meal = meals[0], MealTypeName = "Mala porcija" ,  Price = 20 },
                 new MealType { Meal = meals[0], MealTypeName = "Velika porcija", Price = 30 },
                 new MealType { MealID = 2, MealTypeName = "Mala porcija",   Price = 10 },
-                new MealType { MealID = 2, MealTypeName = "Velika porcija", Price = 20 } 
+                new MealType { MealID = 2, MealTypeName = "Velika porcija", Price = 20 }
             };
             types.ForEach(t => context.MealTypes.Add(t));
             context.SaveChanges();
-            
+
             var mealAddOns = new List<MealAddOn>
             {
                 //Cevapi
@@ -73,6 +73,18 @@ namespace Wild8.DAL
 
             comments.ForEach(s => context.Comments.Add(s));
             context.SaveChanges();
+
+            var employees = new List<Employee>
+            {
+                new Employee { EmployeeID = "dlatecki", Password = LoginUtils.SHA256Hash("pass_dlatecki"), FirstName = "Domagoj", LastName = "Latečki", Email = "domagoj.latecki@fer.hr", PhoneNumber = "0036478777", Address = "nema", City = "Zagreb", PostCode = "10000", Title = "Code monkey", AdminRights = false },
+                new Employee { EmployeeID = "fgulan", Password = LoginUtils.SHA256Hash("pass_fgulan"), FirstName = "Filip", LastName = "Gulan", Email = "filip.gulan@fer.hr", PhoneNumber = "0036479428", Address = "raja", City = "Galovac", PostCode = "23222", Title = "Sync monkey", AdminRights = true },
+                new Employee { EmployeeID = "fredi", Password = LoginUtils.SHA256Hash("pass_fredi"), FirstName = "Fredi", LastName = "Šarić", Email = "fredi@saric@fer.hr", PhoneNumber = "0036477353", Address = "bez", City = "Zagreb", PostCode = "10000", Title = "Alpha monkey", AdminRights = true },
+                new Employee { EmployeeID = "majinlizard", Password = LoginUtils.SHA256Hash("pass_majinlizard"), FirstName = "Kenneth", LastName = "Kostrešević", Email = "kenneth.kostreševic@fer.hr", PhoneNumber = "0036482290", Address = "zavičaja", City = "Zagreb", PostCode = "10000", Title = "Doc monkey", AdminRights = false },
+                new Employee { EmployeeID = "mjanjic", Password = LoginUtils.SHA256Hash("pass_mjanjic"), FirstName = "Matej", LastName = "Janić", Email = "matej.janjic@fer.hr", PhoneNumber = "0036481160", Address = "nit", City = "Zagreb", PostCode = "10000", Title = "Design monkey", AdminRights = false },
+                new Employee { EmployeeID = "tin007", Password = LoginUtils.SHA256Hash("pass_tin007"), FirstName = "Tin", LastName = "Trčak", Email = "tin.trcak@fer.hr", PhoneNumber = "0036460856", Address = "miline", City = "Zagreb", PostCode = "10000", Title = "Doc monkey", AdminRights = false },
+                new Employee { EmployeeID = "tyrannizer", Password = LoginUtils.SHA256Hash("pass_tyrannizer"), FirstName = "Jan", LastName = "Kelemen", Email = "jan.kelemen@fer.hr", PhoneNumber = "0036479753", Address = "bez", City = "Varaždin", PostCode = "42000", Title = "Code monkey", AdminRights = false },
+                new Employee { EmployeeID = "iv.ona", Password = LoginUtils.SHA256Hash("pass_iv.ona"), FirstName = "Ivona", LastName = "Brajdić", Email = "ivona.brajdic@fer.hr", PhoneNumber = "0036485320", Address = "krajine", City = "Zagreb", PostCode = "100000", Title = "Alpha woman", AdminRights = true }
+            };
         }
     }
 }

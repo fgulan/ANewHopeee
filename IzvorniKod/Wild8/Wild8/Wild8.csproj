@@ -199,6 +199,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\contact_us.css" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\meal.css" />
     <Content Include="Content\menu.css" />
     <Content Include="Content\menu.min.css" />
@@ -277,7 +278,7 @@
     <Content Include="Views\Meals\Comment.cshtml" />
     <Content Include="Views\Menu\MealsList.cshtml" />
     <Content Include="Views\Meals\Comments.cshtml" />
-    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Index\" />

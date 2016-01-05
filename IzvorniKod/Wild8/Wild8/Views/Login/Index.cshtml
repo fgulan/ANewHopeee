@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Wild8 | Prijava";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/login.css" />
+}
+
+<div class="container marketing">
+    <!-- Login form-->
+    <div class="featurette">
+        <div class="wrapper">
+            <form class="form-signin" action="@Url.Action("Login", "Login")">
+                <h2 class="form-signin-heading">Unesite korisničke podatke</h2>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="username" name="Username" placeholder="Korisničko ime" required autofocus="">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password" name="Password" placeholder="Lozinka" required autofocus="">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-lg btn-success btn-block" value="Prijavi se">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /.container -->
