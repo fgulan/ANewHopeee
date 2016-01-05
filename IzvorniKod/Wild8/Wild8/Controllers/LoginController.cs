@@ -39,7 +39,7 @@ namespace Wild8.Controllers
 
             SessionExtension.SetUser(Session, employee);
 
-            return Index();
+            return RedirectToAction("Index", "Admin");
         }
     }
 }
