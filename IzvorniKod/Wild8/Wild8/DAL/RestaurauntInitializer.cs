@@ -85,6 +85,8 @@ namespace Wild8.DAL
                 new Employee { EmployeeID = "tyrannizer", Password = LoginUtils.SHA256Hash("pass_tyrannizer"), FirstName = "Jan", LastName = "Kelemen", Email = "jan.kelemen@fer.hr", PhoneNumber = "0036479753", Address = "bez", City = "Varaždin", PostCode = "42000", Title = "Code monkey", AdminRights = false },
                 new Employee { EmployeeID = "iv.ona", Password = LoginUtils.SHA256Hash("pass_iv.ona"), FirstName = "Ivona", LastName = "Brajdić", Email = "ivona.brajdic@fer.hr", PhoneNumber = "0036485320", Address = "krajine", City = "Zagreb", PostCode = "100000", Title = "Alpha woman", AdminRights = true }
             };
+            employees.ForEach(e => context.Employees.Add(e));
+            context.SaveChanges();
         }
     }
 }
