@@ -277,7 +277,7 @@
     <Content Include="Views\Meals\Comment.cshtml" />
     <Content Include="Views\Menu\MealsList.cshtml" />
     <Content Include="Views\Meals\Comments.cshtml" />
-    <Content Include="Views\Login.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Index\" />
