@@ -22,12 +22,10 @@ namespace Wild8.Controllers
             return View(comments.ToList());
         }
 
-        // POST: Comments/AddNewComment
-        // TODO shity stars
+
         [HttpPost]
-        public ActionResult AddNewComment(string Username, string Message, int? stars_existing)
+        public ActionResult AddNewComment(string Username, string Message, int? grade)
         {
-            
             if (ModelState.IsValid)
             {
                 Comment newComment = new Comment
@@ -35,14 +33,12 @@ namespace Wild8.Controllers
                     CommentDate = DateTime.Now,
                     Message = Message,
                     Username = Username,
-                    Grade = 3
+                    Grade = grade == null ? 5 : (int)grade,
                 };
                 db.Comments.Add(newComment);
                 db.SaveChanges();
-                List<Comment> comments = db.Comments.ToList();
-                comments.Sort((x, y) => DateTime.Compare(x.CommentDate, y.CommentDate));
 
-                return PartialView("~/Views/Meals/Comment.cshtml", comments);
+                return PartialView("~/Views/Meals/Comment.cshtml", newComment);
             }
 
             return null;
