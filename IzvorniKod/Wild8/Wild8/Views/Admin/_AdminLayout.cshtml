@@ -1,0 +1,53 @@
+﻿@{ Layout = null; }
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="~/images/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    <style>
+        .col-fixed {
+            width: 200px;
+            position: fixed;
+            height: 100%;
+        }
+
+        .col-fluid {
+            margin-left: 200px;
+            position: fixed;
+            height: 100%;
+            width: 100%;
+        }
+
+        .nav-pills {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-fixed">
+                <ul class="nav nav-tabs nav-pills nav-stacked">
+                    <li><h3>Dijelatnik Pero</h3></li>
+                    <li class="active" data-toggle="tab"><a href="#"> Narudžbe</a></li>
+                    <li data-toggle="tab"><a href="#"> Jela</a></li>
+                    <li data-toggle="tab"><a href="#"> Statistika</a></li>
+                    <li data-toggle="tab"><a href="#"> Dijelatnici</a></li>
+                    <li data-toggle="tab"><a href="#"> Odjava</a></li>
+                </ul>
+            </div>
+            <div class="container-fluid col-fluid">
+                @RenderBody();
+            </div>
+        </div>
+    </div>
+</body>
+</html>
