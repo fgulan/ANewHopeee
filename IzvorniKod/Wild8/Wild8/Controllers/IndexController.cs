@@ -18,7 +18,7 @@ namespace Wild8.Controllers
                 return RedirectToAction("Index","Home");
             }
 
-            return View("~/Views/Admin/Index.cshtml", user);
+            return RedirectToAction("Index", "Admin");
         }
     }
 }

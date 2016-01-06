@@ -21,7 +21,8 @@ namespace Wild8.Controllers
             return View();
         }
 
-        public ActionResult Login(string username, string password)
+        [HttpPost]
+        public bool Login(string username, string password)
         {
             username = LoginUtils.sanitize(username);
             password = LoginUtils.sanitize(password);
@@ -29,17 +30,17 @@ namespace Wild8.Controllers
             Employee employee = db.Employees.Find(username);
             if (employee == null)
             {
-                return HttpNotFound();
+                return false;
             }
 
             if (LoginUtils.SHA256Hash(password) != employee.Password)
             {
-                return HttpNotFound();
+                return false;
             }
 
             SessionExtension.SetUser(Session, employee);
 
-            return View("~/Views/Admin/Index.cshtml", employee);
+            return true;
         }
     }
 }

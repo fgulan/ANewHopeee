@@ -19,9 +19,9 @@ namespace Wild8.Controllers
         private RestaurauntContext db = new RestaurauntContext();
 
         // GET: Admin
-        public ActionResult Index(bool adminRights)
+        public ActionResult Index()
         {
-            return View();
+            return View(SessionExtension.GetUser(Session));
         }
 
         ////////////////////////////////////
@@ -388,11 +388,9 @@ namespace Wild8.Controllers
         ////////////////////////////////////
         //  Logout
         ////////////////////////////////////
-        public ActionResult LogOut()
+        public void LogOut()
         {
-            //Todo remove user from session
-
-            return RedirectToAction("Index", "Index");
+            SessionExtension.SetUser(Session, null);
         }
     }
 }
