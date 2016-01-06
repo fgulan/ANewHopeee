@@ -17,9 +17,9 @@ namespace Wild8.Controllers
         private RestaurauntContext db = new RestaurauntContext();
 
         // GET: Admin
-        public ActionResult Index(bool adminRights)
+        public ActionResult Index()
         {
-            return View();
+            return View(SessionExtension.GetUser(Session));
         }
 
         ////////////////////////////////////

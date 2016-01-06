@@ -29,8 +29,8 @@ function setWorkersMenuListener() {
 };
 
 function setLogoutBtnListener() {
-    ajaxCall($("#"), function () { //This should call logout and redirect to index
-        var indexUrl = $("#").data("index-url");
+    ajaxCall($("#logout"), function () { //This should call logout and redirect to index
+        var indexUrl = $("#logout").data("index-url");
         window.location.href = indexUrl;
     });
 };

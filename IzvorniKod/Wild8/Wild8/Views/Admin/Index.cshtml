@@ -21,7 +21,6 @@
             width: 200px;
             position: fixed;
             height: 100%;
-            background: rgba(147, 160, 198, 0.75);
         }
         .nav-pills {
             text-align: center;
@@ -33,12 +32,15 @@
         }
         .col-fluid {
             margin-left: 200px;
-            margin-top: 50px;
         }
 
-        .logout {
-            position: absolute;
+        .logout-btn {
+            width: 100%;
+            position:absolute;
             bottom: 0;
+        }
+        .logout-btn button {
+            width: 100%;
         }
     </style>
 </head>
@@ -63,10 +65,12 @@
                         <li data-toggle="tab" id="statistic-menu" data-url="@Url.Action("Statistic", "Admin")"><a>Statistika</a></li>
                         <li data-toggle="tab" id="workers-menu" data-url="@Url.Action("AddRemoveUserPartial", "Admin")"><a>Dijelatnici</a></li>
                     }
-                    <li class="logout" 
-                        data-toggle="tab" data-url="@Url.Action("Logout", "Admin")" data-index-url="@Url.Action("Index", "Index")" 
-                        id="logout-btn"><a>Odjava</a></li>
                 </ul>
+                <div class="logout-btn" >
+                    <button class="btn btn-primary" id="logout" data-toggle="tab" data-url="@Url.Action("Logout", "Admin")" data-index-url="@Url.Action("Index", "Index")">
+                        Odjava
+                    </button>
+                </div>
             </div>
             <div class="container-fluid col-fluid main-content">
                 @{ 

@@ -251,6 +251,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ViewScripts\admin_view.js" />
+    <Content Include="Scripts\ViewScripts\login.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Content\comments.css" />
     <Content Include="Content\comments.min.css" />
