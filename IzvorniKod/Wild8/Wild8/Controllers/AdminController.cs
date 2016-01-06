@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Wild8.DAL;
 using Wild8.Models;
+using Wild8.Models.ModelViews;
 using Wild8.Utils;
 
 namespace Wild8.Controllers
@@ -64,34 +67,69 @@ namespace Wild8.Controllers
             //Todo parital view for the chosen meal 
             return PartialView("", db.Meals.ToList());
         }
-        
-        //Every meal has a name and at least one type 
-        //Addons are not mandatory
+
+
         [HttpPost]
-        public void AddMeal(string mealName, string description, int categoryId, string imagePath,
-                            string[] typeNames, int[] typePrices, string[] addons) //Addon ids
+        public ActionResult AddMeal([Bind(Include = "MealID,Name,Description,CategoryID")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
         {
-            Meal meal = new Meal { Name = mealName, Description = description, CategoryID = categoryId, ImagePath = imagePath };
-            db.Meals.Add(meal);
-
-
-            for (int i = 0; i < typeNames.Length; i++)
+            if (ModelState.IsValid)
             {
-                var type = new MealType { Meal = meal, MealTypeName = typeNames[i], Price = typePrices[i] };
-                db.MealTypes.Add(type);
-            }
-
-            if (addons != null)
-            {
-                for (int i = 0; i < addons.Length; i++)
+                if (upload != null && upload.ContentLength > 0)
                 {
-                    var mealAddon = new MealAddOn { AddOnID = addons[i], Meal = meal };
-                    db.MealAddOns.Add(mealAddon);
+                    string fileName = Guid.NewGuid().ToString() + Path.GetFileName(upload.FileName);
+                    string physicalPath = Path.Combine(Server.MapPath("~/images/Meals"), fileName);
+                    string sourcePath = "images/Meals/" + fileName;
+                    upload.SaveAs(physicalPath);
+                    meal.ImagePath = sourcePath;
+                }
+                meal = db.Meals.Add(meal);
+                db.SaveChanges();
+
+                if (SelectedAddOns != null)
+                {
+                    foreach (var item in SelectedAddOns)
+                    {
+                        db.MealAddOns.Add(new MealAddOn()
+                        {
+                            AddOnID = item,
+                            MealID = meal.MealID
+                        });
+                    }
+                }
+
+                if (MealType != null && Price != null)
+                {
+                    for (int i = 0; i < MealType.Length; i++)
+                    {
+                        string mealTypeName = MealType[i];
+                        string priceString = Price[i];
+                        if (mealTypeName != null && mealTypeName.Length > 0  && priceString != null && priceString.Length > 0 )
+                        {
+                            db.MealTypes.Add(new MealType()
+                            {
+                                MealID = meal.MealID,
+                                MealTypeName = MealType[i],
+                                Price = decimal.Parse(Price[i], CultureInfo.InvariantCulture)
+                            });
+                        }
+                    }
+                    db.SaveChanges();
                 }
             }
-
-            db.SaveChanges();
+            return Content("Error");
         }
+
+        public ActionResult AddMeal()
+        {
+            AddEditMealModelView newMeal = new AddEditMealModelView()
+            {
+                Categories = db.Categories.ToList(),
+                AddOns = db.AddOns.ToList()
+            };
+            return View(newMeal);
+        }
+
+        //Every meal has a name and at least one type 
 
         /// <summary>
         /// Every property that is null will remain the same except addons, if addons are null 
