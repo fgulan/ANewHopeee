@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Wild8.DAL;
 
 namespace Wild8.Controllers
 {
@@ -11,12 +12,13 @@ namespace Wild8.Controllers
         // GET: Index
         public ActionResult Index()
         {
-            if(Session["user"] == null)
+            var user = SessionExtension.GetUser(Session);
+            if(user == null)
             {
                 return RedirectToAction("Index","Home");
             }
 
-            return RedirectToAction("Index", "Admin");
+            return View("~/Views/Admin/Index.cshtml", user);
         }
     }
 }
