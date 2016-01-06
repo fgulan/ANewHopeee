@@ -39,7 +39,7 @@ namespace Wild8.Controllers
 
             SessionExtension.SetUser(Session, employee);
 
-            return RedirectToAction("Index", "Admin", new { adminRights = employee.AdminRights });
+            return View("~/Views/Admin/Index.cshtml", employee);
         }
     }
 }
