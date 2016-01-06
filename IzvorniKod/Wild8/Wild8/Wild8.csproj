@@ -218,6 +218,16 @@
     <Content Include="images\marketing_images\marketing_30min.jpg" />
     <Content Include="images\marketing_images\marketing_satisfaction.png" />
     <Content Include="images\marketing_images\marketing_veggie.jpg" />
+    <Content Include="images\Meals\079eb426-bffc-44ea-a03b-239e86959363present_closed.png" />
+    <Content Include="images\Meals\2b75644f-1010-4d37-b8a4-5a312098df46Bitmap.jpg" />
+    <Content Include="images\Meals\3c453258-9527-442a-9c1b-26cf5feff72bpresent_unwrapped%402x.png" />
+    <Content Include="images\Meals\6514b863-6dc4-45c7-b7b2-9b0c67ae4368background%402x.jpg" />
+    <Content Include="images\Meals\6540f1bf-c768-4cac-892e-9cda24a17782launch-screen%403x.png" />
+    <Content Include="images\Meals\9010334d-a7bb-4e53-9f44-e0a4dad031eapresent_opened.png" />
+    <Content Include="images\Meals\ab8dc638-efb7-48ca-b148-36ce7f2a34fblaunch-screen.png" />
+    <Content Include="images\Meals\baae7d35-55d9-45fe-985e-174639eeaececomment-button-icon%403x.png" />
+    <Content Include="images\Meals\bf918e7b-0b55-4d14-8301-71682dd2a30dclose-floating-button%403x.png" />
+    <Content Include="images\Meals\Bitmap%402x.jpg" />
     <Content Include="images\owner.jpeg" />
     <Content Include="images\owner_signature.png" />
     <Content Include="images\owner_small.jpg" />
@@ -260,6 +270,7 @@
     <None Include="Views\Admin\AddEmployeeForm.cshtml" />
     <Content Include="Content\AddEmployeeFormStyle.css" />
     <Content Include="Views\Admin\AddMeal.cshtml" />
+    <Content Include="Views\Admin\EditMeal.cshtml" />
     <None Include="Views\Admin\DelAddonsPartial.cshtml" />
     <None Include="Views\Admin\DelCategoryPartial.cshtml" />
     <None Include="Views\Admin\DelMealsPartial.cshtml" />
@@ -290,9 +301,7 @@
     <Content Include="Views\Meals\Comments.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Index\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Wild8.DAL;
@@ -129,73 +131,92 @@ namespace Wild8.Controllers
             return View(newMeal);
         }
 
-        //Every meal has a name and at least one type 
-
-        /// <summary>
-        /// Every property that is null will remain the same except addons, if addons are null 
-        /// then that meal will have no addons
-        /// </summary>
-        /// <param name="mealId"></param>
-        /// <param name="mealName"></param>
-        /// <param name="description"></param>
-        /// <param name="categoryId"></param>
-        /// <param name="imagePath"></param>
-        /// <param name="typeNames"></param>
-        /// <param name="typePrices"></param>
-        /// <param name="addons"></param>
-        [HttpPost]
-        public void EditMeal(int mealId, string mealName, string description, int? categoryId, string imagePath,
-                             string[] typeNames, int[] typePrices, string[] addons)
+        public ActionResult EditMeal(int? id)
         {
-            var updatedMeal = new Meal
+            if (id == null)
             {
-                MealID = mealId,
-                Name = mealName,
-                Description = description,
-                ImagePath = imagePath
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Meal meal = db.Meals.Find(id);
+            if (meal == null)
+            {
+                return HttpNotFound();
+            }
+            List<string> addOns = new List<string>();
+            foreach (var item in meal.AddOns)
+            {
+                addOns.Add(item.AddOn.AddOnID);
+            }
+
+            var mealTypes = db.MealTypes.Where(r => r.MealID == meal.MealID);
+
+            AddEditMealModelView newMeal = new AddEditMealModelView()
+            {
+                Categories = db.Categories.ToList(),
+                AddOns = db.AddOns.ToList(),
+                Meal = meal,
+                SelectedCategory = meal.CategoryID,
+                SelectedAddOns = addOns,
+                MealTypes = mealTypes
             };
-            if(categoryId != null)
-            {
-                updatedMeal.CategoryID = (int)categoryId;
-            }
+            return View(newMeal);
+        }
 
-            db.Meals.Attach(updatedMeal);
-            var entry = db.Entry(updatedMeal);  //Change properties
-            entry.Property(e => e.Name).IsModified = (mealName == null ? false : true);
-            entry.Property(e => e.Description).IsModified = (description == null ? false : true);
-            entry.Property(e => e.CategoryID).IsModified = (categoryId == null ? false : true);
-            entry.Property(e => e.ImagePath).IsModified = (imagePath == null ? false : true);
-
-            if (typeNames != null)
+        [HttpPost]
+        public ActionResult EditMeal([Bind(Include = "MealID,Name,Description,CategoryID")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
+        {
+            if (ModelState.IsValid)
             {
-                //Remove all old types
-                //Todo find better solution so that you do not have to call db
+                if (upload != null && upload.ContentLength > 0)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetFileName(upload.FileName);
+                    string physicalPath = Path.Combine(Server.MapPath("~/images/Meals"), fileName);
+                    string sourcePath = "images/Meals/" + fileName;
+                    upload.SaveAs(physicalPath);
+                    meal.ImagePath = sourcePath;
+                }
+                db.Entry(meal).State = EntityState.Modified;
+                db.SaveChanges();
+
+                var mealAddons = db.MealAddOns;
+                mealAddons.RemoveRange(mealAddons.Where(mealAddOn => mealAddOn.MealID == meal.MealID));
+                if (SelectedAddOns != null)
+                {
+                    foreach (var item in SelectedAddOns)
+                    {
+                        MealAddOn mealAddOn = new MealAddOn()
+                        {
+                            AddOnID = item,
+                            MealID = meal.MealID
+                        };
+                        db.MealAddOns.Add(mealAddOn);
+                    }
+                }
+
                 var types = db.MealTypes;
-                types.RemoveRange(types.Where(type => type.MealID == mealId));
-
-                //Set new types
-                for (int i = 0; i < typeNames.Length; i++)
+                types.RemoveRange(types.Where(type => type.MealID == meal.MealID));
+                if (MealType != null && Price != null)
                 {
-                    var type = new MealType { MealID = mealId, MealTypeName = typeNames[i], Price = typePrices[i] };
-                    types.Add(type);
+                    for (int i = 0; i < MealType.Length; i++)
+                    {
+                        string mealTypeName = MealType[i];
+                        string priceString = Price[i];
+                        if (mealTypeName != null && mealTypeName.Length > 0 && priceString != null && priceString.Length > 0)
+                        {
+                            db.MealTypes.Add(new MealType()
+                            {
+                                MealID = meal.MealID,
+                                MealTypeName = MealType[i],
+                                Price = decimal.Parse(Price[i], CultureInfo.InvariantCulture)
+                            });
+                        }
+                    }
                 }
+                db.SaveChanges();
             }
 
-
-            //Remove old addons 
-            //Todo find better solution so that you do not have to call db
-            var mealAddons = db.MealAddOns;
-            mealAddons.RemoveRange(mealAddons.Where(mealAddOn => mealAddOn.MealID == mealId));
-            if (addons != null)
-            {
-                //Add new addons
-                for (int i = 0; i < addons.Length; i++)
-                {
-                    mealAddons.Add(new MealAddOn { AddOnID = addons[i], MealID = mealId });
-                }
-            }
-
-            db.SaveChanges();
+            //TODO for now I-m to tired
+            return View(meal);
         }
 
         [HttpPost]
