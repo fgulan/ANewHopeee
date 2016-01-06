@@ -2,7 +2,7 @@
 
 @section Scripts
 {
-<script type="text/javascript">
+    <script type="text/javascript">
         $(document).on('change', '#PhotoUpload', function () {
             if (typeof (FileReader) != "undefined") {
                 var image_holder = $("#image-holder");
@@ -25,14 +25,20 @@
     </script>
 
     <script>
+        $(document).ready(function () {
+            $(document).on('click', '.delete', function (e) {
+
+                if ($('.MealType').length == 1) return;
+                $(this).closest('.MealType').fadeOut('fast', function(){
+                    $(this).remove();
+                });;
+            });
+        });
         function AddMealTypeInput() {
-            var f = document.getElementById('MealType').outerHTML;
-            $(f).hide().appendTo('.MealTypes').fadeIn(600);
+            var f = document.getElementsByClassName('MealType')[0].cloneNode(true).outerHTML;
+            $(f).hide().appendTo($("#MealTypes")).fadeIn(600);
         }
-        function RemoveMealTypeInput() {
-            if ($('.MealType').length == 1) return;
-            $('.MealType').last().remove();
-        }
+
     </script>
 }
 
@@ -80,28 +86,29 @@
                         <label class="control-label col-md-2">Vrste:</label>
                         <div class="controls col-md-10">
                             <div id="MealTypes" class="MealTypes">
-                                <div id="MealType" class="MealType">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Vrsta</span>
-                                        <input class="form-control" type="text" name="MealType" placeholder="Vrsta" required>
-                                        <span class="input-group-addon">Cijena</span>
-                                        <input class="form-control" type="number"  step="0.01" min="0" max="99" name="Price" placeholder="Cijena" required>
-                                    </div><br />
+                                <div class="MealType">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">Vrsta</span>
+                                            <input class="form-control" type="text" name="MealType" placeholder="Vrsta" aria-describedby="basic-addon1" required>
+                                            <span class="input-group-addon">Cijena</span>
+                                            <input class="form-control" type="number" step="0.01" min="0" max="99" name="Price" placeholder="Cijena" required>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="delete btn btn-default">
+                                                    <span class="glyphicon glyphicon-remove" style="color:darkred" aria-hidden="true"></span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group">
-                        <div class="pull-right" style="display:inline-block; vertical-align: middle;">
-                            <button type="button" class="btn btn-warning btn-xs" onclick="AddMealTypeInput()">Dodaj vrstu</button>
-                            <button type="button" class="btn btn-warning btn-xs" onclick="RemoveMealTypeInput()">Obrisi vrstu</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Spremi jelo" class="btn btn-default" />
+                        <div class="controls col-md-10">
+                            <button type="button" class="btn btn-default" onclick="AddMealTypeInput()">
+                                <span class="glyphicon glyphicon-plus" style="color:black" aria-hidden="true"></span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -115,6 +122,11 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-lg-offset-0 col-md-6 col-lg-6">
+                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Save">
                 </div>
             </div>
         </div>
