@@ -45,7 +45,10 @@ function setCommentListener() {
 function setPriceListener() {
     
     var valPrice = $(".col-md-1>ul>li>input[checked ='checked']").val();
-    var basePrice = parseFloat(valPrice.replace(/,/, '.'));
+    var basePrice = 0;
+    if (valPrice != null) {
+        basePrice = parseFloat(valPrice.replace(/,/, '.'));
+    }
     var quantity = 1;
     var totalAddons = 0;
 

@@ -1,0 +1,122 @@
+﻿@model AddEditMealModelView
+
+@section Scripts
+{
+<script type="text/javascript">
+        $(document).on('change', '#PhotoUpload', function () {
+            if (typeof (FileReader) != "undefined") {
+                var image_holder = $("#image-holder");
+                image_holder.empty();
+
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("<img />", {
+                        "src": e.target.result,
+                        "class": "thumb-image",
+                         "style" : "max-width:196px; max-height:196px;"
+                    }).appendTo(image_holder);
+                }
+                image_holder.show();
+                reader.readAsDataURL($(this)[0].files[0]);
+            } else {
+                alert("This browser does not support FileReader.");
+            }
+        });
+    </script>
+
+    <script>
+        function AddMealTypeInput() {
+            var f = document.getElementById('MealType').outerHTML;
+            $(f).hide().appendTo('.MealTypes').fadeIn(600);
+        }
+        function RemoveMealTypeInput() {
+            if ($('.MealType').length == 1) return;
+            $('.MealType').last().remove();
+        }
+    </script>
+}
+
+@{
+    ViewBag.Title = "Dodaj jelo";
+}
+
+@using (Html.BeginForm("AddMeal", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container-fluid">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        @Html.Label("Ime:", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Meal.Name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Opis:", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Meal.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Kategorija:", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(m => m.Meal.CategoryID,
+                                new SelectList(Model.Categories, "CategoryID", "Name", Model.SelectedCategory),
+                                new { id = "CategoryID", @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Dodaci:", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.ListBoxFor(x => x.SelectedAddOns, new MultiSelectList(Model.AddOns, "AddOnID", "AddOnID"), htmlAttributes: new { @class = "form-control", size = 5 })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Vrste:</label>
+                        <div class="controls col-md-10">
+                            <div id="MealTypes" class="MealTypes">
+                                <div id="MealType" class="MealType">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Vrsta</span>
+                                        <input class="form-control" type="text" name="MealType" placeholder="Vrsta" required>
+                                        <span class="input-group-addon">Cijena</span>
+                                        <input class="form-control" type="number"  step="0.01" min="0" max="99" name="Price" placeholder="Cijena" required>
+                                    </div><br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="pull-right" style="display:inline-block; vertical-align: middle;">
+                            <button type="button" class="btn btn-warning btn-xs" onclick="AddMealTypeInput()">Dodaj vrstu</button>
+                            <button type="button" class="btn btn-warning btn-xs" onclick="RemoveMealTypeInput()">Obrisi vrstu</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Spremi jelo" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        @Html.Label("Slika:", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div id="wrapper">
+                                <input type="file" id="PhotoUpload" name="upload" /><br />
+                                <div id="image-holder"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

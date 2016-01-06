@@ -7,7 +7,7 @@ using Wild8.Utils;
 
 namespace Wild8.DAL
 {
-    public class RestaurauntInitializer : System.Data.Entity.DropCreateDatabaseAlways<RestaurauntContext>
+    public class RestaurauntInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<RestaurauntContext>
     {
         protected override void Seed(RestaurauntContext context)
         {
