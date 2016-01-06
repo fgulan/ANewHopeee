@@ -18,6 +18,13 @@ namespace Wild8.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            var user = SessionExtension.GetUser(Session);
+            if(user != null)
+            {
+                return RedirectToAction("Index","Admin");
+            }
+
+
             return View();
         }
 

@@ -7,31 +7,39 @@
 });
 
 function setOrdersMenuListener() {
-    ajaxCall($("#orders-menu"), function (content) { replaceMainContent(content); });
+    ajaxCall($("#orders-menu"), function (content) { replaceMainContent(content) }, notImplementedAlert);
 };
 
 function setMealsMenuListener() {
-    ajaxCall($("#meal-menu"), function (content) { replaceMainContent(content); });
+    ajaxCall($("#meal-menu"), function (content) { replaceMainContent(content); },notImplementedAlert);
 };
 
 function setStatisticMenuListener() {
     var caller = $("#statistic-menu");
     if (caller != undefined) {
-        ajaxCall(caller, function (content) { replaceMainContent(content); });
+        ajaxCall(caller, function (content) { replaceMainContent(content); }, notImplementedAlert);
     }
 };
 
 function setWorkersMenuListener() {
     var caller = $("#workers-menu");
     if (caller != undefined) {
-        ajaxCall(caller, function (content) { replaceMainContent(content); });
+        ajaxCall(caller, function (content) { replaceMainContent(content); } , notImplementedAlert);
     }
 };
 
 function setLogoutBtnListener() {
-    ajaxCall($("#logout"), function () { //This should call logout and redirect to index
-        var indexUrl = $("#logout").data("index-url");
-        window.location.href = indexUrl;
+    $("#logout").click(function () {
+        var actionUrl = $(this).data('url');
+        
+        $.ajax({
+            type: 'POST',
+            url: actionUrl,
+            success: function () {
+                var redirectUrl = $("#logout").data('index-url');
+                window.location.href = redirectUrl;
+            }
+        })
     });
 };
 
@@ -45,6 +53,10 @@ function replaceMainContent(content) {
             opacity: 1.0
         }, 600);
     });
+}
+
+function notImplementedAlert() {
+    alert("Not implemented yet");
 }
 
 function ajaxCall(caller, success, error) {
