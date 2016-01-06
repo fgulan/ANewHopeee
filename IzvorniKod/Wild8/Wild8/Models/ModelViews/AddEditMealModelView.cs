@@ -12,5 +12,6 @@ namespace Wild8.Models.ModelViews
         public IEnumerable<string> SelectedAddOns { get; set; }
         public IEnumerable<Category> Categories { get; set; }
         public int SelectedCategory { get; set; }
+        public IEnumerable<MealType> MealTypes { get; set; }
     }
 }

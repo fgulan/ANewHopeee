@@ -35,10 +35,16 @@
             });
         });
         function AddMealTypeInput() {
-            var f = document.getElementsByClassName('MealType')[0].cloneNode(true).outerHTML;
+            var f = document.getElementsByClassName('MealType')[0].cloneNode(true);
+
+            var elements = $(f).find('.form-control').each(function (index) {
+                // IE fuck you
+                $(this).attr('value', '');
+                $(this).val('');
+                $(this).attr('defaultValue', '');
+            });;
             $(f).hide().appendTo($("#MealTypes")).fadeIn(600);
         }
-
     </script>
 }
 
@@ -46,8 +52,10 @@
     ViewBag.Title = "Dodaj jelo";
 }
 
-@using (Html.BeginForm("AddMeal", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EditMeal", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    @Html.HiddenFor(model => model.Meal.MealID)
+
     <div class="container-fluid">
         <div class="form-horizontal">
             <div class="row">
@@ -86,21 +94,24 @@
                         <label class="control-label col-md-2">Vrste:</label>
                         <div class="controls col-md-10">
                             <div id="MealTypes" class="MealTypes">
-                                <div class="MealType">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">Vrsta</span>
-                                            <input class="form-control" type="text" name="MealType" placeholder="Vrsta" required>
-                                            <span class="input-group-addon">Cijena</span>
-                                            <input class="form-control" type="number" step="0.01" min="0" max="99" name="Price" placeholder="Cijena" required>
-                                            <span class="input-group-btn">
-                                                <button type="button" class="delete btn btn-default">
-                                                    <span class="glyphicon glyphicon-remove" style="color:darkred" aria-hidden="true"></span>
-                                                </button>
-                                            </span>
+                                @foreach (var mtype in Model.MealTypes)
+                                {
+                                    <div class="MealType">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Vrsta</span>
+                                                <input class="form-control" type="text" name="MealType" value="@mtype.MealTypeName" placeholder="Vrsta" required>
+                                                <span class="input-group-addon">Cijena</span>
+                                                <input class="form-control" type="number" step="0.01" min="0" max="99" value="@mtype.Price.ToString().Replace(',','.')" name="Price" placeholder="Cijena" required>
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="delete btn btn-default">
+                                                        <span class="glyphicon glyphicon-remove" style="color:darkred" aria-hidden="true"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -117,7 +128,7 @@
                             <div id="wrapper">
                                 <input type="file" id="PhotoUpload" name="upload" /><br />
                                 <div id="image-holder"> </div>
-                            </div>  
+                            </div>
                         </div>
                     </div>
                 </div>
