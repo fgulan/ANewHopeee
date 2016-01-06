@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Wild8.Models
 {
@@ -16,6 +17,6 @@ namespace Wild8.Models
         public decimal TotalPrize { get; set; }
         public string EmpolyeeID { get; set; }
         public virtual Employee Employee { get; set; }
-
+        public virtual ICollection<OrderDetail> OdredDetails { get; set;}
     }
 }

@@ -186,6 +186,7 @@
     <Compile Include="Models\Meal.cs" />
     <Compile Include="Models\MealAddOn.cs" />
     <Compile Include="Models\MealType.cs" />
+    <Compile Include="Models\ModelViews\AddEditMealModelView.cs" />
     <Compile Include="Models\ModelViews\MenuModelView.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
@@ -258,10 +259,12 @@
     <None Include="Views\Admin\AddEditDelMealsPartial.cshtml" />
     <None Include="Views\Admin\AddEmployeeForm.cshtml" />
     <Content Include="Content\AddEmployeeFormStyle.css" />
+    <Content Include="Views\Admin\AddMeal.cshtml" />
     <None Include="Views\Admin\DelAddonsPartial.cshtml" />
     <None Include="Views\Admin\DelCategoryPartial.cshtml" />
     <None Include="Views\Admin\DelMealsPartial.cshtml" />
     <None Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\DelMealsPartial.html" />
     <Content Include="Views\Admin\sb-admin.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

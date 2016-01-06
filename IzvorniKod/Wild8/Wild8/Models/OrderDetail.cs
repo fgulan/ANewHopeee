@@ -21,6 +21,6 @@ namespace Wild8.Models
         public int Count { get; set; }
         public virtual Order Order { get; set; }
         public virtual MealType MealType { get; set; }
-
+        public virtual ICollection<OrderMealAddOn> OrderMealAddOns { get; set; }
     }
 }
