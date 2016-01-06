@@ -1,44 +1,5 @@
 ﻿@model AddEditMealModelView
 
-@section Scripts
-{
-<script type="text/javascript">
-        $(document).on('change', '#PhotoUpload', function () {
-            if (typeof (FileReader) != "undefined") {
-                var image_holder = $("#image-holder");
-                image_holder.empty();
-
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $("<img />", {
-                        "src": e.target.result,
-                        "class": "thumb-image",
-                         "style" : "max-width:196px; max-height:196px;"
-                    }).appendTo(image_holder);
-                }
-                image_holder.show();
-                reader.readAsDataURL($(this)[0].files[0]);
-            } else {
-                alert("This browser does not support FileReader.");
-            }
-        });
-    </script>
-
-    <script>
-        function AddMealTypeInput() {
-            var f = document.getElementById('MealType').outerHTML;
-            $(f).hide().appendTo('.MealTypes').fadeIn(600);
-        }
-        function RemoveMealTypeInput() {
-            if ($('.MealType').length == 1) return;
-            $('.MealType').last().remove();
-        }
-    </script>
-}
-
-@{
-    ViewBag.Title = "Dodaj jelo";
-}
 
 @using (Html.BeginForm("AddMeal", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -120,3 +81,35 @@
         </div>
     </div>
 }
+<script>
+        $(document).on('change', '#PhotoUpload', function () {
+            if (typeof (FileReader) != "undefined") {
+                var image_holder = $("#image-holder");
+                image_holder.empty();
+
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("<img />", {
+                        "src": e.target.result,
+                        "class": "thumb-image",
+                         "style" : "max-width:196px; max-height:196px;"
+                    }).appendTo(image_holder);
+                }
+                image_holder.show();
+                reader.readAsDataURL($(this)[0].files[0]);
+            } else {
+                alert("This browser does not support FileReader.");
+            }
+        });
+</script>
+
+<script>
+        function AddMealTypeInput() {
+            var f = document.getElementById('MealType').outerHTML;
+            $(f).hide().appendTo('.MealTypes').fadeIn(600);
+        }
+        function RemoveMealTypeInput() {
+            if ($('.MealType').length == 1) return;
+            $('.MealType').last().remove();
+        }
+</script>

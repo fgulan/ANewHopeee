@@ -367,11 +367,9 @@ namespace Wild8.Controllers
         ////////////////////////////////////
         //  Logout
         ////////////////////////////////////
-        public ActionResult LogOut()
+        public void LogOut()
         {
-            //Todo remove user from session
-
-            return RedirectToAction("Index", "Index");
+            SessionExtension.SetUser(Session, null);
         }
     }
 }

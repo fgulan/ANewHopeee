@@ -1,4 +1,4 @@
-@model Employee
+﻿@model Employee
 
 @{
     Layout = null;
@@ -15,21 +15,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-
+    <script type="text/javascript" src="~/Scripts/ViewScripts/admin_view.js"></script>
     <style>
         .col-fixed {
             width: 200px;
             position: fixed;
             height: 100%;
+            background: rgba(147, 160, 198, 0.75);
         }
-
-        .col-fluid {
-            margin-left: 200px;
-            position: fixed;
-            height: 100%;
-            width: 100%;
-        }
-
         .nav-pills {
             text-align: center;
             position: absolute;
@@ -37,6 +30,10 @@
             top: 0;
             left: 0;
             right: 0;
+        }
+        .col-fluid {
+            margin-left: 200px;
+            margin-top: 50px;
         }
 
         .logout {
@@ -54,20 +51,27 @@
                     <li><h4>@if (Model.AdminRights)
                     {
                         @("Vlasnik" + Model.FirstName)
-                    }   
+                    }
                     else
                     {
                         @("Dijelatnik" + Model.FirstName)
                     }</h4></li>
-                    <li class="active" data-toggle="tab"><a href="#"> Narudžbe</a></li>
-                    <li data-toggle="tab"><a href="#"> Jela</a></li>
-                    <li data-toggle="tab"><a href="#"> Statistika</a></li>
-                    <li data-toggle="tab"><a href="#"> Dijelatnici</a></li>
-                    <li class="logout" data-toggle="tab"><a href="#"> Odjava</a></li>
+                    <li class="active" data-toggle="tab" id="orders-menu" data-url="@Url.Action("Orders", "Admin")"><a>Narudžbe</a></li>
+                    <li data-toggle="tab" id="meal-menu" data-url="@Url.Action("AddEditDelMenu", "Admin")"><a>Jela</a></li>
+                    @if (Model.AdminRights)
+                    {
+                        <li data-toggle="tab" id="statistic-menu" data-url="@Url.Action("Statistic", "Admin")"><a>Statistika</a></li>
+                        <li data-toggle="tab" id="workers-menu" data-url="@Url.Action("AddRemoveUserPartial", "Admin")"><a>Dijelatnici</a></li>
+                    }
+                    <li class="logout" 
+                        data-toggle="tab" data-url="@Url.Action("Logout", "Admin")" data-index-url="@Url.Action("Index", "Index")" 
+                        id="logout-btn"><a>Odjava</a></li>
                 </ul>
             </div>
             <div class="container-fluid col-fluid main-content">
-                <h1>Content</h1>
+                @{ 
+                    Html.RenderPartial("~/Views/Admin/AddEditDelMealsPartial.cshtml");
+                }
             </div>
         </div>
     </div>
