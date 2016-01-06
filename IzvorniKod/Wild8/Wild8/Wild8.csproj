@@ -255,9 +255,13 @@
     <Content Include="Content\homepage.css" />
     <Content Include="Scripts\navbar_hide.js" />
     <Content Include="Scripts\star_rating.js" />
-    <Content Include="Views\Admin\AddEmployeeForm.html" />
+    <None Include="Views\Admin\AddEditDelMealsPartial.cshtml" />
+    <None Include="Views\Admin\AddEmployeeForm.cshtml" />
     <Content Include="Content\AddEmployeeFormStyle.css" />
-    <Content Include="Views\Admin\Index.html" />
+    <None Include="Views\Admin\DelAddonsPartial.cshtml" />
+    <None Include="Views\Admin\DelCategoryPartial.cshtml" />
+    <None Include="Views\Admin\DelMealsPartial.cshtml" />
+    <None Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\sb-admin.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -282,6 +286,7 @@
     <Content Include="Views\Menu\MealsList.cshtml" />
     <Content Include="Views\Meals\Comments.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Admin\_AdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Index\" />
