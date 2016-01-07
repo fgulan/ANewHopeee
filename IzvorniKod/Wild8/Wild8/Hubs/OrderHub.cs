@@ -21,8 +21,8 @@ namespace Wild8.Hubs
         /// This is the method that is called when user orders
         /// Order is sent to all workers currently connected
         /// </summary>
-        /// <param name="order"> User order </param>
-        public void Order(Order order)
+        /// <param name="order"> User order in json form </param>
+        public void Order(string order)
         {
             //Call js method on all workers
             //Send message of order and name of the user that uses connection

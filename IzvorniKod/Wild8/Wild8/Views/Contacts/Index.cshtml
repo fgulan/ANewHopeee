@@ -85,8 +85,8 @@
                 <fieldset>
                     <p class="lead" style="display: inline-block">
                         <img id="owner-picture" class="img-responsive" src="images/owner_small.jpg">
+                        @Html.DisplayFor(model => model.OwnerContactsInfo)
                 </fieldset>
-                @Html.DisplayFor(model => model.OwnerContactsInfo)
                 <img id="owner-signature" class="img-responsive pull-right" src="images/owner_signature.png">
             </div>
         </div>

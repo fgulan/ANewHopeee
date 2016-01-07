@@ -21,7 +21,12 @@ namespace Wild8.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View(SessionExtension.GetUser(Session));
+            var user = SessionExtension.GetUser(Session);
+            if(user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
         }
 
         ////////////////////////////////////
@@ -56,20 +61,8 @@ namespace Wild8.Controllers
             //to edit or delete and button to create new meal
             //Or maybe another side pane with submenus like add meal, edit meals
             //delete meals
-            return PartialView();
+            return PartialView("AddEditDelMealsPartial");
         }
-
-        public ActionResult AddMealPartialView()
-        {
-            return PartialView();
-        }
-
-        public ActionResult EditDelMealPartialView(int mealID)
-        {
-            //Todo parital view for the chosen meal 
-            return PartialView("", db.Meals.ToList());
-        }
-
 
         [HttpPost]
         public ActionResult AddMeal([Bind(Include = "MealID,Name,Description,CategoryID")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
@@ -121,6 +114,7 @@ namespace Wild8.Controllers
             return Content("Error");
         }
 
+        [HttpGet]
         public ActionResult AddMeal()
         {
             AddEditMealModelView newMeal = new AddEditMealModelView()
@@ -128,14 +122,15 @@ namespace Wild8.Controllers
                 Categories = db.Categories.ToList(),
                 AddOns = db.AddOns.ToList()
             };
-            return View(newMeal);
+            return PartialView("AddMeal",newMeal);
         }
 
+        [HttpGet]
         public ActionResult EditMeal(int? id)
         {
             if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            {   //Load list of meals in database and render it to user
+                return View("EditMealList", db.Meals.ToList());
             }
             Meal meal = db.Meals.Find(id);
             if (meal == null)
@@ -159,7 +154,8 @@ namespace Wild8.Controllers
                 SelectedAddOns = addOns,
                 MealTypes = mealTypes
             };
-            return View(newMeal);
+
+            return PartialView("EditMeal",newMeal);
         }
 
         [HttpPost]

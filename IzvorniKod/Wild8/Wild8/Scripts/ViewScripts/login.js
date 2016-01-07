@@ -18,7 +18,7 @@
             url: url,
             data: formData,
             success: function (logedIn) {
-                if (logedIn == 'True') { //some js nonsance
+                if (logedIn == 'True') { //some js nonsense
                     window.location.href = redirectTo;
                 } else {
                     btn.button('reset');

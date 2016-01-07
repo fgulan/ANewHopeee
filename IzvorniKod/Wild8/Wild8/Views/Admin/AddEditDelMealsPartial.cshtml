@@ -1,36 +1,66 @@
-    <div class="btn-group well-lg">
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                Jela
-                <span class="caret"></span>
-            </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#addMeal" data-toggle="tab">Dodaj jelo</a></li>
-                    <li><a href="#editMeal" data-toggle="tab">Uredi jelo</a></li>
-                    <li><a href="#delMeal" data-toggle="tab">Obriši jela</a></li>
-                </ul>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                Kategorije
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#addCategory" data-toggle="tab">Dodaj kategoriju</a></li>
-                <li><a href="#delCategory" data-toggle="tab">Obriši Kategoriju</a></li>
-            </ul>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                Dodaci jelima
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#addAddon" data-toggle="tab">Dodaj dodatke jelu</a></li>
-                <li><a href="#delAddon" data-toggle="tab">Obriši dodatke jela</a></li>
-            </ul>
+<div class="container-fluid" id="meal-menu">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="btn-group">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        Jela
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a class="meal-submenu" data-url="@Url.Action("AddMeal", "Admin")" id="add-meal-menu">Dodaj jelo</a></li>
+                        <li><a class="meal-submenu" data-url="@Url.Action("EditMeal","Admin")" id="edit-meal-menu">Uredi jelo</a></li>
+                        <li><a class="meal-submenu" data-url="@Url.Action("DeleteMeal","Admin")" id="del-meal-menu">Obriši jela</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        Kategorije
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="meal-submenu" data-url="@Url.Action("AddCategory","Admin")" id="add-category-menu">Dodaj kategoriju</a></li>
+                        <li><a class="meal-submenu" data-url="@Url.Action("DeleteMeal","Admin")" id="del-category-menu">Obriši Kategoriju</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        Dodaci jelima
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="meal-submenu" data-url="@Url.Action("AddAddon", "Admin")" id="add-addon-menu">Dodaj dodatke jelu</a></li>
+                        <li><a class="meal-submenu" data-url="@Url.Action("DeleteAddon", "Admin")" id="del-addon-menu">Obriši dodatke jela</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="container-fluid">
-            <h1>Content</h1>
+        <div class="panel-body container-fluid" id="meal-content">
+            @{ Html.RenderAction("AddMeal", "Admin"); }
         </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".meal-submenu").click(function () {
+
+                var url = $(this).data('url');
+
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function (content) {
+                        contentDiv = $("#meal-content");
+                        contentDiv.fadeOut(600, function () {
+                            contentDiv.empty();
+                            contentDiv.append(content).fadeIn(600);
+                        })
+                    },
+                    error: function () {
+                        window.alert('error');
+                    }
+                });
+            });
+        });
+    </script>
+</div>

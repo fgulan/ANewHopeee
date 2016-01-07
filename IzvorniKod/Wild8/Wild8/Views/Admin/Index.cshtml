@@ -31,6 +31,7 @@
             right: 0;
         }
         .col-fluid {
+            margin-top: 15px;
             margin-left: 200px;
         }
 
@@ -74,7 +75,7 @@
             </div>
             <div class="container-fluid col-fluid main-content">
                 @{ 
-                    Html.RenderPartial("~/Views/Admin/AddEditDelMealsPartial.cshtml");
+                    Html.RenderAction("AddEditDelMenu", "Admin");
                 }
             </div>
         </div>
