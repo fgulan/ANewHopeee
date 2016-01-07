@@ -33,11 +33,36 @@ namespace Wild8.Models.Cart
                 totalPrice -= count * AddOn.Price;
             }
         }
+
         public decimal Price
         {
             get
             {
                 return totalPrice;
+            }
+        }
+
+        public MealType MealType
+        {
+            get
+            {
+                return mealType;
+            }
+        }
+
+        public IReadOnlyList<AddOn> AddOns
+        {
+            get
+            {
+                return addOns.AsReadOnly();
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                return count;
             }
         }
     }

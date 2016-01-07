@@ -325,6 +325,7 @@
     <Content Include="Views\Menu\MealsList.cshtml" />
     <Content Include="Views\Meals\Comments.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Cart\CartItemsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\SharedScripts\" />
