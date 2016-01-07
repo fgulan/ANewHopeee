@@ -11,22 +11,10 @@ $("#add-meal-form").ajaxForm({
     },
     resetForm: true,
     success: function (response) {
-        var modal = $("#addMealModal");
-        var headerLabel = modal.find("#add-meal-modal-header-label");
-        var bodyHeader = modal.find("#add-meal-modal-body-label");
-       
-        headerLabel.html("Jelo dodano");
-        bodyHeader.html(response);
-        modal.modal('show');
+        printOnModal("Jelo dodano", response);
     },
-    error: function (response) {
-        var modal = $("#addMealModal");
-        var headerLabel = modal.find("#add-meal-modal-header-label");
-        var bodyHeader = modal.find("#add-meal-modal-body-label");
-
-        headerLabel.html("Problem");
-        bodyHeader.html(errorThrown);
-        modal.modal('show');
+    error: function (xhr, status, response) {
+        printOnModal("Jelo nije dodano", response);
     }
 });
 
@@ -40,4 +28,14 @@ $("#upload").fileinput({
 function AddMealTypeInput() {
     var f = document.getElementsByClassName('MealType')[0].cloneNode(true).outerHTML;
     $(f).hide().appendTo($("#MealTypes")).fadeIn(600);
+}
+
+function printOnModal(title, content) {
+    var modal = $("#mealModal");
+    var headerLabel = modal.find("#meal-modal-header-label");
+    var bodyHeader = modal.find("#meal-modal-body-label");
+
+    headerLabel.html(title);
+    bodyHeader.html(content);
+    modal.modal('show');
 }

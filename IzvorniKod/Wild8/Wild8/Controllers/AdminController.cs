@@ -265,18 +265,19 @@ namespace Wild8.Controllers
         }
 
         [HttpPost]
-        public bool AddAddOn(string Name, string Price)
+        public ActionResult AddAddOn(string Name, string Price)
         {
             var exists = db.AddOns.Find(Name);
             if(exists != null) //If addon already exists
             {
-                return false;
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Content("Dodatak vec postoji u bazi pod tim imenom", MediaTypeNames.Text.Plain);
             }
 
-            db.AddOns.Add(new AddOn() { AddOnID = Name, Price = Decimal.Parse(Price) });
+            db.AddOns.Add(new AddOn() { AddOnID = Name, Price = Decimal.Parse(Price)});
             db.SaveChanges();
 
-            return true;
+            return Content("Dodatak " + Name + " dodan u bazu", MediaTypeNames.Text.Plain);
         }
 
         public ActionResult EditAddOn(string id)

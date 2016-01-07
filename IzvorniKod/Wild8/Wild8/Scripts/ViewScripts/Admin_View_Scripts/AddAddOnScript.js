@@ -1,43 +1,22 @@
-﻿$("#add-addon-form").submit(function (e) {
-    e.preventDefault(); //Prevent submition
-    var form = $(this);
-    var formData = new FormData(this);
-
-    form.validate();
-
-    if (form.valid()) {
-
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: formData,
-            success: function (response) {
-                var modal = $("#addMealModal");
-                var modalHeader = modal.find(".modal-header");
-                var headerLabel = modal.find("#add-meal-modal-header-label");
-                var bodyHeader = modal.find("#add-meal-modal-body-label");
-
-                modalHeader.toggleClass(".bg-success");
-                headerLabel.html("Dodatak dodan");
-                bodyHeader.html(response);
-                modal.modal('show');
-            },
-            error: function (xhr, statusCode, errorThrown) {
-                var modal = $("#addMealModal");
-                var modalHeader = modal.find(".modal-header");
-                var headerLabel = modal.find("#add-meal-modal-header-label");
-                var bodyHeader = modal.find("#add-meal-modal-body-label");
-
-                modalHeader.toggleClass(".bg-danger");
-                headerLabel.html("Problem");
-                bodyHeader.html(errorThrown);
-                modal.modal('show');
-            },
-
-        }).done(function () {
-            form.each(function () {
-                this.reset();
-            });
-        });
+﻿$("#add-addon-form").ajaxForm({
+    beforeSubmit: function (formData, jqForm, options) {
+        return $("#add-addon-form").valid();
+    },
+    resetForm: true,
+    success: function (response) {
+        printOnModal("Jelo dodano", response);
+    },
+    error: function (xhr, status, response) {
+        printOnModal("Jelo nije dodano", response);
     }
 });
+
+function printOnModal(title, content) {
+    var modal = $("#addOnmealModal");
+    var headerLabel = modal.find("#addon-meal-modal-header-label");
+    var bodyHeader = modal.find("#addon-meal-modal-body-label");
+
+    headerLabel.html(title);
+    bodyHeader.html(content);
+    modal.modal('show');
+}
