@@ -5,8 +5,6 @@
         var meal_id = $this.data('meal-id');
         var meal_name = $this.data('meal-name');
 
-        window.alert(url + meal_id + meal_name);
-
         $("#modal-meal-label").html(meal_name);
         $("#modal-del-btn").click(function () {
             $.ajax({

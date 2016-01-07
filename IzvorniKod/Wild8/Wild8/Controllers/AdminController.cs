@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 using Wild8.DAL;
@@ -79,7 +80,6 @@ namespace Wild8.Controllers
                     meal.ImagePath = sourcePath;
                 }
                 meal = db.Meals.Add(meal);
-                db.SaveChanges();
 
                 if (SelectedAddOns != null)
                 {
@@ -109,10 +109,21 @@ namespace Wild8.Controllers
                             });
                         }
                     }
-                    db.SaveChanges();
+                    try {
+                        db.SaveChanges();
+                    }
+                    catch(Exception ex) {
+                        Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        return Content(ex.Message, MediaTypeNames.Text.Plain);
+                    }
                 }
+                return Content("Jelo " + meal.Name +" je dodano u bazu.", MediaTypeNames.Text.Plain);
             }
-            return Content("Error");
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Content("Jelo nije dodano", MediaTypeNames.Text.Plain);
+            }
         }
 
         [HttpGet]
@@ -235,7 +246,7 @@ namespace Wild8.Controllers
         ////////////////////////////////////
         //  Add delete addon
         ////////////////////////////////////
-        [HttpPost]
+        [HttpGet]
         public ActionResult AddDeleteAddOnPartial()
         {
             //Todo some parital view for this shit
@@ -252,7 +263,6 @@ namespace Wild8.Controllers
         {
             return PartialView("AddAddOn");
         }
-
 
         [HttpPost]
         public bool AddAddOn(string Name, string Price)
@@ -279,26 +289,27 @@ namespace Wild8.Controllers
         ////////////////////////////////////
         //  Add delete Category
         ////////////////////////////////////
-        [HttpPost]
-        public ActionResult AddDeleteCategoryPartial()
+        [HttpGet]
+        public ActionResult AddDeleteCategory()
         {
-
 
             return PartialView();
         }
 
-        public ActionResult AddCategoryPartial()
+        [HttpGet]
+        public ActionResult AddCategory()
         {
-
             return PartialView("", db.Categories.ToList());
         }
 
+        [HttpGet]
         public ActionResult RemoveCategoryPartial()
         {
 
             return PartialView("", db.Categories.ToList());
         }
 
+        [HttpPost]
         public bool AddCategory(string categoryName)
         {
             var exists = db.Categories.First(cat => cat.Name == categoryName);     
@@ -313,16 +324,16 @@ namespace Wild8.Controllers
             return true;
         }
 
+        [HttpPost]
         public void RemoveCategory(string categoryName)
         {
-            db.Categories.Remove(new Category { Name = categoryName });
-            db.SaveChanges();
+
         }
 
         ////////////////////////////////////
         //  Statistic
         ////////////////////////////////////
-        [HttpPost]
+        [HttpGet]
         public ActionResult Statistic()
         {
             //Load some data
@@ -333,20 +344,22 @@ namespace Wild8.Controllers
         ////////////////////////////////////
         //  Add or delete users
         ////////////////////////////////////
-        public ActionResult AddRemoveUserPartial()
+        [HttpGet]
+        public ActionResult AddRemoveEmployee()
         {
             //This should some kind of side pan and content veiw 
             return PartialView();
         }
 
-        [HttpPost]
-        public ActionResult AddUserPartial()
+        [HttpGet]
+        public ActionResult AddEmployee()
         {
             //Todo make parital view for adding users
             return PartialView();
         }
 
-        public ActionResult RemoveUserParital()
+        [HttpGet]
+        public ActionResult RemoveEmployee()
         {
             //Todo make remove user parital View
             return PartialView("", db.Employees.Where(e => !e.AdminRights).ToList());
