@@ -279,6 +279,48 @@ namespace Wild8.Controllers
             return true;
         }
 
+        public ActionResult EditAddOn(string id)
+        {
+            if (id == null)
+            {   //Load list of meals in database and render it to user
+                return PartialView("EditAddOnList", db.AddOns.ToList());
+            }
+            AddOn addOn = db.AddOns.Find(id);
+            if (addOn == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView("EditAddOn", addOn);
+        }
+
+        [HttpPost]
+        public bool EditAddOn(string OldName, string Name, string Price)
+        {
+            AddOn addOn = new AddOn() { AddOnID = Name, Price = Decimal.Parse(Price) };
+
+            if (OldName.Equals(Name))
+            {
+                db.AddOns.Attach(addOn);
+                db.Entry(addOn).State = EntityState.Modified;
+                db.SaveChanges();
+                return true;
+            }
+
+            var mealAddOns = db.MealAddOns.Where(e => e.AddOnID.Equals(OldName)).ToList();
+            db.MealAddOns.RemoveRange(mealAddOns);
+
+            db.AddOns.Add(addOn);
+            foreach (var item in mealAddOns)
+            {
+                db.MealAddOns.Add(new MealAddOn() { AddOnID = Name, MealID = item.MealID });
+            }
+
+            db.SaveChanges();
+            return true;
+        }
+
+
         [HttpPost]
         public void RemoveAddon(string addOnName)
         {
