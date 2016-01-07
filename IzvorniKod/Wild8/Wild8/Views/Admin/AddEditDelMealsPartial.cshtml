@@ -39,28 +39,5 @@
             @{ Html.RenderAction("AddMeal", "Admin"); }
         </div>
     </div>
-
-    <script>
-        $(document).ready(function () {
-            $(".meal-submenu").click(function () {
-
-                var url = $(this).data('url');
-
-                $.ajax({
-                    type: 'GET',
-                    url: url,
-                    success: function (content) {
-                        contentDiv = $("#meal-content");
-                        contentDiv.fadeOut(600, function () {
-                            contentDiv.empty();
-                            contentDiv.append(content).fadeIn(600);
-                        })
-                    },
-                    error: function () {
-                        window.alert('error');
-                    }
-                });
-            });
-        });
-    </script>
+    <script type="text/javascript" src="~/Scripts/ViewScripts/Admin_View_Scripts/AddEditDelMealsScript.js"></script>
 </div>

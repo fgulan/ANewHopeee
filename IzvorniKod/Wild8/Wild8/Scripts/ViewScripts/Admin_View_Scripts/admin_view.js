@@ -71,7 +71,7 @@ function ajaxCall(caller, success, error) {
         var url = $(this).data('url');
 
         $.ajax({
-            type: 'POST',
+            type: 'GET', //This method is used for calling views and views should be accessed via GET
             url: url,
             success: success(),
             error: error()

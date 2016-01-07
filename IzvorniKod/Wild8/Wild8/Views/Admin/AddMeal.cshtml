@@ -88,25 +88,5 @@
 
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-fileinput/css/fileinput.min.css" />
     <script type="text/javascript" src="~/Scripts/fileinput.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(document).on('click', '.delete', function (e) {
-
-                if ($('.MealType').length == 1) return;
-                $(this).closest('.MealType').fadeOut('fast', function () {
-                    $(this).remove();
-                });;
-            });
-        });
-        $("#input-20").fileinput({
-            browseClass: "btn btn-primary btn-block",
-            showCaption: false,
-            showRemove: false,
-            showUpload: false
-        });
-        function AddMealTypeInput() {
-            var f = document.getElementsByClassName('MealType')[0].cloneNode(true).outerHTML;
-            $(f).hide().appendTo($("#MealTypes")).fadeIn(600);
-        }
-    </script>
+    <script type="text/javascript" src="~/Scripts/ViewScripts/Admin_View_Scripts/AddMealScript.js"></script>
 </div>

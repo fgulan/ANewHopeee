@@ -55,6 +55,7 @@ namespace Wild8.Controllers
             db.SaveChanges();
         }
 
+        [HttpGet]
         public ActionResult AddEditDelMenu()
         {
             //Todo this menu will only be selector for choosing meals
@@ -159,7 +160,7 @@ namespace Wild8.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditMeal([Bind(Include = "MealID,Name,Description,CategoryID")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
+        public void EditMeal([Bind(Include = "MealID,Name,Description,CategoryID")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
         {
             if (ModelState.IsValid)
             {
@@ -210,9 +211,6 @@ namespace Wild8.Controllers
                 }
                 db.SaveChanges();
             }
-
-            //TODO for now I-m to tired
-            return View(meal);
         }
 
         [HttpPost]
@@ -221,11 +219,17 @@ namespace Wild8.Controllers
             //To make it better use sql command
             db.MealTypes.RemoveRange(db.MealTypes.Where(type => type.MealID == mealId));           
             db.MealAddOns.RemoveRange(db.MealAddOns.Where(mealAddOn => mealAddOn.MealID == mealId));
-            db.Meals.Remove(new Meal { MealID = mealId });
-
+            var meal = new Meal { MealID = mealId};
+            db.Meals.Attach(meal);
+            db.Meals.Remove(meal);
             db.SaveChanges();
         }
 
+        [HttpGet]
+        public ActionResult DeleteMeal()
+        {
+            return PartialView("DelMeals", db.Meals.ToList());
+        }
 
         ////////////////////////////////////
         //  Add delete addon
