@@ -142,7 +142,7 @@ namespace Wild8.Controllers
         {
             if (id == null)
             {   //Load list of meals in database and render it to user
-                return View("EditMealList", db.Meals.ToList());
+                return PartialView("EditMealList", db.Meals.ToList());
             }
             Meal meal = db.Meals.Find(id);
             if (meal == null)

@@ -303,8 +303,8 @@
     <None Include="Views\Admin\DelAddonsPartial.cshtml" />
     <None Include="Views\Admin\DelCategoryPartial.cshtml" />
     <None Include="Views\Admin\DelMeals.cshtml" />
-    <Content Include="Views\Admin\EditMealList.cshtml" />
     <Content Include="Views\Admin\EditAddOnList.cshtml" />
+    <Content Include="Views\Admin\EditMealList.cshtml" />
     <None Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\sb-admin.css" />
     <Content Include="Web.config" />
