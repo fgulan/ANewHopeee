@@ -217,6 +217,7 @@ namespace Wild8.Controllers
         public void DeleteMeal(int mealId)
         {   //Performance wise is awful but sintax is nice
             //To make it better use sql command
+            db.Comments.RemoveRange(db.Comments.Where(type => type.MealID == mealId));
             db.MealTypes.RemoveRange(db.MealTypes.Where(type => type.MealID == mealId));           
             db.MealAddOns.RemoveRange(db.MealAddOns.Where(mealAddOn => mealAddOn.MealID == mealId));
             var meal = new Meal { MealID = mealId};
@@ -242,28 +243,27 @@ namespace Wild8.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddAddonParitial()
-        {
-
-            return PartialView("", db.AddOns.ToList());
-        }
-
-        [HttpPost]
         public ActionResult DeleteAddonPartial()
         {
             return PartialView("", db.AddOns.ToList());
         }
 
-        [HttpPost]
-        public bool AddAddon(string addOnName, string price)
+        public ActionResult AddAddOn()
         {
-            var exists = db.AddOns.Find(addOnName);
+            return PartialView("AddAddOn");
+        }
+
+
+        [HttpPost]
+        public bool AddAddOn(string Name, string Price)
+        {
+            var exists = db.AddOns.Find(Name);
             if(exists != null) //If addon already exists
             {
                 return false;
             }
 
-            db.AddOns.Add(new AddOn() { AddOnID = addOnName, Price = Decimal.Parse(price) });
+            db.AddOns.Add(new AddOn() { AddOnID = Name, Price = Decimal.Parse(Price) });
             db.SaveChanges();
 
             return true;

@@ -11,13 +11,12 @@ namespace Wild8.Models
     {
         [Key, Column("OrderID", Order = 0)]
         public int OrderID { get; set; }
-        [Key, Column("MealID", Order = 1)]
-        public int MealID { get; set; }
-        [Key, Column("MealTypeName", Order = 2)]
-        public string MealTypeName { get; set; }
+        [Key, Column("MealName", Order = 1)]
+        public string MealName { get; set; }
+        [Key, Column("MealType", Order = 2)]
+        public string MealType { get; set; }
         public int Count { get; set; }
         public virtual Order Order { get; set; }
-        public virtual MealType MealType { get; set; }
         public virtual ICollection<OrderMealAddOn> OrderMealAddOns { get; set; }
     }
 }

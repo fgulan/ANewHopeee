@@ -291,6 +291,7 @@
     <Content Include="Content\homepage.css" />
     <Content Include="Scripts\navbar_hide.js" />
     <Content Include="Scripts\star_rating.js" />
+    <Content Include="Views\Admin\AddAddOn.cshtml" />
     <None Include="Views\Admin\AddEditDelMealsPartial.cshtml" />
     <None Include="Views\Admin\AddEmployeeForm.cshtml" />
     <Content Include="Content\AddEmployeeFormStyle.css" />
