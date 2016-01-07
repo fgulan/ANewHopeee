@@ -11,5 +11,6 @@ namespace Wild8.Models
         [Key]
         public string AddOnID { get; set; }
         public decimal Price { get; set; }
+        public bool isActive { get; set; }
     }
 }

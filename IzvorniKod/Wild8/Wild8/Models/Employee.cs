@@ -19,6 +19,7 @@ namespace Wild8.Models
         public string City { get; set; }
         public string PostCode { get; set; }
         public string Title { get; set; }
+        public bool isEmployed { get; set; }
         public bool AdminRights { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
 

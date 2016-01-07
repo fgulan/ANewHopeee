@@ -11,7 +11,7 @@ namespace Wild8.Models
         public int CategoryID { get; set; }
         
         public string Name { get; set; }
-
+        public bool isActive { get; set; }
         public virtual ICollection<Meal> Meals { get; set; }
     }
 }

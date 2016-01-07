@@ -15,6 +15,7 @@ namespace Wild8.Models
         public int CategoryID { get; set; }
         public int Grade { get; set; }
         public int NumberOfOrders { get; set; }
+        public bool isActive { get; set; }
         public virtual Category Category { get; set; }
         public virtual ICollection<MealAddOn> AddOns { get; set; }
         [JsonIgnore]

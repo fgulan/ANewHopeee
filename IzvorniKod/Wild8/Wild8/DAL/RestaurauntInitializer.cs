@@ -13,29 +13,29 @@ namespace Wild8.DAL
         {
             var addOns = new List<AddOn>
             {
-                new AddOn { AddOnID = "Kajmak", Price = 3.50M },
-                new AddOn { AddOnID = "Ajvar", Price = 3.50M },
-                new AddOn { AddOnID = "Majoneza", Price = 3.50M },
-                new AddOn { AddOnID = "Ketchup", Price = 3.50M },
-                new AddOn { AddOnID = "Luk", Price = 3.50M },
-                new AddOn { AddOnID = "Salata", Price = 3.50M },
+                new AddOn { AddOnID = "Kajmak", Price = 3.50M , isActive= true},
+                new AddOn { AddOnID = "Ajvar", Price = 3.50M, isActive= true },
+                new AddOn { AddOnID = "Majoneza", Price = 3.50M, isActive= true },
+                new AddOn { AddOnID = "Ketchup", Price = 3.50M, isActive= true },
+                new AddOn { AddOnID = "Luk", Price = 3.50M, isActive= true },
+                new AddOn { AddOnID = "Salata", Price = 3.50M, isActive= true },
             };
             addOns.ForEach(s => context.AddOns.Add(s));
             context.SaveChanges();
 
             var categories = new List<Category>
             {
-                new Category {Name = "Jela s rostilja" },
-                new Category {Name = "Kuhano" },
-                new Category {Name = "Salate" }
+                new Category {Name = "Jela s rostilja", isActive= true },
+                new Category {Name = "Kuhano", isActive= true },
+                new Category {Name = "Salate", isActive= true}
             };
             categories.ForEach(s => context.Categories.Add(s));
             context.SaveChanges();
 
             var meals = new List<Meal>
             {
-                new Meal { Name = "Cevapi", Description = "najbolji cevapi u gradu", CategoryID = 1, ImagePath = "sdsa"},
-                new Meal { Name = "Abc Juha", Description = "najbolji juha u gradu", CategoryID = 2, ImagePath = "dfsf"}
+                new Meal { Name = "Cevapi", Description = "najbolji cevapi u gradu", CategoryID = 1, ImagePath = "sdsa", isActive= true},
+                new Meal { Name = "Abc Juha", Description = "najbolji juha u gradu", CategoryID = 2, ImagePath = "dfsf", isActive= true}
             };
             meals.ForEach(s => context.Meals.Add(s));
             context.SaveChanges();
@@ -65,7 +65,7 @@ namespace Wild8.DAL
 
             var comments = new List<Comment>
             {
-                new Comment { Username = "Filip Gulan", Message = "Restoran je the best ono ej.", Grade = 4, CommentDate = DateTime.Now },
+                new Comment { Username = "Filip Gulan", Message = "Restoran je the best ono ej.", Grade = 4, CommentDate = DateTime.Now},
                 new Comment { Username = "Fredi Saric", Message = "Restorant ti je sranje stari mooj nemilo", Grade = 1, CommentDate = DateTime.Now },
                 new Comment { Username = "Matej Janjic", Message = "Smrid ti restoran", Grade = 2, CommentDate = DateTime.Now },
                 new Comment { Username = "Josip", Message = "sdsafsafasasfasasfas", Grade = 3 , MealID = 1, CommentDate = DateTime.Now }
@@ -76,14 +76,13 @@ namespace Wild8.DAL
 
             var employees = new List<Employee>
             {
-                new Employee { EmployeeID = "dlatecki", Password = LoginUtils.SHA256Hash("pass_dlatecki"), FirstName = "Domagoj", LastName = "Latečki", Email = "domagoj.latecki@fer.hr", PhoneNumber = "0036478777", Address = "nema", City = "Zagreb", PostCode = "10000", Title = "Code monkey", AdminRights = false },
-                new Employee { EmployeeID = "fgulan", Password = LoginUtils.SHA256Hash("pass_fgulan"), FirstName = "Filip", LastName = "Gulan", Email = "filip.gulan@fer.hr", PhoneNumber = "0036479428", Address = "raja", City = "Galovac", PostCode = "23222", Title = "Sync monkey", AdminRights = true },
-                new Employee { EmployeeID = "fredi", Password = LoginUtils.SHA256Hash("pass_fredi"), FirstName = "Fredi", LastName = "Šarić", Email = "fredi@saric@fer.hr", PhoneNumber = "0036477353", Address = "bez", City = "Zagreb", PostCode = "10000", Title = "Alpha monkey", AdminRights = true },
-                new Employee { EmployeeID = "majinlizard", Password = LoginUtils.SHA256Hash("pass_majinlizard"), FirstName = "Kenneth", LastName = "Kostrešević", Email = "kenneth.kostreševic@fer.hr", PhoneNumber = "0036482290", Address = "zavičaja", City = "Zagreb", PostCode = "10000", Title = "Doc monkey", AdminRights = false },
-                new Employee { EmployeeID = "mjanjic", Password = LoginUtils.SHA256Hash("pass_mjanjic"), FirstName = "Matej", LastName = "Janić", Email = "matej.janjic@fer.hr", PhoneNumber = "0036481160", Address = "nit", City = "Zagreb", PostCode = "10000", Title = "Design monkey", AdminRights = false },
-                new Employee { EmployeeID = "tin007", Password = LoginUtils.SHA256Hash("pass_tin007"), FirstName = "Tin", LastName = "Trčak", Email = "tin.trcak@fer.hr", PhoneNumber = "0036460856", Address = "miline", City = "Zagreb", PostCode = "10000", Title = "Doc monkey", AdminRights = false },
-                new Employee { EmployeeID = "tyrannizer", Password = LoginUtils.SHA256Hash("pass_tyrannizer"), FirstName = "Jan", LastName = "Kelemen", Email = "jan.kelemen@fer.hr", PhoneNumber = "0036479753", Address = "bez", City = "Varaždin", PostCode = "42000", Title = "Code monkey", AdminRights = false },
-                new Employee { EmployeeID = "iv.ona", Password = LoginUtils.SHA256Hash("pass_iv.ona"), FirstName = "Ivona", LastName = "Brajdić", Email = "ivona.brajdic@fer.hr", PhoneNumber = "0036485320", Address = "krajine", City = "Zagreb", PostCode = "100000", Title = "Alpha woman", AdminRights = true }
+                new Employee { EmployeeID = "dlatecki", Password = LoginUtils.SHA256Hash("pass_dlatecki"), FirstName = "Domagoj", LastName = "Latečki", Email = "domagoj.latecki@fer.hr", PhoneNumber = "0036478777", Address = "nema", City = "Zagreb", PostCode = "10000", Title = "Code monkey", AdminRights = false, isEmployed=true },
+                new Employee { EmployeeID = "fgulan", Password = LoginUtils.SHA256Hash("pass_fgulan"), FirstName = "Filip", LastName = "Gulan", Email = "filip.gulan@fer.hr", PhoneNumber = "0036479428", Address = "raja", City = "Galovac", PostCode = "23222", Title = "Sync monkey", AdminRights = true, isEmployed=true },
+                new Employee { EmployeeID = "fredi", Password = LoginUtils.SHA256Hash("pass_fredi"), FirstName = "Fredi", LastName = "Šarić", Email = "fredi@saric@fer.hr", PhoneNumber = "0036477353", Address = "bez", City = "Zagreb", PostCode = "10000", Title = "Alpha monkey", AdminRights = true, isEmployed=true },
+                new Employee { EmployeeID = "majinlizard", Password = LoginUtils.SHA256Hash("pass_majinlizard"), FirstName = "Kenneth", LastName = "Kostrešević", Email = "kenneth.kostreševic@fer.hr", PhoneNumber = "0036482290", Address = "zavičaja", City = "Zagreb", PostCode = "10000", Title = "Doc monkey", AdminRights = false, isEmployed=true },
+                new Employee { EmployeeID = "mjanjic", Password = LoginUtils.SHA256Hash("pass_mjanjic"), FirstName = "Matej", LastName = "Janić", Email = "matej.janjic@fer.hr", PhoneNumber = "0036481160", Address = "nit", City = "Zagreb", PostCode = "10000", Title = "Design monkey", AdminRights = false, isEmployed=true },
+                new Employee { EmployeeID = "tin007", Password = LoginUtils.SHA256Hash("pass_tin007"), FirstName = "Tin", LastName = "Trčak", Email = "tin.trcak@fer.hr", PhoneNumber = "0036460856", Address = "miline", City = "Zagreb", PostCode = "10000", Title = "Doc monkey", AdminRights = false, isEmployed=true },
+                new Employee { EmployeeID = "tyrannizer", Password = LoginUtils.SHA256Hash("pass_tyrannizer"), FirstName = "Jan", LastName = "Kelemen", Email = "jan.kelemen@fer.hr", PhoneNumber = "0036479753", Address = "bez", City = "Varaždin", PostCode = "42000", Title = "Code monkey", AdminRights = false , isEmployed=true},
             };
             employees.ForEach(e => context.Employees.Add(e));
             context.SaveChanges();
