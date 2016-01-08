@@ -454,5 +454,10 @@ namespace Wild8.Controllers
         {
             SessionExtension.SetUser(Session, null);
         }
+
+        public ActionResult Receipt(Order order)
+        {
+            return View(order);
+        }
     }
 }
