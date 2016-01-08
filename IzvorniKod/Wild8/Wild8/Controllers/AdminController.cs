@@ -376,9 +376,63 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult Statistic()
         {
-            //Load some data
-            //Todo make statistic parial veiw
-            return PartialView();
+            DbSet<Order> orders = db.Orders;
+            Dictionary<string, int> mealOrders = new Dictionary<string, int>();
+            Dictionary<string, int> monthlyOrders = new Dictionary<string, int>();
+
+            int totalNumOfOrders = orders.Count();
+            decimal totalAveragePrice = 0.00M;
+
+            foreach (Order order in orders)
+            {
+                totalAveragePrice += order.TotalPrice;
+
+                foreach (OrderDetail orderDetail in order.OrderDetails)
+                {
+                    string mealName = orderDetail.MealName;
+
+                    if (!mealOrders.ContainsKey(mealName))
+                    {
+                        mealOrders[mealName] = 1;
+                    }
+                    else
+                    {
+                        mealOrders[mealName] += 1;
+                    }
+                }
+
+                string orderMonth = order.AcceptanceDate.ToString("YYYY-MM");
+
+                if (!monthlyOrders.ContainsKey(orderMonth))
+                {
+                    monthlyOrders[orderMonth] = 1;
+                }
+                else
+                {
+                    monthlyOrders[orderMonth] += 1;
+                }
+            }
+
+            if(totalNumOfOrders != 0)
+            {
+                totalAveragePrice /= totalNumOfOrders;
+            }
+
+            List<KeyValuePair<string, int>> mealList = mealOrders.ToList();
+
+            mealList.Sort((current, next) =>
+            {
+                return current.Value.CompareTo(next.Value);
+            });
+
+            StatisticsModel model = new StatisticsModel();
+
+            model.TotalAveragePrice = totalAveragePrice;
+            model.TotalNumOfOrders = totalNumOfOrders;
+            model.TotalTop3Meals = mealList;
+            model.OrdersByMonths = monthlyOrders.ToList();
+
+            return PartialView(model);
         }
 
         ////////////////////////////////////
