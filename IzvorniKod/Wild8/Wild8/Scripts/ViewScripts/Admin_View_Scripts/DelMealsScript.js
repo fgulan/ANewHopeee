@@ -13,7 +13,7 @@
                 data: { mealId: meal_id },
                 success: function () {
                     $("#delete-modal").modal("hide");
-                    var parent = $this.parent().parent(); //Get li not span
+                    var parent = $this;
                     parent.toggle("slow", function () {
                         parent.remove();
                     });
