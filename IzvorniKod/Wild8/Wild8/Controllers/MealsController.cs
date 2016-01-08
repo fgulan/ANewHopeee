@@ -16,7 +16,6 @@ namespace Wild8.Controllers
     public class MealsController : Controller
     {
         private RestaurauntContext db = new RestaurauntContext();
-        private Meal meal;
         // GET: Meals
 
         public ActionResult Details(int? id)
@@ -25,7 +24,7 @@ namespace Wild8.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            meal = db.Meals.Find(id);
+            var meal = db.Meals.Find(id);
             if (meal == null)
             {
                 return HttpNotFound();
@@ -66,28 +65,23 @@ namespace Wild8.Controllers
         }
 
         //POST
-        public void AddToCart(int count, string mealTypeName, string[] addOnNames) 
+        public int AddToCart(int count, int mealID, string mealTypeName, string[] addOnNames) 
         {
-            MealType type = db.MealTypes.Find(meal.MealID, mealTypeName);
+            MealType type = db.MealTypes.Find(mealID, mealTypeName);
             CartItem item = new CartItem(type, count);
 
-            foreach(var addOnName in addOnNames)
+            if (addOnNames != null)
             {
-                item.AddMealAddOn(db.AddOns.Find(addOnName));
+                foreach (var addOnName in addOnNames)
+                {
+                    item.AddMealAddOn(db.AddOns.Find(addOnName));
+                }
             }
 
             Cart cart = SessionExtension.GetCart(Session);
             cart.AddItem(item);
             SessionExtension.SetCartItemCount(cart.Count(), Session);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return cart.Count();
         }
     }
 }

@@ -1,27 +1,43 @@
 ﻿@model IReadOnlyList<CartItem>
 
+@{
+    
+}
+
 @foreach (var item in Model)
 {
-    <tr>
+    <tr data-meal-id="@item.MealType.Meal.MealID"
+        data-type="@item.MealType.MealTypeName"
+        data-count="@item.Count"
+        data-url="@Url.Action("RemoveMeal", "Cart")"
+        data-base-price ="@(item.Price * item.Count)"
+        data-change-count-url="@Url.Action("ChangeCartItemSize","Cart")">
         <!--Todo put image of a meal here-->
         <td class="img-col">
             <a href="@Url.Action("Details", "Meals", new { id = item.MealType.MealID })"><img class="food-image img-responsive" style="max-width:128px; max-height:128px;" src="@item.MealType.Meal.ImagePath"></a>
         </td>
         <td class="name-col">
             @item.MealType.Meal.Name
-            <input type="hidden" name="MealID" value=@Html.DisplayFor(model => item.MealType.MealID)>
         </td>
         <td class="size-col">
             @item.MealType.MealTypeName
-        </td>           
+        </td>
         <td class="size-col">
-            @item.Count
+            <select class="1-10"></select>
+        </td>
+        <td class="addon-col">
+            <ul>
+                @foreach (var addon in item.AddOns)
+                {
+                    <li class="addon">@addon.AddOnID</li>
+                }
+            </ul>
         </td>
         <td class="price-col" align="right">
-            @item.Price HRK
+            <p class="price">@item.Price HRK</p>
         </td>
         <td class="remove-col">
-            <button type="submit" name="@item.MealType.MealID" data-url="@Url.Action("RemoveItem", "Cart")" class="btn btn-warning pull-right addToCartBtn">Ukloni</button>
+            <button type="button" class="btn btn-warning pull-right addToCartBtn">Ukloni</button>
             <label class="pull-right"></label>
         </td>       
     </tr>

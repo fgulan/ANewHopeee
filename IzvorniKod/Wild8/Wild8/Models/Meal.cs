@@ -17,7 +17,6 @@ namespace Wild8.Models
         public int NumberOfOrders { get; set; }
         public virtual Category Category { get; set; }
         public virtual ICollection<MealAddOn> AddOns { get; set; }
-        [JsonIgnore]
         public virtual ICollection<Comment> Comments { get; set; }
     }
 }

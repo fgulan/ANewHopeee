@@ -288,6 +288,7 @@
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\EditMealListScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\EditMealScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\OrdersScript.js" />
+    <Content Include="Scripts\ViewScripts\Cart_View.js" />
     <Content Include="Scripts\ViewScripts\login.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Content\comments.css" />

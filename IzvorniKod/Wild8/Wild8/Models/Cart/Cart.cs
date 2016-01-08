@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Microsoft.Owin.Security;
 
 namespace Wild8.Models.Cart
 {
@@ -45,6 +46,20 @@ namespace Wild8.Models.Cart
             {
                 totalPrice -= Item.Price;
             }
+        }
+
+        public decimal ChangeItemCount(CartItem item, int newCount)
+        {
+            CartItem cartItem =items.Find(i => i.Equals(item));
+            if (cartItem != null)
+            {
+                cartItem.Count = newCount;
+            }
+            else
+            {
+                return 0;
+            }
+            return cartItem.Price;
         }
 
         public int Count()

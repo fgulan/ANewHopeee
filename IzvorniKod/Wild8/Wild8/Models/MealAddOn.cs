@@ -17,5 +17,7 @@ namespace Wild8.Models
         [JsonIgnore]
         public virtual Meal Meal { get; set; }
         public virtual AddOn AddOn { get; set; }
+
+
     }
 }
