@@ -9,30 +9,38 @@ namespace Wild8.Utils
 {
     public class MailUtil
     {
-        private const string _smtpClient = "smtp.gmail.com"; // klijent za slanje maila
-        private const string _fromAddress = "username@gmail.com"; // adresa sa koje se šalje
-        private const string _userName = "username@gmail.com"; // uasername accounta sa gojeg se šalje
-        private const string _password = "password"; // šifra accounta sa kojeg se šalje
+        private static SmtpClient _smtpClient; //= "smtp.gmail.com"; // klijent za slanje maila
+        private static string _fromAddress; //= "username@gmail.com"; // adresa sa koje se šalje
         // ako želite testirat sa gmailom, morate enablat na gmailu da less-secure aplikacije mogu slat sa vašeg računa. ne znam zašto.
 
-        public static void SendReceiptTo(string MailTo, OrderInfo Info)
+        public static void Initialize(string SMTPClient, string FromAddress, string UserName, string Password)
         {
-            SmtpClient client = new SmtpClient(_smtpClient);
-            MailMessage message = new MailMessage();
-
-            message.From = new MailAddress(_fromAddress);
-            message.To.Add(new MailAddress(MailTo));
-            message.Subject = "Potvrda Narudžbe";
-            message.Body = GenerateBody(Info);
-            message.IsBodyHtml = true;
+            SmtpClient client = new SmtpClient(SMTPClient);
 
             client.Port = 587;
-            client.Host = "smtp.gmail.com";
+            client.Host = SMTPClient;
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential(_userName, _password);
+            client.Credentials = new NetworkCredential(UserName, Password);
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.Send(message);
+
+            _smtpClient = new SmtpClient(SMTPClient);
+            _fromAddress = FromAddress;
+        }
+
+        public static void SendReceiptTo(string MailTo, string Subject, string Contents)
+        {
+            lock (_smtpClient) { 
+                MailMessage message = new MailMessage();
+
+                message.From = new MailAddress(_fromAddress);
+                message.To.Add(new MailAddress(MailTo));
+                message.Subject = Subject;
+                message.Body = Contents;
+                message.IsBodyHtml = true;
+            
+                _smtpClient.Send(message);
+            }
         }
 
         private static string GenerateBody(OrderInfo Info)
@@ -112,28 +120,6 @@ namespace Wild8.Utils
             }
 
             return builder.ToString();
-        }
-
-        private static OrderInfo CreateTestOrderInfo()
-        {
-            OrderInfo info = new OrderInfo();
-
-            info.DeliveryTime = "30min";
-            info.TotalValue = "78.00 kn";
-            info.Note = "Zvono je pokvareno, pa trebate nazvati kad stigente.";
-            info.City = "Zagreb, Martinovka";
-            info.AddressLine1 = "Unska 3";
-            info.AddressLine2 = "KSET";
-
-            info.AddOrderUnit(new OrderUnit(false, "Gyros", "1", "40.00 kn"));
-            info.AddOrderUnit(new OrderUnit(true, "Ljuti umak", "1", "0.00 kn"));
-            info.AddOrderUnit(new OrderUnit(true, "Ljuti feferoni", "1", "4.00 kn"));
-            info.AddOrderUnit(new OrderUnit(true, "Paprika", "1", "5.00 kn"));
-            info.AddOrderUnit(new OrderUnit(false, "Mali ćevapi", "1", "20.00 kn"));
-            info.AddOrderUnit(new OrderUnit(true, "Ajvar", "1", "7.00 kn"));
-            info.AddOrderUnit(new OrderUnit(true, "Luk", "1", "2.00 kn"));
-
-            return info;
         }
     }
 
