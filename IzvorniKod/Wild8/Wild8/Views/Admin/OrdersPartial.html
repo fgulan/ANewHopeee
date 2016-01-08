@@ -1,4 +1,5 @@
 
+<div class="panel-group container" id="accordion">
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title pull-left">
@@ -8,7 +9,7 @@
             <div class="btn-group pull-right">
                 <button type="button" class="btn btn-sm btn-success" id="accept-btn">Potvrdi</button>
                 <button type="button" class="btn btn-sm btn-danger" id="refuse-btn">Odbij</button>
-                <button type="button" class="btn btn-sm btn-default" data-toggle="collapse" data-target="#order" id="open-btn">
+                <button type="button" class="btn btn-sm btn-default open-btn" data-toggle="collapse" data-target="#order1">
                     <span class="glyphicon glyphicon-menu-down" id="open-icon"></span>&nbsp;
                 </button>
             </div>
@@ -16,7 +17,7 @@
             <div class="clearfix"></div>
         </div>
         <div class="panel-content container-fluid">
-            <div id="order" class="collapse" >
+            <div id="order1" class="collapse">
                 <ul class="odred-details list-group">
                     <li class="list-group-item">
                         <h5>Jelo 1, količina: 2, cijena</h5>
@@ -32,11 +33,50 @@
                             <li class="list-group-item">Ajvar</li>
                         </ul>
                     </li>
-                    
+
                 </ul>
             </div>
         </div>
     </div>
+    <div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title pull-left">
+            <h5> Naruđba korisnik + adresa + cijean</h5>
+        </div>
+
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-sm btn-success" id="accept-btn">Potvrdi</button>
+            <button type="button" class="btn btn-sm btn-danger" id="refuse-btn">Odbij</button>
+            <button type="button" class="btn btn-sm btn-default open-btn" data-toggle="collapse" data-target="#order2">
+                <span class="glyphicon glyphicon-menu-down" id="open-icon"></span>&nbsp;
+            </button>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-content container-fluid">
+        <div id="order2" class="collapse">
+            <ul class="odred-details list-group">
+                <li class="list-group-item">
+                    <h5>Jelo 1, količina: 2, cijena</h5>
+                    <ul class="addons list-group">
+                        <li class="list-group-item">Kajmak</li>
+                        <li class="list-group-item">Ajvar</li>
+                    </ul>
+                </li>
+                <li class="list-group-item">
+                    <h5>Jelo 1, količina: 2, cijena</h5>
+                    <ul class="addons list-group">
+                        <li class="list-group-item">Kajmak</li>
+                        <li class="list-group-item">Ajvar</li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
 
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
@@ -45,9 +85,15 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     
     <script>
-        $(document).ready(function() {  //Change icon on click
-            $("#open-btn").click(function () {
-                $("#open-icon").toggleClass("glyphicon-menu-up");
-            })
-        })
+        $(".open-btn").click(function() {
+            var target = $($(this).data('target'));
+            if(!target.hasClass('collapsing')) {
+                var icon = $(this).children().first();
+                if(icon.hasClass('glyphicon-menu-up')) {
+                    icon.removeClass('glyphicon-menu-up').addClass('glyphicon-menu-down');
+                } else {
+                    icon.removeClass('glyphicon-menu-down').addClass('glyphicon-menu-up');
+                }
+            }
+        });
     </script>

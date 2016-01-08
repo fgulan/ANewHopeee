@@ -65,6 +65,7 @@
                     {
                         <li data-toggle="tab" id="statistic-menu" data-url="@Url.Action("Statistic", "Admin")"><a>Statistika</a></li>
                         <li data-toggle="tab" id="workers-menu" data-url="@Url.Action("AddRemoveUserPartial", "Admin")"><a>Dijelatnici</a></li>
+                        <li data-toggle="tab" id="static-info-menu" data-url="@Url.Action("StaticInfo","Admin")">Wild8 info</li>
                     }
                 </ul>
                 <div class="logout-btn" >
@@ -75,7 +76,7 @@
             </div>
             <div class="container-fluid col-fluid main-content">
                 @{ 
-                    Html.RenderAction("AddEditDelMenu", "Admin");
+                    Html.RenderAction("Orders", "Admin");
                 }
             </div>
         </div>

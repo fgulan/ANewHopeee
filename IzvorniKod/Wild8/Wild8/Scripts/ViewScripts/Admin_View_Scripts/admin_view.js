@@ -1,30 +1,22 @@
 ﻿$(document).ready(function () {
-    setOrdersMenuListener();
-    setMealsMenuListener();
+    ajaxCall($("#orders-menu"));
+    ajaxCall($("#meal-menu"));    
     setStatisticMenuListener();
     setWorkersMenuListener();
     setLogoutBtnListener();
 });
 
-function setOrdersMenuListener() {
-    ajaxCall($("#orders-menu"), function (content) { replaceMainContent(content) }, notImplementedAlert);
-};
-
-function setMealsMenuListener() {
-    ajaxCall($("#meal-menu"), function (content) { replaceMainContent(content); },notImplementedAlert);
-};
-
 function setStatisticMenuListener() {
     var caller = $("#statistic-menu");
     if (caller != undefined) {
-        ajaxCall(caller, function (content) { replaceMainContent(content); }, notImplementedAlert);
+        ajaxCall(caller);
     }
 };
 
 function setWorkersMenuListener() {
     var caller = $("#workers-menu");
     if (caller != undefined) {
-        ajaxCall(caller, function (content) { replaceMainContent(content); } , notImplementedAlert);
+        ajaxCall(caller);
     }
 };
 
@@ -55,26 +47,19 @@ function replaceMainContent(content) {
     });
 }
 
-function notImplementedAlert() {
-    alert("Not implemented yet");
+function notImplementedAlert(xhr, status, errorMsg) {
+    alert("Not implemented yet \n" + status + "\n" + errorMsg );
 }
 
-function ajaxCall(caller, success, error) {
-    if (success == undefined) {
-        success = function () { };
-    }
-    if (error == undefined) {
-        error = function () { };
-    }
-
+function ajaxCall(caller) {
     caller.click(function () {
         var url = $(this).data('url');
 
         $.ajax({
-            type: 'GET', //This method is used for calling views and views should be accessed via GET
+            type: 'GET',
             url: url,
-            success: success(),
-            error: error()
+            success:  function (content) { replaceMainContent(content); },
+            error: function (xhr, status, errorMsg) { notImplementedAlert(xhr,status, errorMsg)}
         })
     })
 }

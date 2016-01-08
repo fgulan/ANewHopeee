@@ -33,13 +33,10 @@ namespace Wild8.Controllers
         ////////////////////////////////////
         //  Orders
         ////////////////////////////////////
-        [HttpPost]
+        [HttpGet]
         public ActionResult Orders()
         {
-            //Todo make orders parital view
-            List<Order> orders = db.Orders.Where(order => order.AcceptanceDate != null).ToList();
-
-            return PartialView("", orders);
+            return PartialView("Orders");
         }
 
         ////////////////////////////////////
@@ -438,6 +435,15 @@ namespace Wild8.Controllers
         {
             db.Employees.Remove(new Employee() { EmployeeID = employeeId});
             db.SaveChanges();
+        }
+
+        ////////////////////////////////////
+        //  Static info
+        ////////////////////////////////////
+        [HttpGet]
+        public ActionResult StaticInfo()    //Static info view
+        {
+            return PartialView();
         }
 
 
