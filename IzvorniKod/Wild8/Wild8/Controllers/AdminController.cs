@@ -168,7 +168,7 @@ namespace Wild8.Controllers
         }
 
         [HttpPost]
-        public void EditMeal([Bind(Include = "MealID,Name,Description,CategoryID")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
+        public ActionResult EditMeal([Bind(Include = "MealID,Name,Description,CategoryID")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
         {
             if (ModelState.IsValid)
             {
@@ -218,6 +218,12 @@ namespace Wild8.Controllers
                     }
                 }
                 db.SaveChanges();
+                return Content("Jelo " + meal.Name + " je spremljeno.", MediaTypeNames.Text.Plain);
+            }
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Content("Jelo nije spremljeno.", MediaTypeNames.Text.Plain);
             }
         }
 
@@ -305,8 +311,15 @@ namespace Wild8.Controllers
                 return true;
             }
 
-            var mealAddOns = db.MealAddOns.Where(e => e.AddOnID.Equals(OldName)).ToList();
+            var query = from mealAddOn in db.MealAddOns
+                             where mealAddOn.AddOnID.Equals(OldName)
+                             select mealAddOn;
+            var mealAddOns = query.ToList();
             db.MealAddOns.RemoveRange(mealAddOns);
+            db.SaveChanges();
+
+            AddOn addOnToDel = db.AddOns.Find(OldName);
+            db.AddOns.Remove(addOnToDel);
 
             db.AddOns.Add(addOn);
             foreach (var item in mealAddOns)

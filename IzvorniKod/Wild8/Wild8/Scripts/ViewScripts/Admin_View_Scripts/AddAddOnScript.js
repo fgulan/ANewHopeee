@@ -3,6 +3,7 @@
         return $("#add-addon-form").valid();
     },
     resetForm: true,
+    cache : false,
     success: function (response) {
         printOnModal("Jelo dodano", response);
     },

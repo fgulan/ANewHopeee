@@ -10,6 +10,7 @@ $("#add-meal-form").ajaxForm({
         return $("#add-meal-form").valid();
     },
     resetForm: true,
+    cache : false,
     success: function (response) {
         printOnModal("Jelo dodano", response);
     },

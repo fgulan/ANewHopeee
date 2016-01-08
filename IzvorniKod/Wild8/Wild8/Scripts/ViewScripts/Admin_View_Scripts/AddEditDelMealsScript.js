@@ -4,6 +4,7 @@
 
     $.ajax({
         type: 'GET',
+        cache: false,
         url: url,
         success: function (content) {
             contentDiv = $("#meal-content");

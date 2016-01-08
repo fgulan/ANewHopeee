@@ -26,6 +26,7 @@ function setLogoutBtnListener() {
         
         $.ajax({
             type: 'POST',
+            cache: false,
             url: actionUrl,
             success: function () {
                 var redirectUrl = $("#logout").data('index-url');
@@ -57,6 +58,7 @@ function ajaxCall(caller) {
 
         $.ajax({
             type: 'GET',
+            cache: false,
             url: url,
             success:  function (content) { replaceMainContent(content); },
             error: function (xhr, status, errorMsg) { notImplementedAlert(xhr,status, errorMsg)}

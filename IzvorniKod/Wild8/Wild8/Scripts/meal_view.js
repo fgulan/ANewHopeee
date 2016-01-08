@@ -25,6 +25,7 @@ function setCommentListener() {
 
         $.ajax({
             type: 'POST',
+            cache: false,
             url: url,
             data: data,
             success: function (partialView) {

@@ -3,23 +3,22 @@
 @{ 
     Layout = null;
 }
-<div class="container-fluid" id="edit-meal-list">
+<div class="container-fluid" id="edit-addon-list">
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3>Popis dodataka</h3>
     </div>
     <div class="panel-body">
-        <ul class="list-group">
+
+        <div class="list-group">
             @foreach (var item in Model)
             {
-                <li class="list-group-item">
+                <button type="button" class="list-group-item edit-addon-btn" data-url="@Url.Action("EditAddOn", "Admin")" data-addon-id="@item.AddOnID">
+                    <span class="glyphicon glyphicon-edit pull-right" style="color:cornflowerblue;font-size:1.2em;"></span>
                     @item.AddOnID
-                    <span class="pull-right">
-                        <button type="button" class="btn btn-warning btn-sm edit-addon-btn" data-url="@Url.Action("EditAddOn", "Admin")" data-addon-id="@item.AddOnID">Uredi dodatak</button>
-                    </span>
-                </li>
+                </button>
             }
-        </ul>
+        </div>
     </div>
 </div>    
     <script type="text/javascript" src="~/Scripts/ViewScripts/Admin_View_Scripts/EditAddOnListScript.js"></script>
