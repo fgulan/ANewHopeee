@@ -190,7 +190,9 @@
     <Compile Include="Models\ModelViews\MenuModelView.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\OrderInfo.cs" />
     <Compile Include="Models\OrderMealAddOn.cs" />
+    <Compile Include="Models\StatisticsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="StaticInfo\RestaurauntInfo.cs" />
@@ -286,6 +288,7 @@
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\DelMealsScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\EditAddOnListScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\EditMealListScript.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\EditAddOnScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\EditMealScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\OrdersScript.js" />
     <Content Include="Scripts\ViewScripts\Cart_View.js" />
@@ -297,6 +300,7 @@
     <Content Include="Scripts\navbar_hide.js" />
     <Content Include="Scripts\star_rating.js" />
     <Content Include="Views\Admin\AddAddOn.cshtml" />
+    <Content Include="Views\Admin\EditAddOn.cshtml" />
     <None Include="Views\Admin\AddEditDelMealsPartial.cshtml" />
     <None Include="Views\Admin\AddEmployeeForm.cshtml" />
     <Content Include="Content\AddEmployeeFormStyle.css" />
@@ -334,6 +338,8 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Cart\CartItemsList.cshtml" />
     <Content Include="Views\Admin\Orders.cshtml" />
+    <Content Include="Views\Admin\Receipt.cshtml" />
+    <Content Include="Views\Admin\Statistic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\SharedScripts\" />

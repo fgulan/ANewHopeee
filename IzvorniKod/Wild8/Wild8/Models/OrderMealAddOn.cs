@@ -15,6 +15,7 @@ namespace Wild8.Models
         public int MealName { get; set; }
         [Key, Column("AddOnName", Order = 2)]
         public string AddOnName { get; set; }
+        public decimal Price { get; set; }
         public virtual Order Order { get; set; }
     }
 }

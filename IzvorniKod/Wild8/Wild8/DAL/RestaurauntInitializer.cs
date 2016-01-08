@@ -68,7 +68,8 @@ namespace Wild8.DAL
                 new Comment { Username = "Filip Gulan", Message = "Restoran je the best ono ej.", Grade = 4, CommentDate = DateTime.Now},
                 new Comment { Username = "Fredi Saric", Message = "Restorant ti je sranje stari mooj nemilo", Grade = 1, CommentDate = DateTime.Now },
                 new Comment { Username = "Matej Janjic", Message = "Smrid ti restoran", Grade = 2, CommentDate = DateTime.Now },
-                new Comment { Username = "Josip", Message = "sdsafsafasasfasasfas", Grade = 3 , MealID = 1, CommentDate = DateTime.Now }
+                new Comment { Username = "Josip", Message = "sdsafsafasasfasasfas", Grade = 3 , MealID = 1, CommentDate = DateTime.Now },
+                new Comment { Username = "Superhik", Message = "Nema lošeg vina s češnjakom. 1/10 smeće totalno.", Grade = 1, CommentDate = DateTime.Now }
             };
 
             comments.ForEach(s => context.Comments.Add(s));

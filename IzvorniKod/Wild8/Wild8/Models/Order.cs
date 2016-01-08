@@ -12,11 +12,13 @@ namespace Wild8.Models
         public string Address { get; set; }
         public string City { get; set; }
         public string PostCode { get; set; }
+        public string Annotation { get; set; }
+        public string DeliveryTime { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime AcceptanceDate { get; set; }
-        public decimal TotalPrize { get; set; }
+        public decimal TotalPrice { get; set; }
         public string EmpolyeeID { get; set; }
         public virtual Employee Employee { get; set; }
-        public virtual ICollection<OrderDetail> OdredDetails { get; set;}
+        public virtual ICollection<OrderDetail> OrderDetails { get; set;}
     }
 }

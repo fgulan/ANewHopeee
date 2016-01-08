@@ -168,7 +168,7 @@ namespace Wild8.Controllers
         }
 
         [HttpPost]
-        public void EditMeal([Bind(Include = "MealID,Name,Description,CategoryID")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
+        public ActionResult EditMeal([Bind(Include = "MealID,Name,Description,CategoryID")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
         {
             if (ModelState.IsValid)
             {
@@ -218,6 +218,12 @@ namespace Wild8.Controllers
                     }
                 }
                 db.SaveChanges();
+                return Content("Jelo " + meal.Name + " je spremljeno.", MediaTypeNames.Text.Plain);
+            }
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Content("Jelo nije spremljeno.", MediaTypeNames.Text.Plain);
             }
         }
 
@@ -305,8 +311,15 @@ namespace Wild8.Controllers
                 return true;
             }
 
-            var mealAddOns = db.MealAddOns.Where(e => e.AddOnID.Equals(OldName)).ToList();
+            var query = from mealAddOn in db.MealAddOns
+                             where mealAddOn.AddOnID.Equals(OldName)
+                             select mealAddOn;
+            var mealAddOns = query.ToList();
             db.MealAddOns.RemoveRange(mealAddOns);
+            db.SaveChanges();
+
+            AddOn addOnToDel = db.AddOns.Find(OldName);
+            db.AddOns.Remove(addOnToDel);
 
             db.AddOns.Add(addOn);
             foreach (var item in mealAddOns)
@@ -376,9 +389,63 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult Statistic()
         {
-            //Load some data
-            //Todo make statistic parial veiw
-            return PartialView();
+            DbSet<Order> orders = db.Orders;
+            Dictionary<string, int> mealOrders = new Dictionary<string, int>();
+            Dictionary<string, int> monthlyOrders = new Dictionary<string, int>();
+
+            int totalNumOfOrders = orders.Count();
+            decimal totalAveragePrice = 0.00M;
+
+            foreach (Order order in orders)
+            {
+                totalAveragePrice += order.TotalPrice;
+
+                foreach (OrderDetail orderDetail in order.OrderDetails)
+                {
+                    string mealName = orderDetail.MealName;
+
+                    if (!mealOrders.ContainsKey(mealName))
+                    {
+                        mealOrders[mealName] = 1;
+                    }
+                    else
+                    {
+                        mealOrders[mealName] += 1;
+                    }
+                }
+
+                string orderMonth = order.AcceptanceDate.ToString("YYYY-MM");
+
+                if (!monthlyOrders.ContainsKey(orderMonth))
+                {
+                    monthlyOrders[orderMonth] = 1;
+                }
+                else
+                {
+                    monthlyOrders[orderMonth] += 1;
+                }
+            }
+
+            if(totalNumOfOrders != 0)
+            {
+                totalAveragePrice /= totalNumOfOrders;
+            }
+
+            List<KeyValuePair<string, int>> mealList = mealOrders.ToList();
+
+            mealList.Sort((current, next) =>
+            {
+                return current.Value.CompareTo(next.Value);
+            });
+
+            StatisticsModel model = new StatisticsModel();
+
+            model.TotalAveragePrice = totalAveragePrice;
+            model.TotalNumOfOrders = totalNumOfOrders;
+            model.TotalTop3Meals = mealList;
+            model.OrdersByMonths = monthlyOrders.ToList();
+
+            return PartialView(model);
         }
 
         ////////////////////////////////////
@@ -453,6 +520,11 @@ namespace Wild8.Controllers
         public void LogOut()
         {
             SessionExtension.SetUser(Session, null);
+        }
+
+        public ActionResult Receipt(Order order)
+        {
+            return View(order);
         }
     }
 }

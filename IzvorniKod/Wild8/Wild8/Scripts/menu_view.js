@@ -79,6 +79,7 @@ function loadMeals(event) {
 
         $.ajax({
             type: 'POST',
+            cache: false,
             url: url,
             data: { categoryId: categoryId, sort: sort },
             success: function (partialView) {
@@ -122,6 +123,7 @@ function registerAddToCartListeners() {
 
             $.ajax({
                 type: 'POST',
+                cache: false,
                 url: url,
                 data: { mealID: mealID, count: quantity, mealTypeName: mealType, addOnNames: addOns },
                 success: function (count) {

@@ -15,6 +15,7 @@
 
         $.ajax({
             type: 'POST',
+            cache: false,
             url: url,
             data: formData,
             success: function (logedIn) {
