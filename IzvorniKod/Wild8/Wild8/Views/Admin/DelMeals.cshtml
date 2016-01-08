@@ -9,21 +9,15 @@
             <h3>Popis jela</h3>
         </div>
         <div class="panel-body">
-            <ul class="list-group">
+            <div class="list-group">
                 @foreach (var item in Model)
-            {
-                    <li class="list-group-item">
+                {
+                    <button type="button" class="list-group-item del-meal-btn" data-url="@Url.Action("DeleteMeal","Admin")" data-meal-id="@item.MealID">
+                        <span class="glyphicon glyphicon-remove pull-right" style="color:orangered;font-size:1.2em;"></span>
                         @item.Name
-                        <span class="pull-right">
-                            <button type="button" 
-                                    class="btn btn-danger btn-sm del-meal-btn" 
-                                    data-url="@Url.Action("DeleteMeal","Admin")" 
-                                    data-meal-id="@item.MealID"
-                                    data-meal-name="@item.Name">Obriši jelo</button>
-                        </span>
-                    </li>
+                    </button>
                 }
-            </ul>
+            </div>
         </div>
     </div>
     <div class="modal fade" id="delete-modal" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -31,9 +25,9 @@
             <div class="modal-content">
                 <div class="modal-header bg-warning">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    <span class="glyphicon glyphicon-remove"></span>
+                        <span class="glyphicon glyphicon-remove"></span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">Upozorenje</h4> 
+                    <h4 class="modal-title" id="myModalLabel">Upozorenje</h4>
                 </div>
                 <div class="modal-body">
                     <h3>Jeste li sigurni da želite obrisati: </h3>
@@ -42,7 +36,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
-                    <button type="button" class="btn btn-primary" id="modal-del-btn">Izbriši jelo</button> 
+                    <button type="button" class="btn btn-primary" id="modal-del-btn">Izbriši jelo</button>
                 </div>
             </div>
         </div>

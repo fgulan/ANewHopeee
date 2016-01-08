@@ -9,17 +9,15 @@
         <h3>Popis jela</h3>
     </div>
     <div class="panel-body">
-        <ul class="list-group">
+        <div class="list-group">
             @foreach (var item in Model)
             {
-                <li class="list-group-item">
+                <button type="button" class="list-group-item edit-meal-btn" data-url="@Url.Action("EditMeal","Admin")" data-meal-id="@item.MealID">
+                    <span class="glyphicon glyphicon-edit pull-right" style="color:cornflowerblue;font-size:1.2em;"></span>
                     @item.Name
-                    <span class="pull-right">
-                        <button type="button" class="btn btn-warning btn-sm edit-meal-btn" data-url="@Url.Action("EditMeal","Admin")" data-meal-id="@item.MealID">Uredi jelo</button>
-                    </span>
-                </li>
+                </button>
             }
-        </ul>
+        </div>
     </div>
 </div>    
     <script type="text/javascript" src="~/Scripts/ViewScripts/Admin_View_Scripts/EditMealListScript.js"></script>
