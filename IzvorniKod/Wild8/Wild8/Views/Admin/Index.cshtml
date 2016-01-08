@@ -1,4 +1,4 @@
-@model Employee
+﻿@model Employee
 
 @{
     Layout = null;
@@ -15,21 +15,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-
+    <script type="text/javascript" src="~/Scripts/ViewScripts/Admin_View_Scripts/admin_view.js"></script>
     <style>
         .col-fixed {
             width: 200px;
             position: fixed;
             height: 100%;
         }
-
-        .col-fluid {
-            margin-left: 200px;
-            position: fixed;
-            height: 100%;
-            width: 100%;
-        }
-
         .nav-pills {
             text-align: center;
             position: absolute;
@@ -38,10 +30,18 @@
             left: 0;
             right: 0;
         }
+        .col-fluid {
+            margin-top: 15px;
+            margin-left: 200px;
+        }
 
-        .logout {
-            position: absolute;
+        .logout-btn {
+            width: 100%;
+            position:absolute;
             bottom: 0;
+        }
+        .logout-btn button {
+            width: 100%;
         }
     </style>
 </head>
@@ -54,20 +54,30 @@
                     <li><h4>@if (Model.AdminRights)
                     {
                         @("Vlasnik" + Model.FirstName)
-                    }   
+                    }
                     else
                     {
                         @("Dijelatnik" + Model.FirstName)
                     }</h4></li>
-                    <li class="active" data-toggle="tab"><a href="#"> Narudžbe</a></li>
-                    <li data-toggle="tab"><a href="#"> Jela</a></li>
-                    <li data-toggle="tab"><a href="#"> Statistika</a></li>
-                    <li data-toggle="tab"><a href="#"> Dijelatnici</a></li>
-                    <li class="logout" data-toggle="tab"><a href="#"> Odjava</a></li>
+                    <li class="active" data-toggle="tab" id="orders-menu" data-url="@Url.Action("Orders", "Admin")"><a>Narudžbe</a></li>
+                    <li data-toggle="tab" id="meal-menu" data-url="@Url.Action("AddEditDelMenu", "Admin")"><a>Jela</a></li>
+                    @if (Model.AdminRights)
+                    {
+                        <li data-toggle="tab" id="statistic-menu" data-url="@Url.Action("Statistic", "Admin")"><a>Statistika</a></li>
+                        <li data-toggle="tab" id="workers-menu" data-url="@Url.Action("AddRemoveUserPartial", "Admin")"><a>Dijelatnici</a></li>
+                        <li data-toggle="tab" id="static-info-menu" data-url="@Url.Action("StaticInfo","Admin")">Wild8 info</li>
+                    }
                 </ul>
+                <div class="logout-btn" >
+                    <button class="btn btn-primary" id="logout" data-toggle="tab" data-url="@Url.Action("Logout", "Admin")" data-index-url="@Url.Action("Index", "Index")">
+                        Odjava
+                    </button>
+                </div>
             </div>
             <div class="container-fluid col-fluid main-content">
-                <h1>Content</h1>
+                @{ 
+                    Html.RenderAction("Orders", "Admin");
+                }
             </div>
         </div>
     </div>

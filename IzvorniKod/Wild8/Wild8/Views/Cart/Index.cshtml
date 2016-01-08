@@ -1,17 +1,51 @@
-﻿<!--Todo some model-->
+﻿@model Cart
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Wild8 | Košarica";
 }
-@section Title {
-    <title>Wild8 | Cart</title>
-}
-@section Scripts
-{
-    
-}
-@section Styles
-{
 
-}
-<h2>Index</h2>
+<div id="dvCategoryResults">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3>Košarica</h3></div>
+            <div class="panel-body">
+                <table class="table table-condensed" style="border-collapse:collapse;">
+                    <thead id="head-underline">
+                        <tr>
+                            <th>Slika jela</th>
+                            <th>Naziv jela</th>
+                            <th>Veličina</th>
+                            <th>Količina</th>
+                            <th align="right">Cijena</th>
+                        </tr>
+                    </thead>
 
+                    <tbody class="displayed">
+                        @{
+                            Html.RenderPartial("CartItemsList", SessionExtension.GetCart(Session).Items);
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-body">
+                <table class="table table-condensed" style="border-collapse:collapse;">
+                    <thead id="head-underline">
+                        <tr>
+                            <th>Ukupno</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="displayed">
+                        <tr>
+                            <td>@SessionExtension.GetCart(Session).TotalPrice HRK</td>
+                            <td class="accept-col">
+                                <button type="submit" data-url="@Url.Action("Index", "Index")" class="btn btn-warning pull-right addToCartBtn">Potvrdi</button>
+                                <label class="pull-right"></label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -198,6 +198,10 @@
     <Compile Include="Utils\MailUtil.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-fileinput\css\fileinput.css" />
+    <Content Include="Content\bootstrap-fileinput\css\fileinput.min.css" />
+    <Content Include="Content\bootstrap-fileinput\img\loading-sm.gif" />
+    <Content Include="Content\bootstrap-fileinput\img\loading.gif" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\contact_us.css" />
@@ -205,6 +209,7 @@
     <Content Include="Content\meal.css" />
     <Content Include="Content\menu.css" />
     <Content Include="Content\menu.min.css" />
+    <Content Include="Content\SharedLayout.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -218,6 +223,16 @@
     <Content Include="images\marketing_images\marketing_30min.jpg" />
     <Content Include="images\marketing_images\marketing_satisfaction.png" />
     <Content Include="images\marketing_images\marketing_veggie.jpg" />
+    <Content Include="images\Meals\079eb426-bffc-44ea-a03b-239e86959363present_closed.png" />
+    <Content Include="images\Meals\2b75644f-1010-4d37-b8a4-5a312098df46Bitmap.jpg" />
+    <Content Include="images\Meals\3c453258-9527-442a-9c1b-26cf5feff72bpresent_unwrapped%402x.png" />
+    <Content Include="images\Meals\6514b863-6dc4-45c7-b7b2-9b0c67ae4368background%402x.jpg" />
+    <Content Include="images\Meals\6540f1bf-c768-4cac-892e-9cda24a17782launch-screen%403x.png" />
+    <Content Include="images\Meals\9010334d-a7bb-4e53-9f44-e0a4dad031eapresent_opened.png" />
+    <Content Include="images\Meals\ab8dc638-efb7-48ca-b148-36ce7f2a34fblaunch-screen.png" />
+    <Content Include="images\Meals\baae7d35-55d9-45fe-985e-174639eeaececomment-button-icon%403x.png" />
+    <Content Include="images\Meals\bf918e7b-0b55-4d14-8301-71682dd2a30dclose-floating-button%403x.png" />
+    <Content Include="images\Meals\Bitmap%402x.jpg" />
     <Content Include="images\owner.jpeg" />
     <Content Include="images\owner_signature.png" />
     <Content Include="images\owner_small.jpg" />
@@ -230,6 +245,19 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Data\info.dat" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\fileinput.js" />
+    <Content Include="Scripts\fileinput.min.js" />
+    <Content Include="Scripts\fileinput_locale_de.js" />
+    <Content Include="Scripts\fileinput_locale_es.js" />
+    <Content Include="Scripts\fileinput_locale_fr.js" />
+    <Content Include="Scripts\fileinput_locale_hu.js" />
+    <Content Include="Scripts\fileinput_locale_it.js" />
+    <Content Include="Scripts\fileinput_locale_LANG.js" />
+    <Content Include="Scripts\fileinput_locale_ru.js" />
+    <Content Include="Scripts\fileinput_locale_sr.js" />
+    <Content Include="Scripts\fileinput_locale_th.js" />
+    <Content Include="Scripts\fileinput_locale_uk.js" />
+    <Content Include="Scripts\fileinput_locale_zh.js" />
     <Content Include="Scripts\HubScripts\ClientOrderScript.js" />
     <Content Include="Scripts\HubScripts\LoginHub.js" />
     <Content Include="Scripts\HubScripts\LogOutHub.js" />
@@ -237,6 +265,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.form.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -250,21 +279,34 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\AddEditDelMealsScript.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\AddAddOnScript.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\AddMealScript.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\admin_view.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\DelMealsScript.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\EditAddOnListScript.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\EditMealListScript.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\EditMealScript.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\OrdersScript.js" />
+    <Content Include="Scripts\ViewScripts\login.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Content\comments.css" />
     <Content Include="Content\comments.min.css" />
     <Content Include="Content\homepage.css" />
     <Content Include="Scripts\navbar_hide.js" />
     <Content Include="Scripts\star_rating.js" />
+    <Content Include="Views\Admin\AddAddOn.cshtml" />
     <None Include="Views\Admin\AddEditDelMealsPartial.cshtml" />
     <None Include="Views\Admin\AddEmployeeForm.cshtml" />
     <Content Include="Content\AddEmployeeFormStyle.css" />
     <Content Include="Views\Admin\AddMeal.cshtml" />
+    <Content Include="Views\Admin\EditMeal.cshtml" />
     <None Include="Views\Admin\DelAddonsPartial.cshtml" />
     <None Include="Views\Admin\DelCategoryPartial.cshtml" />
-    <None Include="Views\Admin\DelMealsPartial.cshtml" />
+    <None Include="Views\Admin\DelMeals.cshtml" />
+    <Content Include="Views\Admin\EditAddOnList.cshtml" />
+    <Content Include="Views\Admin\EditMealList.cshtml" />
     <None Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\DelMealsPartial.html" />
     <Content Include="Views\Admin\sb-admin.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -289,8 +331,11 @@
     <Content Include="Views\Menu\MealsList.cshtml" />
     <Content Include="Views\Meals\Comments.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Cart\CartItemsList.cshtml" />
+    <Content Include="Views\Admin\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Scripts\SharedScripts\" />
     <Folder Include="Views\Index\" />
   </ItemGroup>
   <ItemGroup>
