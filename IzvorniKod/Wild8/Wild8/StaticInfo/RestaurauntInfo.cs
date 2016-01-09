@@ -46,8 +46,14 @@ namespace Wild8.StaticInfo
 		
 		private volatile string workTime;
 		public string WorkTime { get {return workTime; } set { workTime = value; SaveData(); }}
-		
-		private volatile string ownerContactsInfo;
+
+        private volatile string starTime;
+        public string StarTime { get { return starTime; } set { starTime = value; SaveData(); } }
+
+        private volatile string endTime;
+        public string EndTime { get { return endTime; } set { endTime = value; SaveData(); } }
+        
+        private volatile string ownerContactsInfo;
 		public string OwnerContactsInfo { get {return ownerContactsInfo; } set { ownerContactsInfo = value; SaveData(); }}
 
 
@@ -93,6 +99,8 @@ namespace Wild8.StaticInfo
 			ownerPhone = "+(385) 1234 1234";
 			ownerEMail = "restaurant@wild8.me";
 			workTime = "Radno vrijeme svakim danom od 08:00 do 23:00";
+            starTime = "08:00";
+            endTime = "23:00";
 			ownerContactsInfo = "“Kuhanje je moja strast, moja antistres terapija. Moj hobi koji je prerastao u stil života."
 				+ " Otkad znam za sebe kuham, a sve se moje slobodne aktivnosti i prijateljska druženja odvijaju upravo u meni najdražoj prostoriji – kuhinji."
 				+ " Kuhanje ne doživljavam kao rad, više kao neku vrstu osobnog zadovoljstva. Kroz kuhanje sam upoznao mnoštvo divnih ljudi koji dijele slične interese,"

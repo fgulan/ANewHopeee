@@ -62,7 +62,7 @@
                     <li class="active" id="orders-menu"
                         data-toggle="tab"
                         data-url="@Url.Action("Orders", "Admin")"
-                        data-url="@Url.Action("MultipleOrders","Admin")"
+                        data-multiple-orders-url="@Url.Action("MultipleOrders","Admin")"
                         data-single-order-url="@Url.Action("SingleOrder","Admin")"><a>Narudžbe <span class="badge pull-right" id="orders-badge">5</span></a></li>
                     <li data-toggle="tab" id="meal-menu" data-url="@Url.Action("AddEditDelMenu", "Admin")"><a>Jela</a></li>
                     @if (Model.AdminRights)

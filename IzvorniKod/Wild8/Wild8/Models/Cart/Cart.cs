@@ -10,8 +10,6 @@ namespace Wild8.Models.Cart
     {
         private List<CartItem> items;
 
-        private decimal totalPrice;
-
         public decimal TotalPrice
         {
             get
@@ -28,13 +26,11 @@ namespace Wild8.Models.Cart
         public Cart()
         {
             items = new List<CartItem>();
-            totalPrice = 0;
         }
 
         public void AddItem(CartItem Item)
         {
             items.Add(Item);
-            totalPrice += Item.Price;
         }
 
         public IReadOnlyList<CartItem> Items
@@ -47,10 +43,7 @@ namespace Wild8.Models.Cart
 
         public void RemoveItem(CartItem Item)
         {
-            if (items.Remove(Item))
-            {
-                totalPrice -= Item.Price;
-            }
+            items.Remove(Item);
         }
 
         public decimal ChangeItemCount(CartItem item, int newCount)
@@ -70,6 +63,11 @@ namespace Wild8.Models.Cart
         public int Count()
         {
             return items.Count;
+        }
+
+        public void Clear()
+        {
+            items.Clear();
         }
 
         public bool IsEmpty()

@@ -554,5 +554,7 @@ namespace Wild8.Controllers
         {
             return PartialView("DeleteModal", new ModalViewModel() { Title = Title, Type = Type});
         }
+
+       
     }
 }

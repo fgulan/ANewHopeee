@@ -14,6 +14,7 @@ namespace Wild8.Models.AdminModels
         public string Email { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal UserNote { get; set; }
+        public DateTime OrderTime { get; set; }
         public List<OrderMealModelView> Meals { get; set; }
     }
 

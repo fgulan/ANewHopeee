@@ -1,4 +1,4 @@
-﻿@model Cart
+﻿@model CartModelView
 
 @{
     ViewBag.Title = "Wild8 | Košarica";
@@ -6,52 +6,80 @@
 
 @section Scripts {
     <script type="text/javascript" src="~/Scripts/ViewScripts/Cart_View.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script>
+        jQuery.extend(jQuery.validator.messages, {
+            required: "Ovo polje je obavezno",
+            remote: "Please fix this field.",
+            email: "Neispravna email adresa",
+            url: "Please enter a valid URL.",
+            date: "Please enter a valid date.",
+            dateISO: "Please enter a valid date (ISO).",
+            number: "Please enter a valid number.",
+            digits: "Please enter only digits.",
+            creditcard: "Please enter a valid credit card number.",
+            equalTo: "Please enter the same value again.",
+            accept: "Please enter a value with a valid extension.",
+            maxlength: jQuery.validator.format("Please enter no more than {0} characters."),
+            minlength: jQuery.validator.format("Please enter at least {0} characters."),
+            rangelength: jQuery.validator.format("Please enter a value between {0} and {1} characters long."),
+            range: jQuery.validator.format("Please enter a value between {0} and {1}."),
+            max: jQuery.validator.format("Please enter a value less than or equal to {0}."),
+            min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
+        });
+        
+    </script>
 }
 
-<div id="dvCategoryResults">
+<div id="dvCategoryResults" class="container">
     <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading"><h3>Košarica</h3></div>
+            <div class="panel-heading">
+                <h3>Košarica</h3>
+            </div>
             <div class="panel-body">
-                <table class="table table-condensed" style="border-collapse:collapse;">
+                <table class="table table-condensed" style="border-collapse: collapse;">
                     <thead id="head-underline">
-                        <tr>
-                            <th>Slika jela</th>
-                            <th>Naziv jela</th>
-                            <th>Veličina</th>
-                            <th>Količina</th>
-                            <th>Dodaci</th>
-                            <th align="right">Cijena</th>
-                        </tr>
+                    <tr>
+                        <th>Slika jela</th>
+                        <th>Naziv jela</th>
+                        <th>Veličina</th>
+                        <th>Količina</th>
+                        <th>Dodaci</th>
+                        <th align="right">Cijena</th>
+                    </tr>
                     </thead>
 
                     <tbody class="displayed" id="orders-list">
-                        @{
-                            Html.RenderPartial("CartItemsList", SessionExtension.GetCart(Session).Items);
-                        }
+                    @{
+                        Html.RenderPartial("CartItemsList", Model.Cart.Items);
+                    }
                     </tbody>
                 </table>
                 <div class="panel-body">
-                    <table class="table table-condensed" style="border-collapse:collapse;">
+                    <table class="table table-condensed" style="border-collapse: collapse;">
                         <thead id="head-underline">
-                            <tr>
-                                <th>Ukupno</th>
-                            </tr>
+                        <tr>
+                            <th>Ukupno</th>
+                        </tr>
                         </thead>
                         <tbody class="displayed">
-                            <tr>
-                                <td id="total-price">@SessionExtension.GetCart(Session).TotalPrice HRK</td>
-                            </tr>
+                        <tr>
+                            <td id="total-price">@Model.Cart.TotalPrice HRK</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
-                <form class="form-horizontal">
+                <form class="form-horizontal" id="order-form"
+                      data-clear-cart-url="@Url.Action("ClearCart", "Cart")"
+                      data-start-time="@Model.StartTime"
+                      data-end-time="@Model.EndTime">
                     <fieldset>
                         <!-- Text input-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="Name">Ime i prezime</label>
                             <div class="col-md-4">
-                                <input id="Name" name="Name" placeholder="..." class="form-control input-md" required="" type="text">
+                                <input id="client-name" name="Name" class="form-control input-md" required="" type="text">
                                 <span class="help-block">Ime i prezime</span>
                             </div>
                         </div>
@@ -60,7 +88,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="Address">Adresa</label>
                             <div class="col-md-4">
-                                <input id="Address" name="Address" placeholder="..." class="form-control input-md" required="" type="text">
+                                <input id="client-address" name="Address" class="form-control input-md" required="" type="text">
                                 <span class="help-block">Ulica, grad i poštanski broj (odvojeni zarezom)</span>
                             </div>
                         </div>
@@ -69,7 +97,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="Phone">Telefon</label>
                             <div class="col-md-4">
-                                <input id="Phone" name="Phone" placeholder="..." class="form-control input-md" required="" type="text">
+                                <input id="client-phone" name="Phone" class="form-control input-md" required="" type="text">
                                 <span class="help-block">Broj telefona</span>
                             </div>
                         </div>
@@ -78,7 +106,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="Email">Email</label>
                             <div class="col-md-4">
-                                <input id="Email" name="Email" placeholder="..." class="form-control input-md" required="" type="text">
+                                <input id="çlient_email" name="client_email" class="form-control input-md" required="" type="text">
                                 <span class="help-block">Adresa e-pošte</span>
                             </div>
                         </div>
@@ -87,7 +115,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="Note">Napomena</label>
                             <div class="col-md-4">
-                                <textarea class="form-control" id="Note" name="Note"></textarea>
+                                <textarea class="form-control" id="client-note" name="Note"></textarea>
                             </div>
                         </div>
 
@@ -95,12 +123,31 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="Accept"></label>
                             <div class="trebamiime">
-                                <button id="Accept" name="accept" class="btn btn-primary">Potvrdi narudžbu</button>
+                                <button name="accept" id="make-order-btn" class="btn btn-primary">Potvrdi narudžbu</button>
                             </div>
                         </div>
                     </fieldset>
                 </form>
->>>>>>> 2a564bc053433faeb90012033adcd48fd31d13f4
             </div>
         </div>
     </div>
+    <div id="cart-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
