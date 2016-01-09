@@ -6,12 +6,10 @@ $(document).on('click', '.del-addon-btn', function (e) {
         $this = $(this);
         var url = $this.data('url');
         var addon_id = $this.data('addon-id');
-        $("#delete-modal").load('/Admin/DeleteModal?Type=dodatak&Title=' + addon_id);
+        $("#delete-modal").load('/Admin/DeleteModal?Type=dodatak&Title=' +encodeURIComponent(addon_id));
 
-        $("#modal-addon-label").html(addon_id);
         $("#delete-modal").on('click', '#modal-del-btn', function (e) {
             e.preventDefault();
-            window.alert("potvrdi stisnut");
             $.ajax({
                 type: 'POST',
                 cache: false,

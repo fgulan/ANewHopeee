@@ -1,13 +1,17 @@
 ﻿
     $(document).on('click', '.del-meal-btn', function (e) {
         e.preventDefault();
+        $("#delete-modal").remove();
+        $("#del-meal-list").append('<div class="modal fade" id="delete-modal" role="dialog" aria-labelledby="basicModal" aria-hidden="true"></div>');
+
         $this = $(this);
         var url = $this.data('url');
         var meal_id = $this.data('meal-id');
         var meal_name = $this.data('meal-name');
+        var thisdata = $(this).attr('data-meal-name');
 
-        $("#modal-meal-label").html(meal_name);
-        $("#modal-del-btn").click(function () {
+        $("#delete-modal").load('/Admin/DeleteModal?Type=jelo&Title=' +encodeURIComponent(meal_name));
+        $("#delete-modal").on('click', '#modal-del-btn', function (e) {
             $.ajax({
                 type: 'POST',
                 cache: false,
