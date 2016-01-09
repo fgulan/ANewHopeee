@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
-    $(".addToCartBtn").click(function() {
+    $(".addToCartBtn").click(function () {
+        $(this).attr("disabled", true); //Dible button
         var parent = $(this).parent().parent(); //Get tr with all the info
 
         var mealId = parent.data('meal-id');
@@ -8,7 +9,7 @@
         var basePrice = parent.data('base-price');
 
         var addons = [];
-        parent.children(".addon").each(function(index) {
+        parent.find(".addon").each(function (index) {
             addons[index] = $(this).text();
         });
 
@@ -18,24 +19,23 @@
             type: 'POST',
             url: url,
             data: { MealID: mealId, Type: type, Count: count, AddOns: addons },
-            success: function(count) {
-                $("#cartCount").html('<span class="glyphicon glyphicon-shopping-cart"></span> ' + count);
-                parent.toggle('slow', function() {
-                    parent.remove();
-                });
-                var oldTotal = parseFloat($("#total-price").val().replace(",", "."));
-                $("#total-price").html((oldTotal - basePrice) + " HRK");
+            cache: false,
+            success: function (newCount) {
+                parent.animate({
+                    opacity: 0
+                }, 500, function () {
+                        $("#cartCount").html('<span class="glyphicon glyphicon-shopping-cart"></span> ' + newCount);
+                        parent.remove();
+                        var oldTotal = parseFloat($("#total-price").text().replace(",", "."));
+                        var removed = parseFloat(basePrice.replace(",", "."));
+                        $("#total-price").html((oldTotal - removed) + " HRK");
+                    });
             },
             error: function() {
                 window.alert('error');
             }
         });
     });
-
-
-    for (i = 1; i <= 10; i++) {
-        $(".1-10").append($('<option></option>').val(i).html(i))
-    }
 
     $(".1-10").change(function() { //When size is changed
         var select = $(this);
@@ -58,6 +58,7 @@
             type: 'POST',
             url: url,
             data: { MealID: mealId, Type: type, oldCount: oldCount, AddOns: addons, newCount: newCount },
+            cache: false,
             success: function (price) {
                 var oldTotal = parseFloat($("#total-price").text().replace(",", "."));
                 var newPrice = oldTotal - parseFloat(basePrice.replace(",", ".")) + parseFloat(price.replace(",","."));

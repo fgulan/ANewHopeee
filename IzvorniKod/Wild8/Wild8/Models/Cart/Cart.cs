@@ -16,7 +16,12 @@ namespace Wild8.Models.Cart
         {
             get
             {
-                return totalPrice;
+                decimal sum = 0;
+                foreach (var cartItem in items)
+                {
+                    sum += cartItem.Price;
+                }
+                return sum;
             }
         }
 

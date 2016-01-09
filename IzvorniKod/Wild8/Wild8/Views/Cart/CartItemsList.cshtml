@@ -1,8 +1,5 @@
-﻿@model IReadOnlyList<CartItem>
-
-@{
-    
-}
+﻿@using Antlr.Runtime.Tree
+@model IReadOnlyList<CartItem>
 
 @foreach (var item in Model)
 {
@@ -10,7 +7,7 @@
         data-type="@item.MealType.MealTypeName"
         data-count="@item.Count"
         data-url="@Url.Action("RemoveMeal", "Cart")"
-        data-base-price ="@(item.Price * item.Count)"
+        data-base-price ="@(item.Price)"
         data-change-count-url="@Url.Action("ChangeCartItemSize","Cart")">
         <!--Todo put image of a meal here-->
         <td class="img-col">
@@ -23,7 +20,17 @@
             @item.MealType.MealTypeName
         </td>
         <td class="size-col">
-            <select class="1-10"></select>
+            <select class="1-10">@for (int i = 1; i <= 10; i++)
+            {
+                if (i == item.Count)
+                {
+                    <option selected="selected">@i</option>                
+                }
+                else
+                {
+                    <option>@i</option>
+                }
+            }</select>
         </td>
         <td class="addon-col">
             <ul>
