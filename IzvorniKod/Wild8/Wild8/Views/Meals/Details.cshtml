@@ -16,15 +16,16 @@
 }
 
     <div class="container">
-        <form action="@Url.Action("AddToCart","Meals")">
+        <form action="@Url.Action("AddToCart","Meals")" id="meal-form">
             <div class="row">
+                <input type="hidden" id="mealID" value="@Model.Meal.MealID"/>
                 <div class="col-md-6">
-                    <img class="img-responsive meal-image"  img-responsive" src="http://lorempixel.com/200/200" />
+                    <img class="img-responsive meal-image" src="http://lorempixel.com/200/200"/>
                 </div>
                 <div class="col-md-1"></div><!--Kaj je ovo??-->
                 <div class="col-md-4">
-                    <h3 id="MealName">@Html.Display(Model.Meal.Name)</h3>
-                    <p>@Html.Display(Model.Meal.Description)</p>
+                    <h3 id="MealName">@Model.Meal.Name</h3>
+                    <p>@Model.Meal.Description</p>
                 </div>
             </div>
             <div class="row">
@@ -70,7 +71,7 @@
                     </ul>
                 </div>
                 <div class="col-md-1">
-                    <select id="Count" name="Count" form="AddMealForm" class="1-10"></select>
+                    <select name="Count" class="1-10"></select>
                 </div>
                 <div class="col-md-2">
                     <button type="button" class="btn btn-warning pull-right" id="addMealButton" >Dodaj</button>

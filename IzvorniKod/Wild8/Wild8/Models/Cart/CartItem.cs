@@ -64,6 +64,42 @@ namespace Wild8.Models.Cart
             {
                 return count;
             }
+            set
+            {
+                count = value;
+                totalPrice = mealType.Price * count;
+                foreach (var addOn in AddOns)
+                {
+                    totalPrice += addOn.Price;
+                }
+            }
+        }
+
+        protected bool Equals(CartItem other)
+        {
+            bool b1 = Equals(mealType, other.mealType);
+            var  b2 = !addOns.Except(other.addOns).Union(addOns.Except(other.addOns)).Any();
+            bool b3 = count == other.count;
+            return b1 && b2 && b3;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((CartItem) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (mealType != null ? mealType.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (addOns != null ? addOns.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ count;
+                return hashCode;
+            }
         }
     }
 }

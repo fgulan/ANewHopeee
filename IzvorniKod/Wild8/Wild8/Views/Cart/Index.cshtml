@@ -4,6 +4,10 @@
     ViewBag.Title = "Wild8 | Košarica";
 }
 
+@section Scripts {
+    <script type="text/javascript" src="~/Scripts/ViewScripts/Cart_View.js"></script>
+}
+
 <div id="dvCategoryResults">
     <div class="col-md-12">
         <div class="panel panel-default">
@@ -16,6 +20,7 @@
                             <th>Naziv jela</th>
                             <th>Veličina</th>
                             <th>Količina</th>
+                            <th>Dodaci</th>
                             <th align="right">Cijena</th>
                         </tr>
                     </thead>
@@ -37,7 +42,7 @@
 
                     <tbody class="displayed">
                         <tr>
-                            <td>@SessionExtension.GetCart(Session).TotalPrice HRK</td>
+                            <td id="total-price">@SessionExtension.GetCart(Session).TotalPrice HRK</td>
                             <td class="accept-col">
                                 <button type="submit" data-url="@Url.Action("Index", "Index")" class="btn btn-warning pull-right addToCartBtn">Potvrdi</button>
                                 <label class="pull-right"></label>

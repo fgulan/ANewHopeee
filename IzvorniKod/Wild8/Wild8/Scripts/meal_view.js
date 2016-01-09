@@ -3,7 +3,7 @@
     fillQuantity();
     setCommentListener();
     setPriceListener();
-
+    setAddToCartListener();
 })
 
 function setCommentListener() {
@@ -25,6 +25,7 @@ function setCommentListener() {
 
         $.ajax({
             type: 'POST',
+            cache: false,
             url: url,
             data: data,
             success: function (partialView) {
@@ -84,4 +85,30 @@ function fillQuantity() {
     for (i = 1; i <= 10; i++) {
         $select.append($('<option></option>').val(i).html(i))
     }
+}
+
+function setAddToCartListener() {
+    $('#addMealButton').click(function () {
+
+        var url = $("#meal-form").attr('action');
+        var mealID = $("#mealID").val();
+        var mealTypeName = $(".col-md-1>ul>li>input[checked ='checked']").val().split("#")[1];
+        var count = $(".1-10 option:selected").val();
+        var addons = [];
+        $(".AddOn[checked ='checked']").each(function (index) {
+            addons[index] = $(this).val();
+        });
+        
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { count: count,mealID: mealID ,mealTypeName: mealTypeName, addOnNames: addons },
+            success: function(count) {
+                $("#cartCount").html('<span class="glyphicon glyphicon-shopping-cart"></span> ' + count);
+            },
+            error: function() {
+                
+            }
+        });
+    });
 }

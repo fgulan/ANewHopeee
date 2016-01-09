@@ -188,6 +188,7 @@
     <Compile Include="Models\MealType.cs" />
     <Compile Include="Models\ModelViews\AddEditMealModelView.cs" />
     <Compile Include="Models\ModelViews\MenuModelView.cs" />
+    <Compile Include="Models\ModelViews\ModalViewModel.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\OrderInfo.cs" />
@@ -225,7 +226,6 @@
     <Content Include="images\marketing_images\marketing_30min.jpg" />
     <Content Include="images\marketing_images\marketing_satisfaction.png" />
     <Content Include="images\marketing_images\marketing_veggie.jpg" />
-    <Content Include="images\Meals\079eb426-bffc-44ea-a03b-239e86959363present_closed.png" />
     <Content Include="images\Meals\2b75644f-1010-4d37-b8a4-5a312098df46Bitmap.jpg" />
     <Content Include="images\Meals\3c453258-9527-442a-9c1b-26cf5feff72bpresent_unwrapped%402x.png" />
     <Content Include="images\Meals\6514b863-6dc4-45c7-b7b2-9b0c67ae4368background%402x.jpg" />
@@ -285,9 +285,11 @@
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\AddAddOnScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\AddMealScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\admin_view.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\DelAddOnsScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\DelMealsScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\EditAddOnListScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\EditMealListScript.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\EditAddOnScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\EditMealScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\OrdersScript.js" />
     <Content Include="Scripts\ViewScripts\Charts\amcharts.js" />
@@ -484,6 +486,7 @@
     <Content Include="Scripts\ViewScripts\Charts\themes\light.js" />
     <Content Include="Scripts\ViewScripts\Charts\themes\patterns.js" />
     <Content Include="Scripts\ViewScripts\Charts\xy.js" />
+    <Content Include="Scripts\ViewScripts\Cart_View.js" />
     <Content Include="Scripts\ViewScripts\login.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Content\comments.css" />
@@ -566,16 +569,16 @@
     <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\data\serial2.json" />
     <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\data\TXN.csv" />
     <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\readme.md" />
+    <Content Include="Views\Admin\EditAddOn.cshtml" />
     <None Include="Views\Admin\AddEditDelMealsPartial.cshtml" />
     <None Include="Views\Admin\AddEmployeeForm.cshtml" />
     <Content Include="Content\AddEmployeeFormStyle.css" />
     <Content Include="Views\Admin\AddMeal.cshtml" />
     <Content Include="Views\Admin\EditMeal.cshtml" />
-    <None Include="Views\Admin\DelAddonsPartial.cshtml" />
-    <None Include="Views\Admin\DelCategoryPartial.cshtml" />
     <None Include="Views\Admin\DelMeals.cshtml" />
     <Content Include="Views\Admin\EditAddOnList.cshtml" />
     <Content Include="Views\Admin\EditMealList.cshtml" />
+    <Content Include="Views\Admin\DelAddOns.cshtml" />
     <None Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\sb-admin.css" />
     <Content Include="Web.config" />
@@ -605,6 +608,7 @@
     <Content Include="Views\Admin\Orders.cshtml" />
     <Content Include="Views\Admin\Receipt.cshtml" />
     <Content Include="Views\Admin\Statistic.cshtml" />
+    <Content Include="Views\Admin\DeleteModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\SharedScripts\" />

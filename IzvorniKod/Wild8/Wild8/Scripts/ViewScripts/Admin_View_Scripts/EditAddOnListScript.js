@@ -5,6 +5,7 @@
         $.ajax({
             type: 'GET',
             url: url,
+            cache: false,
             data: { id: addon_id },
             success: function (content) {
                 var listContainer = $('#edit-addon-list').parent();

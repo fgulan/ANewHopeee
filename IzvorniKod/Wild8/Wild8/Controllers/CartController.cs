@@ -18,27 +18,40 @@ namespace Wild8.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        public int AddMeal(int MealID, string Type, int Count, string[] AddOns)
+        public int RemoveMeal(int MealID, string Type, int Count, string[] AddOns)
+        {
+            CartItem item = createCartItem(MealID, Type, Count, AddOns);
+            Cart cart = SessionExtension.GetCart(Session);
+            cart.RemoveItem(item);
+            int count = cart.Count();
+            Session["CartCount"] = count;
+            return count;
+        }
+
+        public decimal ChangeCartItemSize(int MealID, string Type, int oldCount, string[] AddOns, int newCount)
+        {
+            CartItem item = createCartItem(MealID, Type, oldCount, AddOns);
+            Cart cart = SessionExtension.GetCart(Session);
+            return cart.ChangeItemCount(item, newCount);
+        }
+
+        private CartItem createCartItem(int MealID, string Type, int Count, string[] AddOns)
         {
             Cart cart = SessionExtension.GetCart(Session);
-            string name = Type.Split('#')[1];
-            MealType MealType = db.MealTypes.Find(MealID, name);
+            MealType MealType = db.MealTypes.Find(MealID, Type);
             CartItem CartItem = new CartItem(MealType, Count);
 
             if (AddOns != null)
             {
                 foreach (var item in AddOns)
                 {
-                    var ID = item.Split('#')[1];
-                    AddOn addOn = db.AddOns.Find(ID);
+                    AddOn addOn = db.AddOns.Find(item);
                     CartItem.AddMealAddOn(addOn);
                 }
             }
-            cart.AddItem(CartItem);
-            int count =cart.Count();
-            Session["CartCount"] = count;
-            return count;
+            return CartItem;
         }
     }
 }
