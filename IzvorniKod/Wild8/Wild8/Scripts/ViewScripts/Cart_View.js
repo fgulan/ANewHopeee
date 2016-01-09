@@ -1,6 +1,23 @@
-﻿$(document).ready(function () {
-    $(".addToCartBtn").click(function () {
-        $(this).attr("disabled", true); //Dible button
+﻿$(document).ready(function() {
+    disableOrderIfRestourantNotWorking();
+    setRemoveBtnListeners();
+    setCountChangeListener();
+    setOrderBtnListener();
+});
+
+function disableOrderIfRestourantNotWorking() {
+    //TODO:
+    //Get current time,
+    //Get restourant working hours 
+
+    //If restourant is not working disable order button and set tooltip on it
+    //so that user knows why he can not order meal
+
+
+}
+
+function setRemoveBtnListeners() {
+    $(".removeFromCartBtn").one("click", function () { //Allowed only one click
         var parent = $(this).parent().parent(); //Get tr with all the info
 
         var mealId = parent.data('meal-id');
@@ -24,20 +41,23 @@
                 parent.animate({
                     opacity: 0
                 }, 500, function () {
-                        $("#cartCount").html('<span class="glyphicon glyphicon-shopping-cart"></span> ' + newCount);
-                        parent.remove();
-                        var oldTotal = parseFloat($("#total-price").text().replace(",", "."));
-                        var removed = parseFloat(basePrice.replace(",", "."));
-                        $("#total-price").html((oldTotal - removed) + " HRK");
-                    });
+                    $("#cartCount").html('<span class="glyphicon glyphicon-shopping-cart"></span> ' + newCount);
+                    parent.remove();
+                    var oldTotal = parseFloat($("#total-price").text().replace(",", "."));
+                    var removed = parseFloat(basePrice.replace(",", "."));
+                    $("#total-price").html((oldTotal - removed) + " HRK");
+                });
             },
-            error: function() {
+            error: function () {
                 window.alert('error');
             }
         });
-    });
+    }); //This is remove btn 
 
-    $(".1-10").change(function() { //When size is changed
+}
+
+function setCountChangeListener() {
+    $(".1-10").change(function () { //When size is changed
         var select = $(this);
         var parent = $(this).parent().parent(); //Get tr
 
@@ -61,7 +81,7 @@
             cache: false,
             success: function (price) {
                 var oldTotal = parseFloat($("#total-price").text().replace(",", "."));
-                var newPrice = oldTotal - parseFloat(basePrice.replace(",", ".")) + parseFloat(price.replace(",","."));
+                var newPrice = oldTotal - parseFloat(basePrice.replace(",", ".")) + parseFloat(price.replace(",", "."));
                 $("#total-price").html(newPrice + " HRK");
 
                 parent.data('count', newCount);
@@ -69,10 +89,77 @@
                 var orderPriceLabel = parent.find(".price");
                 orderPriceLabel.html(price + " HRK");
             },
-            error: function() {
+            error: function () {
 
             }
         });
 
+    }); //If changing number of meals in cart
+}
+
+function setOrderBtnListener() {
+    if (false) {
+        $("#make-order-btn").click(function (e) {
+            //Todo: validate input form 
+
+
+            var hub = $.connection.OrderHub;
+            hub.start().done(function () {
+                var order = undefined;
+                //Todo refractor this so that order accepts only neccesery order info
+
+                var orders = [];
+                $("#orders-list").find("tr").each(function (i) {
+                    orders[i] = getOrder($(this));
+                });
+                if (orders.length == 0) {
+                    //Show modal no orders have been placed
+                    return;
+                }
+
+
+                //Todo get data from address form
+
+                var clientInfo = {};
+
+                var order = {
+                    orders: orders,
+                    clientInfo: clientInfo
+                }
+
+                var jsonOrder = JSON.stringify(order);
+
+                hub.server.order(jsonOrder); //Push order to hub on server
+                //Todo: replace order button and form with some picture or paragraph
+
+                //Todo: remove all items from cart 
+                hub.stop();
+            });
+        });
+    }       //Just for now so that it does not fucks up working parts
+}
+
+//Order is 
+//  mealId
+//  mealTypeName
+//  quantity
+//  addon names *
+function getOrder(parent) {
+    var mealId   = parent.data('mealId');
+    var mealType = parent.data('type');
+    var count    = parent.data('count');
+
+    var addons = []
+    parent.find(".addon").each(function (index) {
+        addons[index] = $(this).text();
     });
-})
+
+    var order = {
+        mealID:   mealId,
+        mealType: mealType,
+        count:    count,
+        addons:   addons
+    }
+
+    return order;
+}

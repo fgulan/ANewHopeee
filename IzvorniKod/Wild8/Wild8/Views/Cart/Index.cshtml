@@ -25,7 +25,7 @@
                         </tr>
                     </thead>
 
-                    <tbody class="displayed">
+                    <tbody class="displayed" id="orders-list">
                         @{
                             Html.RenderPartial("CartItemsList", SessionExtension.GetCart(Session).Items);
                         }
@@ -44,7 +44,7 @@
                         <tr>
                             <td id="total-price">@SessionExtension.GetCart(Session).TotalPrice HRK</td>
                             <td class="accept-col">
-                                <button type="submit" data-url="@Url.Action("Index", "Index")" class="btn btn-warning pull-right addToCartBtn">Potvrdi</button>
+                                <button type="submit" data-url="@Url.Action("Index", "Index")" class="btn btn-warning pull-right" id="make-order-btn">Potvrdi</button>
                                 <label class="pull-right"></label>
                             </td>
                         </tr>
