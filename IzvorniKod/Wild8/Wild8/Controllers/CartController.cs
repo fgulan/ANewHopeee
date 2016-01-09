@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Wild8.DAL;
 using Wild8.Models;
 using Wild8.Models.Cart;
+using Wild8.Utils;
 
 namespace Wild8.Controllers
 {
@@ -61,15 +62,18 @@ namespace Wild8.Controllers
 
             Order order = new Order();
 
-            order.Name = Name;
+            order.Name = TextUtils.sanitize(Name);
 
             string[] decomposedAddress = Regex.Split(Address, "(, )|(,)"); //Ovo nije bilo namjerno
             if (decomposedAddress.Length != 3) { return false; }
-            order.Address = decomposedAddress[0];
-            order.City = decomposedAddress[1];
-            order.PostCode = decomposedAddress[2];
 
-            order.Annotation = Note;
+            order.Address = TextUtils.sanitize(decomposedAddress[0]);
+            order.City = TextUtils.sanitize(decomposedAddress[1]);
+            order.PostCode = TextUtils.sanitize(decomposedAddress[2]);
+
+            if (!TextUtils.IsEmail(Email)) { return false; }
+
+            order.Annotation = TextUtils.sanitize(Note);
 
             order.OrderDate = DateTime.Now;
 

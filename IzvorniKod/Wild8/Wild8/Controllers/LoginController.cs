@@ -19,11 +19,10 @@ namespace Wild8.Controllers
         public ActionResult Index()
         {
             var user = SessionExtension.GetUser(Session);
-            if(user != null)
+            if (user != null)
             {
-                return RedirectToAction("Index","Admin");
+                return RedirectToAction("Index", "Admin");
             }
-
 
             return View();
         }
@@ -31,8 +30,8 @@ namespace Wild8.Controllers
         [HttpPost]
         public bool Login(string username, string password)
         {
-            username = LoginUtils.sanitize(username);
-            password = LoginUtils.sanitize(password);
+            username = TextUtils.sanitize(username);
+            password = TextUtils.sanitize(password);
 
             Employee employee = db.Employees.Find(username);
             if (employee == null)
@@ -40,7 +39,7 @@ namespace Wild8.Controllers
                 return false;
             }
 
-            if (LoginUtils.SHA256Hash(password) != employee.Password)
+            if (TextUtils.SHA256Hash(password) != employee.Password)
             {
                 return false;
             }

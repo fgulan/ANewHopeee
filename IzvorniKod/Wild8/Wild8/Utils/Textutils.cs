@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Wild8.Utils
 {
-    public class LoginUtils
+    public class TextUtils
     {
         private static Regex emailPattern = new Regex(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$");
 
