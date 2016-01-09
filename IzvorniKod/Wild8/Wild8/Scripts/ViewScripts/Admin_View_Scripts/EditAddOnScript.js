@@ -5,6 +5,7 @@
     resetForm: false,
     cache: false,
     success: function (response) {
+        $("#OldName").val($("#Name").val());
         printOnModal("Dodatak spremljen", response);
     },
     error: function (xhr, status, response) {
@@ -13,9 +14,9 @@
 });
 
 function printOnModal(title, content) {
-    var modal = $("#mealModal");
-    var headerLabel = modal.find("#meal-modal-header-label");
-    var bodyHeader = modal.find("#meal-modal-body-label");
+    var modal = $("#addOnModal");
+    var headerLabel = modal.find("#addon-meal-modal-header-label");
+    var bodyHeader = modal.find("#addon-meal-modal-body-label");
 
     headerLabel.html(title);
     bodyHeader.html(content);

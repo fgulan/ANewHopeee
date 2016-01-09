@@ -188,6 +188,7 @@
     <Compile Include="Models\MealType.cs" />
     <Compile Include="Models\ModelViews\AddEditMealModelView.cs" />
     <Compile Include="Models\ModelViews\MenuModelView.cs" />
+    <Compile Include="Models\ModelViews\ModalViewModel.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\OrderInfo.cs" />
@@ -285,6 +286,7 @@
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\AddAddOnScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\AddMealScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\admin_view.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\DelAddOnsScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\DelMealsScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\EditAddOnListScript.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\EditMealListScript.js" />
@@ -306,11 +308,10 @@
     <Content Include="Content\AddEmployeeFormStyle.css" />
     <Content Include="Views\Admin\AddMeal.cshtml" />
     <Content Include="Views\Admin\EditMeal.cshtml" />
-    <None Include="Views\Admin\DelAddonsPartial.cshtml" />
-    <None Include="Views\Admin\DelCategoryPartial.cshtml" />
     <None Include="Views\Admin\DelMeals.cshtml" />
     <Content Include="Views\Admin\EditAddOnList.cshtml" />
     <Content Include="Views\Admin\EditMealList.cshtml" />
+    <Content Include="Views\Admin\DelAddOns.cshtml" />
     <None Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\sb-admin.css" />
     <Content Include="Web.config" />
@@ -340,6 +341,7 @@
     <Content Include="Views\Admin\Orders.cshtml" />
     <Content Include="Views\Admin\Receipt.cshtml" />
     <Content Include="Views\Admin\Statistic.cshtml" />
+    <Content Include="Views\Admin\DeleteModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\SharedScripts\" />
