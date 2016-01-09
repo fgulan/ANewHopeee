@@ -24,20 +24,20 @@
                 parent.animate({
                     opacity: 0
                 }, 500, function () {
-                        $("#cartCount").html('<span class="glyphicon glyphicon-shopping-cart"></span> ' + newCount);
-                        parent.remove();
-                        var oldTotal = parseFloat($("#total-price").text().replace(",", "."));
-                        var removed = parseFloat(basePrice.replace(",", "."));
-                        $("#total-price").html((oldTotal - removed) + " HRK");
-                    });
+                    $("#cartCount").html('<span class="glyphicon glyphicon-shopping-cart"></span> ' + newCount);
+                    parent.remove();
+                    var oldTotal = parseFloat($("#total-price").text().replace(",", "."));
+                    var removed = parseFloat(basePrice.replace(",", "."));
+                    $("#total-price").html((oldTotal - removed) + " HRK");
+                });
             },
-            error: function() {
+            error: function () {
                 window.alert('error');
             }
         });
     });
 
-    $(".1-10").change(function() { //When size is changed
+    $(".1-10").change(function () { //When size is changed
         var select = $(this);
         var parent = $(this).parent().parent(); //Get tr
 
@@ -61,7 +61,7 @@
             cache: false,
             success: function (price) {
                 var oldTotal = parseFloat($("#total-price").text().replace(",", "."));
-                var newPrice = oldTotal - parseFloat(basePrice.replace(",", ".")) + parseFloat(price.replace(",","."));
+                var newPrice = oldTotal - parseFloat(basePrice.replace(",", ".")) + parseFloat(price.replace(",", "."));
                 $("#total-price").html(newPrice + " HRK");
 
                 parent.data('count', newCount);
@@ -69,10 +69,12 @@
                 var orderPriceLabel = parent.find(".price");
                 orderPriceLabel.html(price + " HRK");
             },
-            error: function() {
-
+            error: function () {
             }
         });
+    });
 
+    $(".trebamiime").click(function () {
+        window.alert("Narudžba se obrađuje!");
     });
 })

@@ -486,7 +486,7 @@ namespace Wild8.Controllers
             Employee e = new Employee
             {
                 EmployeeID = employeeId,
-                Password = LoginUtils.SHA256Hash(pass),
+                Password = TextUtils.SHA256Hash(pass),
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
