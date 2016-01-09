@@ -406,7 +406,7 @@ namespace Wild8.Controllers
 
                 foreach (OrderDetail orderDetail in order.OrderDetails)
                 {
-                    string mealName = orderDetail.MealName;
+                    string mealName = orderDetail.MealName + " - " + orderDetail.MealType;
 
                     if (!mealOrders.ContainsKey(mealName))
                     {
@@ -439,7 +439,7 @@ namespace Wild8.Controllers
 
             mealList.Sort((current, next) =>
             {
-                return current.Value.CompareTo(next.Value);
+                return -current.Value.CompareTo(next.Value);
             });
 
             StatisticsModel model = new StatisticsModel();

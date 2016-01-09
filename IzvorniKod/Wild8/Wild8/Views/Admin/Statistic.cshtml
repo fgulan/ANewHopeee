@@ -16,7 +16,7 @@
             @{ int counter = 0; }
             @foreach (var meal in Model.TotalTopMeals)
             {
-                <text><li>@meal.Key - x<b/>@meal.Value</li></text>
+                <text><li>@meal.Key x<b/>@meal.Value</li></text>
                 counter++;
 
                 if (counter >= 3)
