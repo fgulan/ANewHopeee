@@ -108,9 +108,9 @@ function setOrderBtnListener() {
                 var order = undefined;
                 //Todo refractor this so that order accepts only neccesery order info
 
-                var orders = [];
+                var meals = [];
                 $("#orders-list").find("tr").each(function (i) {
-                    orders[i] = getOrder($(this));
+                    meals[i] = geMeal($(this));
                 });
                 if (orders.length == 0) {
                     //Show modal no orders have been placed
@@ -144,8 +144,8 @@ function setOrderBtnListener() {
 //  mealTypeName
 //  quantity
 //  addon names *
-function getOrder(parent) {
-    var mealId   = parent.data('mealId');
+function getMeal(parent) {
+    var mealName = parent.data('meal-name');
     var mealType = parent.data('type');
     var count    = parent.data('count');
 
@@ -155,10 +155,10 @@ function getOrder(parent) {
     });
 
     var order = {
-        mealID:   mealId,
-        mealType: mealType,
-        count:    count,
-        addons:   addons
+        mealName:     mealName,
+        mealTypeName: mealType,
+        count:        count,
+        addons:       addons
     }
 
     return order;

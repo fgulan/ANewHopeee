@@ -53,19 +53,23 @@
                     <li><h3>Wild 8</h3></li>
                     <li><h4>@if (Model.AdminRights)
                     {
-                        @("Vlasnik" + Model.FirstName)
+                        @("Vlasnik " + Model.FirstName)
                     }
                     else
                     {
-                        @("Dijelatnik" + Model.FirstName)
+                        @("Dijelatnik " + Model.FirstName)
                     }</h4></li>
-                    <li class="active" data-toggle="tab" id="orders-menu" data-url="@Url.Action("Orders", "Admin")"><a>Narudžbe</a></li>
+                    <li class="active" id="orders-menu"
+                        data-toggle="tab"
+                        data-url="@Url.Action("Orders", "Admin")"
+                        data-url="@Url.Action("MultipleOrders","Admin")"
+                        data-single-order-url="@Url.Action("SingleOrder","Admin")"><a>Narudžbe <span class="badge pull-right" id="orders-badge">5</span></a></li>
                     <li data-toggle="tab" id="meal-menu" data-url="@Url.Action("AddEditDelMenu", "Admin")"><a>Jela</a></li>
                     @if (Model.AdminRights)
                     {
                         <li data-toggle="tab" id="statistic-menu" data-url="@Url.Action("Statistic", "Admin")"><a>Statistika</a></li>
-                        <li data-toggle="tab" id="workers-menu" data-url="@Url.Action("AddRemoveUserPartial", "Admin")"><a>Dijelatnici</a></li>
-                        <li data-toggle="tab" id="static-info-menu" data-url="@Url.Action("StaticInfo","Admin")">Wild8 info</li>
+                        <li data-toggle="tab" id="workers-menu" data-url="@Url.Action("AddRemoveEmployee", "Admin")"><a>Dijelatnici</a></li>
+                        <li data-toggle="tab" id="static-info-menu" data-url="@Url.Action("StaticInfo","Admin")"><a>Wild8 info</a></li>
                     }
                 </ul>
                 <div class="logout-btn" >

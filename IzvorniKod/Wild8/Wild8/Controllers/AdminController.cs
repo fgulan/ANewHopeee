@@ -12,6 +12,7 @@ using Wild8.DAL;
 using Wild8.Models;
 using Wild8.Models.ModelViews;
 using Wild8.Utils;
+using Newtonsoft.Json;
 
 namespace Wild8.Controllers
 {
@@ -38,6 +39,24 @@ namespace Wild8.Controllers
         {
             return PartialView("Orders");
         }
+
+        [HttpGet]
+        public ActionResult MultipleOrders(string jsonOrders)
+        {
+            ICollection<string> orders = JsonConvert.DeserializeObject<ICollection<string>>(jsonOrders);
+            
+            return null;
+        }
+
+        [HttpGet]
+        public ActionResult SingleOrder(string jsonOrder)
+        {
+            Object order = JsonConvert.DeserializeObject(jsonOrder);
+
+            
+            return null;
+        }
+
 
         ////////////////////////////////////
         //  Meal add, edit, delete
