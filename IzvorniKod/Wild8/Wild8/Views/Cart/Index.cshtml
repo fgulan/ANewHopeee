@@ -31,26 +31,76 @@
                         }
                     </tbody>
                 </table>
-            </div>
-            <div class="panel-body">
-                <table class="table table-condensed" style="border-collapse:collapse;">
-                    <thead id="head-underline">
-                        <tr>
-                            <th>Ukupno</th>
-                        </tr>
-                    </thead>
+                <div class="panel-body">
+                    <table class="table table-condensed" style="border-collapse:collapse;">
+                        <thead id="head-underline">
+                            <tr>
+                                <th>Ukupno</th>
+                            </tr>
+                        </thead>
 
-                    <tbody class="displayed">
-                        <tr>
-                            <td id="total-price">@SessionExtension.GetCart(Session).TotalPrice HRK</td>
-                            <td class="accept-col">
-                                <button type="submit" data-url="@Url.Action("Index", "Index")" class="btn btn-warning pull-right addToCartBtn">Potvrdi</button>
-                                <label class="pull-right"></label>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                        <tbody class="displayed">
+                            <tr>
+                                <td id="total-price">@SessionExtension.GetCart(Session).TotalPrice HRK</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <form class="form-horizontal">
+                    <fieldset>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="Name">Ime i prezime</label>
+                            <div class="col-md-4">
+                                <input id="Name" name="Name" placeholder="..." class="form-control input-md" required="" type="text">
+                                <span class="help-block">Ime i prezime</span>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="Address">Adresa</label>
+                            <div class="col-md-4">
+                                <input id="Address" name="Address" placeholder="..." class="form-control input-md" required="" type="text">
+                                <span class="help-block">Ulica, grad i poštanski broj (odvojeni zarezom)</span>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="Phone">Telefon</label>
+                            <div class="col-md-4">
+                                <input id="Phone" name="Phone" placeholder="..." class="form-control input-md" required="" type="text">
+                                <span class="help-block">Broj telefona</span>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="Email">Email</label>
+                            <div class="col-md-4">
+                                <input id="Email" name="Email" placeholder="..." class="form-control input-md" required="" type="text">
+                                <span class="help-block">Adresa e-pošte</span>
+                            </div>
+                        </div>
+
+                        <!-- Textarea -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="Note">Napomena</label>
+                            <div class="col-md-4">
+                                <textarea class="form-control" id="Note" name="Note"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="Accept"></label>
+                            <div class="col-md-4">
+                                <button id="Accept" name="accept" class="btn btn-primary">Potvrdi narudžbu</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
         </div>
     </div>
-</div>

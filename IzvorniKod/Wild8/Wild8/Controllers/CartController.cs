@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using Wild8.Models.Cart;
 using Wild8.DAL;
 using Wild8.Models;
+using Wild8.Models.Cart;
 
 namespace Wild8.Controllers
 {
@@ -52,6 +53,57 @@ namespace Wild8.Controllers
                 }
             }
             return CartItem;
+        }
+
+        private bool CreateOrder(string Name, string Address, string Phone, string Email, string Note)
+        {
+            Cart cart = SessionExtension.GetCart(Session);
+
+            Order order = new Order();
+
+            order.Name = Name;
+
+            string[] decomposedAddress = Regex.Split(Address, "(, )|(,)"); //Ovo nije bilo namjerno
+            if (decomposedAddress.Length != 3) { return false; }
+            order.Address = decomposedAddress[0];
+            order.City = decomposedAddress[1];
+            order.PostCode = decomposedAddress[2];
+
+            order.Annotation = Note;
+
+            order.OrderDate = DateTime.Now;
+
+            order.TotalPrice = cart.TotalPrice;
+
+            foreach (CartItem item in cart.Items)
+            {
+                OrderDetail orderDetail = new OrderDetail();
+
+                order.OrderID = order.OrderID;
+                orderDetail.MealName = item.MealType.Meal.Name;
+                orderDetail.MealType = item.MealType.ToString();
+                orderDetail.Price = item.Price;
+                orderDetail.Count = item.Count;
+                orderDetail.Order = order;
+
+                foreach (AddOn addOn in item.AddOns)
+                {
+                    OrderMealAddOn newAddOn = new OrderMealAddOn();
+
+                    newAddOn.OrderID = order.OrderID;
+                    //newAddOn.MealName = item.MealType.Meal.Name;
+                    //TODO: meal name je int??
+                    newAddOn.AddOnName = addOn.AddOnID;
+                    newAddOn.Price = addOn.Price;
+                    newAddOn.Order = order;
+
+                    orderDetail.OrderMealAddOns.Add(newAddOn);
+                }
+
+                order.OrderDetails.Add(orderDetail);
+            }
+
+            return true;
         }
     }
 }
