@@ -128,17 +128,15 @@ namespace Wild8.Controllers
                     try {
                         db.SaveChanges();
                     }
-                    catch(Exception ex) {
-                        Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        return Content(ex.Message, MediaTypeNames.Text.Plain);
+                    catch(Exception) {
+                        return Content("Jelo " + meal.Name + " već postoji.", MediaTypeNames.Text.Plain);
                     }
                 }
-                return Content("Jelo " + meal.Name +" je dodano u bazu.", MediaTypeNames.Text.Plain);
+                return Content("Jelo " + meal.Name +" je spremljeno.", MediaTypeNames.Text.Plain);
             }
             else
             {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Content("Jelo nije dodano", MediaTypeNames.Text.Plain);
+                return Content("Neočekivana greška.", MediaTypeNames.Text.Plain);
             }
         }
 
@@ -236,6 +234,7 @@ namespace Wild8.Controllers
                         }
                     }
                 }
+
                 db.SaveChanges();
                 return Content("Jelo " + meal.Name + " je spremljeno.", MediaTypeNames.Text.Plain);
             }
@@ -268,19 +267,6 @@ namespace Wild8.Controllers
         ////////////////////////////////////
         //  Add delete addon
         ////////////////////////////////////
-        [HttpGet]
-        public ActionResult AddDeleteAddOnPartial()
-        {
-            //Todo some parital view for this shit
-            return PartialView();
-        }
-
-        [HttpPost]
-        public ActionResult DeleteAddonPartial()
-        {
-            return PartialView("", db.AddOns.ToList());
-        }
-
         public ActionResult AddAddOn()
         {
             return PartialView("AddAddOn");
@@ -292,8 +278,7 @@ namespace Wild8.Controllers
             var exists = db.AddOns.Find(Name);
             if(exists != null) //If addon already exists
             {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Content("Dodatak vec postoji u bazi pod tim imenom", MediaTypeNames.Text.Plain);
+                return Content("Dodatak već postoji u bazi pod tim imenom", MediaTypeNames.Text.Plain);
             }
 
             db.AddOns.Add(new AddOn() { AddOnID = Name, Price = Decimal.Parse(Price)});
@@ -318,7 +303,7 @@ namespace Wild8.Controllers
         }
 
         [HttpPost]
-        public bool EditAddOn(string OldName, string Name, string Price)
+        public ActionResult EditAddOn(string OldName, string Name, string Price)
         {
             AddOn addOn = new AddOn() { AddOnID = Name, Price = Decimal.Parse(Price) };
 
@@ -327,7 +312,7 @@ namespace Wild8.Controllers
                 db.AddOns.Attach(addOn);
                 db.Entry(addOn).State = EntityState.Modified;
                 db.SaveChanges();
-                return true;
+                return Content("Dodatak " + addOn.AddOnID + " uspješno spremljen.", MediaTypeNames.Text.Plain);
             }
 
             var query = from mealAddOn in db.MealAddOns
@@ -347,15 +332,34 @@ namespace Wild8.Controllers
             }
 
             db.SaveChanges();
-            return true;
+            return Content("Dodatak " + addOn.AddOnID + " uspješno spremljen.", MediaTypeNames.Text.Plain);
         }
 
+        [HttpGet]
+        public ActionResult DeleteAddon()
+        {
+            return PartialView("DelAddOns", db.AddOns.ToList());
+        }
 
         [HttpPost]
-        public void RemoveAddon(string addOnName)
+        public ActionResult DeleteAddon(string AddOnID)
         {
-            db.AddOns.Remove(new AddOn() { AddOnID = addOnName});
+            if (AddOnID == null)
+            {
+                return Content("Neočekivana greška.", MediaTypeNames.Text.Plain);
+            }
+
+            var query = from mealAddOn in db.MealAddOns
+                        where mealAddOn.AddOnID.Equals(AddOnID)
+                        select mealAddOn;
+            var mealAddOns = query.ToList();
+            db.MealAddOns.RemoveRange(mealAddOns);
+
+            AddOn addOn = db.AddOns.Find(AddOnID);
+            db.AddOns.Attach(addOn);
+            db.AddOns.Remove(addOn);
             db.SaveChanges();
+            return Content("Dodatak " + addOn.AddOnID + " uspješno obrisan.", MediaTypeNames.Text.Plain);
         }
 
         ////////////////////////////////////
@@ -408,20 +412,20 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult Statistic()
         {
-            DbSet<Order> orders = db.Orders;
+            List<Order> orders = db.Orders.ToList();
             Dictionary<string, int> mealOrders = new Dictionary<string, int>();
             Dictionary<string, int> monthlyOrders = new Dictionary<string, int>();
 
-            int totalNumOfOrders = orders.Count();
+            int totalNumOfOrders = 0;
             decimal totalAveragePrice = 0.00M;
 
-            foreach (Order order in orders)
-            {
+            foreach (Order order in orders) {
+                totalNumOfOrders++;
                 totalAveragePrice += order.TotalPrice;
 
                 foreach (OrderDetail orderDetail in order.OrderDetails)
                 {
-                    string mealName = orderDetail.MealName;
+                    string mealName = orderDetail.MealName + " - " + orderDetail.MealType;
 
                     if (!mealOrders.ContainsKey(mealName))
                     {
@@ -433,7 +437,7 @@ namespace Wild8.Controllers
                     }
                 }
 
-                string orderMonth = order.AcceptanceDate.ToString("YYYY-MM");
+                string orderMonth = order.AcceptanceDate.ToString("yyyy-MM");
 
                 if (!monthlyOrders.ContainsKey(orderMonth))
                 {
@@ -454,14 +458,14 @@ namespace Wild8.Controllers
 
             mealList.Sort((current, next) =>
             {
-                return current.Value.CompareTo(next.Value);
+                return -current.Value.CompareTo(next.Value);
             });
 
             StatisticsModel model = new StatisticsModel();
 
             model.TotalAveragePrice = totalAveragePrice;
             model.TotalNumOfOrders = totalNumOfOrders;
-            model.TotalTop3Meals = mealList;
+            model.TotalTopMeals = mealList;
             model.OrdersByMonths = monthlyOrders.ToList();
 
             return PartialView(model);
@@ -501,7 +505,7 @@ namespace Wild8.Controllers
             Employee e = new Employee
             {
                 EmployeeID = employeeId,
-                Password = LoginUtils.SHA256Hash(pass),
+                Password = TextUtils.SHA256Hash(pass),
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
@@ -544,6 +548,11 @@ namespace Wild8.Controllers
         public ActionResult Receipt(Order order)
         {
             return View(order);
+        }
+
+        public ActionResult DeleteModal(string Title, string Type)
+        {
+            return PartialView("DeleteModal", new ModalViewModel() { Title = Title, Type = Type});
         }
     }
 }

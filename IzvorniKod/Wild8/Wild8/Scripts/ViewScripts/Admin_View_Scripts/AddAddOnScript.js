@@ -5,10 +5,10 @@
     resetForm: true,
     cache : false,
     success: function (response) {
-        printOnModal("Jelo dodano", response);
+        printOnModal("Dodatak dodan.", response);
     },
     error: function (xhr, status, response) {
-        printOnModal("Jelo nije dodano", response);
+        printOnModal("Dodatak nije dodan", response);
     }
 });
 

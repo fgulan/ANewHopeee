@@ -90,11 +90,9 @@ function setCountChangeListener() {
                 orderPriceLabel.html(price + " HRK");
             },
             error: function () {
-
             }
         });
-
-    }); //If changing number of meals in cart
+    });
 }
 
 function setOrderBtnListener() {
@@ -149,8 +147,8 @@ function getMeal(parent) {
     var mealType = parent.data('type');
     var count    = parent.data('count');
 
-    var addons = []
-    parent.find(".addon").each(function (index) {
+    var addons = [];
+    parent.find(".addon").each(function(index) {
         addons[index] = $(this).text();
     });
 
