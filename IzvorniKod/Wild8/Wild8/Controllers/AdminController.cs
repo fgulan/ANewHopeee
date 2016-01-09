@@ -376,15 +376,15 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult Statistic()
         {
-            DbSet<Order> orders = db.Orders;
+            List<Order> orders = db.Orders.ToList();
             Dictionary<string, int> mealOrders = new Dictionary<string, int>();
             Dictionary<string, int> monthlyOrders = new Dictionary<string, int>();
 
-            int totalNumOfOrders = orders.Count();
+            int totalNumOfOrders = 0;
             decimal totalAveragePrice = 0.00M;
 
-            foreach (Order order in orders)
-            {
+            foreach (Order order in orders) {
+                totalNumOfOrders++;
                 totalAveragePrice += order.TotalPrice;
 
                 foreach (OrderDetail orderDetail in order.OrderDetails)
@@ -401,7 +401,7 @@ namespace Wild8.Controllers
                     }
                 }
 
-                string orderMonth = order.AcceptanceDate.ToString("YYYY-MM");
+                string orderMonth = order.AcceptanceDate.ToString("yyyy-MM");
 
                 if (!monthlyOrders.ContainsKey(orderMonth))
                 {
@@ -429,7 +429,7 @@ namespace Wild8.Controllers
 
             model.TotalAveragePrice = totalAveragePrice;
             model.TotalNumOfOrders = totalNumOfOrders;
-            model.TotalTop3Meals = mealList;
+            model.TotalTopMeals = mealList;
             model.OrdersByMonths = monthlyOrders.ToList();
 
             return PartialView(model);
