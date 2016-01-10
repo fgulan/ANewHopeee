@@ -11,7 +11,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-
     <script type="text/javascript" src="~/Scripts/navbar_hide.js"></script>
 
     @RenderSection("Scripts", false)
@@ -46,7 +45,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a id="cartCount" href="@Url.Action("Index", "Cart")"><span class="glyphicon glyphicon-shopping-cart"></span> @Session["CartCount"]</a>
+                            <a id="cartCount" href="@Url.Action("Index", "Cart")"><span class="glyphicon glyphicon-shopping-cart"></span> @SessionExtension.GetCart(Session).Count()</a>
                         </li>
                     </ul>
                 </div>

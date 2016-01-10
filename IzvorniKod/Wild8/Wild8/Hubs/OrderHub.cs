@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Microsoft.AspNet.SignalR;
-using Wild8.Models;
+﻿using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Threading.Tasks;
-using Wild8.Hubs.Util;
 using Newtonsoft.Json;
-using System.Collections.Concurrent;
+using Wild8.Hubs.Util;
 
 namespace Wild8.Hubs
 {
@@ -16,8 +10,6 @@ namespace Wild8.Hubs
     public class OrderHub : Hub
     {
         public readonly static string WORKERS = "workers";
-
-        private ConcurentHashSet<string> orders = new ConcurentHashSet<string>();
 
         /// <summary>
         /// This is the method that is called when user orders
@@ -28,7 +20,7 @@ namespace Wild8.Hubs
         {
             //Call js method on all workers
             //Send message of order and name of the user that uses connection
-            orders.Add(order);
+            OrdersSet.GetInstance().Add(order);
             Clients.Group(WORKERS).addNewOrder(order);
         }
 
@@ -39,7 +31,7 @@ namespace Wild8.Hubs
         /// <param name="who"></param>
         public Task OrderProcessed(string order)
         {
-            orders.Remove(order);
+            OrdersSet.GetInstance().Remove(order);
             return Clients.OthersInGroup(WORKERS).orderProcessed(order);
         }
         
@@ -48,7 +40,8 @@ namespace Wild8.Hubs
         public async Task JoinWorkerGroup()
         {
             await Groups.Add(Context.ConnectionId, WORKERS);
-            Clients.Caller.populateOrderStorage(JsonConvert.SerializeObject(orders.GetSet(), Formatting.Indented));
+            var jsonOrders = JsonConvert.SerializeObject(OrdersSet.GetInstance().GetSet(), Formatting.Indented);
+            Clients.Caller.populateOrderStorage(jsonOrders);
         }
 
         //This method should be called when worker logs out
