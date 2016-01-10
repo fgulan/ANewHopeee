@@ -273,3 +273,6 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+# Do not push meal images
+*/images/Meals/
