@@ -9,11 +9,9 @@ namespace Wild8.Models
 {
     public class OrderMealAddOn
     {
-        [Key, Column("OrderID", Order = 0)]
-        public int OrderID { get; set; }
-        [Key, Column("MealName", Order = 1)]
-        public int MealName { get; set; }
-        [Key, Column("AddOnName", Order = 2)]
+        [Key, Column("OrderDetailID", Order = 0)]
+        public int OrderDetailID { get; set; }
+        [Key, Column("AddOnName", Order = 1)]
         public string AddOnName { get; set; }
         public decimal Price { get; set; }
         public virtual Order Order { get; set; }

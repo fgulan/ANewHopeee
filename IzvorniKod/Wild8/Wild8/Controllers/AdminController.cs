@@ -94,7 +94,7 @@ namespace Wild8.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddMeal([Bind(Include = "MealID,Name,Description,CategoryID")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
+        public ActionResult AddMeal([Bind(Include = "MealID,Name,Description,CategoryID,IsAvailable")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
         {
             if (ModelState.IsValid)
             {
@@ -187,7 +187,7 @@ namespace Wild8.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditMeal([Bind(Include = "MealID,Name,Description,CategoryID,ImagePath")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
+        public ActionResult EditMeal([Bind(Include = "MealID,Name,Description,CategoryID,ImagePath,IsAvailable")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
         {
             if (ModelState.IsValid)
             {
