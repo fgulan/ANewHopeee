@@ -69,6 +69,42 @@ function ajaxCall(caller) {
     })
 }
 
+$(document).on('click', '#addCategoryBtn', function (e) {
+    e.preventDefault();
+    $("#add-category-form").ajaxForm({
+        beforeSubmit: function (formData, jqForm, options) {
+            return $("#add-category-form").valid();
+        },
+        resetForm: false,
+        cache: false,
+        success: function (response) {
+            printOnModal("Kategorija spremljena", response);
+        },
+        error: function (xhr, status, response) {
+            printOnModal("Kategorija nije spremljena", response);
+        }
+    });
+    $("#add-category-form").submit();
+});
+
+$(document).on('click', '#editCategoryBtn', function (e) {
+    e.preventDefault();
+    $("#edit-category-form").ajaxForm({
+        beforeSubmit: function (formData, jqForm, options) {
+            return $("#edit-category-form").valid();
+        },
+        resetForm: false,
+        cache: false,
+        success: function (response) {
+            printOnModal("Kategorija spremljena", response);
+        },
+        error: function (xhr, status, response) {
+            printOnModal("Kategorija nije spremljena", response);
+        }
+    });
+    $("#edit-category-form").submit();
+});
+
 $(document).on('click', '#addAddOnBtn', function (e) {
     e.preventDefault();
     $("#add-addon-form").ajaxForm({
@@ -276,6 +312,61 @@ $(document).on('click', '.deleteMealType', function (e) {
     $(this).closest('.MealType').fadeOut('fast', function () {
         $(this).remove();
     });;
+});
+
+$(document).on('click', '.del-category-btn', function (e) {
+    e.preventDefault();
+    $("#delete-modal").remove();
+    $("#del-category-list").append('<div class="modal fade" id="delete-modal" role="dialog" aria-labelledby="basicModal" aria-hidden="true"></div>');
+
+    $this = $(this);
+    var parent = $this;
+    var url = $this.data('url');
+    var category_id = $this.data('category-id');
+    var category_name = $this.data('category-name');
+    $("#delete-modal").load('/Admin/DeleteModal?Type=kategorija&Title=' + encodeURIComponent(category_name));
+
+    $("#delete-modal").modal('show');
+
+    $("#delete-modal").on('click', '#modal-del-btn', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            cache: false,
+            url: url,
+            data: { id: category_id },
+            success: function () {
+                parent.toggle("slow", function () {
+                    parent.remove();
+                });
+            },
+            error: function () {
+                window.alert("Error");
+            }
+        });
+    });
+});
+
+$(document).on('click', '.edit-category-btn', function () {
+    var url = $(this).data('url');
+    var category_id = $(this).data('category-id');
+
+    $.ajax({
+        type: 'GET',
+        url: url,
+        cache: false,
+        data: { id: category_id },
+        success: function (content) {
+            var listContainer = $('#edit-category-list').parent();
+            listContainer.fadeOut(600, function () {
+                listContainer.empty();
+                listContainer.append(content).fadeIn(600);
+            });
+        },
+        error: function () {
+            window.alert("Error");
+        }
+    })
 });
 
 function AddMealTypeInput() {

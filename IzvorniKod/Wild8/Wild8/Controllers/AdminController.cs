@@ -369,44 +369,72 @@ namespace Wild8.Controllers
         //  Add delete Category
         ////////////////////////////////////
         [HttpGet]
-        public ActionResult AddDeleteCategory()
-        {
-
-            return PartialView();
-        }
-
-        [HttpGet]
         public ActionResult AddCategory()
         {
-            return PartialView("", db.Categories.ToList());
-        }
-
-        [HttpGet]
-        public ActionResult RemoveCategoryPartial()
-        {
-
-            return PartialView("", db.Categories.ToList());
+            return PartialView("AddCategory");
         }
 
         [HttpPost]
-        public bool AddCategory(string categoryName)
+        public ActionResult AddCategory(string categoryName)
         {
-            var exists = db.Categories.First(cat => cat.Name == categoryName);
+            categoryName = categoryName.Trim();
+            var exists = db.Categories.FirstOrDefault(s => s.Name.Equals(categoryName, StringComparison.OrdinalIgnoreCase));
             if (exists != null)
             {
-                return false;
+                return Content("Kategorija " + categoryName + " već postoji.", MediaTypeNames.Text.Plain);
             }
 
             db.Categories.Add(new Category { Name = categoryName });
             db.SaveChanges();
 
-            return true;
+            return Content("Kategorija " + categoryName + " uspješno spremljena.", MediaTypeNames.Text.Plain);
+        }
+
+        [HttpGet]
+        public ActionResult EditCategory(int? id)
+        {
+            if (id == null)
+            {
+                return PartialView("EditCategoryList", db.Categories.ToList());
+            }
+            Category category = db.Categories.Find(id);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView("EditCategory", category);
         }
 
         [HttpPost]
-        public void RemoveCategory(string categoryName)
+        public ActionResult EditCategory([Bind(Include = "CategoryID,Name")] Category category)
         {
+            if (ModelState.IsValid)
+            {
+                db.Entry(category).State = EntityState.Modified;
+                db.SaveChanges();
+                return Content("Kategorija " + category.Name + " uspješno spremljena.", MediaTypeNames.Text.Plain);
+            }
+            return Content("Kategorija " + category.Name + " nije spremljena.", MediaTypeNames.Text.Plain);
+        }
 
+        [HttpGet]
+        public ActionResult DeleteCategory()
+        {
+            return PartialView("DeleteCategory", db.Categories.ToList());
+        }
+
+        [HttpPost]
+        public void DeleteCategory(int id)
+        {
+            db.Comments.RemoveRange(db.Comments.Where(type => type.Meal.CategoryID == id));
+            db.MealTypes.RemoveRange(db.MealTypes.Where(type => type.Meal.CategoryID == id));
+            db.MealAddOns.RemoveRange(db.MealAddOns.Where(mealAddOn => mealAddOn.Meal.CategoryID == id));
+            db.Meals.RemoveRange(db.Meals.Where(meal => meal.CategoryID == id));
+            Category category = new Category { CategoryID = id };
+            db.Categories.Attach(category);
+            db.Categories.Remove(category);
+            db.SaveChanges();
         }
 
         ////////////////////////////////////
