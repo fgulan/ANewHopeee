@@ -14,6 +14,9 @@ namespace Wild8.StaticInfo
         private static readonly RestaurauntInfo instance;
         private Object lockObject = new Object();
 
+        private volatile string restaurantEmail;
+        public string RestaurantEmail { get { return restaurantEmail; } set { restaurantEmail = value; SaveData(); } }
+        
         private volatile string ownerName;
         public string OwnerName { get { return ownerName; } set { ownerName = value; SaveData(); } }
 
@@ -56,7 +59,6 @@ namespace Wild8.StaticInfo
         private volatile string ownerContactsInfo;
 		public string OwnerContactsInfo { get {return ownerContactsInfo; } set { ownerContactsInfo = value; SaveData(); }}
 
-
         private volatile string firstHomepagePhotoPath;
         public string FirstHomepagePhotoPath { get { return firstHomepagePhotoPath; } set { firstHomepagePhotoPath = value; SaveData(); } }
 
@@ -65,7 +67,6 @@ namespace Wild8.StaticInfo
 
         private volatile string thirdHomepagePhotoPath;
         public string ThirdHomepagePhotoPath { get { return thirdHomepagePhotoPath; } set { thirdHomepagePhotoPath = value; SaveData(); } }
-
 
         private volatile string restaurauntHomepagePhotoPath;
         public string RestaurauntHomepagePhotoPath { get { return restaurauntHomepagePhotoPath; } set { restaurauntHomepagePhotoPath = value; SaveData(); } }
@@ -84,6 +85,7 @@ namespace Wild8.StaticInfo
 
         private void Initialize()
         {
+            restaurantEmail = "wild8@fer.hr";
             ownerName = "Mateo Marcelic";
             restaurauntName = "Wild 8";
             ownerHomepageInfo = "Rođen kao 3. član obitelji Marcelić, u Zadru, 30. prosinca 1994. godine." + " Školovan u gimnaziji Jurja Barakovića u Zadru, prirodoslovno-matematički smjer."
