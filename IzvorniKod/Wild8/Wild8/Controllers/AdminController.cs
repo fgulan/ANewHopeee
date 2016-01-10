@@ -415,13 +415,30 @@ namespace Wild8.Controllers
             List<Order> orders = db.Orders.ToList();
             Dictionary<string, int> mealOrders = new Dictionary<string, int>();
             Dictionary<string, int> monthlyOrders = new Dictionary<string, int>();
+            Dictionary<string, List<string>> topMealsByMonths = new Dictionary<string, List<string>>();
+            Dictionary<string, decimal> monthlyAveragePrices = new Dictionary<string, decimal>();
+            Dictionary<string, int> monthyOrderNums = new Dictionary<string, int>();
 
-            int totalNumOfOrders = 0;
+        int totalNumOfOrders = 0;
             decimal totalAveragePrice = 0.00M;
 
-            foreach (Order order in orders) {
+            foreach (Order order in orders)
+            {
                 totalNumOfOrders++;
                 totalAveragePrice += order.TotalPrice;
+
+                string orderMonth = order.AcceptanceDate.ToString("yyyy-MM");
+
+                if (!monthlyAveragePrices.ContainsKey(orderMonth))
+                {
+                    monthlyAveragePrices[orderMonth] = order.TotalPrice;
+                    monthyOrderNums[orderMonth] = 1;
+                }
+                else
+                {
+                    monthlyAveragePrices[orderMonth] += order.TotalPrice;
+                    monthyOrderNums[orderMonth] += 1;
+                }
 
                 foreach (OrderDetail orderDetail in order.OrderDetails)
                 {
@@ -437,8 +454,6 @@ namespace Wild8.Controllers
                     }
                 }
 
-                string orderMonth = order.AcceptanceDate.ToString("yyyy-MM");
-
                 if (!monthlyOrders.ContainsKey(orderMonth))
                 {
                     monthlyOrders[orderMonth] = 1;
@@ -449,9 +464,19 @@ namespace Wild8.Controllers
                 }
             }
 
-            if(totalNumOfOrders != 0)
+            if (totalNumOfOrders != 0)
             {
                 totalAveragePrice /= totalNumOfOrders;
+            }
+
+            foreach (var amount in monthyOrderNums)
+            {
+                int num = amount.Value;
+
+                if(num != 0)
+                {
+                    monthlyAveragePrices[amount.Key] /= num;
+                }
             }
 
             List<KeyValuePair<string, int>> mealList = mealOrders.ToList();
@@ -461,12 +486,28 @@ namespace Wild8.Controllers
                 return -current.Value.CompareTo(next.Value);
             });
 
+            List<KeyValuePair<string, int>> only3Meals = new List<KeyValuePair<string, int>>();
+
+            int counter = 0;
+            foreach (var pair in mealList)
+            {
+                only3Meals.Add(pair);
+
+                counter++;
+
+                if(counter >= 3)
+                {
+                    break;
+                }
+            }
+
             StatisticsModel model = new StatisticsModel();
 
             model.TotalAveragePrice = totalAveragePrice;
             model.TotalNumOfOrders = totalNumOfOrders;
-            model.TotalTopMeals = mealList;
+            model.TotalTopMeals = only3Meals;
             model.OrdersByMonths = monthlyOrders.ToList();
+            model.MonthlyAveragePrices = monthlyAveragePrices;
 
             return PartialView(model);
         }
