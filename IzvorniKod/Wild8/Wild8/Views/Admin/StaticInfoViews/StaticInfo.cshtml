@@ -1,0 +1,30 @@
+﻿<div class="container">
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <div class="btn-group">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Vlasnik info <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a id="own-info-form" data-url="@Url.Action("OwnerInfoForm")">Informacije o vlasniku</a></li>
+                        <li><a id="own-pic-form" data-url="@Url.Action("OwnerPictureForm")">Slike</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria- expanded="false">
+                        Restoran info <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a id="restaurant-info-form" data-url="@Url.Action("RestaurantInfoForm")">Osnovne informacije</a></li>
+                        <li><a id="restaurant-pic-form" data-url="@Url.Action("RestaurantPictureForm")">Slike</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="static-info-content" class="panel-body container-fluid">
+            @{ Html.RenderPartial("StaticInfoViews/OwnerInfoForm"); }
+        </div>
+    </div>
+</div>

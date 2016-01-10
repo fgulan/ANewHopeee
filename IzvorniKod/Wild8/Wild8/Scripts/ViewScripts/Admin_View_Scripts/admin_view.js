@@ -6,6 +6,7 @@
     ajaxCall($("#meal-menu"));    
     setStatisticMenuListener();
     setWorkersMenuListener();
+    setStaticInfoMenuListener();
     setLogoutBtnListener();
 });
 
@@ -22,6 +23,13 @@ function setWorkersMenuListener() {
         ajaxCall(caller);
     }
 };
+
+function setStaticInfoMenuListener() {
+    var caller = $("#static-info-menu");
+    if (caller != undefined) {
+        ajaxCall(caller);
+    }
+}
 
 function setLogoutBtnListener() {
     $("#logout").one('click', function () {
@@ -400,6 +408,46 @@ $(document).on('click', '.open-btn', function (e) {
         }
     }
 });
+
+$(document).on('click', "#own-info-form", function(e) {
+    var url = $(this).data('url');
+    var contentParent = $("#static-info-content");
+    replaceContent(url, contentParent);
+}); 
+
+$(document).on('click', "#own-pic-form", function() {
+    var url = $(this).data('url');
+    var contentParent = $("#static-info-content");
+    replaceContent(url, contentParent);
+});
+
+$(document).on('click', "#restaurant-info-form", function() {
+    var url = $(this).data('url');
+    var contentParent = $("#static-info-content");
+    replaceContent(url, contentParent);
+});
+
+$(document).on('click', "#restaurant-pic-form", function () {
+    var url = $(this).data('url');
+    var contentParent = $("#static-info-content");
+    replaceContent(url, contentParent);
+});
+
+
+function replaceContent(url, contentParent, data) {
+    $.ajax({
+        type: 'GET',
+        url: url,
+        data: data,
+        success: function(content) {
+            contentParent.fadeOut(600 , function(){
+                contentParent.empty();
+                contentParent.append(content).hide().fadeIn(600);
+            });
+        }
+    });
+}
+
 
 function setUpHub() {
     var hub = $.connection.OrderHub;

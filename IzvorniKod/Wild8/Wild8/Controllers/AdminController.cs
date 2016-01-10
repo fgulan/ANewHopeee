@@ -605,9 +605,32 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult StaticInfo()    //Static info view
         {
-            return PartialView();
+            return PartialView("StaticInfoViews/StaticInfo");
         }
 
+        [HttpGet]
+        public ActionResult OwnerInfoForm()
+        {
+            return PartialView("StaticInfoViews/OwnerInfoForm");
+        }
+
+        [HttpGet]
+        public ActionResult OwnerPictureForm()
+        {
+            return PartialView("StaticInfoViews/OwnerPictuerUpload");
+        }
+
+        [HttpGet]
+        public ActionResult RestaurantInfoForm()
+        {
+            return PartialView("StaticInfoViews/RestaurantInfo");
+        }
+
+        [HttpGet]
+        public ActionResult RestaurantPictureForm()
+        {
+            return PartialView("StaticInfoViews/RestauranPictureUpload");
+        }
 
         ////////////////////////////////////
         //  Logout

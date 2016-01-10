@@ -1,0 +1,80 @@
+﻿<form class="form-horizontal">
+    <fieldset>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label">Adresa</label>
+            <div class="col-md-6">
+                <input name="" type="text" class="form-control input-md">
+                <span class="help-block">Ulica i broj</span>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label"></label>
+            <div class="col-md-6">
+                <input name="" type="text" class="form-control input-md">
+                <span class="help-block">Grad i pošanski broj</span>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label">Telefon</label>
+            <div class="col-md-6">
+                <input name="" type="text" class="form-control input-md">
+                <span class="help-block">Telefon</span>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label">Email adressa</label>
+            <div class="col-md-6">
+                <input name="" type="text" class="form-control input-md">
+                <span class="help-block">Email restorana</span>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label">Početak rada</label>
+            <div class="col-md-3">
+                <input min="0" step="1" max="24" required pattern="\d*"
+                       data-bind="value:startTimeH" type="number"
+                       class="form-control input-md" value="8" name="">
+                <span class="help-block">Sati</span>
+            </div>
+            <div class="col-md-3">
+                <input min="0" step="1" max="60" required pattern="\d*"
+                       data-bind="value:startTimM" type="number"
+                       class="form-control input-md" value="0" name="">
+                <span class="help-block">Minute</span>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label">Kraj rada</label>
+            <div class="col-md-3">
+                <input min="0" step="1" max="24" required pattern="\d*"
+                       data-bind="value:endTimeH" type="number"
+                       class="form-control input-md" value="22" name="">
+                <span class="help-block">Sati</span>
+            </div>
+            <div class="col-md-3">
+                <input min="0" step="1" max="60" required pattern="\d*"
+                       data-bind="value:endTimeM" type="number"
+                       class="form-control input-md" value="0" name="">
+                <span class="help-block">Minute</span>
+            </div>
+        </div>
+
+        <div class="form-gorup col-md-offset-4 col-md-6">
+            <button type="button" class="btn btn-success btn-block">
+                Spremi
+            </button>
+        </div>
+    </fieldset>
+</form>
