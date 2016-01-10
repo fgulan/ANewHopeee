@@ -9,11 +9,9 @@ namespace Wild8.Models
 {
     public class OrderDetail
     {
-        [Key, Column("OrderID", Order = 0)]
+        public int OrderDetailID { get; set; }
         public int OrderID { get; set; }
-        [Key, Column("MealName", Order = 1)]
         public string MealName { get; set; }
-        [Key, Column("MealType", Order = 2)]
         public string MealType { get; set; }
         public decimal Price { get; set; }
         public int Count { get; set; }

@@ -554,16 +554,16 @@
     <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\data\TXN.csv" />
     <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\readme.md" />
     <Content Include="Views\Admin\EditAddOn.cshtml" />
-    <None Include="Views\Admin\AddEditDelMealsPartial.cshtml" />
+    <Content Include="Views\Admin\AddCategory.cshtml" />
     <None Include="Views\Admin\AddEmployeeForm.cshtml" />
     <Content Include="Content\AddEmployeeFormStyle.css" />
     <Content Include="Views\Admin\AddMeal.cshtml" />
     <Content Include="Views\Admin\EditMeal.cshtml" />
+    <Content Include="Views\Admin\DeleteCategory.cshtml" />
     <None Include="Views\Admin\DelMeals.cshtml" />
     <Content Include="Views\Admin\EditAddOnList.cshtml" />
     <Content Include="Views\Admin\EditMealList.cshtml" />
     <Content Include="Views\Admin\DelAddOns.cshtml" />
-    <None Include="Views\Admin\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -593,6 +593,10 @@
     <Content Include="Views\Admin\Statistic.cshtml" />
     <Content Include="Views\Admin\DeleteModal.cshtml" />
     <Content Include="Views\Cart\ThankYouMsg.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\AddEditDelMealsPartial.cshtml" />
+    <Content Include="Views\Admin\EditCategoryList.cshtml" />
+    <Content Include="Views\Admin\EditCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\Meals\" />

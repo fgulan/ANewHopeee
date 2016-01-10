@@ -80,6 +80,7 @@ namespace Wild8.Controllers
             List<MealWithPrice> mealWPrice = new List<MealWithPrice>();
             foreach (Meal m in category.Meals)
             {
+                if (!m.IsAvailable) continue;
                 MealWithPrice mwp = new MealWithPrice()
                 {
                     Meal = m,

@@ -29,7 +29,10 @@ namespace Wild8.Controllers
             {
                 return HttpNotFound();
             }
-
+            if (!meal.IsAvailable)
+            {
+                return HttpNotFound();
+            }
             MealWithPrice mwp = new MealWithPrice()
             {
                 Meal = meal,

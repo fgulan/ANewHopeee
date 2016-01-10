@@ -24,7 +24,7 @@ namespace Wild8.Controllers
         public ActionResult Index()
         {
             var user = SessionExtension.GetUser(Session);
-            if(user == null)
+            if (user == null)
             {
                 return HttpNotFound();
             }
@@ -44,7 +44,7 @@ namespace Wild8.Controllers
         public ActionResult MultipleOrders(string jsonOrders)
         {
             ICollection<string> orders = JsonConvert.DeserializeObject<ICollection<string>>(jsonOrders);
-            
+
             return null;
         }
 
@@ -53,7 +53,7 @@ namespace Wild8.Controllers
         {
             Object order = JsonConvert.DeserializeObject(jsonOrder);
 
-            
+
             return null;
         }
 
@@ -64,7 +64,7 @@ namespace Wild8.Controllers
         [HttpPost]
         public void AcceptOrder(int orderId)
         {
-            var order = new Order() { OrderID = orderId , AcceptanceDate = DateTime.Now};
+            var order = new Order() { OrderID = orderId, AcceptanceDate = DateTime.Now };
 
             db.Orders.Attach(order);
             db.Entry(order).Property(e => e.AcceptanceDate).IsModified = true;
@@ -94,7 +94,7 @@ namespace Wild8.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddMeal([Bind(Include = "MealID,Name,Description,CategoryID")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
+        public ActionResult AddMeal([Bind(Include = "MealID,Name,Description,CategoryID,IsAvailable")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
         {
             if (ModelState.IsValid)
             {
@@ -126,7 +126,7 @@ namespace Wild8.Controllers
                     {
                         string mealTypeName = MealType[i];
                         string priceString = Price[i];
-                        if (mealTypeName != null && mealTypeName.Length > 0  && priceString != null && priceString.Length > 0 )
+                        if (mealTypeName != null && mealTypeName.Length > 0 && priceString != null && priceString.Length > 0)
                         {
                             db.MealTypes.Add(new MealType()
                             {
@@ -136,14 +136,16 @@ namespace Wild8.Controllers
                             });
                         }
                     }
-                    try {
+                    try
+                    {
                         db.SaveChanges();
                     }
-                    catch(Exception) {
+                    catch (Exception)
+                    {
                         return Content("Jelo " + meal.Name + " već postoji.", MediaTypeNames.Text.Plain);
                     }
                 }
-                return Content("Jelo " + meal.Name +" je spremljeno.", MediaTypeNames.Text.Plain);
+                return Content("Jelo " + meal.Name + " je spremljeno.", MediaTypeNames.Text.Plain);
             }
             else
             {
@@ -181,11 +183,11 @@ namespace Wild8.Controllers
                 MealTypes = mealTypes
             };
 
-            return PartialView("EditMeal",newMeal);
+            return PartialView("EditMeal", newMeal);
         }
 
         [HttpPost]
-        public ActionResult EditMeal([Bind(Include = "MealID,Name,Description,CategoryID")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
+        public ActionResult EditMeal([Bind(Include = "MealID,Name,Description,CategoryID,ImagePath,IsAvailable")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
         {
             if (ModelState.IsValid)
             {
@@ -197,6 +199,7 @@ namespace Wild8.Controllers
                     upload.SaveAs(physicalPath);
                     meal.ImagePath = sourcePath;
                 }
+
                 db.Entry(meal).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -256,9 +259,9 @@ namespace Wild8.Controllers
         {   //Performance wise is awful but sintax is nice
             //To make it better use sql command
             db.Comments.RemoveRange(db.Comments.Where(type => type.MealID == mealId));
-            db.MealTypes.RemoveRange(db.MealTypes.Where(type => type.MealID == mealId));           
+            db.MealTypes.RemoveRange(db.MealTypes.Where(type => type.MealID == mealId));
             db.MealAddOns.RemoveRange(db.MealAddOns.Where(mealAddOn => mealAddOn.MealID == mealId));
-            var meal = new Meal { MealID = mealId};
+            var meal = new Meal { MealID = mealId };
             db.Meals.Attach(meal);
             db.Meals.Remove(meal);
             db.SaveChanges();
@@ -276,12 +279,12 @@ namespace Wild8.Controllers
         public ActionResult AddAddOn(string Name, string Price)
         {
             var exists = db.AddOns.Find(Name);
-            if(exists != null) //If addon already exists
+            if (exists != null) //If addon already exists
             {
                 return Content("Dodatak već postoji u bazi pod tim imenom", MediaTypeNames.Text.Plain);
             }
-
-            db.AddOns.Add(new AddOn() { AddOnID = Name, Price = Decimal.Parse(Price)});
+            Price = Price.Replace('.', ',');
+            db.AddOns.Add(new AddOn() { AddOnID = Name, Price = Decimal.Parse(Price) });
             db.SaveChanges();
 
             return Content("Dodatak " + Name + " dodan u bazu", MediaTypeNames.Text.Plain);
@@ -305,7 +308,7 @@ namespace Wild8.Controllers
         [HttpPost]
         public ActionResult EditAddOn(string OldName, string Name, string Price)
         {
-            Price = Price.Replace('.',',');
+            Price = Price.Replace('.', ',');
             AddOn addOn = new AddOn() { AddOnID = Name, Price = Decimal.Parse(Price) };
 
             if (OldName.Equals(Name))
@@ -317,8 +320,8 @@ namespace Wild8.Controllers
             }
 
             var query = from mealAddOn in db.MealAddOns
-                             where mealAddOn.AddOnID.Equals(OldName)
-                             select mealAddOn;
+                        where mealAddOn.AddOnID.Equals(OldName)
+                        select mealAddOn;
             var mealAddOns = query.ToList();
             db.MealAddOns.RemoveRange(mealAddOns);
             db.SaveChanges();
@@ -366,44 +369,72 @@ namespace Wild8.Controllers
         //  Add delete Category
         ////////////////////////////////////
         [HttpGet]
-        public ActionResult AddDeleteCategory()
-        {
-
-            return PartialView();
-        }
-
-        [HttpGet]
         public ActionResult AddCategory()
         {
-            return PartialView("", db.Categories.ToList());
-        }
-
-        [HttpGet]
-        public ActionResult RemoveCategoryPartial()
-        {
-
-            return PartialView("", db.Categories.ToList());
+            return PartialView("AddCategory");
         }
 
         [HttpPost]
-        public bool AddCategory(string categoryName)
+        public ActionResult AddCategory(string categoryName)
         {
-            var exists = db.Categories.First(cat => cat.Name == categoryName);     
-            if(exists != null)
+            categoryName = categoryName.Trim();
+            var exists = db.Categories.FirstOrDefault(s => s.Name.Equals(categoryName, StringComparison.OrdinalIgnoreCase));
+            if (exists != null)
             {
-                return false;
+                return Content("Kategorija " + categoryName + " već postoji.", MediaTypeNames.Text.Plain);
             }
 
             db.Categories.Add(new Category { Name = categoryName });
             db.SaveChanges();
 
-            return true;
+            return Content("Kategorija " + categoryName + " uspješno spremljena.", MediaTypeNames.Text.Plain);
+        }
+
+        [HttpGet]
+        public ActionResult EditCategory(int? id)
+        {
+            if (id == null)
+            {
+                return PartialView("EditCategoryList", db.Categories.ToList());
+            }
+            Category category = db.Categories.Find(id);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView("EditCategory", category);
         }
 
         [HttpPost]
-        public void RemoveCategory(string categoryName)
+        public ActionResult EditCategory([Bind(Include = "CategoryID,Name")] Category category)
         {
+            if (ModelState.IsValid)
+            {
+                db.Entry(category).State = EntityState.Modified;
+                db.SaveChanges();
+                return Content("Kategorija " + category.Name + " uspješno spremljena.", MediaTypeNames.Text.Plain);
+            }
+            return Content("Kategorija " + category.Name + " nije spremljena.", MediaTypeNames.Text.Plain);
+        }
 
+        [HttpGet]
+        public ActionResult DeleteCategory()
+        {
+            return PartialView("DeleteCategory", db.Categories.ToList());
+        }
+
+        [HttpPost]
+        public void DeleteCategory(int id)
+        {
+            db.Comments.RemoveRange(db.Comments.Where(type => type.Meal.CategoryID == id));
+            db.MealTypes.RemoveRange(db.MealTypes.Where(type => type.Meal.CategoryID == id));
+            db.MealAddOns.RemoveRange(db.MealAddOns.Where(mealAddOn => mealAddOn.Meal.CategoryID == id));
+            db.Meals.RemoveRange(db.Meals.Where(meal => meal.CategoryID == id));
+            Category category = new Category { CategoryID = id };
+            db.Categories.Attach(category);
+            db.Categories.Remove(category);
+            db.SaveChanges();
         }
 
         ////////////////////////////////////
@@ -415,13 +446,30 @@ namespace Wild8.Controllers
             List<Order> orders = db.Orders.ToList();
             Dictionary<string, int> mealOrders = new Dictionary<string, int>();
             Dictionary<string, int> monthlyOrders = new Dictionary<string, int>();
+            Dictionary<string, List<string>> topMealsByMonths = new Dictionary<string, List<string>>();
+            Dictionary<string, decimal> monthlyAveragePrices = new Dictionary<string, decimal>();
+            Dictionary<string, int> monthyOrderNums = new Dictionary<string, int>();
 
-            int totalNumOfOrders = 0;
+        int totalNumOfOrders = 0;
             decimal totalAveragePrice = 0.00M;
 
-            foreach (Order order in orders) {
+            foreach (Order order in orders)
+            {
                 totalNumOfOrders++;
                 totalAveragePrice += order.TotalPrice;
+
+                string orderMonth = order.AcceptanceDate.ToString("yyyy-MM");
+
+                if (!monthlyAveragePrices.ContainsKey(orderMonth))
+                {
+                    monthlyAveragePrices[orderMonth] = order.TotalPrice;
+                    monthyOrderNums[orderMonth] = 1;
+                }
+                else
+                {
+                    monthlyAveragePrices[orderMonth] += order.TotalPrice;
+                    monthyOrderNums[orderMonth] += 1;
+                }
 
                 foreach (OrderDetail orderDetail in order.OrderDetails)
                 {
@@ -437,8 +485,6 @@ namespace Wild8.Controllers
                     }
                 }
 
-                string orderMonth = order.AcceptanceDate.ToString("yyyy-MM");
-
                 if (!monthlyOrders.ContainsKey(orderMonth))
                 {
                     monthlyOrders[orderMonth] = 1;
@@ -449,9 +495,19 @@ namespace Wild8.Controllers
                 }
             }
 
-            if(totalNumOfOrders != 0)
+            if (totalNumOfOrders != 0)
             {
                 totalAveragePrice /= totalNumOfOrders;
+            }
+
+            foreach (var amount in monthyOrderNums)
+            {
+                int num = amount.Value;
+
+                if(num != 0)
+                {
+                    monthlyAveragePrices[amount.Key] /= num;
+                }
             }
 
             List<KeyValuePair<string, int>> mealList = mealOrders.ToList();
@@ -461,12 +517,28 @@ namespace Wild8.Controllers
                 return -current.Value.CompareTo(next.Value);
             });
 
+            List<KeyValuePair<string, int>> only3Meals = new List<KeyValuePair<string, int>>();
+
+            int counter = 0;
+            foreach (var pair in mealList)
+            {
+                only3Meals.Add(pair);
+
+                counter++;
+
+                if(counter >= 3)
+                {
+                    break;
+                }
+            }
+
             StatisticsModel model = new StatisticsModel();
 
             model.TotalAveragePrice = totalAveragePrice;
             model.TotalNumOfOrders = totalNumOfOrders;
-            model.TotalTopMeals = mealList;
+            model.TotalTopMeals = only3Meals;
             model.OrdersByMonths = monthlyOrders.ToList();
+            model.MonthlyAveragePrices = monthlyAveragePrices;
 
             return PartialView(model);
         }
@@ -495,7 +567,7 @@ namespace Wild8.Controllers
             return PartialView("", db.Employees.Where(e => !e.AdminRights).ToList());
         }
 
-        public void AddEmployee(string employeeId, string pass, 
+        public void AddEmployee(string employeeId, string pass,
                             string firstName, string lastName,
                             string email, string phoneNumber,
                             string address, string city, string postCode,
@@ -523,7 +595,7 @@ namespace Wild8.Controllers
 
         public void RemoveEmployee(string employeeId)
         {
-            db.Employees.Remove(new Employee() { EmployeeID = employeeId});
+            db.Employees.Remove(new Employee() { EmployeeID = employeeId });
             db.SaveChanges();
         }
 
@@ -552,9 +624,7 @@ namespace Wild8.Controllers
 
         public ActionResult DeleteModal(string Title, string Type)
         {
-            return PartialView("DeleteModal", new ModalViewModel() { Title = Title, Type = Type});
+            return PartialView("DeleteModal", new ModalViewModel() { Title = Title, Type = Type });
         }
-
-       
     }
 }

@@ -3,31 +3,48 @@
     Layout = null;
 }
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h4>Statistika</h4>
-    </div>
+@if (Model.TotalTopMeals.Any())
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Statistika</h4>
+        </div>
 
-    <div class="panel-content container">
-        <div id="chartdiv" style="width: 100%; height: 400px; background-color: #FFFFFF;"></div>
-        <h4>Ukupna prosječna cijena: @Html.DisplayFor(model => model.TotalAveragePrice) kn<br /></h4>
-        <h4>Najviše naručivana jela:</h4>
-        <ol>
-            @{ int counter = 0; }
-            @foreach (var meal in Model.TotalTopMeals)
-            {
-                <text><li>@meal.Key x<b/>@meal.Value</li></text>
-                counter++;
-
-                if (counter >= 3)
-                {
-                    break;
-                }
-            }
-        </ol>
-        <h4>Ukupan broj narudžbi: @Html.DisplayFor(model => model.TotalNumOfOrders)</h4>
+        <div class="panel-content container">
+            <div id="chartdiv" style="width: 100%; height: 400px; background-color: #FFFFFF;"></div>
+            <div id="placeholder">
+                
+            </div>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Ukupna statistika</h3>
+                        <h4>Prosječna cijena: @Html.DisplayFor(model => model.TotalAveragePrice) kn<br /></h4>
+                        <h4>Najviše naručivana jela:</h4>
+                        <ol>
+                            @foreach (var meal in Model.TotalTopMeals)
+                            {
+                                <text><li>@meal.Key x<b />@meal.Value</li></text>
+                            }
+                        </ol>
+                        <h4>Broj narudžbi: @Html.DisplayFor(model => model.TotalNumOfOrders)</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+} else
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Statistika</h4>
+        </div>
+
+        <div class="panel-content container">
+            <h4>Nema prometa.</h4>
+        </div>
+    </div>
+}
 
 <!-- amCharts javascript sources -->
 <script type="text/javascript" src="~/Scripts/ViewScripts/Charts/amcharts.js"></script>
@@ -37,7 +54,7 @@
 
 <!-- amCharts javascript code -->
 <script type="text/javascript">
-    AmCharts.makeChart("chartdiv",
+    var chart = AmCharts.makeChart("chartdiv",
         {
             "type": "serial",
             "language": "hr",
@@ -61,7 +78,7 @@
             "trendLines": [],
             "graphs": [
                 {
-                    "columnWidth": 10,
+                    "columnWidth": 25,
                     "cornerRadiusTop": 8,
                     "dashLength": 4,
                     "fillAlphas": 0.51,
@@ -105,5 +122,74 @@
             ]
         }
     );
+
+    var monthNames = ["siječanj", "veljača", "ožujak", "travanj", "svibanj", "lipanj",
+                "srpanj", "kolovoz", "rujan", "listopad", "studeni", "prosinac"];
+    var orders = {};
+
+    @{
+        foreach (var pair in Model.MonthlyAveragePrices)
+        {
+            <text>orders["@pair.Key" + "/price"] = @pair.Value</text>
+        }
+    }
+
+    function handleClick(event)
+    {
+        var year = event.item.category.getFullYear();
+        var month = event.item.category.getMonth() + 1;
+        var monthName = monthNames[month - 1];
+
+        if(month < 10) {
+            month = "0" + month;
+        }
+
+        var toRemove = document.getElementById("month-info-container");
+
+        if(toRemove != null){
+            toRemove.remove();
+        }
+
+        var outerDiv = document.createElement("div");
+        var innerDiv = document.createElement("div");
+
+        innerDiv.className = "panel-heading";
+        innerDiv.id = "month-info-panel";
+        outerDiv.className = "panel panel-default";
+        outerDiv.id = "month-info-container";
+        outerDiv.appendChild(innerDiv);
+        document.getElementById("placeholder").appendChild(outerDiv);
+
+        var date = year + "-" + month;
+        var infoPanel = document.getElementById("month-info-panel");
+        var childNode = document.createElement("h3");
+
+        childNode.appendChild(document.createTextNode("Statistika za " + monthName + ", " + year));
+        infoPanel.appendChild(childNode);
+        childNode = document.createElement("h4");
+        childNode.appendChild(document.createTextNode("Prosječna cijena: " + orders[date + "/price"] + " kn"));
+        infoPanel.appendChild(childNode);
+        childNode = document.createElement("h4");
+        childNode.appendChild(document.createTextNode("Najviše naručivana jela:"));
+        infoPanel.appendChild(childNode);
+        childNode = document.createElement("ol");
+
+        var listElement = document.createElement("li");
+
+        listElement.appendChild(document.createTextNode(orders[date + "/order1"]));
+        childNode.appendChild(listElement);
+        listElement = document.createElement("li");
+        listElement.appendChild(document.createTextNode(orders[date + "/order2"]));
+        childNode.appendChild(listElement);
+        listElement = document.createElement("li");
+        listElement.appendChild(document.createTextNode(orders[date + "/order3"]));
+        childNode.appendChild(listElement);
+        infoPanel.appendChild(childNode);
+        childNode = document.createElement("h4");
+        childNode.appendChild(document.createTextNode("Broj narudžbi: " + event.item.valueField));
+        infoPanel.appendChild(childNode);
+    }
+
+    chart.addListener("clickGraphItem", handleClick);
 </script>
 
