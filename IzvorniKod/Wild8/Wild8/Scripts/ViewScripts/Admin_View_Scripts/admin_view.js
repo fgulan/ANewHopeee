@@ -439,6 +439,7 @@ function replaceContent(url, contentParent, data) {
         type: 'GET',
         url: url,
         data: data,
+        cache: false,
         success: function(content) {
             contentParent.fadeOut(600 , function(){
                 contentParent.empty();
