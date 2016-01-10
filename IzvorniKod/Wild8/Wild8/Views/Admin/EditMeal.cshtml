@@ -4,6 +4,7 @@
     @using (Html.BeginForm("EditMeal", "Admin", FormMethod.Post, new { id = "edit-meal-form", enctype = "multipart/form-data" }))
     {
         @Html.HiddenFor(model => model.Meal.MealID)
+        @Html.HiddenFor(model => model.Meal.ImagePath)
 
         <div class="container-fluid">
             <div class="form-horizontal">
@@ -52,7 +53,7 @@
                                                 <span class="input-group-addon">Cijena</span>
                                                 <input class="form-control" type="number" step="0.01" min="0" max="99" value="@mtype.Price.ToString().Replace(',','.')" name="Price" placeholder="Cijena" required>
                                                 <span class="input-group-btn">
-                                                    <button type="button" class="delete btn btn-default">
+                                                    <button type="button" class="deleteMealType btn btn-default">
                                                         <span class="glyphicon glyphicon-remove" style="color:darkred" aria-hidden="true"></span>
                                                     </button>
                                                 </span>
@@ -108,6 +109,5 @@
             </div>
         </div>
     </div>
-
     <script type="text/javascript" src="~/Scripts/ViewScripts/Admin_View_Scripts/PhotoUploadPreview.js"></script>
 </div>

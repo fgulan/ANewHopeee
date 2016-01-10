@@ -24,7 +24,7 @@ namespace Wild8.Controllers
         public ActionResult Index()
         {
             var user = SessionExtension.GetUser(Session);
-            if(user == null)
+            if (user == null)
             {
                 return HttpNotFound();
             }
@@ -44,7 +44,7 @@ namespace Wild8.Controllers
         public ActionResult MultipleOrders(string jsonOrders)
         {
             ICollection<string> orders = JsonConvert.DeserializeObject<ICollection<string>>(jsonOrders);
-            
+
             return null;
         }
 
@@ -53,7 +53,7 @@ namespace Wild8.Controllers
         {
             Object order = JsonConvert.DeserializeObject(jsonOrder);
 
-            
+
             return null;
         }
 
@@ -64,7 +64,7 @@ namespace Wild8.Controllers
         [HttpPost]
         public void AcceptOrder(int orderId)
         {
-            var order = new Order() { OrderID = orderId , AcceptanceDate = DateTime.Now};
+            var order = new Order() { OrderID = orderId, AcceptanceDate = DateTime.Now };
 
             db.Orders.Attach(order);
             db.Entry(order).Property(e => e.AcceptanceDate).IsModified = true;
@@ -126,7 +126,7 @@ namespace Wild8.Controllers
                     {
                         string mealTypeName = MealType[i];
                         string priceString = Price[i];
-                        if (mealTypeName != null && mealTypeName.Length > 0  && priceString != null && priceString.Length > 0 )
+                        if (mealTypeName != null && mealTypeName.Length > 0 && priceString != null && priceString.Length > 0)
                         {
                             db.MealTypes.Add(new MealType()
                             {
@@ -136,14 +136,16 @@ namespace Wild8.Controllers
                             });
                         }
                     }
-                    try {
+                    try
+                    {
                         db.SaveChanges();
                     }
-                    catch(Exception) {
+                    catch (Exception)
+                    {
                         return Content("Jelo " + meal.Name + " već postoji.", MediaTypeNames.Text.Plain);
                     }
                 }
-                return Content("Jelo " + meal.Name +" je spremljeno.", MediaTypeNames.Text.Plain);
+                return Content("Jelo " + meal.Name + " je spremljeno.", MediaTypeNames.Text.Plain);
             }
             else
             {
@@ -181,11 +183,11 @@ namespace Wild8.Controllers
                 MealTypes = mealTypes
             };
 
-            return PartialView("EditMeal",newMeal);
+            return PartialView("EditMeal", newMeal);
         }
 
         [HttpPost]
-        public ActionResult EditMeal([Bind(Include = "MealID,Name,Description,CategoryID")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
+        public ActionResult EditMeal([Bind(Include = "MealID,Name,Description,CategoryID,ImagePath")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
         {
             if (ModelState.IsValid)
             {
@@ -197,6 +199,7 @@ namespace Wild8.Controllers
                     upload.SaveAs(physicalPath);
                     meal.ImagePath = sourcePath;
                 }
+
                 db.Entry(meal).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -256,9 +259,9 @@ namespace Wild8.Controllers
         {   //Performance wise is awful but sintax is nice
             //To make it better use sql command
             db.Comments.RemoveRange(db.Comments.Where(type => type.MealID == mealId));
-            db.MealTypes.RemoveRange(db.MealTypes.Where(type => type.MealID == mealId));           
+            db.MealTypes.RemoveRange(db.MealTypes.Where(type => type.MealID == mealId));
             db.MealAddOns.RemoveRange(db.MealAddOns.Where(mealAddOn => mealAddOn.MealID == mealId));
-            var meal = new Meal { MealID = mealId};
+            var meal = new Meal { MealID = mealId };
             db.Meals.Attach(meal);
             db.Meals.Remove(meal);
             db.SaveChanges();
@@ -276,12 +279,12 @@ namespace Wild8.Controllers
         public ActionResult AddAddOn(string Name, string Price)
         {
             var exists = db.AddOns.Find(Name);
-            if(exists != null) //If addon already exists
+            if (exists != null) //If addon already exists
             {
                 return Content("Dodatak već postoji u bazi pod tim imenom", MediaTypeNames.Text.Plain);
             }
-
-            db.AddOns.Add(new AddOn() { AddOnID = Name, Price = Decimal.Parse(Price)});
+            Price = Price.Replace('.', ',');
+            db.AddOns.Add(new AddOn() { AddOnID = Name, Price = Decimal.Parse(Price) });
             db.SaveChanges();
 
             return Content("Dodatak " + Name + " dodan u bazu", MediaTypeNames.Text.Plain);
@@ -305,7 +308,7 @@ namespace Wild8.Controllers
         [HttpPost]
         public ActionResult EditAddOn(string OldName, string Name, string Price)
         {
-            Price = Price.Replace('.',',');
+            Price = Price.Replace('.', ',');
             AddOn addOn = new AddOn() { AddOnID = Name, Price = Decimal.Parse(Price) };
 
             if (OldName.Equals(Name))
@@ -317,8 +320,8 @@ namespace Wild8.Controllers
             }
 
             var query = from mealAddOn in db.MealAddOns
-                             where mealAddOn.AddOnID.Equals(OldName)
-                             select mealAddOn;
+                        where mealAddOn.AddOnID.Equals(OldName)
+                        select mealAddOn;
             var mealAddOns = query.ToList();
             db.MealAddOns.RemoveRange(mealAddOns);
             db.SaveChanges();
@@ -388,8 +391,8 @@ namespace Wild8.Controllers
         [HttpPost]
         public bool AddCategory(string categoryName)
         {
-            var exists = db.Categories.First(cat => cat.Name == categoryName);     
-            if(exists != null)
+            var exists = db.Categories.First(cat => cat.Name == categoryName);
+            if (exists != null)
             {
                 return false;
             }
@@ -536,7 +539,7 @@ namespace Wild8.Controllers
             return PartialView("", db.Employees.Where(e => !e.AdminRights).ToList());
         }
 
-        public void AddEmployee(string employeeId, string pass, 
+        public void AddEmployee(string employeeId, string pass,
                             string firstName, string lastName,
                             string email, string phoneNumber,
                             string address, string city, string postCode,
@@ -564,7 +567,7 @@ namespace Wild8.Controllers
 
         public void RemoveEmployee(string employeeId)
         {
-            db.Employees.Remove(new Employee() { EmployeeID = employeeId});
+            db.Employees.Remove(new Employee() { EmployeeID = employeeId });
             db.SaveChanges();
         }
 
@@ -593,9 +596,7 @@ namespace Wild8.Controllers
 
         public ActionResult DeleteModal(string Title, string Type)
         {
-            return PartialView("DeleteModal", new ModalViewModel() { Title = Title, Type = Type});
+            return PartialView("DeleteModal", new ModalViewModel() { Title = Title, Type = Type });
         }
-
-       
     }
 }

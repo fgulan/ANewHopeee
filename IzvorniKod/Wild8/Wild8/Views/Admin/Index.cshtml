@@ -10,24 +10,27 @@
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="~/images/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-fileinput/css/fileinput.min.css" />
-    <script type="text/javascript" src="~/Scripts/fileinput.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.form.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script type="text/javascript" src="~/Scripts/fileinput.min.js"></script>
     <script type="text/javascript" src="~/Scripts/ViewScripts/Admin_View_Scripts/admin_view.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-fileinput/css/fileinput.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
     <style>
         .col-fixed {
             width: 200px;
             position: fixed;
             height: 100%;
         }
+
         .nav-pills {
             text-align: center;
             position: absolute;
@@ -36,6 +39,7 @@
             left: 0;
             right: 0;
         }
+
         .col-fluid {
             margin-top: 15px;
             margin-left: 200px;
@@ -43,12 +47,13 @@
 
         .logout-btn {
             width: 100%;
-            position:absolute;
+            position: absolute;
             bottom: 0;
         }
-        .logout-btn button {
-            width: 100%;
-        }
+
+            .logout-btn button {
+                width: 100%;
+            }
     </style>
 </head>
 <body>
@@ -57,39 +62,43 @@
             <div class="col-fixed">
                 <ul class="nav nav-tabs nav-pills nav-stacked">
                     <li><h3>Wild 8</h3></li>
-                    <li><h4>@if (Model.AdminRights)
-                    {
-                        @("Vlasnik " + Model.FirstName)
-                    }
-                    else
-                    {
-                        @("Dijelatnik " + Model.FirstName)
-                    }</h4></li>
-                    <li class="active" id="orders-menu"
-                        data-toggle="tab"
-                        data-url="@Url.Action("Orders", "Admin")"
-                        data-multiple-orders-url="@Url.Action("MultipleOrders","Admin")"
-                        data-single-order-url="@Url.Action("SingleOrder","Admin")"><a>Narudžbe <span class="badge pull-right" id="orders-badge">5</span></a></li>
-                    <li data-toggle="tab" id="meal-menu" data-url="@Url.Action("AddEditDelMenu", "Admin")"><a>Jela</a></li>
-                    @if (Model.AdminRights)
-                    {
-                        <li data-toggle="tab" id="statistic-menu" data-url="@Url.Action("Statistic", "Admin")"><a>Statistika</a></li>
+                    <li>
+                        <h4>
+                            @if (Model.AdminRights)
+                        {
+                            @("Vlasnik " + Model.FirstName)
+                        }
+                        else
+                        {
+                            @("Dijelatnik " + Model.FirstName)
+                        }
+                    </h4>
+                </li>
+                <li class="active" id="orders-menu"
+                    data-toggle="tab"
+                    data-url="@Url.Action("Orders", "Admin")"
+                    data-multiple-orders-url="@Url.Action("MultipleOrders","Admin")"
+                    data-single-order-url="@Url.Action("SingleOrder","Admin")"><a>Narudžbe <span class="badge pull-right" id="orders-badge">5</span></a></li>
+                <li data-toggle="tab" id="meal-menu" data-url="@Url.Action("AddEditDelMenu", "Admin")"><a>Jela</a></li>
+                @if (Model.AdminRights)
+                {
+                    <li data-toggle="tab" id="statistic-menu" data-url="@Url.Action("Statistic", "Admin")"><a>Statistika</a></li>
                         <li data-toggle="tab" id="workers-menu" data-url="@Url.Action("AddRemoveEmployee", "Admin")"><a>Dijelatnici</a></li>
                         <li data-toggle="tab" id="static-info-menu" data-url="@Url.Action("StaticInfo","Admin")"><a>Wild8 info</a></li>
-                    }
-                </ul>
-                <div class="logout-btn" >
-                    <button class="btn btn-primary" id="logout" data-toggle="tab" data-url="@Url.Action("Logout", "Admin")" data-index-url="@Url.Action("Index", "Index")">
-                        Odjava
-                    </button>
-                </div>
-            </div>
-            <div class="container-fluid col-fluid main-content">
-                @{ 
-                    Html.RenderAction("Orders", "Admin");
                 }
+            </ul>
+            <div class="logout-btn">
+                <button class="btn btn-primary" id="logout" data-toggle="tab" data-url="@Url.Action("Logout", "Admin")" data-index-url="@Url.Action("Index", "Index")">
+                    Odjava
+                </button>
             </div>
         </div>
+        <div class="container-fluid col-fluid main-content">
+            @{
+                Html.RenderAction("Orders", "Admin");
+            }
+        </div>
     </div>
+</div>
 </body>
 </html>

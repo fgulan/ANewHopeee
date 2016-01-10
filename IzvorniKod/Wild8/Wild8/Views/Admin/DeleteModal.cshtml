@@ -3,7 +3,7 @@
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header bg-warning">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <button type="button" class="close" id="modal-del-close" data-dismiss="modal" aria-hidden="true">
                 <span class="glyphicon glyphicon-remove"></span>
             </button>
             <h4 class="modal-title" id="myModalLabel">Upozorenje</h4>
@@ -14,8 +14,8 @@
             <h4 id="modal-addon-label">@Model.Title</h4>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
-            <button type="button" class="btn btn-primary" id="modal-del-btn">Izbriši @Model.Type</button>
+            <button type="button" class="btn btn-default" id="modal-del-cancel" data-dismiss="modal">Odustani</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="modal-del-btn">Izbriši @Model.Type</button>
         </div>
     </div>
 </div>

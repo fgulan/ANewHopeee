@@ -69,22 +69,6 @@ function ajaxCall(caller) {
     })
 }
 
-$(document).on('change', '#upload', function (input) {
-    readURL(this);
-});
-
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('#previewImage').attr('src', e.target.result);
-        }
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        $('#previewImage').attr('src', "http://ingridwu.dmmdmcfatter.com/wp-content/uploads/2015/01/placeholder.png");
-    }
-}
-
 $(document).on('click', '#addAddOnBtn', function (e) {
     e.preventDefault();
     $("#add-addon-form").ajaxForm({
@@ -131,10 +115,10 @@ $(document).on('click', '#addMealBtn', function (e) {
         resetForm: true,
         cache: false,
         success: function (response) {
-            printOnModal("Jelo dodano", response);
+            printOnModal("Jelo spremljeno", response);
         },
         error: function (xhr, status, response) {
-            printOnModal("Jelo nije dodano", response);
+            printOnModal("Jelo nije spremljeno", response);
         }
     });
     $("#add-meal-form").submit();
@@ -146,13 +130,13 @@ $(document).on('click', '#editMealBtn', function (e) {
         beforeSubmit: function (formData, jqForm, options) {
             return $("#edit-meal-form").valid();
         },
-        resetForm: true,
+        resetForm: false,
         cache: false,
         success: function (response) {
-            printOnModal("Jelo dodano", response);
+            printOnModal("Jelo spremljeno", response);
         },
         error: function (xhr, status, response) {
-            printOnModal("Jelo nije dodano", response);
+            printOnModal("Jelo nije spremljeno", response);
         }
     });
     $("#edit-meal-form").submit();
@@ -178,11 +162,6 @@ $(document).on("click", ".meal-submenu", function () {
         }
     });
 });
-
-function AddMealTypeInput() {
-    var f = document.getElementsByClassName('MealType')[0].cloneNode(true).outerHTML;
-    $(f).hide().appendTo($("#MealTypes")).fadeIn(600);
-}
 
 $(document).on('click', '.del-addon-btn', function (e) {
     $("#delete-modal").remove();
@@ -213,6 +192,39 @@ $(document).on('click', '.del-addon-btn', function (e) {
         });
     });
     $("#delete-modal").modal('show');
+});
+
+$(document).on('click', '.del-meal-btn', function (e) {
+    e.preventDefault();
+    $("#delete-modal").remove();
+    $("#del-meal-list").append('<div class="modal fade" id="delete-modal" role="dialog" aria-labelledby="basicModal" aria-hidden="true"></div>');
+
+    $this = $(this);
+    var parent = $this;
+    var url = $this.data('url');
+    var meal_id = $this.data('meal-id');
+    var meal_name = $this.data('meal-name');
+    $("#delete-modal").load('/Admin/DeleteModal?Type=jelo&Title=' + encodeURIComponent(meal_name));
+
+    $("#delete-modal").modal('show');
+
+    $("#delete-modal").on('click', '#modal-del-btn', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            cache: false,
+            url: url,
+            data: { mealId: meal_id },
+            success: function () {
+                parent.toggle("slow", function () {
+                    parent.remove();
+                });
+            },
+            error: function () {
+                window.alert("Error");
+            }
+        });
+    });
 });
 
 $(document).on('click', '.edit-addon-btn', function () {
@@ -259,7 +271,7 @@ $(document).on('click', '.edit-meal-btn', function () {
     })
 });
 
-$(document).on('click', '.delete', function (e) {
+$(document).on('click', '.deleteMealType', function (e) {
     if ($('.MealType').length == 1) return;
     $(this).closest('.MealType').fadeOut('fast', function () {
         $(this).remove();
@@ -269,7 +281,6 @@ $(document).on('click', '.delete', function (e) {
 function AddMealTypeInput() {
     var f = document.getElementsByClassName('MealType')[0].cloneNode(true);
     var elements = $(f).find('.form-control').each(function (index) {
-        // IE fuck you
         $(this).attr('value', '');
         $(this).val('');
         $(this).attr('defaultValue', '');
@@ -297,60 +308,6 @@ $(document).on('click', '.open-btn', function (e) {
             icon.removeClass('glyphicon-menu-down').addClass('glyphicon-menu-up');
         }
     }
-});
-
-$("#dialog").dialog({
-    autoOpen: false,
-    show: {
-        duration: 500
-    },
-    hide: {
-        duration: 500
-    }
-});
-
-$(document).on('click', '.del-meal-btn', function (e) {
-    e.preventDefault();
-
-    $this = $(this);
-    var parent = $this;
-    var url = $this.data('url');
-    var meal_id = $this.data('meal-id');
-    var meal_name = $this.data('meal-name');
-
-    $("#dialog").dialog({
-        autoOpen: false,
-        title: "Obriši " + meal_name,
-        show: {
-            duration: 500
-        },
-        hide: {
-            duration: 500
-        },
-        buttons: {
-            "Odustani": function () {
-                $(this).dialog("close");
-            },
-            "Obriši jelo": function () {
-                $.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: url,
-                    data: { mealId: meal_id },
-                    success: function () {
-                        parent.toggle("slow", function () {
-                            parent.remove();
-                        });
-                    },
-                    error: function () {
-                        window.alert("Error");
-                    }
-                });
-                $(this).dialog("close");
-            }
-        }
-    });
-    $("#dialog").dialog("open");
 });
 
 function setUpHub() {
