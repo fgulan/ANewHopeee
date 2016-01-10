@@ -1,20 +1,8 @@
 ﻿$(document).ready(function() {
-    disableOrderIfRestourantNotWorking();
     setRemoveBtnListeners();
     setCountChangeListener();
     setOrderBtnListener();
 });
-
-function disableOrderIfRestourantNotWorking() {
-    //TODO:
-    //Get current time,
-    //Get restourant working hours 
-
-    //If restourant is not working disable order button and set tooltip on it
-    //so that user knows why he can not order meal
-
-
-}
 
 function setRemoveBtnListeners() {
     $(".removeFromCartBtn").one("click", function () { //Allowed only one click
@@ -128,15 +116,16 @@ function setOrderBtnListener() {
             }
 
             var hub = $.connection.OrderHub;
-            hub.start().done(function () {
+            var con = $.connection.hub;
+            con.start().done(function () {
                 var jsonOrder = JSON.stringify(order);
                 hub.server.order(jsonOrder); //Push order to hub on server
-                hub.stop();
+                con.stop();
 
                 var clearCartUrl = form.data("clear-cart-url");
                 $.post(clearCartUrl, function(thanksForOrder) {   //Clear Cart and replace content with thank you message
-                    $("#dvCategoryResults").slideUp(function () {
-                        $(this).empty().html(thanksForOrder).slideDown();
+                    $("#dvCategoryResults").slideUp('slow',function () {
+                        $(this).empty().html(thanksForOrder).hide().slideDown('slow');
                     });
 
                     //Set cart count to 0
@@ -165,7 +154,7 @@ function makeOrder() {
     var phone = $("#client-phone").val();
     var email = $("#client_email").val();
     var note = $("#client-note").val();
-    var total = parseFloat($("total-price").text().replace(",", "."));
+    var total = parseFloat($("#total-price").text().replace(",", "."));
     var time = new Date();
 
     if (note == undefined) {
@@ -212,23 +201,29 @@ function getMeal(parent) {
 }
 
 function checkWorkingHours(startTime, endTime) {
-    var f = checkTime(startTime, 'after');
-    var s = checkTime(endTime, 'before');
-    return f || s;
+    var f = checkTime(startTime, true);
+    var s = checkTime(endTime, false);
+    return f && s;
 }
 
-function checkTime(time, when) {
+function checkTime(time, start) {
     var t = time.trim().split(":");
 
     var now = new Date();
+    var h = now.getHours();
+    var m = now.getMinutes();
+
     var hours = parseInt(t[0]);
     var min   = parseInt(t[1]);
-    if (when !== 'after') {
-        return hours < now.getHours() && min < now.getMinutes();
+    if (start) {
+        if (hours < h) return true;
+        if (hours === h && min <= m) return true;
+        return false;
     } else {
-        return hours > now.getHours() && min > now.getMinutes();
+        if (hours > h) return true;
+        if (hours === h && min >= m) return true;
+        return false;
     }
-
 }
 
 function printOnModal(title, content) {

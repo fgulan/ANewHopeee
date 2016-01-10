@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Owin;
 using Owin;
 using Microsoft.AspNet.SignalR;
-using Wild8.Hubs.Util;
+using Wild8.Hubs.Utils;
 
 [assembly: OwinStartup(typeof(Wild8.Startup))]
 

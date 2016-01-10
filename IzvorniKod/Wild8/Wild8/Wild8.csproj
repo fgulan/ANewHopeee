@@ -175,9 +175,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\OrderHub.cs" />
-    <Compile Include="Hubs\Util\ConcurentHashSet.cs" />
-    <Compile Include="Hubs\Util\ConnectionMapping.cs" />
-    <Compile Include="Hubs\Util\ErrorHandlingPipelineModule .cs" />
+    <Compile Include="DAL\OrdersSet.cs" />
+    <Compile Include="Hubs\Utils\ErrorHandlingPipelineModule.cs" />
     <Compile Include="Models\AddOn.cs" />
     <Compile Include="Models\AdminModels\OrderModelView.cs" />
     <Compile Include="Models\Cart\Cart.cs" />
@@ -565,7 +564,6 @@
     <Content Include="Views\Admin\EditMealList.cshtml" />
     <Content Include="Views\Admin\DelAddOns.cshtml" />
     <None Include="Views\Admin\Index.cshtml" />
-    <None Include="Views\Cart\OrderMsg.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -594,6 +592,7 @@
     <Content Include="Views\Admin\Receipt.cshtml" />
     <Content Include="Views\Admin\Statistic.cshtml" />
     <Content Include="Views\Admin\DeleteModal.cshtml" />
+    <Content Include="Views\Cart\ThankYouMsg.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\Meals\" />

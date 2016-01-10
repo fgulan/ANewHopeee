@@ -59,7 +59,7 @@ namespace Wild8.Controllers
         public ActionResult ClearCart()
         {
             SessionExtension.GetCart(Session).Clear();
-            return PartialView("OrderMsg");
+            return PartialView("ThankYouMsg");
         }
     }
 }
