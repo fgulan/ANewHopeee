@@ -63,6 +63,17 @@ namespace Wild8.Controllers
             return PartialView("AddEditDelMealsPartial");
         }
 
+        [HttpGet]
+        public ActionResult AddMeal()
+        {
+            AddEditMealModelView newMeal = new AddEditMealModelView()
+            {
+                Categories = db.Categories.ToList(),
+                AddOns = db.AddOns.ToList()
+            };
+            return PartialView("AddMeal", newMeal);
+        }
+
         [HttpPost]
         public ActionResult AddMeal([Bind(Include = "MealID,Name,Description,CategoryID")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
         {
@@ -119,17 +130,6 @@ namespace Wild8.Controllers
             {
                 return Content("Neočekivana greška.", MediaTypeNames.Text.Plain);
             }
-        }
-
-        [HttpGet]
-        public ActionResult AddMeal()
-        {
-            AddEditMealModelView newMeal = new AddEditMealModelView()
-            {
-                Categories = db.Categories.ToList(),
-                AddOns = db.AddOns.ToList()
-            };
-            return PartialView("AddMeal",newMeal);
         }
 
         [HttpGet]
@@ -226,6 +226,12 @@ namespace Wild8.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult DeleteMeal()
+        {
+            return PartialView("DelMeals", db.Meals.ToList());
+        }
+
         [HttpPost]
         public void DeleteMeal(int mealId)
         {   //Performance wise is awful but sintax is nice
@@ -237,12 +243,6 @@ namespace Wild8.Controllers
             db.Meals.Attach(meal);
             db.Meals.Remove(meal);
             db.SaveChanges();
-        }
-
-        [HttpGet]
-        public ActionResult DeleteMeal()
-        {
-            return PartialView("DelMeals", db.Meals.ToList());
         }
 
         ////////////////////////////////////
@@ -286,6 +286,7 @@ namespace Wild8.Controllers
         [HttpPost]
         public ActionResult EditAddOn(string OldName, string Name, string Price)
         {
+            Price = Price.Replace('.',',');
             AddOn addOn = new AddOn() { AddOnID = Name, Price = Decimal.Parse(Price) };
 
             if (OldName.Equals(Name))
@@ -329,7 +330,6 @@ namespace Wild8.Controllers
             {
                 return Content("Neočekivana greška.", MediaTypeNames.Text.Plain);
             }
-
             var query = from mealAddOn in db.MealAddOns
                         where mealAddOn.AddOnID.Equals(AddOnID)
                         select mealAddOn;
