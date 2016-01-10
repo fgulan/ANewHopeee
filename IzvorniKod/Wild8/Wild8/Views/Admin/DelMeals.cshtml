@@ -20,26 +20,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="delete-modal" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-warning">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">Upozorenje</h4>
-                </div>
-                <div class="modal-body">
-                    <h3>Jeste li sigurni da želite obrisati: </h3>
-                    <br />
-                    <h4 id="modal-meal-label"></h4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
-                    <button type="button" class="btn btn-primary" id="modal-del-btn">Izbriši jelo</button>
-                </div>
-            </div>
-        </div>
+
+    <div id="dialog" title="Obriši jelo?">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Jeste li sigurni da želite obrisati navedeno jelo?</p>
     </div>
-    <script type="text/javascript" src="~/Scripts/ViewScripts/Admin_View_Scripts/DelMealsScript.js"></script>
 </div>
