@@ -4,6 +4,7 @@
 @foreach (var item in Model)
 {
     <tr data-meal-id="@item.MealType.Meal.MealID"
+        data-meal-name="@item.MealType.Meal.Name"
         data-type="@item.MealType.MealTypeName"
         data-count="@item.Count"
         data-url="@Url.Action("RemoveMeal", "Cart")"
@@ -44,7 +45,7 @@
             <p class="price">@item.Price HRK</p>
         </td>
         <td class="remove-col">
-            <button type="button" class="btn btn-warning pull-right addToCartBtn">Ukloni</button>
+            <button type="button" class="btn btn-warning pull-right removeFromCartBtn">Ukloni</button>
             <label class="pull-right"></label>
         </td>       
     </tr>

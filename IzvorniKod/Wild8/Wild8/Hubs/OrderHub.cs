@@ -7,6 +7,8 @@ using Wild8.Models;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Threading.Tasks;
 using Wild8.Hubs.Util;
+using Newtonsoft.Json;
+using System.Collections.Concurrent;
 
 namespace Wild8.Hubs
 {
@@ -14,8 +16,8 @@ namespace Wild8.Hubs
     public class OrderHub : Hub
     {
         public readonly static string WORKERS = "workers";
-       
-        private readonly static ConnectionMapping<string> _connections = new ConnectionMapping<string>();
+
+        private ConcurentHashSet<string> orders = new ConcurentHashSet<string>();
 
         /// <summary>
         /// This is the method that is called when user orders
@@ -26,7 +28,8 @@ namespace Wild8.Hubs
         {
             //Call js method on all workers
             //Send message of order and name of the user that uses connection
-            Clients.Group(WORKERS).addNewOrder(order, Context.User.Identity.Name);
+            orders.Add(order);
+            Clients.Group(WORKERS).addNewOrder(order);
         }
 
         /// <summary>
@@ -34,44 +37,18 @@ namespace Wild8.Hubs
         /// Worker js knows who sent order because that information was passed to 
         /// </summary>
         /// <param name="who"></param>
-        public void AcceptOrder(string who, string durnationTillArival)
+        public Task OrderProcessed(string order)
         {
-            var connectionId = _connections.GetConnection(who);
-            if(connectionId == null)
-            {
-                return; //No connection for user 
-            }
-
-            Clients.Client(connectionId).orderAccepted(durnationTillArival);
-        }
-
-        /// <summary>
-        /// Order can be decliend and message should be provided. 
-        /// 
-        /// Odred should be declined:
-        ///      if restorant is closed, 
-        ///      if worker does not answer to order in prescribed time
-        ///      if worker cancles the order 
-        /// All order refusal should have response message.
-        /// 
-        /// </summary>
-        /// <param name="who"></param>
-        /// <param name="message"></param>
-        public void DeclineOrder(string who, string message)
-        {
-            var connectionId = _connections.GetConnection(who);
-            if (connectionId == null)
-            {
-                return; //No connection for user 
-            }
-
-            Clients.Client(connectionId).orderDeclined(message);
+            orders.Remove(order);
+            return Clients.OthersInGroup(WORKERS).orderProcessed(order);
         }
         
         //This method should be called when worker has logged seccesfully 
-        public Task JoinWorkerGroup()
+        //It should send all of the active orders to the user
+        public async Task JoinWorkerGroup()
         {
-            return Groups.Add(Context.ConnectionId, WORKERS);
+            await Groups.Add(Context.ConnectionId, WORKERS);
+            Clients.Caller.populateOrderStorage(JsonConvert.SerializeObject(orders.GetSet(), Formatting.Indented));
         }
 
         //This method should be called when worker logs out
@@ -80,34 +57,5 @@ namespace Wild8.Hubs
             return Groups.Remove(Context.ConnectionId, WORKERS);
         }
 
-        public override Task OnConnected()
-        {
-            string name = Context.User.Identity.Name;
-
-            _connections.Add(name, Context.ConnectionId);
-
-            return base.OnConnected();
-        }
-
-        public override Task OnDisconnected(bool stopCalled)
-        {
-            string name = Context.User.Identity.Name;
-
-            _connections.Remove(name, Context.ConnectionId);
-
-            return base.OnDisconnected(stopCalled);
-        }
-
-        public override Task OnReconnected()
-        {
-            string name = Context.User.Identity.Name;
-
-            if (!_connections.GetConnection(name).Contains(Context.ConnectionId))
-            {
-                _connections.Add(name, Context.ConnectionId);
-            }
-
-            return base.OnReconnected();
-        }
     }
 }

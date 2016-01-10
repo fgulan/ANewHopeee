@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using Wild8.Models.Cart;
 using Wild8.DAL;
 using Wild8.Models;
+using Wild8.Models.Cart;
+using Wild8.Utils;
 
 namespace Wild8.Controllers
 {
@@ -16,7 +18,7 @@ namespace Wild8.Controllers
         // GET: Cart
         public ActionResult Index()
         {
-            return View();
+            return View(new CartModelView(SessionExtension.GetCart(Session)));
         }
 
         [HttpPost]
@@ -52,6 +54,12 @@ namespace Wild8.Controllers
                 }
             }
             return CartItem;
+        }
+
+        public ActionResult ClearCart()
+        {
+            SessionExtension.GetCart(Session).Clear();
+            return PartialView("OrderMsg");
         }
     }
 }

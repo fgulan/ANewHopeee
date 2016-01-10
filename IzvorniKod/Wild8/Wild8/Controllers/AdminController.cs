@@ -12,6 +12,7 @@ using Wild8.DAL;
 using Wild8.Models;
 using Wild8.Models.ModelViews;
 using Wild8.Utils;
+using Newtonsoft.Json;
 
 namespace Wild8.Controllers
 {
@@ -38,6 +39,24 @@ namespace Wild8.Controllers
         {
             return PartialView("Orders");
         }
+
+        [HttpGet]
+        public ActionResult MultipleOrders(string jsonOrders)
+        {
+            ICollection<string> orders = JsonConvert.DeserializeObject<ICollection<string>>(jsonOrders);
+            
+            return null;
+        }
+
+        [HttpGet]
+        public ActionResult SingleOrder(string jsonOrder)
+        {
+            Object order = JsonConvert.DeserializeObject(jsonOrder);
+
+            
+            return null;
+        }
+
 
         ////////////////////////////////////
         //  Meal add, edit, delete
@@ -393,20 +412,20 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult Statistic()
         {
-            DbSet<Order> orders = db.Orders;
+            List<Order> orders = db.Orders.ToList();
             Dictionary<string, int> mealOrders = new Dictionary<string, int>();
             Dictionary<string, int> monthlyOrders = new Dictionary<string, int>();
 
-            int totalNumOfOrders = orders.Count();
+            int totalNumOfOrders = 0;
             decimal totalAveragePrice = 0.00M;
 
-            foreach (Order order in orders)
-            {
+            foreach (Order order in orders) {
+                totalNumOfOrders++;
                 totalAveragePrice += order.TotalPrice;
 
                 foreach (OrderDetail orderDetail in order.OrderDetails)
                 {
-                    string mealName = orderDetail.MealName;
+                    string mealName = orderDetail.MealName + " - " + orderDetail.MealType;
 
                     if (!mealOrders.ContainsKey(mealName))
                     {
@@ -418,7 +437,7 @@ namespace Wild8.Controllers
                     }
                 }
 
-                string orderMonth = order.AcceptanceDate.ToString("YYYY-MM");
+                string orderMonth = order.AcceptanceDate.ToString("yyyy-MM");
 
                 if (!monthlyOrders.ContainsKey(orderMonth))
                 {
@@ -439,14 +458,14 @@ namespace Wild8.Controllers
 
             mealList.Sort((current, next) =>
             {
-                return current.Value.CompareTo(next.Value);
+                return -current.Value.CompareTo(next.Value);
             });
 
             StatisticsModel model = new StatisticsModel();
 
             model.TotalAveragePrice = totalAveragePrice;
             model.TotalNumOfOrders = totalNumOfOrders;
-            model.TotalTop3Meals = mealList;
+            model.TotalTopMeals = mealList;
             model.OrdersByMonths = monthlyOrders.ToList();
 
             return PartialView(model);
@@ -486,7 +505,7 @@ namespace Wild8.Controllers
             Employee e = new Employee
             {
                 EmployeeID = employeeId,
-                Password = LoginUtils.SHA256Hash(pass),
+                Password = TextUtils.SHA256Hash(pass),
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
@@ -535,5 +554,7 @@ namespace Wild8.Controllers
         {
             return PartialView("DeleteModal", new ModalViewModel() { Title = Title, Type = Type});
         }
+
+       
     }
 }
