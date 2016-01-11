@@ -145,11 +145,6 @@
         }
 
         var toRemove = document.getElementById("month-info-container");
-
-        if(toRemove != null){
-            toRemove.remove();
-        }
-
         var outerDiv = document.createElement("div");
         var innerDiv = document.createElement("div");
 
@@ -158,10 +153,9 @@
         outerDiv.className = "panel panel-default";
         outerDiv.id = "month-info-container";
         outerDiv.appendChild(innerDiv);
-        document.getElementById("placeholder").appendChild(outerDiv);
 
         var date = year + "-" + month;
-        var infoPanel = document.getElementById("month-info-panel");
+        var infoPanel = innerDiv;
         var childNode = document.createElement("h3");
 
         childNode.appendChild(document.createTextNode("Statistika za " + monthName + ", " + year));
@@ -188,6 +182,21 @@
         childNode = document.createElement("h4");
         childNode.appendChild(document.createTextNode("Broj narudžbi: " + event.item.valueField));
         infoPanel.appendChild(childNode);
+
+        if (toRemove != null) {
+            $("#month-info-container").slideToggle("slow", function(){ 
+                toRemove.remove();
+
+                $("#placeholder").append(outerDiv);
+                $("#month-info-container").hide();
+                $("#month-info-container").slideToggle(1000);
+            });
+        } else {
+            $("#placeholder").append(outerDiv);
+            $("#month-info-container").hide();
+            $("#month-info-container").slideToggle(1000);
+        }
+        
     }
 
     chart.addListener("clickGraphItem", handleClick);

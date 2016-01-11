@@ -450,7 +450,7 @@ namespace Wild8.Controllers
             Dictionary<string, decimal> monthlyAveragePrices = new Dictionary<string, decimal>();
             Dictionary<string, int> monthyOrderNums = new Dictionary<string, int>();
 
-        int totalNumOfOrders = 0;
+            int totalNumOfOrders = 0;
             decimal totalAveragePrice = 0.00M;
 
             foreach (Order order in orders)

@@ -109,6 +109,22 @@ namespace Wild8.DAL
                 new Order { AcceptanceDate = new DateTime(2015, 5, 1), TotalPrice = 40.00M, Address = "adr", City = "cty", Annotation = "atn", DeliveryTime = "dlt", Email = "mail", EmpolyeeID = "mjanjic", Name = "name", OrderDate = DateTime.Now, PhoneNumber = "nmbr", PostCode = "post", OrderDetails = new List<OrderDetail> {
                     new OrderDetail { Count = 1, MealName = "Juha", MealType = "Mala porcija", OrderID = 4, Price = 10.00M },
                     new OrderDetail { Count = 1, MealName = "Jelo", MealType = "Mala porcija", OrderID = 4, Price = 30.00M }
+                } },
+                new Order { AcceptanceDate = new DateTime(2015, 5, 1), TotalPrice = 40.00M, Address = "adr", City = "cty", Annotation = "atn", DeliveryTime = "dlt", Email = "mail", EmpolyeeID = "mjanjic", Name = "name", OrderDate = DateTime.Now, PhoneNumber = "nmbr", PostCode = "post", OrderDetails = new List<OrderDetail> {
+                    new OrderDetail { Count = 1, MealName = "Juha", MealType = "Mala porcija", OrderID = 4, Price = 10.00M },
+                    new OrderDetail { Count = 1, MealName = "Jelo", MealType = "Mala porcija", OrderID = 4, Price = 30.00M }
+                } },
+                new Order { AcceptanceDate = new DateTime(2015, 5, 1), TotalPrice = 40.00M, Address = "adr", City = "cty", Annotation = "atn", DeliveryTime = "dlt", Email = "mail", EmpolyeeID = "mjanjic", Name = "name", OrderDate = DateTime.Now, PhoneNumber = "nmbr", PostCode = "post", OrderDetails = new List<OrderDetail> {
+                    new OrderDetail { Count = 1, MealName = "Juha", MealType = "Mala porcija", OrderID = 4, Price = 10.00M },
+                    new OrderDetail { Count = 1, MealName = "Jelo", MealType = "Mala porcija", OrderID = 4, Price = 30.00M }
+                } },
+                new Order { AcceptanceDate = new DateTime(2015, 5, 1), TotalPrice = 40.00M, Address = "adr", City = "cty", Annotation = "atn", DeliveryTime = "dlt", Email = "mail", EmpolyeeID = "mjanjic", Name = "name", OrderDate = DateTime.Now, PhoneNumber = "nmbr", PostCode = "post", OrderDetails = new List<OrderDetail> {
+                    new OrderDetail { Count = 1, MealName = "Juha", MealType = "Mala porcija", OrderID = 4, Price = 10.00M },
+                    new OrderDetail { Count = 1, MealName = "Jelo", MealType = "Mala porcija", OrderID = 4, Price = 30.00M }
+                } },
+                new Order { AcceptanceDate = new DateTime(2015, 5, 1), TotalPrice = 40.00M, Address = "adr", City = "cty", Annotation = "atn", DeliveryTime = "dlt", Email = "mail", EmpolyeeID = "mjanjic", Name = "name", OrderDate = DateTime.Now, PhoneNumber = "nmbr", PostCode = "post", OrderDetails = new List<OrderDetail> {
+                    new OrderDetail { Count = 1, MealName = "Juha", MealType = "Mala porcija", OrderID = 4, Price = 10.00M },
+                    new OrderDetail { Count = 1, MealName = "Jelo", MealType = "Mala porcija", OrderID = 4, Price = 30.00M }
                 } }
             };
             orders.ForEach(e => context.Orders.Add(e));
