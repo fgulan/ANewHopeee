@@ -115,5 +115,13 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="~/Scripts/ViewScripts/Admin_View_Scripts/PhotoUploadPreview.js"></script>
+    <script type="text/javascript">
+        $("#input-20").fileinput({
+            browseClass: "btn btn-primary btn-block",
+            initialPreview: ['<img src="@Model.Meal.ImagePath" class="file-preview-image">'],
+            showCaption: false,
+            showRemove: false,
+            showUpload: false
+        });
+    </script>
 </div>
