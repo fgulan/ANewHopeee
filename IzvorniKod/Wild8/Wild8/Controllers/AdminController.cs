@@ -75,10 +75,6 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult AddEditDelMenu()
         {
-            //Todo this menu will only be selector for choosing meals
-            //to edit or delete and button to create new meal
-            //Or maybe another side pane with submenus like add meal, edit meals
-            //delete meals
             return PartialView("AddEditDelMealsPartial");
         }
 
@@ -546,26 +542,6 @@ namespace Wild8.Controllers
         ////////////////////////////////////
         //  Add or delete users
         ////////////////////////////////////
-        [HttpGet]
-        public ActionResult AddRemoveEmployee()
-        {
-            //This should some kind of side pan and content veiw 
-            return PartialView();
-        }
-
-        [HttpGet]
-        public ActionResult AddEmployee()
-        {
-            //Todo make parital view for adding users
-            return PartialView();
-        }
-
-        [HttpGet]
-        public ActionResult RemoveEmployee()
-        {
-            //Todo make remove user parital View
-            return PartialView("", db.Employees.Where(e => !e.AdminRights).ToList());
-        }
 
         public void AddEmployee(string employeeId, string pass,
                             string firstName, string lastName,
@@ -649,5 +625,100 @@ namespace Wild8.Controllers
         {
             return PartialView("DeleteModal", new ModalViewModel() { Title = Title, Type = Type });
         }
+
+        [HttpGet]
+        public ActionResult EmployeeMenu()
+        {
+            return PartialView("Employee/EmployeeMenu");
+        }
+
+        [HttpGet]
+        public ActionResult EmployeeList()
+        {
+            List<Employee> list = db.Employees.Where(e => e.isEmployed == true).OrderBy(e => e.LastName).ThenBy(e => e.FirstName).ToList();
+            return PartialView("Employee/EmployeeList", list);
+        }
+
+        [HttpGet]
+        public ActionResult UnemployedList()
+        {
+            List<Employee> list = db.Employees.Where(e => e.isEmployed == false).OrderBy(e => e.LastName).ThenBy(e => e.FirstName).ToList();
+            return PartialView("Employee/EmployeeList", list);
+        }
+
+        [HttpGet]
+        public ActionResult AddEmployee()
+        {
+            return PartialView("Employee/AddEmployee");
+        }
+
+        [HttpPost]
+        public ActionResult AddEmployee([Bind(Include = "EmployeeID,Password,FirstName,LastName,Email,PhoneNumber,Address,City,PostCode,Title,isEmployed,AdminRights")] Employee employee)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Employees.Add(employee);
+                    db.SaveChanges();
+                    return Content("Djelatnik " + employee.EmployeeID + " uspješno spremljen.", MediaTypeNames.Text.Plain);
+                }
+            }
+            catch (Exception)
+            {
+                return Content("Korisnicko ime " + employee.EmployeeID + " je vec zauzeto.", MediaTypeNames.Text.Plain);
+                throw;
+            }
+            return Content("Neocekivana greska.", MediaTypeNames.Text.Plain);
+        }
+
+        [HttpGet]
+        public ActionResult EditEmployee(string EmployeeID)
+        {
+            if (EmployeeID == null)
+            {
+                List<Employee> list = db.Employees.Where(e => e.isEmployed == true).OrderBy(e => e.LastName).ThenBy(e => e.FirstName).ToList();
+                return PartialView("Employee/EmployeeList", list);
+            }
+            Employee employee = db.Employees.Find(EmployeeID);
+            if (employee == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("Employee/EditEmployee", employee);
+        }
+
+        [HttpPost]
+        public ActionResult EditEmployee([Bind(Include = "EmployeeID,Password,FirstName,LastName,Email,PhoneNumber,Address,City,PostCode,Title,isEmployed,AdminRights")] Employee employee)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if(employee.Password == null || employee.Password.Count() == 0)
+                    {
+                        db.Employees.Attach(employee);
+                        var entry = db.Entry(employee);
+                        entry.State = EntityState.Modified;
+                        entry.Property(e => e.Password).IsModified = false;
+                    }
+                    else
+                    {
+                        employee.Password = TextUtils.SHA256Hash(employee.Password);
+                        db.Entry(employee).State = EntityState.Modified;
+                    }
+                    
+                    db.SaveChanges();
+                    return Content("Djelatnik " + employee.EmployeeID + " uspješno spremljen.", MediaTypeNames.Text.Plain);
+                }
+            }
+            catch (Exception)
+            {
+                return Content("Korisnicko ime " + employee.EmployeeID + " je vec zauzeto.", MediaTypeNames.Text.Plain);
+                throw;
+            }
+            return Content("Neocekivana greska.", MediaTypeNames.Text.Plain);
+        }
+
     }
 }

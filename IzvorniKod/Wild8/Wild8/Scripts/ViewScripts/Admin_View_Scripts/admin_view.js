@@ -18,7 +18,7 @@ function setStatisticMenuListener() {
 };
 
 function setWorkersMenuListener() {
-    var caller = $("#workers-menu");
+    var caller = $("#employee-menu");
     if (caller != undefined) {
         ajaxCall(caller);
     }
@@ -34,7 +34,6 @@ function setStaticInfoMenuListener() {
 function setLogoutBtnListener() {
     $("#logout").one('click', function () {
         var actionUrl = $(this).data('url');
-        
         $.ajax({
             type: 'POST',
             cache: false,
@@ -184,6 +183,85 @@ $(document).on('click', '#editMealBtn', function (e) {
         }
     });
     $("#edit-meal-form").submit();
+});
+
+$(document).on('click', '#editEmployeeBtn', function (e) {
+    e.preventDefault();
+    $("#edit-employee-form").ajaxForm({
+        beforeSubmit: function (formData, jqForm, options) {
+            return $("#edit-employee-form").valid();
+        },
+        resetForm: false,
+        cache: false,
+        success: function (response) {
+            printOnModal("Djelatnik spremljen", response);
+        },
+        error: function (xhr, status, response) {
+            printOnModal("Djelatnik nije spremljen", response);
+        }
+    });
+    $("#edit-employee-form").submit();
+});
+
+$(document).on('click', '#addEmployeeBtn', function (e) {
+    e.preventDefault();
+    $("#add-employee-form").ajaxForm({
+        beforeSubmit: function (formData, jqForm, options) {
+            return $("#add-employee-form").valid();
+        },
+        resetForm: false,
+        cache: false,
+        success: function (response) {
+            printOnModal("Djelatnik spremljen", response);
+        },
+        error: function (xhr, status, response) {
+            printOnModal("Djelatnik nije spremljen", response);
+        }
+    });
+    $("#add-employee-form").submit();
+});
+
+$(document).on('click', '.edit-employee-btn', function () {
+    var url = $(this).data('url');
+    var employee_id = $(this).data('employee-id');
+
+    $.ajax({
+        type: 'GET',
+        url: url,
+        cache: false,
+        data: { EmployeeID: employee_id },
+        success: function (content) {
+            var listContainer = $('#employee-list').parent();
+            listContainer.fadeOut(600, function () {
+                listContainer.empty();
+                listContainer.append(content).fadeIn(600);
+            });
+        },
+        error: function () {
+            window.alert("Error");
+        }
+    })
+});
+
+$(document).on("click", ".employee-submenu", function () {
+    $this = $(".employee-submenu");
+    var url = $(this).data('url');
+
+    $.ajax({
+        type: 'GET',
+        cache: false,
+        url: url,
+        success: function (content) {
+            contentDiv = $("#employee-content");
+            contentDiv.fadeOut(600, function () {
+                contentDiv.empty();
+                contentDiv.append(content).fadeIn(600);
+            })
+        },
+        error: function () {
+            window.alert('error');
+        }
+    });
 });
 
 $(document).on("click", ".meal-submenu", function () {

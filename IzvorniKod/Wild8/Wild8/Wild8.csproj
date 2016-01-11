@@ -163,6 +163,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -568,6 +569,10 @@
     <Content Include="Views\Admin\DelAddOns.cshtml" />
     <Content Include="Views\Admin\EditCategory.cshtml" />
     <Content Include="Views\Admin\EditCategoryList.cshtml" />
+    <Content Include="Views\Admin\Employee\EmployeeList.cshtml" />
+    <Content Include="Views\Admin\Employee\AddEmployee.cshtml" />
+    <Content Include="Views\Admin\Employee\EmployeeMenu.cshtml" />
+    <Content Include="Views\Admin\Employee\EditEmployee.cshtml" />
     <None Include="Views\Admin\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -603,6 +608,11 @@
     <Content Include="Views\Admin\StaticInfoViews\RestaurantInfo.cshtml" />
     <Content Include="Views\Admin\StaticInfoViews\OwnerPictuerUpload.cshtml" />
     <Content Include="Views\Admin\StaticInfoViews\RestauranPictureUpload.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Delete.cshtml" />
+    <Content Include="Views\Employees\Details.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\Meals\" />
