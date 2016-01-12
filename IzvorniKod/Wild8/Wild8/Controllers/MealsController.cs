@@ -46,7 +46,7 @@ namespace Wild8.Controllers
         // POST: Meals/AddNewComment
         // TODO shity stars
         [HttpPost]
-        public ActionResult AddNewComment(int? ID, string Username, string Message, int? grade)
+        public ActionResult AddNewComment(int? ID, string Username, string Message, int? Rating)
         {
             if (ModelState.IsValid)
             {
@@ -55,7 +55,7 @@ namespace Wild8.Controllers
                     CommentDate = DateTime.Now,
                     Message = Message,
                     Username = Username,
-                    Grade = grade == null ? 5 : (int)grade,
+                    Grade = Rating == null ? 5 : (int)Rating,
                     MealID = ID
                 };
                 db.Comments.Add(newComment);

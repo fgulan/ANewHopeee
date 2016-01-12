@@ -24,7 +24,7 @@ namespace Wild8.Controllers
 
 
         [HttpPost]
-        public ActionResult AddNewComment(string Username, string Message, int? grade)
+        public ActionResult AddNewComment(string Username, string Message, int? Rating)
         {
             if (ModelState.IsValid)
             {
@@ -33,7 +33,7 @@ namespace Wild8.Controllers
                     CommentDate = DateTime.Now,
                     Message = Message,
                     Username = Username,
-                    Grade = grade == null ? 5 : (int)grade,
+                    Grade = Rating == null ? 5 : (int)Rating,
                 };
                 db.Comments.Add(newComment);
                 db.SaveChanges();

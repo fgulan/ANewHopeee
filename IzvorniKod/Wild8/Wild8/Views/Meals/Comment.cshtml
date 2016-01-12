@@ -17,9 +17,30 @@
                         @Html.DisplayFor(m => m.Message)
                     </p>
                 </div>
-                <p class="text-right">
-                    @Html.DisplayFor(m => m.Grade) <span class="glyphicon glyphicon-star"></span>
-                </p>
+                <div class="pull-right">
+                    <div class="acidjs-rating-stars acidjs-rating-disabled">
+                        @if (Model.Grade == 5)
+                        {<input disabled="disabled" checked type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-0" value="5" /><label for="group-@Model.CommentID-0"></label> }
+                        else
+                        { <input disabled="disabled" type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-0" value="5" /><label for="group-@Model.CommentID-0"></label> }
+                        @if (Model.Grade == 4)
+                        {<input disabled="disabled" checked type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-1" value="4" /><label for="group-@Model.CommentID-1"></label> }
+                        else
+                        { <input disabled="disabled" type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-1" value="4" /><label for="group-@Model.CommentID-1"></label> }
+                        @if (Model.Grade == 3)
+                        {<input disabled="disabled" checked type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-2" value="3" /><label for="group-@Model.CommentID-2"></label> }
+                        else
+                        { <input disabled="disabled" type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-2" value="3" /><label for="group-@Model.CommentID-2"></label> }
+                        @if (Model.Grade == 2)
+                        {<input disabled="disabled" checked type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-3" value="2" /><label for="group-@Model.CommentID-3"></label> }
+                        else
+                        { <input disabled="disabled" type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-3" value="2" /><label for="group-@Model.CommentID-3"></label> }
+                        @if (Model.Grade == 1)
+                        {<input disabled="disabled" checked type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-4" value="1" /><label for="group-@Model.CommentID-4"></label> }
+                        else
+                        { <input disabled="disabled" type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-4" value="1" /><label for="group-@Model.CommentID-4"></label> }
+                    </div>
+                </div>
             </div>
         </div>
     </div>

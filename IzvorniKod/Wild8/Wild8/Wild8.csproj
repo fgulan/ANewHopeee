@@ -163,7 +163,6 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
-    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -217,6 +216,7 @@
     <Content Include="Content\menu.css" />
     <Content Include="Content\menu.min.css" />
     <Content Include="Content\SharedLayout.css" />
+    <Content Include="Content\StarRating.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -479,7 +479,6 @@
     <Content Include="Content\comments.min.css" />
     <Content Include="Content\homepage.css" />
     <Content Include="Scripts\navbar_hide.js" />
-    <Content Include="Scripts\star_rating.js" />
     <Content Include="Views\Admin\AddAddOn.cshtml" />
     <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectBig.svg" />
     <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectBigBlack.svg" />
@@ -608,11 +607,6 @@
     <Content Include="Views\Admin\StaticInfoViews\RestaurantInfo.cshtml" />
     <Content Include="Views\Admin\StaticInfoViews\OwnerPictuerUpload.cshtml" />
     <Content Include="Views\Admin\StaticInfoViews\RestauranPictureUpload.cshtml" />
-    <Content Include="Views\Employees\Create.cshtml" />
-    <Content Include="Views\Employees\Delete.cshtml" />
-    <Content Include="Views\Employees\Details.cshtml" />
-    <Content Include="Views\Employees\Edit.cshtml" />
-    <Content Include="Views\Employees\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\Meals\" />
