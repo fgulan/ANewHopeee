@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Wild8.DAL;
 using Wild8.Models;
-using Wild8.Models.ModelViews;
-using Newtonsoft.Json;
 using Wild8.Models.Cart;
+using Wild8.Models.ModelViews;
+using Wild8.Utils;
 
 namespace Wild8.Controllers
 {
@@ -81,11 +82,12 @@ namespace Wild8.Controllers
             foreach (Meal m in category.Meals)
             {
                 if (!m.IsAvailable) continue;
+                
                 MealWithPrice mwp = new MealWithPrice()
                 {
                     Meal = m,
                     Types = db.MealTypes.Where(type => type.MealID == m.MealID).ToList(),
-                    IsHot = false   //TODO: change this
+                    IsHot = MealUtils.IsHot(m)   //TODO: change this
                 };
                 mealWPrice.Add(mwp);
             }

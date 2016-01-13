@@ -28,11 +28,11 @@ namespace Wild8.Hubs.Util
             }
         }
 
-        public void Remove(string item)
+        public bool Remove(string item)
         {
             lock(set)
             {
-                set.Remove(item);
+                return set.Remove(item);
             }
         }
 

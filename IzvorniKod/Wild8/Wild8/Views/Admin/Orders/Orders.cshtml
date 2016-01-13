@@ -1,0 +1,65 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="panel panel-default" id="orders-menu"> 
+    <div class="panel-heading">
+        <h4>Narudžbe</h4>
+    </div>
+    <div class="panel-content container">
+        <div class="panel-group" id="orders-list">
+        </div>
+    </div>
+
+    <div hidden id="order-tamplate">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title pull-left">
+                    <div id="order-heading"></div>
+                </div>
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-sm btn-success accept-btn" data-url="@Url.Action("AcceptOrder", "Admin")">Potvrdi</button>
+                    <button type="button" class="btn btn-sm btn-danger refuse-btn" data-url="@Url.Action("RefuseOrder","Admin")">Odbij</button>
+                    <button type="button" class="btn btn-sm btn-default open-btn" data-toggle="collapse" data-target="#order1">
+                        <span class="glyphicon glyphicon-menu-down" id="open-icon"></span>&nbsp;
+                    </button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-content container-fluid">
+                <div class="collapse">
+                    <ul class="list-group" id="order-details">
+                    </ul>
+                </div>
+            </div>
+            <div id="user-order-note" class="well-sm">
+            </div>
+        </div>
+    </div>
+    <div id="order-meal-template" hidden>
+        <li class="list-group-item">
+            <div id="order-meal-name"></div>
+            <ul class="list-group" id="oreder-addon-list"></ul>
+        </li>
+    </div>
+    <div id="order-modal" class="modal fade" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="order-modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label class="control-label">Poruka: </label>
+                            <textarea class="form-control" id="order-modal-message"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="modal-btn" type="button" class="btn btn-default" data-dismiss="modal">Pošalji poruku</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

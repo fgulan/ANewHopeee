@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Globalization;
 using System.IO;
@@ -13,6 +14,7 @@ using Wild8.Models;
 using Wild8.Models.ModelViews;
 using Wild8.Utils;
 using Newtonsoft.Json;
+using Wild8.StaticInfo;
 
 namespace Wild8.Controllers
 {
@@ -37,39 +39,45 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult Orders()
         {
-            return PartialView("Orders");
+            return PartialView("Orders/Orders");
         }
-
-        [HttpGet]
-        public ActionResult MultipleOrders(string jsonOrders)
-        {
-            ICollection<string> orders = JsonConvert.DeserializeObject<ICollection<string>>(jsonOrders);
-
-            return null;
-        }
-
-        [HttpGet]
-        public ActionResult SingleOrder(string jsonOrder)
-        {
-            Object order = JsonConvert.DeserializeObject(jsonOrder);
-
-
-            return null;
-        }
-
 
         ////////////////////////////////////
         //  Meal add, edit, delete
         ////////////////////////////////////
         [HttpPost]
-        public void AcceptOrder(int orderId)
+        public void AcceptOrder(string orderJSON, string employeeId, string message)
         {
-            var order = new Order() { OrderID = orderId, AcceptanceDate = DateTime.Now };
+            var acceptedOrder = JsonConvert.DeserializeObject<Order>(orderJSON);
+            acceptedOrder.EmpolyeeID = employeeId;
+            acceptedOrder.AcceptanceDate = new DateTime();
 
-            db.Orders.Attach(order);
-            db.Entry(order).Property(e => e.AcceptanceDate).IsModified = true;
+            OrderInfo info = new OrderInfo()
+            {
+                Info = RestaurauntInfo.Instance,
+                Message = message,
+                Order = acceptedOrder
+            };
 
+            using (StringWriter sw = new StringWriter())
+            {
+                ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, "Receipt");
+                ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+
+                var receipt = sw.ToString();
+
+                MailUtil.SendReceiptTo(acceptedOrder.Email, "Potvrda narudžbe",receipt);
+            }
+
+            db.Orders.Add(acceptedOrder);
             db.SaveChanges();
+        }
+
+        [HttpPost]
+        public void RefuseOrder(string email, string message)
+        {
+            MailUtil.SendReceiptTo(email, "Naruđba odbijena", message);
         }
 
         [HttpGet]

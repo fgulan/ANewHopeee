@@ -29,19 +29,23 @@ namespace Wild8.Hubs
         /// Worker js knows who sent order because that information was passed to 
         /// </summary>
         /// <param name="who"></param>
-        public Task OrderProcessed(string order)
+        public void OrderProcessed(string order)
         {
-            OrdersSet.GetInstance().Remove(order);
-            return Clients.OthersInGroup(WORKERS).orderProcessed(order);
+            if (OrdersSet.GetInstance().Remove(order))
+            {
+                //Send all of the orders
+                var jsonOrders = JsonConvert.SerializeObject(OrdersSet.GetInstance().GetSet(), Formatting.Indented);
+                Clients.OthersInGroup(WORKERS).orderProcessed(jsonOrders);
+            }
         }
         
         //This method should be called when worker has logged seccesfully 
         //It should send all of the active orders to the user
-        public async Task JoinWorkerGroup()
+        public Task JoinWorkerGroup()
         {
-            await Groups.Add(Context.ConnectionId, WORKERS);
             var jsonOrders = JsonConvert.SerializeObject(OrdersSet.GetInstance().GetSet(), Formatting.Indented);
             Clients.Caller.populateOrderStorage(jsonOrders);
+            return Groups.Add(Context.ConnectionId, WORKERS);
         }
 
         //This method should be called when worker logs out
@@ -50,5 +54,10 @@ namespace Wild8.Hubs
             return Groups.Remove(Context.ConnectionId, WORKERS);
         }
 
+        public void GetOrders()
+        {
+            var jsonOrders = JsonConvert.SerializeObject(OrdersSet.GetInstance().GetSet(), Formatting.Indented);
+            Clients.Caller.populateOrderStorage(jsonOrders);
+        }
     }
 }
