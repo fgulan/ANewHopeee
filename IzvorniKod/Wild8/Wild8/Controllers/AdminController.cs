@@ -468,7 +468,7 @@ namespace Wild8.Controllers
             List<Order> orders = db.Orders.ToList();
             Dictionary<string, int> mealOrders = new Dictionary<string, int>();
             Dictionary<string, int> monthlyOrders = new Dictionary<string, int>();
-            Dictionary<string, List<string>> topMealsByMonths = new Dictionary<string, List<string>>();
+            Dictionary<string, Dictionary<string, int>> topMealsByMonths = new Dictionary<string, Dictionary<string, int>>();
             Dictionary<string, decimal> monthlyAveragePrices = new Dictionary<string, decimal>();
             Dictionary<string, int> monthyOrderNums = new Dictionary<string, int>();
 
@@ -505,6 +505,31 @@ namespace Wild8.Controllers
                     {
                         mealOrders[mealName] += 1;
                     }
+
+                    // monthly meals
+                    Dictionary<string, int> currentMonthTopMeals = null;
+
+                    // get correct dictionary
+                    if (!topMealsByMonths.ContainsKey(orderMonth))
+                    {
+                        currentMonthTopMeals = new Dictionary<string, int>();
+                        topMealsByMonths[orderMonth] = currentMonthTopMeals;
+                    }
+                    else
+                    {
+                        currentMonthTopMeals = topMealsByMonths[orderMonth];
+                    }
+
+                    // refresh meal counter in that dictionary
+                    if (!currentMonthTopMeals.ContainsKey(mealName))
+                    {
+                        currentMonthTopMeals[mealName] = 1;
+                    }
+                    else
+                    {
+                        currentMonthTopMeals[mealName] += 1;
+                    }
+                    // end
                 }
 
                 if (!monthlyOrders.ContainsKey(orderMonth))
@@ -532,6 +557,7 @@ namespace Wild8.Controllers
                 }
             }
 
+            // get total top meals
             List<KeyValuePair<string, int>> mealList = mealOrders.ToList();
 
             mealList.Sort((current, next) =>
@@ -554,6 +580,36 @@ namespace Wild8.Controllers
                 }
             }
 
+            // get top meals for every month
+            Dictionary<string, List<KeyValuePair<string, int>>> topMealsPerMonthList = new Dictionary<string, List<KeyValuePair<string, int>>>();
+
+            foreach (var pair in topMealsByMonths)
+            {
+                List<KeyValuePair<string, int>> monthMealList = pair.Value.ToList();
+
+                monthMealList.Sort((current, next) =>
+                {
+                    return -current.Value.CompareTo(next.Value);
+                });
+
+                List<KeyValuePair<string, int>> monthOnly3Meals = new List<KeyValuePair<string, int>>();
+
+                counter = 0;
+                foreach (var monthPair in monthMealList)
+                {
+                    monthOnly3Meals.Add(monthPair);
+
+                    counter++;
+
+                    if (counter >= 3)
+                    {
+                        break;
+                    }
+                }
+
+                topMealsPerMonthList[pair.Key] = monthMealList;
+            }
+
             StatisticsModel model = new StatisticsModel();
 
             model.TotalAveragePrice = totalAveragePrice;
@@ -561,6 +617,7 @@ namespace Wild8.Controllers
             model.TotalTopMeals = only3Meals;
             model.OrdersByMonths = monthlyOrders.ToList();
             model.MonthlyAveragePrices = monthlyAveragePrices;
+            model.TopMealsByMonths = topMealsPerMonthList;
 
             return PartialView(model);
         }

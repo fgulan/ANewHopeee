@@ -132,6 +132,16 @@
         {
             <text>orders["@pair.Key" + "/price"] = @pair.Value</text>
         }
+
+        foreach (var month in Model.TopMealsByMonths)
+        {
+            int i = 1;
+            foreach (var monthMeal in month.Value)
+            {
+                <text>orders["@month.Key" + "/order" + "@i"] = "@monthMeal.Key x" + "@monthMeal.Value"</text>
+                i++;
+            }
+        }
     }
 
     function handleClick(event)
@@ -169,22 +179,34 @@
         childNode = document.createElement("ol");
 
         var listElement = document.createElement("li");
+        var order1 = orders[date + "/order1"];
+        var order2 = orders[date + "/order2"];
+        var order3 = orders[date + "/order3"];
 
-        listElement.appendChild(document.createTextNode(orders[date + "/order1"]));
-        childNode.appendChild(listElement);
-        listElement = document.createElement("li");
-        listElement.appendChild(document.createTextNode(orders[date + "/order2"]));
-        childNode.appendChild(listElement);
-        listElement = document.createElement("li");
-        listElement.appendChild(document.createTextNode(orders[date + "/order3"]));
-        childNode.appendChild(listElement);
+        if (order1 != undefined) {
+            listElement.appendChild(document.createTextNode(order1));
+            childNode.appendChild(listElement);
+            listElement = document.createElement("li");
+        }
+
+        if (order2 != undefined) {
+            listElement.appendChild(document.createTextNode(order2));
+            childNode.appendChild(listElement);
+            listElement = document.createElement("li");
+        }
+
+        if (order3 != undefined) {
+            listElement.appendChild(document.createTextNode(order3));
+            childNode.appendChild(listElement);
+        }
+
         infoPanel.appendChild(childNode);
         childNode = document.createElement("h4");
-        childNode.appendChild(document.createTextNode("Broj narudžbi: " + event.item.valueField));
+        childNode.appendChild(document.createTextNode("Broj narudžbi: " + event.item.values.value));
         infoPanel.appendChild(childNode);
 
         if (toRemove != null) {
-            $("#month-info-container").slideToggle("slow", function(){ 
+            $("#month-info-container").slideToggle("slow", function(){
                 toRemove.remove();
 
                 $("#placeholder").append(outerDiv);
@@ -196,7 +218,7 @@
             $("#month-info-container").hide();
             $("#month-info-container").slideToggle(1000);
         }
-        
+
     }
 
     chart.addListener("clickGraphItem", handleClick);

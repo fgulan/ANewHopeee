@@ -10,7 +10,8 @@ namespace Wild8.Utils
     public class MailUtil
     {
         private static SmtpClient _smtpClient; //= "smtp.gmail.com"; // klijent za slanje maila
-        private static string _fromAddress; //= "username@gmail.com"; // adresa sa koje se šalje
+        private static string _fromAddress; //= "wild8opp@gmail.com"; // adresa sa koje se šalje
+        // pass: pass_wild8
         // ako želite testirat sa gmailom, morate enablat na gmailu da less-secure aplikacije mogu slat sa vašeg računa. ne znam zašto.
 
         public static void Initialize(string SMTPClient, string FromAddress, string UserName, string Password)

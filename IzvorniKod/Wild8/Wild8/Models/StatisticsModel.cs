@@ -14,7 +14,7 @@ namespace Wild8.Models
         // string -> date, int -> num of orders
         public List<KeyValuePair<string, int>> OrdersByMonths { get; set; }
         // string -> date, string -> meal name + meal type + num of orders
-        public Dictionary<string, List<string>> TopMealsByMonths { get; set; }
+        public Dictionary<string, List<KeyValuePair<string, int>>> TopMealsByMonths { get; set; }
         // string -> date, decimal -> average price
         public Dictionary<string, decimal> MonthlyAveragePrices { get; set; }
     }
