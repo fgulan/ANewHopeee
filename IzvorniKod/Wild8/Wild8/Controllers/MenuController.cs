@@ -82,7 +82,7 @@ namespace Wild8.Controllers
             foreach (Meal m in category.Meals)
             {
                 if (!m.IsAvailable) continue;
-                
+
                 MealWithPrice mwp = new MealWithPrice()
                 {
                     Meal = m,
@@ -119,7 +119,7 @@ namespace Wild8.Controllers
             }
             else if (sort == BY_POPULARITY)
             {
-                meals.Sort((m1, m2) => m1.IsHot ? -1 : 1);
+                meals.Sort((m1, m2) => m1.Meal.NumberOfOrders.CompareTo(m2.Meal.NumberOfOrders));
             }
         }
     }
