@@ -13,55 +13,25 @@ namespace Wild8.DAL
         {
             var addOns = new List<AddOn>
             {
-                new AddOn { AddOnID = "Kajmak", Price = 3.50M },
-                new AddOn { AddOnID = "Ajvar", Price = 3.50M },
-                new AddOn { AddOnID = "Majoneza", Price = 3.50M },
-                new AddOn { AddOnID = "Ketchup", Price = 3.50M },
-                new AddOn { AddOnID = "Luk", Price = 3.50M },
-                new AddOn { AddOnID = "Salata", Price = 3.50M },
+                new AddOn { AddOnID = "Lepinja", Price = 10M },
+                new AddOn { AddOnID = "Ajvar", Price = 5M },
+                new AddOn { AddOnID = "Luk", Price = 5M },
+                new AddOn { AddOnID = "Pomfrit", Price = 6M },
+                new AddOn { AddOnID = "Kroketi", Price = 6M },
+
+                new AddOn { AddOnID = "Gauda", Price = 7M },
+                new AddOn { AddOnID = "Mozzarela", Price = 7M },
+                new AddOn { AddOnID = "Gorgonzola", Price = 7M },
+                new AddOn { AddOnID = "Parmezan", Price = 7M },
+                new AddOn { AddOnID = "Masline", Price = 7M },
             };
             addOns.ForEach(s => context.AddOns.Add(s));
             context.SaveChanges();
 
-            var categories = new List<Category>
-            {
-                new Category {Name = "Jela s rostilja" },
-                new Category {Name = "Kuhano" },
-                new Category {Name = "Salate"}
-            };
-            categories.ForEach(s => context.Categories.Add(s));
-            context.SaveChanges();
-
-            var meals = new List<Meal>
-            {
-                new Meal { Name = "Cevapi", NumberOfOrders = 5, Description = "najbolji cevapi u gradu", CategoryID = 1, ImagePath = "sdsa", IsAvailable = true },
-                new Meal { Name = "Abc Juha", NumberOfOrders = 2, Description = "najbolji juha u gradu", CategoryID = 2, ImagePath = "dfsf", IsAvailable = true },
-            };
-            meals.ForEach(s => context.Meals.Add(s));
-            context.SaveChanges();
-
-            var types = new List<MealType>
-            {
-                new MealType { Meal = meals[0], MealTypeName = "Mala porcija" ,  Price = 20 },
-                new MealType { Meal = meals[0], MealTypeName = "Velika porcija", Price = 30 },
-                new MealType { MealID = 2, MealTypeName = "Mala porcija",   Price = 10 },
-                new MealType { MealID = 2, MealTypeName = "Velika porcija", Price = 20 }
-            };
-            types.ForEach(t => context.MealTypes.Add(t));
-            context.SaveChanges();
-
-            var mealAddOns = new List<MealAddOn>
-            {
-                //Cevapi
-                new MealAddOn {MealID = 1, AddOnID = "Kajmak"},
-                new MealAddOn {MealID = 1, AddOnID = "Ajvar" },
-
-                //Juha
-                new MealAddOn {MealID = 2, AddOnID = "Luk" },
-                new MealAddOn {MealID = 2, AddOnID = "Salata" }
-            };
-            mealAddOns.ForEach(s => context.MealAddOns.Add(s));
-            context.SaveChanges();
+            generateGrill(context);
+            generatePizzas(context);
+            generateSandwitches(context);
+            generateSalads(context);
 
             var comments = new List<Comment>
             {
@@ -91,43 +61,198 @@ namespace Wild8.DAL
             var orders = new List<Order>
             {
                 new Order { AcceptanceDate = new DateTime(2015, 1, 1), TotalPrice = 220.00M, Address = "adr", UserNote = "atn",  Email = "mail", EmpolyeeID = "dlatecki", Name = "name", OrderDate = DateTime.Now, PhoneNumber = "nmbr", OrderDetails = new List<OrderDetail> {
-                    new OrderDetail { Count = 10, MealName = "Cevapi", MealType = "Mala porcija", OrderID = 1  },
+                    new OrderDetail { Count = 10, MealName = "Ćevapi", MealType = "Mala porcija", OrderID = 1  },
                     new OrderDetail { Count = 1, MealName = "Nesto", MealType = "Mala porcija", OrderID = 1 }
                 } },
                 new Order { AcceptanceDate = new DateTime(2015, 1, 1), TotalPrice = 50.00M, Address = "adr",  UserNote = "atn", Email = "mail", EmpolyeeID = "fgulan", Name = "name", OrderDate = DateTime.Now, PhoneNumber = "nmbr",OrderDetails = new List<OrderDetail> {
-                    new OrderDetail { Count = 1, MealName = "Jelo", MealType = "Mala porcija", OrderID = 2},
-                    new OrderDetail { Count = 1, MealName = "Nesto", MealType = "Mala porcija", OrderID = 2}
+                    new OrderDetail { Count = 1, MealName = "Ražnjiči", MealType = "Mala porcija", OrderID = 2},
+                    new OrderDetail { Count = 1, MealName = "Svinjska vratina", MealType = "Mala porcija", OrderID = 2}
                 } },
                 new Order { AcceptanceDate = new DateTime(2015, 3, 1), TotalPrice = 70.00M, Address = "adr", UserNote = "atn",  Email = "mail", EmpolyeeID = "fredi", Name = "name", OrderDate = DateTime.Now, PhoneNumber = "nmbr",  OrderDetails = new List<OrderDetail> {
-                    new OrderDetail { Count = 1, MealName = "Jelo", MealType = "Mala porcija", OrderID = 3},
-                    new OrderDetail { Count = 2, MealName = "Nesto", MealType = "Mala porcija", OrderID = 3 }
+                    new OrderDetail { Count = 1, MealName = "Ražnjiči", MealType = "Mala porcija", OrderID = 3},
+                    new OrderDetail { Count = 2, MealName = "Svinjska vratina", MealType = "Mala porcija", OrderID = 3 }
                 } },
                 new Order { AcceptanceDate = new DateTime(2015, 4, 1), TotalPrice = 50.00M, Address = "adr", UserNote = "atn",  Email = "mail", EmpolyeeID = "majinlizard", Name = "name", OrderDate = DateTime.Now, PhoneNumber = "nmbr",  OrderDetails = new List<OrderDetail> {
-                    new OrderDetail { Count = 1, MealName = "Juha", MealType = "Mala porcija", OrderID = 4 },
-                    new OrderDetail { Count = 1, MealName = "Nesto", MealType = "Mala porcija", OrderID = 4 }
+                    new OrderDetail { Count = 1, MealName = "Slavonska", MealType = "Jumbo", OrderID = 4 },
+                    new OrderDetail { Count = 1, MealName = "Svinjska vratina", MealType = "Mala porcija", OrderID = 4 }
                 } },
                 new Order { AcceptanceDate = new DateTime(2015, 5, 1), TotalPrice = 40.00M, Address = "adr",  UserNote = "atn",  Email = "mail", EmpolyeeID = "mjanjic", Name = "name", OrderDate = DateTime.Now, PhoneNumber = "nmbr",  OrderDetails = new List<OrderDetail> {
-                    new OrderDetail { Count = 1, MealName = "Juha", MealType = "Mala porcija", OrderID = 4 },
-                    new OrderDetail { Count = 1, MealName = "Jelo", MealType = "Mala porcija", OrderID = 4 }
+                    new OrderDetail { Count = 1, MealName = "Slavonska", MealType = "Srednja", OrderID = 4 },
+                    new OrderDetail { Count = 1, MealName = "Ražnjiči", MealType = "Mala porcija", OrderID = 4 }
                 } },
                 new Order { AcceptanceDate = new DateTime(2015, 5, 1), TotalPrice = 40.00M, Address = "adr",  UserNote = "atn",  Email = "mail", EmpolyeeID = "mjanjic", Name = "name", OrderDate = DateTime.Now, PhoneNumber = "nmbr", OrderDetails = new List<OrderDetail> {
-                    new OrderDetail { Count = 1, MealName = "Juha", MealType = "Mala porcija", OrderID = 4},
-                    new OrderDetail { Count = 1, MealName = "Jelo", MealType = "Mala porcija", OrderID = 4}
+                    new OrderDetail { Count = 1, MealName = "Slavonska", MealType = "Mala", OrderID = 4},
+                    new OrderDetail { Count = 1, MealName = "Ražnjiči", MealType = "Mala porcija", OrderID = 4}
                 } },
                 new Order { AcceptanceDate = new DateTime(2015, 5, 1), TotalPrice = 40.00M, Address = "adr",UserNote = "atn",  Email = "mail", EmpolyeeID = "mjanjic", Name = "name", OrderDate = DateTime.Now, PhoneNumber = "nmbr", OrderDetails = new List<OrderDetail> {
-                    new OrderDetail { Count = 1, MealName = "Juha", MealType = "Mala porcija", OrderID = 4 },
-                    new OrderDetail { Count = 1, MealName = "Jelo", MealType = "Mala porcija", OrderID = 4 }
+                    new OrderDetail { Count = 1, MealName = "Slavonska", MealType = "Jumbo", OrderID = 4 },
+                    new OrderDetail { Count = 1, MealName = "Ražnjiči", MealType = "Mala porcija", OrderID = 4 }
                 } },
                 new Order { AcceptanceDate = new DateTime(2015, 5, 1), TotalPrice = 40.00M, Address = "adr", UserNote = "atn", Email = "mail", EmpolyeeID = "mjanjic", Name = "name", OrderDate = DateTime.Now, PhoneNumber = "nmbr", OrderDetails = new List<OrderDetail> {
-                    new OrderDetail { Count = 1, MealName = "Juha", MealType = "Mala porcija", OrderID = 4 },
-                    new OrderDetail { Count = 1, MealName = "Jelo", MealType = "Mala porcija", OrderID = 4}
+                    new OrderDetail { Count = 1, MealName = "Slavonska", MealType = "Mala", OrderID = 4 },
+                    new OrderDetail { Count = 1, MealName = "Ražnjiči", MealType = "Mala porcija", OrderID = 4}
                 } },
                 new Order { AcceptanceDate = new DateTime(2015, 5, 1), TotalPrice = 40.00M, Address = "adr", UserNote = "atn", Email = "mail", EmpolyeeID = "mjanjic", Name = "name", OrderDate = DateTime.Now, PhoneNumber = "nmbr",  OrderDetails = new List<OrderDetail> {
-                    new OrderDetail { Count = 1, MealName = "Juha", MealType = "Mala porcija", OrderID = 4 },
-                    new OrderDetail { Count = 1, MealName = "Jelo", MealType = "Mala porcija", OrderID = 4 }
+                    new OrderDetail { Count = 1, MealName = "Slavonska", MealType = "Srednja", OrderID = 4 },
+                    new OrderDetail { Count = 1, MealName = "Ražnjiči", MealType = "Mala porcija", OrderID = 4 }
                 } }
             };
             orders.ForEach(e => context.Orders.Add(e));
+            context.SaveChanges();
+        }
+
+        private void generatePizzas(RestaurauntContext context)
+        {
+            Category cat = new Category { Name = "Pizze" };
+            var pizzas = new List<Meal>
+            {
+                new Meal { Name = "Margharita", NumberOfOrders = 0, Description = "Rajčica, sir", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Funghi", NumberOfOrders = 0, Description = "Rajčica, sir, šampinjoni", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Vesuvio", NumberOfOrders = 0, Description = "Rajčica, sir, šunka", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Capricciosa", NumberOfOrders = 0, Description = "Rajčica, sir, šunka, šampinjoni", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Quattro formaggio", NumberOfOrders = 0, Description = "Rajčica, 4 vrste sira", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Al tonno", NumberOfOrders = 0, Description = "Rajčica, sir, tunjevina", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Frutti di mare", NumberOfOrders = 0, Description = "Rajčica, sir, plodovi mora", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Vegetariana", NumberOfOrders = 0, Description = "Rajčica, sir, paprika, kukuruz, šampinjoni", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Prosccuiuto", NumberOfOrders = 0, Description = "Rajčica, sir, pršut", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Slavonska", NumberOfOrders = 0, Description = "Rajčica, sir, šunka, šampinjoni, kulen, špek", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Napolitana", NumberOfOrders = 0, Description = "Rajčica, sir, šunka, šampinjoni, špek, jaje", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Mexicana", NumberOfOrders = 0, Description = "Rajčica, sir, šunka, špek, kukuruz, tabasco, paprika", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Picante", NumberOfOrders = 0, Description = "Rajčica, sir, šunka, špek, feferoni", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Zagrebačka", NumberOfOrders = 0, Description = "Rajčica, sir, šunka, šampinjoni, svj. paprika, kiselo vrhnje, špek", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Asterix", NumberOfOrders = 0, Description = "Rajčica, sir, šunka, špek, kulen, jaje", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Lovačka", NumberOfOrders = 0, Description = "Rajčica, sir, šunka, šampinjoni, kulen, ljuti feferoni", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Baranjska", NumberOfOrders = 0, Description = "Rajčica, sir, šunk,a kulen, ljuti feferoni, luk, špek", Category = cat, ImagePath = "todo", IsAvailable = true }
+            };
+            pizzas.ForEach(s => context.Meals.Add(s));
+
+            foreach (Meal m in pizzas)
+            {
+                var pizzaTypes = new List<MealType>
+                {
+                    new MealType { Meal = m, MealTypeName = "Mala", Price = 30 },
+                    new MealType { Meal = m, MealTypeName = "Srednja", Price = 35 },
+                    new MealType { Meal = m, MealTypeName = "Jumbo", Price = 70 }
+                };
+                pizzaTypes.ForEach(t => context.MealTypes.Add(t));
+
+                var pizzaAddOns = new List<MealAddOn>
+                {
+                    new MealAddOn { Meal = m, AddOnID = "Gauda" },
+                    new MealAddOn { Meal = m, AddOnID = "Mozzarela"},
+                    new MealAddOn { Meal = m, AddOnID = "Gorgonzola"},
+                    new MealAddOn { Meal = m, AddOnID = "Parmezan"},
+                    new MealAddOn { Meal = m, AddOnID = "Masline"},
+                };
+                pizzaAddOns.ForEach(a => context.MealAddOns.Add(a));
+            }
+            context.SaveChanges();
+        }
+
+        private void generateGrill(RestaurauntContext context)
+        {
+            Category cat = new Category { Name = "Jela s roštilja" };
+            var grill = new List<Meal>
+        {
+                new Meal { Name = "Ćevapi", NumberOfOrders = 0, Description = "", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Pljeskavica", NumberOfOrders = 0, Description = "", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Pljeskavica punjena", NumberOfOrders = 0, Description = "", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Ražnjiči", NumberOfOrders = 0, Description = "Svinjsko meso", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Ražnjiči", NumberOfOrders = 0, Description = "Pileće meso", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Svinjska vratina", NumberOfOrders = 0, Description = "", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Naravni", NumberOfOrders = 0, Description = "Svinjsko meso", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Naravni", NumberOfOrders = 0, Description = "Pileće meso", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Miješano meso", NumberOfOrders = 0, Description = "", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Punjeni lungić", NumberOfOrders = 0, Description = "Sir, šunka", Category = cat, ImagePath = "todo", IsAvailable = true },
+        };
+            grill.ForEach(s => context.Meals.Add(s));
+
+            foreach (Meal m in grill)
+            {
+                var grillTypes = new List<MealType>
+                {
+                    new MealType { Meal = m, MealTypeName = "Mala porcija", Price = 30 },
+                    new MealType { Meal = m, MealTypeName = "Velika porcija", Price = 45},
+                };
+                grillTypes.ForEach(t => context.MealTypes.Add(t));
+
+                var grillAddOns = new List<MealAddOn>
+                {
+                    new MealAddOn { Meal = m, AddOnID = "Lepinja" },
+                    new MealAddOn { Meal = m, AddOnID = "Ajvar"},
+                    new MealAddOn { Meal = m, AddOnID = "Luk"},
+                    new MealAddOn { Meal = m, AddOnID = "Pomfrit"},
+                    new MealAddOn { Meal = m, AddOnID = "Kroketi"},
+                };
+                grillAddOns.ForEach(a => context.MealAddOns.Add(a));
+            }
+            context.SaveChanges();
+        }
+
+        private void generateSandwitches(RestaurauntContext context)
+        {
+            Category cat = new Category { Name = "Sendviči" };
+            var sandwitches = new List<Meal>
+            {
+                new Meal { Name = "Šunka", NumberOfOrders = 0, Description = "Domaća lepinja, sir, šunka, povrće, umak", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Kvočko", NumberOfOrders = 0, Description = "Domaća lepinja, piletina, povrće, umak", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Kulen", NumberOfOrders = 0, Description = "Domaća lepinja, sir, kulen, povrće, umak", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Vratina", NumberOfOrders = 0, Description = "Domaća lepinja, sir, vratina, povrće, umak", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Pršut", NumberOfOrders = 0, Description = "Domaća lepinja, sir, pršut, povrće, umak", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Tuna", NumberOfOrders = 0, Description = "Domaća lepinja, sir, tuna, povrće, umak", Category = cat, ImagePath = "todo", IsAvailable = true }
+            };
+
+            foreach (Meal m in sandwitches)
+            {
+                var sandwitchTypes = new List<MealType>
+                {
+                    new MealType { Meal = m, MealTypeName = "Mali", Price = 15 },
+                    new MealType { Meal = m, MealTypeName = "Veliki", Price = 25 },
+                };
+                sandwitchTypes.ForEach(t => context.MealTypes.Add(t));
+
+                var sandwitchAddOns = new List<MealAddOn>
+                {
+                    new MealAddOn { Meal = m, AddOnID = "Ajvar"},
+                    new MealAddOn { Meal = m, AddOnID = "Luk"},
+                    new MealAddOn { Meal = m, AddOnID = "Pomfrit"},
+                };
+                sandwitchAddOns.ForEach(a => context.MealAddOns.Add(a));
+            }
+            context.SaveChanges();
+        }
+
+        private void generateSalads(RestaurauntContext context)
+        {
+            Category cat = new Category { Name = "Salate" };
+            var salads = new List<Meal>
+            {
+                new Meal { Name = "Pollo", NumberOfOrders = 0, Description = "Miješana salata s piletnom sa žara, dresing", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Tonno", NumberOfOrders = 0, Description = "Tjestenina, miješana salata, tuna, dresing", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Piletina", NumberOfOrders = 0, Description = "Tjestenina, piletina sa žara, kukur, paprika ,dresing", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Meksička", NumberOfOrders = 0, Description = "Tjestanina, grah, kukuruz, luk, piletina, paprika ,ljuti dresing", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Gurmanska", NumberOfOrders = 0, Description = "Tjestenina, sir, šunka, paprika, rajčica, dresing", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Kraljevska", NumberOfOrders = 0, Description = "Piletina, paprika, rajčica, zelena salata, kuhano jaje, dresing", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Grčka", NumberOfOrders = 0, Description = "Zelena salata, paprika, rajčcia, sir, mozzarela, dresing", Category = cat, ImagePath = "todo", IsAvailable = true },
+                new Meal { Name = "Šefova", NumberOfOrders = 0, Description = "Miješana salata, piletina, mozzarela, prženi špek, dresing", Category = cat, ImagePath = "todo", IsAvailable = true },
+            };
+
+            foreach (Meal m in salads)
+            {
+                var saladTypes = new List<MealType>
+                {
+                    new MealType { Meal = m, MealTypeName = "Mala", Price = 10 },
+                    new MealType { Meal = m, MealTypeName = "Velika", Price = 25 },
+                };
+                saladTypes.ForEach(t => context.MealTypes.Add(t));
+
+                var saladAddOns = new List<MealAddOn>
+                {
+                    new MealAddOn { Meal = m, AddOnID = "Masline"},
+                    new MealAddOn { Meal = m, AddOnID = "Luk"},
+                };
+                saladAddOns.ForEach(a => context.MealAddOns.Add(a));
+            }
             context.SaveChanges();
         }
     }
