@@ -8,8 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using Wild8.DAL;
 using Wild8.Models;
-using Wild8.Models.ModelViews;
 using Wild8.Models.Cart;
+using Wild8.Models.ModelViews;
 
 namespace Wild8.Controllers
 {
@@ -68,7 +68,7 @@ namespace Wild8.Controllers
         }
 
         //POST
-        public int AddToCart(int count, int mealID, string mealTypeName, string[] addOnNames) 
+        public int AddToCart(int count, int mealID, string mealTypeName, string[] addOnNames)
         {
             MealType type = db.MealTypes.Find(mealID, mealTypeName);
             CartItem item = new CartItem(type, count);
