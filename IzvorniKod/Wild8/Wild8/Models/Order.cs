@@ -12,8 +12,7 @@ namespace Wild8.Models
         public string Address { get; set; }
         public string City { get; set; }
         public string PostCode { get; set; }
-        public string Annotation { get; set; }
-        public string DeliveryTime { get; set; }
+        public string UserNote { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime AcceptanceDate { get; set; }
         public decimal TotalPrice { get; set; }

@@ -7,7 +7,7 @@
         <div style="font-size: 12pt;">@Html.DisplayFor(model => model.Info.RestaurauntName), @Html.DisplayFor(model => model.Info.OwnerAddress), @Html.DisplayFor(model => model.Info.OwnerCity)</div><br>
         <div style="font-size: 30pt; border-bottom: solid 1px darkgray;">Potvrda o narudžbi</div>
         <br>
-        <p style="font-size: 18pt;"><i>Okvirno vrijeme dostave: @Html.DisplayFor(model => model.Order.DeliveryTime)</i></p>
+        <p style="font-size: 18pt;">Poruka od restorana:<br>@Model.Message</p>
 
         <div style="font-size: 25pt;">Sadržaj narudžbe:</div><br>
 
@@ -66,7 +66,7 @@
         <h3>Ukupno: @Html.DisplayFor(model => model.Order.TotalPrice) kn</h3>
         <h3>Način plaćanja: Gotovina (dostavljaču)</h3>
 
-        <p><i>Napomena restoranu: @Html.DisplayFor(model => model.Order.Annotation)</i></p>
+        <p><i>Napomena restoranu: @Html.DisplayFor(model => model.Order.UserNote)</i></p>
         <br>
         <p style="font-size: 15pt;">Adresa za dostavu:</p>
         @Html.DisplayFor(model => model.Order.City), @Html.DisplayFor(model => model.Order.PostCode)<br>

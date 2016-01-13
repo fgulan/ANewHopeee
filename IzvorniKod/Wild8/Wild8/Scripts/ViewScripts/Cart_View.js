@@ -102,10 +102,10 @@ function setOrderBtnListener() {
             var startTime = form.data('start-time');
             var endTime   = form.data('end-time');
             //check if restourant is working
-            if (!checkWorkingHours(startTime, endTime)) {
-                printOnModal('Ups','Restoran trenutno ne radi.<br>Radno verijeme restorana je od ' + startTime + ' do ' + endTime);
-                return;
-            }
+           // if (!checkWorkingHours(startTime, endTime)) {
+           //     printOnModal('Ups','Restoran trenutno ne radi.<br>Radno verijeme restorana je od ' + startTime + ' do ' + endTime);
+           //     return;
+           // }
             
 
             //Make order (if order undifined that means it has no meals in it)
