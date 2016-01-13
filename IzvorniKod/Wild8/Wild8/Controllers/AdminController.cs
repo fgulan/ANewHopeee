@@ -9,11 +9,14 @@ using System.Net;
 using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.SignalR;
 using Wild8.DAL;
 using Wild8.Models;
 using Wild8.Models.ModelViews;
 using Wild8.Utils;
 using Newtonsoft.Json;
+using Wild8.Hubs;
+using Wild8.Hubs.Util;
 using Wild8.StaticInfo;
 
 namespace Wild8.Controllers
@@ -42,6 +45,21 @@ namespace Wild8.Controllers
             return PartialView("Orders/Orders");
         }
 
+        [HttpPost]
+        public ActionResult Order(string JsonOrder)
+        {
+            var order = JsonConvert.DeserializeObject<Order>(JsonOrder);
+            order.OrderDate = DateTime.Now;
+            JsonOrder = JsonConvert.SerializeObject(order);
+
+            OrdersSet.GetInstance().Add(JsonOrder); //Send order to workers
+            var context = GlobalHost.ConnectionManager.GetHubContext<OrderHub>();
+            context.Clients.Group(OrderHub.WORKERS).addNewOrder(JsonOrder);
+
+            SessionExtension.GetCart(Session).Clear();  //Clear cart
+            return PartialView("~/Views/Cart/ThankYouMsg.cshtml");
+        }
+
         ////////////////////////////////////
         //  Meal add, edit, delete
         ////////////////////////////////////
@@ -50,7 +68,7 @@ namespace Wild8.Controllers
         {
             var acceptedOrder = JsonConvert.DeserializeObject<Order>(orderJSON);
             acceptedOrder.EmpolyeeID = employeeId;
-            acceptedOrder.AcceptanceDate = new DateTime();
+            acceptedOrder.AcceptanceDate = DateTime.Now;
 
             OrderInfo info = new OrderInfo()
             {
@@ -59,16 +77,16 @@ namespace Wild8.Controllers
                 Order = acceptedOrder
             };
 
-            using (StringWriter sw = new StringWriter())
-            {
-                ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, "Receipt");
-                ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
-                viewResult.View.Render(viewContext, sw);
+            //using (StringWriter sw = new StringWriter())
+            //{
+            //    ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, "Receipt");
+            //    ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+            //    viewResult.View.Render(viewContext, sw);
 
-                var receipt = sw.ToString();
+            //    var receipt = sw.ToString();
 
-                MailUtil.SendReceiptTo(acceptedOrder.Email, "Potvrda narudžbe",receipt);
-            }
+            //    MailUtil.SendReceiptTo(acceptedOrder.Email, "Potvrda narudžbe",receipt);
+            //}
 
             db.Orders.Add(acceptedOrder);
             db.SaveChanges();
@@ -622,11 +640,6 @@ namespace Wild8.Controllers
         public void LogOut()
         {
             SessionExtension.SetUser(Session, null);
-        }
-
-        public ActionResult Receipt(Order order)
-        {
-            return View(order);
         }
 
         public ActionResult DeleteModal(string Title, string Type)

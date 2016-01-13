@@ -1,5 +1,25 @@
-﻿$(document).ready(function() {
-    setUpHub();    
+﻿$(document).ready(function () {
+    $("#orders-menu").on('click', function() {
+        var url = $(this).data('url');
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function (content) {
+                $(".main-content").animate({
+                    opacity: 0.0
+                }, 600, function () {
+                    $(this).empty();
+                    $(this).html(content);
+                    $(this).animate({
+                        opacity: 1.0
+                    }, 600, function() {
+                        $.connection.OrderHub.server.getOrders();   //Populate orders
+                    });
+                });
+            }
+        });
+    });
+    setUpHub();
 });
 
 function setUpHub() {
@@ -15,10 +35,6 @@ function setUpHub() {
     con.start().done(function() {
         hub.server.joinWorkerGroup();   //Join worker group
 
-        $('#orders-menu').on('click', function() {
-            hub.server.getOrders(); //Populate orders with orders
-        });
-        
         $("#logout").one('click', function() {
             hub.server.leaveWorkerGroup();
         });
@@ -32,11 +48,11 @@ function newOrderAdded(order) {
     var oldOrderCount = parseInt($('#orders-badge').text());
     $("#orders-badge").html(oldOrderCount + 1);
 
-    //If user is in orders page call controler to return a view for single order 
+    //If user is in orders page call controler to return a view for single order
     //And append it to orders panel
     var ordersMenu = $(document).find("#orders-menu");
     if (ordersMenu != undefined) {
-        printOnOrderMenu(order, new Order($.parseJSON(order)));
+        printOnOrderMenu(order,$.parseJSON(order));
     }
 }
 
@@ -76,7 +92,6 @@ function printOnOrderMenu(order, dsOrder) {
         var url = $(this).data('url');
         modal.find("#modal-btn").on('click', function () {   //When user clicks the submit btn puhs order to controller
             var ta = modal.find("#order-modal-message");
-            var msg = ta.text();
             var message = ta.val();
             $.ajax({
                 type: 'POST',
@@ -96,6 +111,17 @@ function printOnOrderMenu(order, dsOrder) {
         modal.find("#order-modal-message").val(""); //Clear value in modal
         modal.modal('show');
     });
+    orderTemplate.find(".open-btn").on('click', function() {
+        var colapsable = orderTemplate.find(".collapse");
+        var icon = orderTemplate.find(".open-icon");
+        if (colapsable.hasClass("in")) { //Opened
+            colapsable.collapse("toggle");
+            icon.removeClass('glyphicon-menu-up').addClass('glyphicon-menu-down');
+        } else if (!colapsable.hasClass("collapsing")) { //Closed
+            colapsable.collapse("toggle");
+            icon.removeClass('glyphicon-menu-down').addClass('glyphicon-menu-up');
+        }
+    });
     $(document).find("#orders-list").append(orderTemplate).hide().slideDown(600);
 }
 
@@ -110,112 +136,75 @@ function populateOrderStorage(orders) {
     $("#orders-badge").html(count); //Set badge coutn to propper value
 
     for (var i = 0; i < count; i++) {
-        var dsOrder = new Order($.parseJSON(jsonOrders[i]));
+        var dsOrder = JSON.parse(jsonOrders[i]);
         if (ordersMenu != undefined) {
             printOnOrderMenu(jsonOrders[i], dsOrder);
         }
     }
 }
 
-//Structures for checking if two orders are equal
-function Order(order) {
-    this.Name = order['Name'];
-    this.Address = order['Address'];
-    this.Phone = order['Phone'];
-    this.Email = order['Email'];
-    this.TotalPrice = order['TotalPrice'];
-    this.UserNote = order["UserNote"];
-    this.OrderTime = order['OrderTime'];
-    this.Meals = [];
-
-    for (var i = 0; i < order['Meals'].length; i++) {
-        var meal = order['Meals'];
-        this.Meals[i] = new Meal(meal[i]);
-    }
-
-    this.equals = function(other) {
-        if(Name != other.Name) return false;
-        if(Address != other.Address) return false;
-        if(Phone != other.Phone) return false;
-        if(Email != other.Email) return false;
-        if(TotalPrice != other.TotalPrice) return false;
-        if(UserNote != other.UserNote) return false;
-        if(OrderTime != other.OrderTime) return false;
-        
-        if(Meals.length != other.Meals.length) return false;
-        for(var i = 0; i < Meals.length; i++) {
-            if(!Meals[i].equals(other.Meals[i])) return false;   
-        }
-        
-        return true;
-    } 
-}
-
-function Meal(meal) {
-    this.MealName;
-    this.MealTypeName; 
-    this.Count;
-    this.Addons;
-    this.equals = function(other) {
-        if(MealName != other.MealName) return false;
-        if(MealTypeName != other.MealTypeName) return false;
-        if(Count != other.Count) return false;
-        if(Addons.length != other.Addons.length) return false;
-        
-        for(var i = 0; i < Addons.length; i++) {
-            if(!Addons[i].equals(other.Addons[i])) return false;
-        }
-        
-        return true;         
-    }
-     
-    for(var prop in meal) {
-        if(prop != 'Addons') {
-            this[prop] = meal[prop];
-        } else {
-            this[prop] = new AddOns(meal[prop]);
-        }        
-    }
-}
-
-function AddOns(Addons) {
-    this.Addons = Addons;
-    this.equals = function(other) {
-        if(Addons.length != other.addons.length) return false;
-        
-        for(var i = 0; i < Addons.length; i++) {
-            if(Addons[i] != other.addons[i]) return false;
-        }
-        return true;
-    };
-}
-
 function generateOrderTemplate(order) {
-    var orderTamplate = $($("#order-tamplate").html()); //Get template
-    orderTamplate.removeProp('hidden');
-    orderTamplate.removeAttr('id');
+    var orderTamplate = $(getOrderTemplate()); //Get template
 
-    var orderHeading = "<h5>Adresa: " + order['Address'] + " | Tel: " + order['Phone'] + " | Cijena: " + order['TotalPrice'] + "</h5>";
-    var header = orderTamplate.find("#order-heading");
+    var orderHeading = "<h5>Adresa: " + order['Address'] + " | Tel: " + order['PhoneNumber'] + " | Cijena: " + order['TotalPrice'] + "</h5>";
+    var header = orderTamplate.find(".order-heading");
     header.append(orderHeading);
-    order['Meals'].forEach(function (meal) {
+    var orderMealList = orderTamplate.find(".order-details");
+    order['OrderDetails'].forEach(function (meal) {
         var mealList = fillMealList(meal);
-        orderTamplate.find("#order-details").append(mealList);
+        orderMealList.append(mealList);
     });
-    orderTamplate.find("#user-order-note").append("<p>" + order['UserNote'] + "</p>");
+    orderTamplate.find(".user-order-note").append("<p>" + order['UserNote'] + "</p>");
     return orderTamplate;
 }
 
 function fillMealList(meal) {
-    var mealTamplate = $(document).find("#order-meal-template");
-    mealTamplate.removeProp('hidden');
-    mealTamplate.removeAttr('id');
+    var mealTamplate = $(getMealTemplate());
 
-    var mealHeading = "Jelo: " + meal['MealName'] + " | Veličina: " + meal["MealTypeName"];
-    mealTamplate.find("#order-meal-name").html(mealHeading);
-    var addons = meal['Addons']['Addons'];
+    var mealHeading = "Jelo: " + meal['MealName'] + " | Veličina: " + meal["MealType"];
+    mealTamplate.find(".order-meal-name").html(mealHeading);
+    var addons = meal['OrderMealAddOns'];
     for(var i = 0; i < addons.length; i++){
-        mealTamplate.find("#oreder-addon-list").append("<li>" + addons[i] + "</li>");
+        mealTamplate.find(".oreder-addon-list").append("<tr><td>" + i + "</td><td>" + addons[i]['AddOnName'] + "</td></tr>");
     }
     return mealTamplate;
+}
+
+
+function getOrderTemplate() {
+    return '<div class="panel panel-default">' +
+        '<div class="panel-heading">' +
+        '<div class="panel-title pull-left">' +
+        '<div class="order-heading"></div>' +
+        '</div>' +
+        '<div class="btn-group pull-right">' +
+        '<button type="button" class="btn btn-sm btn-success accept-btn" data-url="/Admin/AcceptOrder">Potvrdi</button>' +
+        '<button type="button" class="btn btn-sm btn-danger refuse-btn" data-url="/Admin/RefuseOrder">Odbij</button>' +
+        '<button type="button" class="btn btn-sm btn-default open-btn">' +
+        '<span class="glyphicon glyphicon-menu-down open-icon"></span>&nbsp;' +
+        '</button>' +
+        '</div>' +
+        '<div class="clearfix"></div>' +
+        '</div>' +
+        '<div class="panel-content container-fluid">' +
+        '<div class="collapse" data-toggle="collapse" aria-expanded="false">' +
+        '<div class="panel-group order-details">' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '<div class="panel-footer user-order-note">' +
+        '</div>' +
+        '</div>';
+}
+
+function getMealTemplate() {
+    return  '<div class="panel panel-default" >' +
+            '    <div class="order-meal-name panel-heading" style="background: none"></div>' +
+            '    <table class="table table-striped">' +
+            '        <thead>' +
+            '            <tr><th>#</th><th>Dodatci</th></tr>' +
+            '        </thead>' +
+            '        <tbody class="oreder-addon-list"></tbody>' +
+            '    </table>' +
+            '</div>';
 }

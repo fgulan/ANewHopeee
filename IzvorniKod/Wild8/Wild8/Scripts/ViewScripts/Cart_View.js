@@ -102,10 +102,10 @@ function setOrderBtnListener() {
             var startTime = form.data('start-time');
             var endTime   = form.data('end-time');
             //check if restourant is working
-           // if (!checkWorkingHours(startTime, endTime)) {
-           //     printOnModal('Ups','Restoran trenutno ne radi.<br>Radno verijeme restorana je od ' + startTime + ' do ' + endTime);
-           //     return;
-           // }
+           if (!checkWorkingHours(startTime, endTime)) {
+                printOnModal('Ups','Restoran trenutno ne radi.<br>Radno verijeme restorana je od ' + startTime + ' do ' + endTime);
+                return;
+           }
             
 
             //Make order (if order undifined that means it has no meals in it)
@@ -115,22 +115,19 @@ function setOrderBtnListener() {
                 return;
             }
 
-            var hub = $.connection.OrderHub;
-            var con = $.connection.hub;
-            con.start().done(function () {
-                var jsonOrder = JSON.stringify(order);
-                hub.server.order(jsonOrder); //Push order to hub on server
-                con.stop();
-
-                var clearCartUrl = form.data("clear-cart-url");
-                $.post(clearCartUrl, function(thanksForOrder) {   //Clear Cart and replace content with thank you message
-                    $("#dvCategoryResults").slideUp('slow',function () {
-                        $(this).empty().html(thanksForOrder).hide().slideDown('slow');
+            var url = $(this).data('url');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { JsonOrder: JSON.stringify(order) },
+                success: function(thankYouMsg) {
+                    $("#dvCategoryResults").slideUp('slow', function() {
+                        $(this).empty().html(thankYouMsg).hide().slideDown('slow');
                     });
 
                     //Set cart count to 0
                     $("#cartCount").html('<span class="glyphicon glyphicon-shopping-cart"></span> 0');
-                });
+                }
             });
         });
 }
@@ -155,7 +152,6 @@ function makeOrder() {
     var email = $("#client_email").val();
     var note = $("#client-note").val();
     var total = parseFloat($("#total-price").text().replace(",", "."));
-    var time = new Date();
 
     if (note == undefined) {
         note = '';
@@ -164,12 +160,11 @@ function makeOrder() {
     var order = {
         Name: name,
         Address: addr,
-        Phone: phone,
+        PhoneNumber: phone,
         Email: email,
         TotalPrice: total,
         UserNote: note,
-        OrderTime: time,
-        Meals: meals
+        OrderDetails: meals
     };
 
     return order;
@@ -187,14 +182,14 @@ function getMeal(parent) {
 
     var addons = [];
     parent.find(".addon").each(function(index) {
-        addons[index] = $(this).text();
+        addons[index] = { AddOnName: $(this).text() }
     });
 
     var order = {
         MealName: mealName,
-        MealTypeName: mealType,
+        MealType: mealType,
         Count: count,
-        Addons: addons
+        OrderMealAddOns: addons
     }
 
     return order;

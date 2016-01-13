@@ -55,11 +55,5 @@ namespace Wild8.Controllers
             }
             return CartItem;
         }
-
-        public ActionResult ClearCart()
-        {
-            SessionExtension.GetCart(Session).Clear();
-            return PartialView("ThankYouMsg");
-        }
     }
 }

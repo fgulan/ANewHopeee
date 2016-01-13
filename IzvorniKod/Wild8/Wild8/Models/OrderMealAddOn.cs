@@ -13,7 +13,6 @@ namespace Wild8.Models
         public int OrderDetailID { get; set; }
         [Key, Column("AddOnName", Order = 1)]
         public string AddOnName { get; set; }
-        public decimal Price { get; set; }
         public virtual Order Order { get; set; }
     }
 }

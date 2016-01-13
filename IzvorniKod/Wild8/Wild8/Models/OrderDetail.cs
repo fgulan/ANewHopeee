@@ -13,7 +13,6 @@ namespace Wild8.Models
         public int OrderID { get; set; }
         public string MealName { get; set; }
         public string MealType { get; set; }
-        public decimal Price { get; set; }
         public int Count { get; set; }
         public virtual Order Order { get; set; }
         public virtual ICollection<OrderMealAddOn> OrderMealAddOns { get; set; }
