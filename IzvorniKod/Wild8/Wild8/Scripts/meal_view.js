@@ -45,7 +45,7 @@ function setCommentListener() {
 
 function setPriceListener() {
     
-    var valPrice = $(".col-md-1>ul>li>input[checked ='checked']").val();
+    var valPrice = $(".mealtypes>table>tbody>tr>td>input[checked ='checked']").val();
     var basePrice = 0;
     if (valPrice != null) {
         basePrice = parseFloat(valPrice.replace(/,/, '.'));
@@ -55,7 +55,7 @@ function setPriceListener() {
 
     show_updated(quantity, basePrice, totalAddons);
 
-    $(".col-md-1>ul>li>input").change(function () {
+    $(".mealtypes>table>tbody>tr>td>input").change(function () {
         basePrice = parseFloat($(this).val().replace(/,/, '.'));
         show_updated(quantity, basePrice, totalAddons);
     });
@@ -65,7 +65,7 @@ function setPriceListener() {
         show_updated(quantity, basePrice, totalAddons);
     })
 
-    $(".col-md-2>table>tbody>tr>td>input").change(function () {
+    $(".addons>table>tbody>tr>td>input").change(function () {
         if (!$(this).is(":checked")) {
             totalAddons -= parseFloat($(this).val().replace(/,/, '.'));
         } else {
@@ -92,7 +92,7 @@ function setAddToCartListener() {
 
         var url = $("#meal-form").attr('action');
         var mealID = $("#mealID").val();
-        var mealTypeName = $(".col-md-1>ul>li>input[checked ='checked']").val().split("#")[1];
+        var mealTypeName = $(".mealtypes>table>tbody>tr>td>input[checked ='checked']").val().split("#")[1];
         var count = $(".1-10 option:selected").val();
         var addons = [];
         $(".AddOn[checked ='checked']").each(function (index) {

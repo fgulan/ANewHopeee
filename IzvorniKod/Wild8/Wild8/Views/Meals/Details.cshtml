@@ -30,51 +30,47 @@
             </div>
         </div>
         <div class="row">
-
-            <div class="col-md-2">
-                <table>
+            <div class="addons col-md-2">
+                <table style="border-spacing: 5px;border-collapse: separate;">
                     <tbody>
                         @foreach (var mealAddOn in Model.Meal.AddOns)
                         {
                             <tr>
                                 <td>
-                                    <input type="checkbox" value="@mealAddOn.AddOn.Price">@mealAddOn.AddOn.AddOnID
+                                    <input type="checkbox" value="@mealAddOn.AddOn.Price"> @mealAddOn.AddOn.AddOnID 
                                 </td>
                                 <td>
-                                    + @mealAddOn.AddOn.Price HRK
+                                     - @mealAddOn.AddOn.Price HRK
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-1">
-                <ul>
-                    @{
-                        for (int i = 0, n = Model.Types.Count; i < n; i++)
-                        {
-                            var type = Model.Types[i];
-                            if (i == 0)
+            <div class="mealtypes col-md-2">
+                <table style="border-spacing: 5px;border-collapse: separate;">
+                    <tbody>
+                        @{
+                            for (int i = 0, n = Model.Types.Count; i < n; i++)
                             {
-                                <li>
-                                    <!--Every radio buttton has to have the same name, all names are defirented with meal id-->
-                                    <input type="radio" name="Type" checked="checked" value="@(type.Price + "#" + type.MealTypeName)">@type.MealTypeName
-                                </li>
-                            }
-                            else
-                            {
-                                <li>
-                                    <input type="radio" name="Type" value="@(type.Price + "#" + type.MealTypeName)">@type.MealTypeName
-                                </li>
+                                var type = Model.Types[i];
+                                if (i == 0)
+                                {
+                                    <tr><td><input type="radio" name="Type" checked="checked" value="@(type.Price + "#" + type.MealTypeName)"> @type.MealTypeName</td></tr>
+                                }
+                                else
+                                {
+                                    <tr><td><input type="radio" name="Type" value="@(type.Price + "#" + type.MealTypeName)"> @type.MealTypeName</td></tr>
+                                }
                             }
                         }
-                    }
-                </ul>
+                    </tbody>
+                </table>
             </div>
-            <div class="col-md-1">
+            <div class="count col-md-1">
                 <select name="Count" class="1-10"></select>
             </div>
-            <div class="col-md-2">
+            <div class="addtocart col-md-1">
                 <button type="button" class="btn btn-warning pull-right" id="addMealButton">Dodaj</button>
                 <label id="sum" class="pull-right">35.99 HRK</label>
             </div>
@@ -108,13 +104,13 @@
 
                 <form id="commentForm" data-url="@Url.Action("AddNewComment","Meals")">
                     <div class="form-group">
-                        <label for="usr">Korisničko ime:</label>
+                        <label for="usr">Ime:</label>
                         <input type="hidden" name="ID" value=@Html.DisplayFor(m => m.Meal.MealID)>
-                        <input type="text" class="form-control" id="usr" name="Username" placeholder="korisničko ime" required autofocus="">
+                        <input type="text" class="form-control" id="usr" name="Username" placeholder="Vaše ime..." required autofocus="">
                     </div>
                     <div class="form-group">
                         <label for="comment">Komentar:</label>
-                        <textarea class="form-control" rows="5" id="comment" name="Message" placeholder="Upišite Vaš komentar ovdje." required></textarea>
+                        <textarea class="form-control" rows="5" id="comment" name="Message" placeholder="Recite nam Vaše dojmove..." required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="rate">Ocjena: </label>

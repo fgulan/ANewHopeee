@@ -52,12 +52,12 @@
     <tr>
         <td colspan="12" class="hiddenRow">
             <div class="accordian-body collapse" id="@item.Meal.MealID">
-                <table>
+                <table style="border-spacing: 5px;border-collapse: separate;">
                     <tbody>
                         @foreach (var mealAddOn in item.Meal.AddOns)
                         {
                             <!--All addons have the same name, all names are defirented with meal name-->
-                            <tr><td><input type="checkbox" name="@("addOn" + item.Meal.MealID)" value="@(mealAddOn.AddOn.Price + "#" + mealAddOn.AddOn.AddOnID)">@mealAddOn.AddOn.AddOnID</td><td> + @mealAddOn.AddOn.Price HRK</td></tr>
+                            <tr><td><input type="checkbox" name="@("addOn" + item.Meal.MealID)" value="@(mealAddOn.AddOn.Price + "#" + mealAddOn.AddOn.AddOnID)"> @mealAddOn.AddOn.AddOnID</td><td> + @mealAddOn.AddOn.Price HRK</td></tr>
                         }
                     </tbody>
                 </table>
