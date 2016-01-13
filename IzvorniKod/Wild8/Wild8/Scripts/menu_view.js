@@ -84,23 +84,20 @@ function loadMeals(event) {
             data: { categoryId: categoryId, sort: sort },
             success: function (partialView) {
                 //Replace with partial view
-                $(".displayed").animate({ //Fade out 
-                    opacity: 0.0
-                },
-                600, //600 ms fade out
-                function () { //Complete function 
-                    $(".displayed").empty();
-                    $(".displayed").append(partialView);
-                    $(".panel-heading").html("<h3>"+categoryText+"</h3>").fadeIn();
-
-                    calcualtePrice();
-                    registerAddToCartListeners();
-
-                    $(".displayed").animate({ //Fade in
-                        opacity: 1.0
+                $(".displayed").animate({
+                        //Fade out 
+                        opacity: 0.0
                     },
-                    600); //600 ms fade in
-                })
+                    600, //600 ms fade out
+                    function() { //Complete function 
+                        $(".displayed").empty();
+                        $(".displayed").append(partialView);
+                        $(".displayed").animate({ opacity: 1.0 }, 600);
+                        $(".panel-heading").html("<h3>" + categoryText + "</h3>").fadeIn();
+
+                        calcualtePrice();
+                        registerAddToCartListeners();
+                    });
             },
             error: function(xhr, status) {
                 window.alert('Error. Status message: ' + status);

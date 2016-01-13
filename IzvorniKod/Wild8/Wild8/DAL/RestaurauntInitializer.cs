@@ -34,9 +34,8 @@ namespace Wild8.DAL
 
             var meals = new List<Meal>
             {
-                new Meal { Name = "Cevapi", NumberOfOrders = 5, Description = "najbolji cevapi u gradu", CategoryID = 1, ImagePath = "sdsa", IsAvailable = false },
+                new Meal { Name = "Cevapi", NumberOfOrders = 5, Description = "najbolji cevapi u gradu", CategoryID = 1, ImagePath = "sdsa", IsAvailable = true },
                 new Meal { Name = "Abc Juha", NumberOfOrders = 2, Description = "najbolji juha u gradu", CategoryID = 2, ImagePath = "dfsf", IsAvailable = true },
-                new Meal { Name = "Sendvic", NumberOfOrders = 10, Description = "totalno kul sendvic", CategoryID = 1, ImagePath = "alah", IsAvailable = true }
             };
             meals.ForEach(s => context.Meals.Add(s));
             context.SaveChanges();

@@ -82,14 +82,12 @@ namespace Wild8.Controllers
             foreach (Meal m in category.Meals)
             {
                 if (!m.IsAvailable) continue;
-
-                if (!MealUtils.IsHot(m)) continue;
-
+                
                 MealWithPrice mwp = new MealWithPrice()
                 {
                     Meal = m,
                     Types = db.MealTypes.Where(type => type.MealID == m.MealID).ToList(),
-                    IsHot = false   //TODO: change this
+                    IsHot = MealUtils.IsHot(m)   //TODO: change this
                 };
                 mealWPrice.Add(mwp);
             }
