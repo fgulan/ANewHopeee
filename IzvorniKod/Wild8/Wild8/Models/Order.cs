@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Linq;
+using EntityFramework.Triggers;
+using Wild8.DAL;
 
 namespace Wild8.Models
 {

@@ -60,56 +60,97 @@ function printOnOrderMenu(order, dsOrder) {
     var hub = $.connection.OrderHub;
     var orderTemplate = $(generateOrderTemplate(dsOrder));
     orderTemplate.find(".accept-btn").on('click', function () {
-        hub.server.orderProcessed(order);   //Let the server know that order has been processed
-        
         var url = $(this).data('url');
         var employeeID = $(document).find("#employee-info").data("employee-id");
-        var modal = $(document).find("#order-modal");
-        modal.find("#modal-btn").on('click', function () {   //When user clicks the submit btn puhs order to controller
-            var message = modal.find("#order-modal-message").val();
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: { orderJSON: order, employeeId: employeeID, message: message },
-                success: function() {
-                    orderTemplate.slideUp(600, function () { orderTemplate.remove() });
-                    var oldOrderCount = parseInt($('#orders-badge').text());
-                    if (oldOrderCount > 0) {
-                        $("#orders-badge").html(oldOrderCount - 1);
-                    }
 
-                },   //Remove order from order list
-                error: function () { window.alert('error while sending order to controller') }
-            });
-            modal.modal('hide');
+        BootstrapDialog.show({
+            message: '<textarea class="form-control" placeholder="Vrijeme dostave i poruka."></textarea>',
+            title: "Prosječno vrijeme dostave",
+            draggable: true,
+            buttons: [{
+                label: 'Pošalji',
+                cssClass: 'btn-success',
+                icon: "glyphicon glyphicon-envelope",
+                hotkey: 13, //Enter
+                action: function (dialogRef) {
+                    var modalBody = dialogRef.getModalBody();
+                    var msg = modalBody.find('textarea').val();
+                    if (msg == undefined || msg === "") {
+                        dialogRef.getModalHeader().html("<h5 style='color: White'>Napišite neku poruku klijenut");
+                    } else {
+                        $.ajax({
+                            type: 'POST',
+                            url: url,
+                            data: { orderJSON: order, employeeId: employeeID, message: msg },
+                            success: function() {
+                                dialogRef.close();
+                                hub.server.orderProcessed(order); //Let the server know that order has been processed
+                                orderTemplate.slideUp(600, function() { orderTemplate.remove() });
+                                var oldOrderCount = parseInt($('#orders-badge').text());
+                                if (oldOrderCount > 0) {
+                                    $("#orders-badge").html(oldOrderCount - 1);
+                                }
+
+                            }, //Remove order from order list
+                            error: function() { window.alert('error while sending order to controller') }
+                        });
+                    }
+                }
+            }, {
+                label: 'Odustani',
+                cssClass: 'btn-warning',
+                icon: "glyphicon glyphicon-remove",
+                action: function (dialogRef) {
+                    dialogRef.close();
+                }
+            }]
         });
-        modal.find("#order-modal-message").val(""); //Clear value in modal
-        modal.modal('show');
     });
     orderTemplate.find(".refuse-btn").on('click', function () {
-        hub.server.orderProcessed(order);   //Let the server know that order has been processed
         var modal = $(document).find("#order-modal");
         var url = $(this).data('url');
-        modal.find("#modal-btn").on('click', function () {   //When user clicks the submit btn puhs order to controller
-            var ta = modal.find("#order-modal-message");
-            var message = ta.val();
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: { message: message },
-                success: function() {
-                    orderTemplate.slideUp(600, function () { orderTemplate.remove() });
-                    var oldOrderCount = parseInt($('#orders-badge').text());
-                    if (oldOrderCount > 0) {
-                        $("#orders-badge").html(oldOrderCount - 1);
+        BootstrapDialog.show({
+            message: '<textarea class="form-control" placeholder="Vrijeme dostave i poruka."></textarea>',
+            title: "Razlog odbijanja narudžbe",
+            draggable: true,
+            buttons: [{
+                label: 'Pošalji',
+                cssClass: 'btn-success',
+                icon: "glyphicon glyphicon-envelope",
+                hotkey: 13, //Enter
+                action: function (dialogRef) {
+                    var modalBody = dialogRef.getModalBody();
+                    var msg = modalBody.find('textarea').val();
+                    if (msg == undefined || msg === "") {
+                        dialogRef.getModalHeader().html("<h5 style='color: White'>Napišite neku poruku klijenut");
+                    } else {
+                        $.ajax({
+                            type: 'POST',
+                            url: url,
+                            data: { email: dsOrder['Email'], message: msg },
+                            success: function () {
+                                dialogRef.close();
+                                hub.server.orderProcessed(order);   //Let the server know that order has been processed
+                                orderTemplate.slideUp(600, function () { orderTemplate.remove() });
+                                var oldOrderCount = parseInt($('#orders-badge').text());
+                                if (oldOrderCount > 0) {
+                                    $("#orders-badge").html(oldOrderCount - 1);
+                                }
+
+                            },   //Remove order from order list
+                            error: function () { window.alert('error while sending order to controller') }
+                        });
                     }
-                },   //Remove order from order list
-                error: function () { window.alert('error while sending order to controller') }
-            });
-            modal.modal('hide');
+                }
+            }, {
+                label: 'Odustani',
+                cssClass: 'btn-warning',
+                icon: "glyphicon glyphicon-remove",
+                action: function (dialogRef) {
+                    dialogRef.close();
+                }
+            }]
         });
-        modal.find("#order-modal-message").val(""); //Clear value in modal
-        modal.modal('show');
     });
     orderTemplate.find(".open-btn").on('click', function() {
         var colapsable = orderTemplate.find(".collapse");
@@ -161,7 +202,7 @@ function generateOrderTemplate(order) {
 function fillMealList(meal) {
     var mealTamplate = $(getMealTemplate());
 
-    var mealHeading = "Jelo: " + meal['MealName'] + " | Veličina: " + meal["MealType"];
+    var mealHeading = "Jelo: " + meal['MealName'] + " | Veličina: " + meal["MealType"] + " | Broj narudžbi: " + meal["Count"];
     mealTamplate.find(".order-meal-name").html(mealHeading);
     var addons = meal['OrderMealAddOns'];
     for(var i = 0; i < addons.length; i++){
@@ -169,7 +210,6 @@ function fillMealList(meal) {
     }
     return mealTamplate;
 }
-
 
 function getOrderTemplate() {
     return '<div class="panel panel-default">' +

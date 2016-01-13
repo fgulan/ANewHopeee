@@ -77,6 +77,8 @@ namespace Wild8.Controllers
                 Order = acceptedOrder
             };
 
+            updateMealOrderCount(acceptedOrder);
+
             //using (StringWriter sw = new StringWriter())
             //{
             //    ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, "Receipt");
@@ -89,6 +91,17 @@ namespace Wild8.Controllers
             //}
 
             db.Orders.Add(acceptedOrder);
+            db.SaveChanges();
+        }
+
+        private void updateMealOrderCount(Order acceptedOrder)
+        {
+            //I know this is affull but do not know better method
+            foreach(var orderDetail in acceptedOrder.OrderDetails)
+            {
+                var meal = db.Meals.FirstOrDefault(m => m.Name == orderDetail.MealName);
+                if (meal != null) meal.NumberOfOrders+= orderDetail.Count;
+            }
             db.SaveChanges();
         }
 
