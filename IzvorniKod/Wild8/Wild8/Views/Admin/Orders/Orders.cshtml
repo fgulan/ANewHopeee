@@ -11,40 +11,6 @@
         </div>
     </div>
 
-    <div hidden id="order-tamplate">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title pull-left">
-                    <div id="order-heading"></div>
-                </div>
-                <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-sm btn-success accept-btn" data-url="@Url.Action("AcceptOrder", "Admin")">Potvrdi</button>
-                    <button type="button" class="btn btn-sm btn-danger refuse-btn" data-url="@Url.Action("RefuseOrder", "Admin")">Odbij</button>
-                    <button type="button" class="btn btn-sm btn-default open-btn">
-                        <span class="glyphicon glyphicon-menu-down" id="open-icon"></span>&nbsp;
-                    </button>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="panel-content container-fluid">
-                <div class="collapse" data-toggle="collapse" aria-expanded="false">
-                    <div class="panel-group" id="order-details">
-                    </div>
-                </div>
-            </div>
-            <div id="user-order-note" class="panel-footer">
-            </div>
-        </div>
-    </div>
-    <div id="order-meal-template" hidden class="panel panel-default" >
-        <div class="order-meal-name panel-heading" style="background: none"></div>
-        <table class="table table-striped">
-            <thead>
-                <tr><th>#</th><th>Dodatci</th></tr>
-            </thead>
-            <tbody id="oreder-addon-list"></tbody>
-        </table>
-    </div>
     <div id="order-modal" class="modal fade" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
