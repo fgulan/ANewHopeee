@@ -18,6 +18,8 @@ using Newtonsoft.Json;
 using Wild8.Hubs;
 using Wild8.Hubs.Util;
 using Wild8.StaticInfo;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 namespace Wild8.Controllers
 {
@@ -97,10 +99,10 @@ namespace Wild8.Controllers
         private void updateMealOrderCount(Order acceptedOrder)
         {
             //I know this is affull but do not know better method
-            foreach(var orderDetail in acceptedOrder.OrderDetails)
+            foreach (var orderDetail in acceptedOrder.OrderDetails)
             {
                 var meal = db.Meals.FirstOrDefault(m => m.Name == orderDetail.MealName);
-                if (meal != null) meal.NumberOfOrders+= orderDetail.Count;
+                if (meal != null) meal.NumberOfOrders += orderDetail.Count;
             }
             db.SaveChanges();
         }
@@ -135,11 +137,7 @@ namespace Wild8.Controllers
             {
                 if (upload != null && upload.ContentLength > 0)
                 {
-                    string fileName = Guid.NewGuid().ToString() + Path.GetFileName(upload.FileName);
-                    string physicalPath = Path.Combine(Server.MapPath("~/images/Meals"), fileName);
-                    string sourcePath = "images/Meals/" + fileName;
-                    upload.SaveAs(physicalPath);
-                    meal.ImagePath = sourcePath;
+                    meal.ImagePath = UploadPhoto(upload);
                 }
                 meal = db.Meals.Add(meal);
 
@@ -188,6 +186,19 @@ namespace Wild8.Controllers
             }
         }
 
+        private string UploadPhoto(HttpPostedFileBase photo)
+        {
+            var cloudinary = new Cloudinary(new Account("wild8", "263295385477248", "7dH-fevQYwFnfZSjt_ER9OdOhSU"));
+            string fileName = Guid.NewGuid().ToString() + Path.GetFileName(photo.FileName);
+            var uploadParams = new ImageUploadParams()
+            {
+                File = new FileDescription(fileName, photo.InputStream)
+            };
+            var uploadResult = cloudinary.Upload(uploadParams);
+            var url = uploadResult.Uri;
+            return url.AbsoluteUri;
+        }
+
         [HttpGet]
         public ActionResult EditMeal(int? id)
         {
@@ -228,11 +239,7 @@ namespace Wild8.Controllers
             {
                 if (upload != null && upload.ContentLength > 0)
                 {
-                    string fileName = Guid.NewGuid().ToString() + Path.GetFileName(upload.FileName);
-                    string physicalPath = Path.Combine(Server.MapPath("~/images/Meals"), fileName);
-                    string sourcePath = "images/Meals/" + fileName;
-                    upload.SaveAs(physicalPath);
-                    meal.ImagePath = sourcePath;
+                    meal.ImagePath = UploadPhoto(upload);
                 }
 
                 db.Entry(meal).State = EntityState.Modified;
@@ -564,7 +571,7 @@ namespace Wild8.Controllers
             {
                 int num = amount.Value;
 
-                if(num != 0)
+                if (num != 0)
                 {
                     monthlyAveragePrices[amount.Key] /= num;
                 }
@@ -587,7 +594,7 @@ namespace Wild8.Controllers
 
                 counter++;
 
-                if(counter >= 3)
+                if (counter >= 3)
                 {
                     break;
                 }
@@ -786,7 +793,7 @@ namespace Wild8.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if(employee.Password == null || employee.Password.Count() == 0)
+                    if (employee.Password == null || employee.Password.Count() == 0)
                     {
                         db.Employees.Attach(employee);
                         var entry = db.Entry(employee);
@@ -798,7 +805,7 @@ namespace Wild8.Controllers
                         employee.Password = TextUtils.SHA256Hash(employee.Password);
                         db.Entry(employee).State = EntityState.Modified;
                     }
-                    
+
                     db.SaveChanges();
                     return Content("Djelatnik " + employee.EmployeeID + " uspješno spremljen.", MediaTypeNames.Text.Plain);
                 }
