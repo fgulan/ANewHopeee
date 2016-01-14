@@ -18,6 +18,11 @@ using Newtonsoft.Json;
 using Wild8.Hubs;
 using Wild8.Hubs.Util;
 using Wild8.StaticInfo;
+using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.Blob;
+using System.Configuration;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 
@@ -26,6 +31,7 @@ namespace Wild8.Controllers
     public class AdminController : Controller
     {
         private RestaurauntContext db = new RestaurauntContext();
+        CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]);
 
         // GET: Admin
         public ActionResult Index()
@@ -188,15 +194,24 @@ namespace Wild8.Controllers
 
         private string UploadPhoto(HttpPostedFileBase photo)
         {
-            var cloudinary = new Cloudinary(new Account("wild8", "263295385477248", "7dH-fevQYwFnfZSjt_ER9OdOhSU"));
             string fileName = Guid.NewGuid().ToString() + Path.GetFileName(photo.FileName);
-            var uploadParams = new ImageUploadParams()
-            {
-                File = new FileDescription(fileName, photo.InputStream)
-            };
-            var uploadResult = cloudinary.Upload(uploadParams);
-            var url = uploadResult.Uri;
-            return url.AbsoluteUri;
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference("meals");
+            container.CreateIfNotExists();
+            container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);
+            blockBlob.UploadFromStream(photo.InputStream);
+            return blockBlob.StorageUri.PrimaryUri.AbsoluteUri;
+        }
+
+        private void DeletePhoto(string path)
+        {
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference("meals");
+            container.CreateIfNotExists();
+            container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
+            CloudBlockBlob blockBlob = new CloudBlockBlob(new Uri(path), storageAccount.Credentials);
+            blockBlob.DeleteIfExists();
         }
 
         [HttpGet]
@@ -239,6 +254,7 @@ namespace Wild8.Controllers
             {
                 if (upload != null && upload.ContentLength > 0)
                 {
+                    DeletePhoto(meal.ImagePath);
                     meal.ImagePath = UploadPhoto(upload);
                 }
 

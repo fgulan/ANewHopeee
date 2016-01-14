@@ -1,6 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -10,7 +13,8 @@ namespace Wild8.StaticInfo
 {
     public class RestaurauntInfo
     {
-        private static readonly string DataFilePath = HostingEnvironment.MapPath("/App_Data/info.dat");
+        private static CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]);
+        private static readonly string DataFilePath = "info.dat";
         private static readonly RestaurauntInfo instance;
         private Object lockObject = new Object();
 
@@ -126,31 +130,53 @@ namespace Wild8.StaticInfo
             return tempString;
         }
 
+        private void UploadJSON(string JSON)
+        {
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference("info");
+            container.CreateIfNotExists();
+            container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(DataFilePath);
+            blockBlob.UploadText(JSON);
+        }
+
+        private static string LoadJSON()
+        {
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference("info");
+            container.CreateIfNotExists();
+            container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(DataFilePath);
+            if (!blockBlob.Exists())
+            {
+                return null;
+            }
+            return blockBlob.DownloadText();
+        }
+
+
         private void SaveData()
         {
             lock (lockObject)
             {
                 string JSON = JsonConvert.SerializeObject(this, Formatting.Indented);
-                File.WriteAllText(DataFilePath, JSON);
+                UploadJSON(JSON);
             }
         }
 
         private static RestaurauntInfo LoadJSONData()
         {
-            if (!File.Exists(DataFilePath))
+            string JSON = LoadJSON();
+            RestaurauntInfo obj;
+            if (JSON == null)
             {
-                using (File.Create(DataFilePath)) { };
-                RestaurauntInfo info = new RestaurauntInfo();
-                info.Initialize();
-                return info;
-            }
-            else
+                obj = new RestaurauntInfo();
+                obj.Initialize();
+            } else
             {
-                string[] lines = File.ReadAllLines(DataFilePath);
-                string oneLiner = LinesToString(lines);
-                RestaurauntInfo obj = JsonConvert.DeserializeObject<RestaurauntInfo>(oneLiner);
-                return obj;
+                obj = JsonConvert.DeserializeObject<RestaurauntInfo>(JSON);
             }
+            return obj;
         }
 
         public static RestaurauntInfo Instance
