@@ -1,7 +1,6 @@
 ﻿@model Wild8.StaticInfo.RestaurauntInfo
-
 @{ 
-    ViewBag.Title = "Wild8 | Contact Us";
+    ViewBag.Title = Wild8.StaticInfo.StaticInfoMap.RestName + " | Contact Us";
 }
 
 @section Scripts
@@ -61,11 +60,12 @@
                     <div class="panel-body text-center">
                         <h4>Lokacija</h4>
                         <div>
-                            @Html.DisplayFor(model => model.OwnerAddress)
-                            <br /> @Html.DisplayFor(model => model.OwnerCity)
-                            <br /> @Html.DisplayFor(model => model.OwnerPhone)
-                            <br /> @Html.DisplayFor(model => model.OwnerEMail)
-                            <br /> @Html.DisplayFor(model => model.WorkTime)
+                            @Wild8.StaticInfo.StaticInfoMap.RestAddr
+                            <br /> @Wild8.StaticInfo.StaticInfoMap.RestCity
+                            <br /> @Wild8.StaticInfo.StaticInfoMap.RestPhone
+                            <br /> @Wild8.StaticInfo.StaticInfoMap.RestEmail
+                            <br /> @Wild8.StaticInfo.StaticInfoMap.RestStartH:@Wild8.StaticInfo.StaticInfoMap.RestStartM
+                            - @Wild8.StaticInfo.StaticInfoMap.RestEndH:@Wild8.StaticInfo.StaticInfoMap.RestEndM
                             <br />
                             <div class="TimeDiv">Otvoreno</div>
                             <div id="not_working">
@@ -85,7 +85,7 @@
                 <fieldset>
                     <p class="lead" style="display: inline-block">
                         <img id="owner-picture" class="img-responsive" src="images/owner_small.jpg">
-                        @Html.DisplayFor(model => model.OwnerContactsInfo)
+                        @Wild8.StaticInfo.StaticInfoMap.ConPageOwnInfo
                 </fieldset>
                 <img id="owner-signature" class="img-responsive pull-right" src="images/owner_signature.png">
             </div>
