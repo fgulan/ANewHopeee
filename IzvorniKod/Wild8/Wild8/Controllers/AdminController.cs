@@ -87,16 +87,17 @@ namespace Wild8.Controllers
 
             updateMealOrderCount(acceptedOrder);
 
-            //using (StringWriter sw = new StringWriter())
-            //{
-            //    ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, "Receipt");
-            //    ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
-            //    viewResult.View.Render(viewContext, sw);
+            using (StringWriter sw = new StringWriter())
+            {
+                ControllerContext.Controller.ViewData.Model = info;
+                ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, "Receipt");
+                ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
 
-            //    var receipt = sw.ToString();
+                var receipt = sw.ToString();
 
-            //    MailUtil.SendReceiptTo(acceptedOrder.Email, "Potvrda narudžbe",receipt);
-            //}
+                MailUtil.SendReceiptTo(acceptedOrder.Email, "Potvrda narudžbe",receipt);
+            }
 
             db.Orders.Add(acceptedOrder);
             db.SaveChanges();

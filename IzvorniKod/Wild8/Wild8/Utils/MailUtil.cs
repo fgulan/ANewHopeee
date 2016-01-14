@@ -25,7 +25,7 @@ namespace Wild8.Utils
             client.Credentials = new NetworkCredential(UserName, Password);
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
 
-            _smtpClient = new SmtpClient(SMTPClient);
+            _smtpClient = client;
             _fromAddress = FromAddress;
         }
 

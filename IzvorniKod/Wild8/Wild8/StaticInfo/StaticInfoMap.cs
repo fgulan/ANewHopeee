@@ -16,12 +16,14 @@ namespace Wild8.StaticInfo
         public static readonly string OwnHomePagePic = "own-home-page-pic";
         public static readonly string OwnConPagePic = "own-con-page-pic";
 
-
         //Restaurant info keys
+        public static readonly string RestName = "Wild8";
         public static readonly string RestAddr = "rest-addr";
         public static readonly string RestCity = "rest-city";
         public static readonly string RestPhone = "rest-phone";
-        public static readonly string RestEmail = "rest-email";
+        public static readonly string RestEmail = "wild8opp@gmail.com";
+        public static readonly string RestEmailPass = "pass_wild8"; // Cannot be hashed, needs to be raw for gmail
+        public static readonly string RestMailSmtpClient = "smtp.gmail.com";
         public static readonly string RestStartH = "rest-start-h";
         public static readonly string RestStartM = "rest-start-m";
         public static readonly string RestEndH = "rest-end-h";
