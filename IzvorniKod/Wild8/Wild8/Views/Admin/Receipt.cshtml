@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <html>
     <body style="font-family: sans-serif;">
-        <div style="font-size: 12pt;">@Html.DisplayFor(model => model.Info.RestaurauntName), @Html.DisplayFor(model => model.Info.OwnerAddress), @Html.DisplayFor(model => model.Info.OwnerCity)</div><br>
+        <div style="font-size: 12pt;">@Wild8.StaticInfo.StaticInfoMap.RestName, @Wild8.StaticInfo.StaticInfoMap.RestAddr, @Wild8.StaticInfo.StaticInfoMap.RestCity</div><br>
         <div style="font-size: 30pt; border-bottom: solid 1px darkgray;">Potvrda o narudžbi</div>
         <br>
         <p style="font-size: 18pt;">Poruka od restorana:<br>@Model.Message</p>
@@ -14,8 +14,7 @@
         <table style="width: 100%; border-spacing: 0px;">
             <tr>
                 <td style="border-bottom: solid 1px black;">Naziv</td>
-                <td style="border-bottom: solid 1px black;">Količina</td>
-                <td style="border-bottom: solid 1px black; text-align: right;">Ukupan Iznos</td>
+                <td style="border-bottom: solid 1px black; text-align: right;">Količina</td>
             </tr>
             @{bool lightColor = true; }
             @foreach (var details in Model.Order.OrderDetails)
@@ -24,16 +23,14 @@
                 {
                     <tr style="background-color: lightgray;">
                         <td>@(details.MealName)</td>
-                        <td>@(details.Count)</td>
-                        <td style="text-align: right;">@((details.Price * details.Count).ToString()) kn</td>
+                        <td style="text-align: right;">@(details.Count)</td>
                     </tr>
                 }
                 else
                 {
                     <tr style="background-color: darkgray;">
                         <td>@(details.MealName)</td>
-                        <td>@(details.Count)</td>
-                        <td style="text-align: right;">@((details.Price * details.Count).ToString()) kn</td>
+                        <td style="text-align: right;">@(details.Count)</td>
                     </tr>
                 }
 
@@ -45,16 +42,14 @@
                     {
                         <tr style="background-color: lightgray;">
                             <td>+ @(addon.AddOnName)</td>
-                            <td>1</td>
-                            <td style="text-align: right;">@(addon.Price) kn</td>
+                            <td style="text-align: right;">1</td>
                         </tr>
                     }
                     else
                     {
                         <tr style="background-color: darkgray;">
                             <td>+ @(addon.AddOnName)</td>
-                            <td>1</td>
-                            <td style="text-align: right;">@(addon.Price) kn</td>
+                            <td style="text-align: right;">1</td>
                         </tr>
                     }
 
@@ -63,16 +58,15 @@
             }
         </table>
 
-        <h3>Ukupno: @Html.DisplayFor(model => model.Order.TotalPrice) kn</h3>
+        <h3>Ukupno: @Model.Order.TotalPrice kn</h3>
         <h3>Način plaćanja: Gotovina (dostavljaču)</h3>
 
-        <p><i>Napomena restoranu: @Html.DisplayFor(model => model.Order.UserNote)</i></p>
+        <p><i>Napomena restoranu: @Model.Order.UserNote</i></p>
         <br>
         <p style="font-size: 15pt;">Adresa za dostavu:</p>
-        @Html.DisplayFor(model => model.Order.City), @Html.DisplayFor(model => model.Order.PostCode)<br>
-        @Html.DisplayFor(model => model.Order.Address)<br>
+        @Model.Order.Address<br>
         <br>
         <p style="font-size: 15pt;">Kontakt s restoranom:</p>
-        @Html.DisplayFor(model => model.Info.OwnerPhone)
+        @Wild8.StaticInfo.StaticInfoMap.RestPhone
     </body>
 </html>
