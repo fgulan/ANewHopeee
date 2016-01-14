@@ -7,10 +7,22 @@
         <td class="img-col">
             <a href="@Url.Action("Details", "Meals", new { id = item.Meal.MealID })"><img class="food-image img-responsive" style="max-width:128px; max-height:128px;" src="@item.Meal.ImagePath"></a>
         </td>
-        <td class="name-col">
-            @item.Meal.Name
-            <input type="hidden" name="MealID" value=@Html.DisplayFor(model => item.Meal.MealID)>
-        </td>                    
+        @if (item.IsHot)
+        {
+            <td class="name-col meal-hot">
+                <div class="hot-label"><span class="glyphicon glyphicon-fire"></span> HOT! </div>
+                @item.Meal.Name
+                <input type="hidden" name="MealID" value=@Html.DisplayFor(model => item.Meal.MealID)>
+            </td>
+        }
+        else
+        {
+            <td class="name-col">
+                @item.Meal.Name
+                <input type="hidden" name="MealID" value=@Html.DisplayFor(model => item.Meal.MealID)>
+            </td>
+        }
+                  
         <td class="desc-col">@item.Meal.Description</td>
         <td class="size-col">
             <ul>

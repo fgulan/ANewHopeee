@@ -79,6 +79,7 @@ namespace Wild8.Controllers
         private List<MealWithPrice> loadMeals(Category category)
         {
             List<MealWithPrice> mealWPrice = new List<MealWithPrice>();
+            double average = category.Meals.Average(m => m.NumberOfOrders);
             foreach (Meal m in category.Meals)
             {
                 if (!m.IsAvailable) continue;
@@ -87,7 +88,7 @@ namespace Wild8.Controllers
                 {
                     Meal = m,
                     Types = db.MealTypes.Where(type => type.MealID == m.MealID).ToList(),
-                    IsHot = MealUtils.IsHot(m)   //TODO: change this
+                    IsHot = average != 0.0 && m.NumberOfOrders > average
                 };
                 mealWPrice.Add(mwp);
             }
