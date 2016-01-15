@@ -31,18 +31,14 @@ namespace Wild8.Utils
 
         public static void SendReceiptTo(string MailTo, string Subject, string Contents)
         {
-            lock (_smtpClient)
-            {
-                MailMessage message = new MailMessage();
+            MailMessage message = new MailMessage();
 
-                message.From = new MailAddress(_fromAddress);
-                message.To.Add(new MailAddress(MailTo));
-                message.Subject = Subject;
-                message.Body = Contents;
-                message.IsBodyHtml = true;
-
-                _smtpClient.Send(message);
-            }
+            message.From = new MailAddress(_fromAddress);
+            message.To.Add(new MailAddress(MailTo));
+            message.Subject = Subject;
+            message.IsBodyHtml = true;
+            message.Body = Contents;
+            _smtpClient.Send(message);
         }
     }
 }

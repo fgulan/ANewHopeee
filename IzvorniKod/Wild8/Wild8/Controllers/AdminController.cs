@@ -96,7 +96,7 @@ namespace Wild8.Controllers
 
                 var receipt = sw.ToString();
 
-               // MailUtil.SendReceiptTo(acceptedOrder.Email, "Potvrda narudžbe",receipt);
+                MailUtil.SendReceiptTo(acceptedOrder.Email, "Potvrda narudžbe",receipt);
             }
 
             db.Orders.Add(acceptedOrder);
