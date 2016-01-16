@@ -96,7 +96,7 @@ namespace Wild8.Controllers
 
                 var receipt = sw.ToString();
 
-                MailUtil.SendReceiptTo(acceptedOrder.Email, "Potvrda narudžbe",receipt);
+                MailUtil.SendReceiptTo(acceptedOrder.Email, "Potvrda narudžbe", receipt);
             }
 
             db.Orders.Add(acceptedOrder);
@@ -719,7 +719,7 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult RestaurantInfoForm()
         {
-            return PartialView("StaticInfoViews/RestaurantInfo");
+            return PartialView("StaticInfoViews/RestaurantInfo", RestaurauntInfo.Instance);
         }
 
         [HttpGet]
@@ -835,5 +835,21 @@ namespace Wild8.Controllers
             return Content("Neocekivana greska.", MediaTypeNames.Text.Plain);
         }
 
+        [HttpPost]
+        public ActionResult EditRestaurauntInfo(string OwnerAddress, string OwnerCity, string OwnerPhone, string RestaurantEmail,
+                                                string RestStartH, string RestStartM, string RestEndH, string RestEndM)
+        {
+            RestaurauntInfo info = RestaurauntInfo.Instance;
+            info.OwnerAddress = OwnerAddress;
+            info.OwnerCity = OwnerCity;
+            info.OwnerPhone = OwnerPhone;
+            info.RestaurantEmail = RestaurantEmail;
+            info.RestStartH = RestStartH;
+            info.RestStartM = RestStartM;
+            info.RestEndH = RestEndH;
+            info.RestEndM = RestEndM;
+            info.SaveData();
+            return Content("Informacije uspješno spremljene.", MediaTypeNames.Text.Plain);
+        }
     }
 }

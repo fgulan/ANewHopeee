@@ -17,8 +17,8 @@ namespace Wild8.Models.Cart
             Cart = cart;
             RestaurauntInfo info = RestaurauntInfo.Instance;
             
-            StartTime = info.StarTime;
-            EndTime = info.EndTime;
+            StartTime = info.RestStartH + ":" + info.RestStartM;
+            EndTime = info.RestEndH + ":" + info.RestEndM;
         }
     }
 }
