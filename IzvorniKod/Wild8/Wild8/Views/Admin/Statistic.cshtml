@@ -9,12 +9,10 @@
         <div class="panel-heading">
             <h4>Statistika</h4>
         </div>
-
+        
         <div class="panel-content container">
             <div id="chartdiv" style="width: 100%; height: 400px; background-color: #FFFFFF;"></div>
-            <div id="placeholder">
-                
-            </div>
+            <div id="placeholder"></div>
             <div class="panel-group">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -31,6 +29,9 @@
                     </div>
                 </div>
             </div>
+            <form action="@Url.Action("Report", "Admin")">
+                <input class="btn btn-primary" name="reportType" type="submit" value="Spremi Statistiku" />
+            </form>
         </div>
     </div>
 } else
