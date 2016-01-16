@@ -537,7 +537,7 @@ namespace Wild8.Controllers
                 builder.Append(order.Email);
                 builder.Append(", ukupna cijena: ");
                 builder.Append(order.TotalPrice);
-                builder.Append(" kn , zaposlenik: ");
+                builder.Append(" kn, zaposlenik: ");
                 builder.Append(order.Employee);
                 builder.AppendLine();
             }
