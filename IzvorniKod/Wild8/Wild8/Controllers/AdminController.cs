@@ -25,6 +25,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using System.Configuration;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using System.Text;
 
 namespace Wild8.Controllers
 {
@@ -494,6 +495,54 @@ namespace Wild8.Controllers
             db.Categories.Attach(category);
             db.Categories.Remove(category);
             db.SaveChanges();
+        }
+
+        ////////////////////////////////////
+        //  Statistic File
+        ////////////////////////////////////
+        [HttpGet]
+        public ActionResult Report(string reportType)
+        {
+            UTF8Encoding encoding = new UTF8Encoding();
+            byte[] contentAsBytes = encoding.GetBytes(GenerateReport());
+
+            this.HttpContext.Response.ContentType = "application/octet-stream";
+            this.HttpContext.Response.AddHeader("Content-Disposition", "filename=" + "statistika.txt");
+            this.HttpContext.Response.Buffer = true;
+            this.HttpContext.Response.Clear();
+            this.HttpContext.Response.OutputStream.Write(contentAsBytes, 0, contentAsBytes.Length);
+            this.HttpContext.Response.OutputStream.Flush();
+            this.HttpContext.Response.End();
+
+            return View();
+        }
+
+        private string GenerateReport()
+        {
+            List<Order> orders = db.Orders.ToList();
+
+            orders.Sort((current, next) =>
+            {
+                return current.AcceptanceDate.CompareTo(next.AcceptanceDate);
+            });
+
+            StringBuilder builder = new StringBuilder();
+
+            foreach (var order in orders)
+            {
+                builder.Append(order.AcceptanceDate);
+                builder.Append(", adresa: ");
+                builder.Append(order.Address);
+                builder.Append(", e-mail: ");
+                builder.Append(order.Email);
+                builder.Append(", ukupna cijena: ");
+                builder.Append(order.TotalPrice);
+                builder.Append(" kn, zaposlenik: ");
+                builder.Append(order.Employee);
+                builder.AppendLine();
+            }
+
+            return builder.ToString();
         }
 
         ////////////////////////////////////
