@@ -665,8 +665,6 @@
     <Content Include="Views\Admin\StaticInfoViews\StaticInfo.cshtml" />
     <Content Include="Views\Admin\StaticInfoViews\OwnerInfoForm.cshtml" />
     <Content Include="Views\Admin\StaticInfoViews\RestaurantInfo.cshtml" />
-    <Content Include="Views\Admin\StaticInfoViews\OwnerPictuerUpload.cshtml" />
-    <Content Include="Views\Admin\StaticInfoViews\RestauranPictureUpload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\Meals\" />

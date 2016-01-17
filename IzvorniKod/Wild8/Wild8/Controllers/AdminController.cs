@@ -34,6 +34,15 @@ namespace Wild8.Controllers
         private RestaurauntContext db = new RestaurauntContext();
         CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]);
 
+        private bool LoggedOut()
+        {
+            if (SessionExtension.GetUser(Session) == null)
+            {
+                return true;
+            }
+            return false;
+        }
+
         // GET: Admin
         public ActionResult Index()
         {
@@ -51,12 +60,14 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult Orders()
         {
+            if (LoggedOut()) return HttpNotFound();
             return PartialView("Orders/Orders");
         }
 
         [HttpPost]
         public ActionResult Order(string JsonOrder)
         {
+            if (LoggedOut()) return HttpNotFound();
             var order = JsonConvert.DeserializeObject<Order>(JsonOrder);
             order.OrderDate = DateTime.Now;
             JsonOrder = JsonConvert.SerializeObject(order);
@@ -73,8 +84,9 @@ namespace Wild8.Controllers
         //  Meal add, edit, delete
         ////////////////////////////////////
         [HttpPost]
-        public void AcceptOrder(string orderJSON, string employeeId, string message)
+        public ActionResult AcceptOrder(string orderJSON, string employeeId, string message)
         {
+            if (LoggedOut()) return HttpNotFound();
             var acceptedOrder = JsonConvert.DeserializeObject<Order>(orderJSON);
             acceptedOrder.EmpolyeeID = employeeId;
             acceptedOrder.AcceptanceDate = DateTime.Now;
@@ -102,6 +114,7 @@ namespace Wild8.Controllers
 
             db.Orders.Add(acceptedOrder);
             db.SaveChanges();
+            return Content("Narudzba potvrdjena");
         }
 
         private void updateMealOrderCount(Order acceptedOrder)
@@ -116,20 +129,24 @@ namespace Wild8.Controllers
         }
 
         [HttpPost]
-        public void RefuseOrder(string email, string message)
+        public ActionResult RefuseOrder(string email, string message)
         {
+            if (LoggedOut()) return HttpNotFound();
             MailUtil.SendReceiptTo(email, "Naruđba odbijena", message);
+            return Content("Narudzba odbijena");
         }
 
         [HttpGet]
         public ActionResult AddEditDelMenu()
         {
+            if (LoggedOut()) return HttpNotFound();
             return PartialView("AddEditDelMealsPartial");
         }
 
         [HttpGet]
         public ActionResult AddMeal()
         {
+            if (LoggedOut()) return HttpNotFound();
             AddEditMealModelView newMeal = new AddEditMealModelView()
             {
                 Categories = db.Categories.ToList(),
@@ -141,6 +158,7 @@ namespace Wild8.Controllers
         [HttpPost]
         public ActionResult AddMeal([Bind(Include = "MealID,Name,Description,CategoryID,IsAvailable")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
         {
+            if (LoggedOut()) return HttpNotFound();
             if (ModelState.IsValid)
             {
                 if (upload != null && upload.ContentLength > 0)
@@ -219,6 +237,7 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult EditMeal(int? id)
         {
+            if (LoggedOut()) return HttpNotFound();
             if (id == null)
             {   //Load list of meals in database and render it to user
                 return PartialView("EditMealList", db.Meals.ToList());
@@ -252,6 +271,7 @@ namespace Wild8.Controllers
         [HttpPost]
         public ActionResult EditMeal([Bind(Include = "MealID,Name,Description,CategoryID,ImagePath,IsAvailable")] Meal meal, IEnumerable<string> SelectedAddOns, HttpPostedFileBase upload, string[] MealType, string[] Price)
         {
+            if (LoggedOut()) return HttpNotFound();
             if (ModelState.IsValid)
             {
                 if (upload != null && upload.ContentLength > 0)
@@ -311,13 +331,15 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult DeleteMeal()
         {
+            if (LoggedOut()) return HttpNotFound();
             return PartialView("DelMeals", db.Meals.ToList());
         }
 
         [HttpPost]
-        public void DeleteMeal(int mealId)
+        public ActionResult DeleteMeal(int mealId)
         {   //Performance wise is awful but sintax is nice
             //To make it better use sql command
+            if (LoggedOut()) return HttpNotFound();
             db.Comments.RemoveRange(db.Comments.Where(type => type.MealID == mealId));
             db.MealTypes.RemoveRange(db.MealTypes.Where(type => type.MealID == mealId));
             db.MealAddOns.RemoveRange(db.MealAddOns.Where(mealAddOn => mealAddOn.MealID == mealId));
@@ -325,6 +347,7 @@ namespace Wild8.Controllers
             db.Meals.Attach(meal);
             db.Meals.Remove(meal);
             db.SaveChanges();
+            return Content("Jelo obrisano");
         }
 
         ////////////////////////////////////
@@ -332,12 +355,14 @@ namespace Wild8.Controllers
         ////////////////////////////////////
         public ActionResult AddAddOn()
         {
+            if (LoggedOut()) return HttpNotFound();
             return PartialView("AddAddOn");
         }
 
         [HttpPost]
         public ActionResult AddAddOn(string Name, string Price)
         {
+            if (LoggedOut()) return HttpNotFound();
             var exists = db.AddOns.Find(Name);
             if (exists != null) //If addon already exists
             {
@@ -352,6 +377,7 @@ namespace Wild8.Controllers
 
         public ActionResult EditAddOn(string id)
         {
+            if (LoggedOut()) return HttpNotFound();
             if (id == null)
             {   //Load list of meals in database and render it to user
                 return PartialView("EditAddOnList", db.AddOns.ToList());
@@ -368,6 +394,7 @@ namespace Wild8.Controllers
         [HttpPost]
         public ActionResult EditAddOn(string OldName, string Name, string Price)
         {
+            if (LoggedOut()) return HttpNotFound();
             Price = Price.Replace('.', ',');
             AddOn addOn = new AddOn() { AddOnID = Name, Price = Decimal.Parse(Price) };
 
@@ -402,12 +429,14 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult DeleteAddon()
         {
+            if (LoggedOut()) return HttpNotFound();
             return PartialView("DelAddOns", db.AddOns.ToList());
         }
 
         [HttpPost]
         public ActionResult DeleteAddon(string AddOnID)
         {
+            if (LoggedOut()) return HttpNotFound();
             if (AddOnID == null)
             {
                 return Content("Neočekivana greška.", MediaTypeNames.Text.Plain);
@@ -431,12 +460,14 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult AddCategory()
         {
+            if (LoggedOut()) return HttpNotFound();
             return PartialView("AddCategory");
         }
 
         [HttpPost]
         public ActionResult AddCategory(string categoryName)
         {
+            if (LoggedOut()) return HttpNotFound();
             categoryName = categoryName.Trim();
             var exists = db.Categories.FirstOrDefault(s => s.Name.Equals(categoryName, StringComparison.OrdinalIgnoreCase));
             if (exists != null)
@@ -453,6 +484,7 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult EditCategory(int? id)
         {
+            if (LoggedOut()) return HttpNotFound();
             if (id == null)
             {
                 return PartialView("EditCategoryList", db.Categories.ToList());
@@ -469,6 +501,7 @@ namespace Wild8.Controllers
         [HttpPost]
         public ActionResult EditCategory([Bind(Include = "CategoryID,Name")] Category category)
         {
+            if (LoggedOut()) return HttpNotFound();
             if (ModelState.IsValid)
             {
                 db.Entry(category).State = EntityState.Modified;
@@ -481,12 +514,14 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult DeleteCategory()
         {
+            if (LoggedOut()) return HttpNotFound();
             return PartialView("DeleteCategory", db.Categories.ToList());
         }
 
         [HttpPost]
-        public void DeleteCategory(int id)
+        public ActionResult DeleteCategory(int id)
         {
+            if (LoggedOut()) return HttpNotFound();
             db.Comments.RemoveRange(db.Comments.Where(type => type.Meal.CategoryID == id));
             db.MealTypes.RemoveRange(db.MealTypes.Where(type => type.Meal.CategoryID == id));
             db.MealAddOns.RemoveRange(db.MealAddOns.Where(mealAddOn => mealAddOn.Meal.CategoryID == id));
@@ -495,6 +530,7 @@ namespace Wild8.Controllers
             db.Categories.Attach(category);
             db.Categories.Remove(category);
             db.SaveChanges();
+            return Content("Kategorija obrisana");
         }
 
         ////////////////////////////////////
@@ -503,6 +539,7 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult Report(string reportType)
         {
+            if (LoggedOut()) return HttpNotFound();
             UTF8Encoding encoding = new UTF8Encoding();
             byte[] contentAsBytes = encoding.GetBytes(GenerateReport());
 
@@ -551,6 +588,7 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult Statistic()
         {
+            if (LoggedOut()) return HttpNotFound();
             List<Order> orders = db.Orders.ToList();
             Dictionary<string, int> mealOrders = new Dictionary<string, int>();
             Dictionary<string, int> monthlyOrders = new Dictionary<string, int>();
@@ -712,13 +750,13 @@ namespace Wild8.Controllers
         //  Add or delete users
         ////////////////////////////////////
 
-        public void AddEmployee(string employeeId, string pass,
+        public ActionResult AddEmployee(string employeeId, string pass,
                             string firstName, string lastName,
                             string email, string phoneNumber,
                             string address, string city, string postCode,
                             string title)
         {
-            //Todo add hashed pass
+            if (LoggedOut()) return HttpNotFound();
             Employee e = new Employee
             {
                 EmployeeID = employeeId,
@@ -736,45 +774,39 @@ namespace Wild8.Controllers
 
             db.Employees.Add(e);
             db.SaveChanges();
+            return Content("Djelatnik dodan");
         }
 
-        public void RemoveEmployee(string employeeId)
+        public ActionResult RemoveEmployee(string employeeId)
         {
+            if (LoggedOut()) return HttpNotFound();
             db.Employees.Remove(new Employee() { EmployeeID = employeeId });
             db.SaveChanges();
+            return Content("Djelatnik obrisan");
         }
 
         ////////////////////////////////////
         //  Static info
         ////////////////////////////////////
         [HttpGet]
-        public ActionResult StaticInfo()    //Static info view
+        public ActionResult StaticInfo() 
         {
+            if (LoggedOut()) return HttpNotFound();
             return PartialView("StaticInfoViews/StaticInfo", RestaurauntInfo.Instance);
         }
 
         [HttpGet]
         public ActionResult OwnerInfoForm()
         {
+            if (LoggedOut()) return HttpNotFound();
             return PartialView("StaticInfoViews/OwnerInfoForm", RestaurauntInfo.Instance);
-        }
-
-        [HttpGet]
-        public ActionResult OwnerPictureForm()
-        {
-            return PartialView("StaticInfoViews/OwnerPictuerUpload", RestaurauntInfo.Instance);
         }
 
         [HttpGet]
         public ActionResult RestaurantInfoForm()
         {
+            if (LoggedOut()) return HttpNotFound();
             return PartialView("StaticInfoViews/RestaurantInfo", RestaurauntInfo.Instance);
-        }
-
-        [HttpGet]
-        public ActionResult RestaurantPictureForm()
-        {
-            return PartialView("StaticInfoViews/RestauranPictureUpload", RestaurauntInfo.Instance);
         }
 
         ////////////////////////////////////
@@ -787,18 +819,21 @@ namespace Wild8.Controllers
 
         public ActionResult DeleteModal(string Title, string Type)
         {
+            if (LoggedOut()) return HttpNotFound();
             return PartialView("DeleteModal", new ModalViewModel() { Title = Title, Type = Type });
         }
 
         [HttpGet]
         public ActionResult EmployeeMenu()
         {
+            if (LoggedOut()) return HttpNotFound();
             return PartialView("Employee/EmployeeMenu");
         }
 
         [HttpGet]
         public ActionResult EmployeeList()
         {
+            if (LoggedOut()) return HttpNotFound();
             List<Employee> list = db.Employees.Where(e => e.isEmployed == true).OrderBy(e => e.LastName).ThenBy(e => e.FirstName).ToList();
             return PartialView("Employee/EmployeeList", list);
         }
@@ -806,6 +841,7 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult UnemployedList()
         {
+            if (LoggedOut()) return HttpNotFound();
             List<Employee> list = db.Employees.Where(e => e.isEmployed == false).OrderBy(e => e.LastName).ThenBy(e => e.FirstName).ToList();
             return PartialView("Employee/EmployeeList", list);
         }
@@ -813,12 +849,14 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult AddEmployee()
         {
+            if (LoggedOut()) return HttpNotFound();
             return PartialView("Employee/AddEmployee");
         }
 
         [HttpPost]
         public ActionResult AddEmployee([Bind(Include = "EmployeeID,Password,FirstName,LastName,Email,PhoneNumber,Address,City,PostCode,Title,isEmployed,AdminRights")] Employee employee)
         {
+            if (LoggedOut()) return HttpNotFound();
             try
             {
                 if (ModelState.IsValid)
@@ -839,6 +877,7 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult EditEmployee(string EmployeeID)
         {
+            if (LoggedOut()) return HttpNotFound();
             if (EmployeeID == null)
             {
                 List<Employee> list = db.Employees.Where(e => e.isEmployed == true).OrderBy(e => e.LastName).ThenBy(e => e.FirstName).ToList();
@@ -855,6 +894,7 @@ namespace Wild8.Controllers
         [HttpPost]
         public ActionResult EditEmployee([Bind(Include = "EmployeeID,Password,FirstName,LastName,Email,PhoneNumber,Address,City,PostCode,Title,isEmployed,AdminRights")] Employee employee)
         {
+            if (LoggedOut()) return HttpNotFound();
             try
             {
                 if (ModelState.IsValid)
@@ -888,6 +928,7 @@ namespace Wild8.Controllers
         public ActionResult EditRestaurauntInfo(string OwnerAddress, string OwnerCity, string OwnerPhone, string RestaurantEmail,
                                                 string RestStartH, string RestStartM, string RestEndH, string RestEndM, string MinimalOrderPrice)
         {
+            if (LoggedOut()) return HttpNotFound();
             RestaurauntInfo info = RestaurauntInfo.Instance;
             info.OwnerAddress = OwnerAddress;
             info.OwnerCity = OwnerCity;
@@ -905,6 +946,7 @@ namespace Wild8.Controllers
         [HttpPost]
         public ActionResult EditOwnerInfo(string OwnerEMail, string OwnerName, string OwnerHomepageInfo, string OwnerContactInfo)
         {
+            if (LoggedOut()) return HttpNotFound();
             RestaurauntInfo info = RestaurauntInfo.Instance;
             info.OwnerEMail = OwnerEMail;
             info.OwnerName = OwnerName;
