@@ -11,14 +11,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script type="text/javascript" src="~/Scripts/navbar_hide.js"></script>
 
     @RenderSection("Scripts", false)
     @RenderSection("Styles", false)
 </head>
 <body>
     <div id="header-wrap">
-        <nav class="navbar navbar-inverse navbar-static-top" id="header">
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="header">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#wildNavbar">
@@ -50,17 +49,22 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </div>
     </div>
-        @RenderBody()
-        <footer>
-            <hr class="featurette-divider">
-            <p class="pull-right">
-                <a href="#top">Idi na vrh</a>
-            </p>
-            <p>
-                © Wild8 ugostiteljski obrt. · <a href="@Url.Action("Index", "Login")">Prijava osoblja</a>
-            </p>
-        </footer>
+    <script src="~/Scripts/jquery.bootstrap-autohidingnavbar.min.js"></script>
+
+    <script>
+        $("div.navbar-fixed-top").autoHidingNavbar();
+    </script>
+    @RenderBody()
+    <footer>
+        <hr class="featurette-divider">
+        <p class="pull-right">
+            <a href="#top">Idi na vrh</a>
+        </p>
+        <p>
+            © Wild8 ugostiteljski obrt. · <a href="@Url.Action("Index", "Login")">Prijava osoblja</a>
+        </p>
+    </footer>
 </body>
 </html>

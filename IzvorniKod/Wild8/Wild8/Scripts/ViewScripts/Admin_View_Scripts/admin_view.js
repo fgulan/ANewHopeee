@@ -75,6 +75,24 @@ function ajaxCall(caller) {
     })
 }
 
+$(document).on('click', '#editOwnerInfoBtn', function (e) {
+    e.preventDefault();
+    $("#edit-owner-info-form").ajaxForm({
+        beforeSubmit: function (formData, jqForm, options) {
+            return $("#edit-owner-info-form").valid();
+        },
+        resetForm: false,
+        cache: false,
+        success: function (response) {
+            printOnModal("Informacije spremljene", response);
+        },
+        error: function (xhr, status, response) {
+            printOnModal("Informacije nisu spremljene", response);
+        }
+    });
+    $("#edit-owner-info-form").submit();
+});
+
 $(document).on('click', '#editRestaurauntInfo', function (e) {
     e.preventDefault();
     $("#edit-restauraunt-info-form").ajaxForm({

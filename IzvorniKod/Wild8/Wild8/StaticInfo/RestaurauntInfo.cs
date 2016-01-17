@@ -40,6 +40,7 @@ namespace Wild8.StaticInfo
         public string ThirdHomepagePhotoPath { get; set; }
         public string RestaurauntHomepagePhotoPath { get; set; }
         public string RestauranutHomepageInfo { get; set; }
+        public decimal MinimalOrderPrice { get; set; }
 
         static RestaurauntInfo()
         {
@@ -86,6 +87,7 @@ namespace Wild8.StaticInfo
             RestStartM = "00";
             RestEndH = "23";
             RestEndM = "00";
+            MinimalOrderPrice = 30M;
             SaveData();
         }
 

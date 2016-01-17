@@ -750,19 +750,19 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult StaticInfo()    //Static info view
         {
-            return PartialView("StaticInfoViews/StaticInfo");
+            return PartialView("StaticInfoViews/StaticInfo", RestaurauntInfo.Instance);
         }
 
         [HttpGet]
         public ActionResult OwnerInfoForm()
         {
-            return PartialView("StaticInfoViews/OwnerInfoForm");
+            return PartialView("StaticInfoViews/OwnerInfoForm", RestaurauntInfo.Instance);
         }
 
         [HttpGet]
         public ActionResult OwnerPictureForm()
         {
-            return PartialView("StaticInfoViews/OwnerPictuerUpload");
+            return PartialView("StaticInfoViews/OwnerPictuerUpload", RestaurauntInfo.Instance);
         }
 
         [HttpGet]
@@ -774,7 +774,7 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult RestaurantPictureForm()
         {
-            return PartialView("StaticInfoViews/RestauranPictureUpload");
+            return PartialView("StaticInfoViews/RestauranPictureUpload", RestaurauntInfo.Instance);
         }
 
         ////////////////////////////////////
@@ -886,7 +886,7 @@ namespace Wild8.Controllers
 
         [HttpPost]
         public ActionResult EditRestaurauntInfo(string OwnerAddress, string OwnerCity, string OwnerPhone, string RestaurantEmail,
-                                                string RestStartH, string RestStartM, string RestEndH, string RestEndM)
+                                                string RestStartH, string RestStartM, string RestEndH, string RestEndM, string MinimalOrderPrice)
         {
             RestaurauntInfo info = RestaurauntInfo.Instance;
             info.OwnerAddress = OwnerAddress;
@@ -897,6 +897,19 @@ namespace Wild8.Controllers
             info.RestStartM = RestStartM;
             info.RestEndH = RestEndH;
             info.RestEndM = RestEndM;
+            info.MinimalOrderPrice = Decimal.Parse(MinimalOrderPrice.Replace('.',','));
+            info.SaveData();
+            return Content("Informacije uspješno spremljene.", MediaTypeNames.Text.Plain);
+        }
+
+        [HttpPost]
+        public ActionResult EditOwnerInfo(string OwnerEMail, string OwnerName, string OwnerHomepageInfo, string OwnerContactInfo)
+        {
+            RestaurauntInfo info = RestaurauntInfo.Instance;
+            info.OwnerEMail = OwnerEMail;
+            info.OwnerName = OwnerName;
+            info.OwnerHomepageInfo = OwnerHomepageInfo;
+            info.OwnerContactInfo = OwnerContactInfo;
             info.SaveData();
             return Content("Informacije uspješno spremljene.", MediaTypeNames.Text.Plain);
         }
