@@ -1,4 +1,5 @@
-﻿@model CartModelView
+﻿@using Wild8.StaticInfo
+@model CartModelView
 
 @{
     ViewBag.Title = "Wild8 | Košarica";
@@ -73,9 +74,9 @@
                     </table>
                 </div>
                 <form class="form-horizontal" id="order-form"
-                      data-clear-cart-url="@Url.Action("ClearCart", "Cart")"
                       data-start-time="@Model.StartTime"
-                      data-end-time="@Model.EndTime">
+                      data-end-time="@Model.EndTime"
+                      data-min-order="@RestaurauntInfo.Instance.MinimalOrderPrice">
                     <fieldset>
                         <!-- Text input-->
                         <div class="form-group">

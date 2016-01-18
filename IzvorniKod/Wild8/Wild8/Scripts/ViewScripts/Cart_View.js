@@ -94,24 +94,31 @@ function setOrderBtnListener() {
                         email: true
                     }
                 }
-            })
+            });
+
             if (!form.valid()) {
                 return;
             }
 
             var startTime = form.data('start-time');
             var endTime   = form.data('end-time');
-            //check if restourant is working
-           //if (!checkWorkingHours(startTime, endTime)) {
-           //     printOnModal('Ups','Restoran trenutno ne radi.<br>Radno verijeme restorana je od ' + startTime + ' do ' + endTime);
-           //     return;
-           //}
+           
+            if (!checkWorkingHours(startTime, endTime)) {
+                 printOnModal('Ups','Restoran trenutno ne radi.<br>Radno verijeme restorana je od ' + startTime + ' do ' + endTime);
+                 return;
+            }
             
-
+            
             //Make order (if order undifined that means it has no meals in it)
             var order = makeOrder();
             if (order == undefined) {
-                printOnModal('Narudžba zabranjena','Nemate niti jedno jelo u košarici.')
+                printOnModal('Narudžba zabranjena', 'Nemate niti jedno jelo u košarici.');
+                return;
+            }
+
+            var minOrder = form.data("min-order");
+            if (minOrder > order["TotalPrice"]) {
+                printOnModal('Narudžba zabranjena', 'Minimalna moguča naredba je ' + minOrder + '.');
                 return;
             }
 
