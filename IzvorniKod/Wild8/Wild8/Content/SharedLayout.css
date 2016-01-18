@@ -4,3 +4,9 @@
     margin-right: 50px;
     padding-right: 40px;
 }
+
+.navbar-brand {
+    color: crimson !important;
+    font-weight: bold;
+    font-style: italic;
+}
