@@ -228,8 +228,14 @@ namespace Wild8.Controllers
             CloudBlobContainer container = blobClient.GetContainerReference("meals");
             container.CreateIfNotExists();
             container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
-            CloudBlockBlob blockBlob = new CloudBlockBlob(new Uri(path), storageAccount.Credentials);
-            blockBlob.DeleteIfExists();
+            try
+            {
+                CloudBlockBlob blockBlob = new CloudBlockBlob(new Uri(path), storageAccount.Credentials);
+                blockBlob.DeleteIfExists();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         [HttpGet]

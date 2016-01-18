@@ -1,6 +1,6 @@
 ﻿@model Wild8.StaticInfo.RestaurauntInfo
 @{ 
-    ViewBag.Title = Wild8.StaticInfo.StaticInfoMap.RestName + " | Contact Us";
+    ViewBag.Title = Model.RestaurauntName + " | Kontaktirajte nas";
 }
 
 @section Scripts
@@ -32,10 +32,10 @@
             $(function() {
             $(".TimeDiv").each(function(index) {
                 var timeFrom = new Date();
-                timeFrom.setHours(8, 0, 0, 0);
+                timeFrom.setHours(@Model.RestStartH, @Model.RestStartM, 0, 0);
 
                 var timeTo = new Date();
-                timeTo.setHours(23, 0, 0, 0);
+                timeTo.setHours(@Model.RestEndH, @Model.RestEndM, 0, 0);
                 var timeNow = new Date();
                 if (timeNow >= timeFrom && timeNow <= timeTo){
                     $(this).show();
@@ -60,12 +60,12 @@
                     <div class="panel-body text-center">
                         <h4>Lokacija</h4>
                         <div>
-                            @Wild8.StaticInfo.StaticInfoMap.RestAddr
-                            <br /> @Wild8.StaticInfo.StaticInfoMap.RestCity
-                            <br /> @Wild8.StaticInfo.StaticInfoMap.RestPhone
-                            <br /> @Wild8.StaticInfo.StaticInfoMap.RestEmail
-                            <br /> @Wild8.StaticInfo.StaticInfoMap.RestStartH:@Wild8.StaticInfo.StaticInfoMap.RestStartM
-                            - @Wild8.StaticInfo.StaticInfoMap.RestEndH:@Wild8.StaticInfo.StaticInfoMap.RestEndM
+                            @Model.OwnerAddress
+                            <br /> @Model.OwnerCity
+                            <br /> @Model.OwnerPhone
+                            <br /> @Model.RestaurantEmail
+                            <br /> @Model.RestStartH:@Model.RestStartM
+                            - @Model.RestEndH:@Model.RestEndM
                             <br />
                             <div class="TimeDiv">Otvoreno</div>
                             <div id="not_working">
@@ -85,7 +85,7 @@
                 <fieldset>
                     <p class="lead" style="display: inline-block">
                         <img id="owner-picture" class="img-responsive" src="images/owner_small.jpg">
-                        @Wild8.StaticInfo.StaticInfoMap.ConPageOwnInfo
+                        @Model.OwnerContactInfo
                 </fieldset>
                 <img id="owner-signature" class="img-responsive pull-right" src="images/owner_signature.png">
             </div>
