@@ -18,7 +18,7 @@ namespace Wild8.Controllers
         // GET: Comments
         public ActionResult Index()
         {
-            var comments = db.Comments.Where(c => c.Meal == null);
+            var comments = db.Comments.Where(c => c.Meal == null).OrderByDescending(item => item.CommentDate);
             return View(comments.ToList());
         }
 
