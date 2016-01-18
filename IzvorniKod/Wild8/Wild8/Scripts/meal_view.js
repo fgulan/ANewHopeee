@@ -20,6 +20,12 @@ function setCommentListener() {
             return;
         }
 
+      
+        $('.collapse').collapse('hide');
+
+
+
+
         var url = f.attr('data-url');
         var data = f.serialize();
 
