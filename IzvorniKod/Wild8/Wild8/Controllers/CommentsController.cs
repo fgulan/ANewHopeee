@@ -32,7 +32,8 @@ namespace Wild8.Controllers
                 //Update restourant grade
                 RestaurauntInfo info = RestaurauntInfo.Instance;
                 var commentNumber = db.Comments.Count();
-                info.RestourantGrade = (decimal)((commentNumber*info.RestourantGrade + Rating)/(commentNumber + 1));
+                var newRestourantGrade = (decimal)((commentNumber * info.RestourantGrade + Rating) / (commentNumber + 1));
+                info.RestourantGrade = Math.Round(newRestourantGrade, 2);
 
                 //Save comment
                 Comment newComment = new Comment
