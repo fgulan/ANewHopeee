@@ -60,14 +60,12 @@ namespace Wild8.Controllers
         [HttpGet]
         public ActionResult Orders()
         {
-            if (LoggedOut()) return HttpNotFound();
             return PartialView("Orders/Orders");
         }
 
         [HttpPost]
         public ActionResult Order(string JsonOrder)
         {
-            if (LoggedOut()) return HttpNotFound();
             var order = JsonConvert.DeserializeObject<Order>(JsonOrder);
             order.OrderDate = DateTime.Now;
             JsonOrder = JsonConvert.SerializeObject(order);
@@ -109,7 +107,7 @@ namespace Wild8.Controllers
 
                 var receipt = sw.ToString();
 
-                MailUtil.SendReceiptTo(acceptedOrder.Email, "Potvrda narudžbe", receipt);
+                MailUtil.Instance.SendReceiptTo(acceptedOrder.Email, "Potvrda narudžbe", receipt);
             }
 
             db.Orders.Add(acceptedOrder);
@@ -132,7 +130,7 @@ namespace Wild8.Controllers
         public ActionResult RefuseOrder(string email, string message)
         {
             if (LoggedOut()) return HttpNotFound();
-            MailUtil.SendReceiptTo(email, "Naruđba odbijena", message);
+            MailUtil.Instance.SendReceiptTo(email, "Naruđba odbijena", message);
             return Content("Narudzba odbijena");
         }
 

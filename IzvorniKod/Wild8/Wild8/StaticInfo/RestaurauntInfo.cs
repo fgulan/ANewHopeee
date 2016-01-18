@@ -22,23 +22,15 @@ namespace Wild8.StaticInfo
         public string OwnerName { get; set; }
         public string RestaurauntName { get; set; }
         public string OwnerHomepageInfo { get; set; }
-        public string OwnerHomepagePhotoPath { get; set; }
         public string OwnerContactInfo { get; set; }
-        public string OwnerContactPhotoPath { get; set; }
         public string OwnerCity { get; set; }
         public string OwnerAddress { get; set; }
         public string OwnerPhone { get; set; }
         public string OwnerEMail { get; set; }
-        public string WorkTime { get; set; }
         public string RestStartH { get; set; }
         public string RestStartM { get; set; }
         public string RestEndH { get; set; }
         public string RestEndM { get; set; }
-        public string OwnerContactsInfo { get; set; }
-        public string FirstHomepagePhotoPath { get; set; }
-        public string SecondHomepagePhotoPath { get; set; }
-        public string ThirdHomepagePhotoPath { get; set; }
-        public string RestaurauntHomepagePhotoPath { get; set; }
         public string RestauranutHomepageInfo { get; set; }
         public decimal MinimalOrderPrice { get; set; }
 
@@ -61,28 +53,20 @@ namespace Wild8.StaticInfo
                 +" ribarskih običaja, te ribarskih tehnika koje mu omogućuju da to iskoristi za vrhunsku pripremu jela s ribom i morskim plodovima, osobito na gradelama."
                 +" Duboko ukorijenjena tradicija u njegovoj obitelji pogodovala je stvaranju bogate kuhinje pune morskih delikatesa. Svoje kuharske i gurmanske vještine utemeljio je u svom prvom restoranu \"Wild8\" u Zagrebu na ljeto 2014. godine,"
                 +" gdje ubrzo ostvaruje visok ugled. Kasnije, svoje vještine proširuje na ostala jela pripremljena na roštilju i uspješno postaje poznat po cijeloj Republici kao vlasnik najboljeg restorana koji priprema jela s roštilja.";
-            OwnerHomepagePhotoPath = "images/owner";
-            OwnerContactInfo = "dfdsfds";
-            OwnerContactPhotoPath = "fddsfsdfsdfsdf";
             OwnerCity = "poštanski broj, ime grada";
             OwnerAddress = "nekakva adresa";
 			OwnerPhone = "+(385) 1234 1234";
 			OwnerEMail = "restaurant@wild8.me";
-			WorkTime = "Radno vrijeme svakim danom od 08:00 do 23:00";
             RestStartH = "09";
             RestStartM = "00";
             RestEndH = "23";
             RestEndM = "00";
-            OwnerContactsInfo = "“Kuhanje je moja strast, moja antistres terapija. Moj hobi koji je prerastao u stil života."
+            OwnerContactInfo = "“Kuhanje je moja strast, moja antistres terapija. Moj hobi koji je prerastao u stil života."
 				+ " Otkad znam za sebe kuham, a sve se moje slobodne aktivnosti i prijateljska druženja odvijaju upravo u meni najdražoj prostoriji – kuhinji."
 				+ " Kuhanje ne doživljavam kao rad, više kao neku vrstu osobnog zadovoljstva. Kroz kuhanje sam upoznao mnoštvo divnih ljudi koji dijele slične interese,"
 				+ " te s nekima postao i jako dobar izvan tog kuharskog svijeta, što je jedna od ljepših stvari koje mi je kuhanje donijelo. A kada dobivate pohvale od vjernih gostiju,"
 				+ " to zadovoljstvo ne može zamijeniti ništa. Na kraju dana legnete u krevet napunjeni pozitivnom energijom, koja vam daje snage za nove radne pobjede!”";
-            FirstHomepagePhotoPath = "dfsfsf";
-            SecondHomepagePhotoPath = "fdsfdsfsd";
-            ThirdHomepagePhotoPath = "dfdsfd";
             RestauranutHomepageInfo = "dgfdsfds";
-            RestaurauntHomepagePhotoPath = "sdgdsdsgdsg";
             RestStartH = "08";
             RestStartM = "00";
             RestEndH = "23";

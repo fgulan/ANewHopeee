@@ -251,7 +251,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="StaticInfo\RestaurauntInfo.cs" />
-    <Compile Include="StaticInfo\StaticInfoMap.cs" />
     <Compile Include="Utils\MealUtils.cs" />
     <Compile Include="Utils\TextUtils.cs" />
     <Compile Include="Utils\MailUtil.cs" />

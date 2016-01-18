@@ -1,38 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
-using Wild8.StaticInfo;
 
 namespace Wild8.Utils
 {
     public class MailUtil
     {
-        private static SmtpClient _smtpClient; //= "smtp.gmail.com"; // klijent za slanje maila
-        private static string _fromAddress; //= "wild8opp@gmail.com"; // adresa sa koje se šalje
-        // pass: pass_wild8
-        // ako želite testirat sa gmailom, morate enablat na gmailu da less-secure aplikacije mogu slat sa vašeg računa. ne znam zašto.
+        private static readonly MailUtil instance;
+        private SmtpClient _smtpClient;
+        private string _fromAddress;
 
-        public static void Initialize(string SMTPClient, string FromAddress, string UserName, string Password)
+        static MailUtil()
         {
-            SmtpClient client = new SmtpClient(SMTPClient);
-
-            client.Port = 587;
-            client.Host = SMTPClient;
-            client.EnableSsl = true;
-            client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential(UserName, Password);
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-
-            _smtpClient = client;
-            _fromAddress = FromAddress;
+            instance = new MailUtil();
         }
 
-        public static void SendReceiptTo(string MailTo, string Subject, string Contents)
+        private MailUtil()
+        {
+            _fromAddress = ConfigurationManager.AppSettings["Mail"];
+            string username = ConfigurationManager.AppSettings["SmtpUsername"];
+            string password = ConfigurationManager.AppSettings["SmtpPassword"];
+            string host = ConfigurationManager.AppSettings["SmtpServer"];
+            string port = ConfigurationManager.AppSettings["SmtpPort"];
+            NetworkCredential credentials = new NetworkCredential(username, password);
+            _smtpClient = new SmtpClient(host, Int32.Parse(port));
+            _smtpClient.EnableSsl = true;
+            _smtpClient.UseDefaultCredentials = false;
+            _smtpClient.Credentials = credentials;
+            _smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+        }
+
+        public static MailUtil Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
+        public void SendReceiptTo(string MailTo, string Subject, string Contents)
         {
             MailMessage message = new MailMessage();
-
             message.From = new MailAddress(_fromAddress);
             message.To.Add(new MailAddress(MailTo));
             message.Subject = Subject;
@@ -40,5 +51,6 @@ namespace Wild8.Utils
             message.Body = Contents;
             _smtpClient.Send(message);
         }
+
     }
 }
