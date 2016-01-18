@@ -1,4 +1,5 @@
-﻿@model Wild8.StaticInfo.RestaurauntInfo
+﻿@using Wild8.StaticInfo
+@model Wild8.Models.ModelViews.HomePageModelView
 
 @{
     ViewBag.Title = "Wild8";
@@ -60,7 +61,7 @@
             <img src="~/images/carousel_images/Wild8_delivery.jpg" class="img-responsive">
             <div class="container">
                 <div class="carousel-caption">
-                    <h1 style="text-color: black" class="header_special">Besplatna dostava</h1>
+                    <h1 style="color: black" class="header_special">Besplatna dostava</h1>
                     <p class="paragraph-special">Dostava pred vaša kućna vrata.</p>
                     <p>
                         <a class="btn btn-large btn-primary" href="contact_us.html">Posjetite nas</a>
@@ -81,27 +82,24 @@
     <!-- Three columns of text below the carousel -->
     <div class="row">
         <div class="col-md-4 text-center">
-            <img class="img-circle" src="~/images/marketing_images/marketing_30min.jpg">
-            <h2>Dostava u 30 min</h2>
-            <p>Garantirana dostava unutar 30 minuta, inače ne plaćate narudžbu.</p>
+            <img class="img-circle" src="@Model.FirstMeal.ImagePath" alt="Nemas srece">
+            <h2>@Model.FirstMeal.Name</h2>
             <p>
-                <a class="btn btn-default" href="#">Više »</a>
+                <a class="btn btn-default" href="@Url.Action("Details", "Meals", new { id = Model.FirstMeal.MealID })">Više »</a>
             </p>
         </div>
         <div class="col-md-4 text-center">
-            <img class="img-circle" src="~/images/marketing_images/marketing_satisfaction.png">
-            <h2>100% zadovoljstvo korisnika</h2>
-            <p>Ocjena 5/5 na svakoj narudžbi.</p>
+            <img class="img-circle" src="@Model.SecondMeal.ImagePath" alt="Nemas srece">
+            <h2>@Model.SecondMeal.Name</h2>
             <p>
-                <a class="btn btn-default" href="#">Više »</a>
+                <a class="btn btn-default" href="@Url.Action("Details", "Meals", new { id = Model.SecondMeal.MealID })">Više »</a>
             </p>
         </div>
         <div class="col-md-4 text-center">
-            <img class="img-circle" src="~/images/marketing_images/marketing_veggie.jpg">
-            <h2>Vegeterijanski izbor</h2>
-            <p>Ponuda vegeterijanskih jela s roštilja.</p>
+            <img class="img-circle" src="@Model.SecondMeal.ImagePath" alt="Nemas srece">
+            <h2>@Model.ThirdMeal.Name</h2>
             <p>
-                <a class="btn btn-default" href="#">Više »</a>
+                <a class="btn btn-default" href="@Url.Action("Details", "Meals", new { id = Model.ThirdMeal.MealID })">Više »</a>
             </p>
         </div>
     </div>
@@ -113,15 +111,16 @@
     <div class="featurette">
         <img class="featurette-image img-circle pull-right img-responsive" src="~/images/featurette_restaurant.jpg">
         <h2 class="featurette-heading">Restoran <span class="text-muted">Wild8</span></h2>
+        <p class="lead">Prosječna ocjena restorana: @RestaurauntInfo.Instance.RestourantGrade</p>
         <p class="lead">
-            @Model.RestauranutHomepageInfo
+            @RestaurauntInfo.Instance.RestauranutHomepageInfo
         </p>
     </div>
     <hr class="featurette-divider">
     <div class="featurette">
         <img class="featurette-image img-circle pull-left img-responsive" src="~/images/owner.jpeg">
-        <h2 class="featurette-heading">Vlasnik <span class="text-muted">@Html.DisplayFor(model => model.OwnerName)</span></h2>
-        <p class="lead">@Html.DisplayFor(model => model.OwnerHomepageInfo)</p>
+        <h2 class="featurette-heading">Vlasnik <span class="text-muted">@RestaurauntInfo.Instance.OwnerName</span></h2>
+        <p class="lead">@RestaurauntInfo.Instance.OwnerHomepageInfo</p>
     </div>
     <!-- /FEATURETTES -->
     <!-- FOOTER -->

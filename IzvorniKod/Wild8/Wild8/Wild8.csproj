@@ -241,6 +241,7 @@
     <Compile Include="Models\MealAddOn.cs" />
     <Compile Include="Models\MealType.cs" />
     <Compile Include="Models\ModelViews\AddEditMealModelView.cs" />
+    <Compile Include="Models\ModelViews\HomePageModelView.cs" />
     <Compile Include="Models\ModelViews\MenuModelView.cs" />
     <Compile Include="Models\ModelViews\ModalViewModel.cs" />
     <Compile Include="Models\Order.cs" />

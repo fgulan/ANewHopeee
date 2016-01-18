@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Wild8.DAL;
 using Wild8.Models;
+using Wild8.StaticInfo;
 
 namespace Wild8.Controllers
 {
@@ -24,23 +25,28 @@ namespace Wild8.Controllers
 
 
         [HttpPost]
-        public ActionResult AddNewComment(string Username, string Message, int? Rating)
+        public ActionResult AddNewComment(string Username, string Message, int Rating)
         {
             if (ModelState.IsValid)
             {
+                //Update restourant grade
+                RestaurauntInfo info = RestaurauntInfo.Instance;
+                var commentNumber = db.Comments.Count();
+                info.RestourantGrade = (decimal)((commentNumber*info.RestourantGrade + Rating)/(commentNumber + 1));
+
+                //Save comment
                 Comment newComment = new Comment
                 {
                     CommentDate = DateTime.Now,
                     Message = Message,
                     Username = Username,
-                    Grade = Rating == null ? 5 : (int)Rating,
+                    Grade = Rating,
                 };
                 db.Comments.Add(newComment);
                 db.SaveChanges();
 
                 return PartialView("~/Views/Meals/Comment.cshtml", newComment);
             }
-
             return null;
         }
 

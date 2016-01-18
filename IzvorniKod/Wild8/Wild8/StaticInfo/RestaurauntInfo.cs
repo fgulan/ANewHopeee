@@ -33,6 +33,8 @@ namespace Wild8.StaticInfo
         public string RestEndM { get; set; }
         public string RestauranutHomepageInfo { get; set; }
         public decimal MinimalOrderPrice { get; set; }
+        public decimal RestourantGrade { get; set; }
+
 
         static RestaurauntInfo()
         {
@@ -72,6 +74,7 @@ namespace Wild8.StaticInfo
             RestEndH = "23";
             RestEndM = "00";
             MinimalOrderPrice = 30M;
+            RestourantGrade = -1;
             SaveData();
         }
 
