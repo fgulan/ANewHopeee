@@ -1,10 +1,11 @@
-﻿@model Wild8.Models.OrderInfo
+﻿@using Wild8.StaticInfo
+@model Wild8.Models.OrderInfo
 
 <!DOCTYPE html>
 <meta charset="utf-8">
 <html>
     <body style="font-family: sans-serif;">
-        <div style="font-size: 12pt;">@Wild8.StaticInfo.StaticInfoMap.RestName, @Wild8.StaticInfo.StaticInfoMap.RestAddr, @Wild8.StaticInfo.StaticInfoMap.RestCity</div><br>
+        <div style="font-size: 12pt;">@RestaurauntInfo.Instance.RestaurauntName, @RestaurauntInfo.Instance.OwnerAddress, @RestaurauntInfo.Instance.OwnerCity</div><br>
         <div style="font-size: 30pt; border-bottom: solid 1px darkgray;">Potvrda o narudžbi</div>
         <br>
         <p style="font-size: 18pt;">Poruka od restorana:<br>@Model.Message</p>
@@ -67,6 +68,6 @@
         @Model.Order.Address<br>
         <br>
         <p style="font-size: 15pt;">Kontakt s restoranom:</p>
-        @Wild8.StaticInfo.StaticInfoMap.RestPhone
+        @RestaurauntInfo.Instance.OwnerPhone
     </body>
 </html>
