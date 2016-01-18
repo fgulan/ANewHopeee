@@ -11,57 +11,90 @@
     <link rel="shortcut icon" href="~/images/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.0.min.js"></script>
+    <script src="@Url.Content("~/signalr/hubs   ")"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.form.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script type="text/javascript" src="~/Scripts/fileinput.min.js"></script>
     <script type="text/javascript" src="~/Scripts/ViewScripts/Admin_View_Scripts/admin_view.js"></script>
-    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.0.min.js"></script>
-    <script src="@Url.Content("~/signalr/hubs   ")"></script>
     <script type="text/javascript" src="~/Scripts/ViewScripts/Admin_View_Scripts/orderHub.js"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap-dialog.js"></script>
+    <script type="text/javascript" src="~/Scripts/sidebar_expandable.js"></script>
+    <script type='text/javascript' src='//code.jquery.com/ui/1.12.0-beta.1/jquery-ui.min.js'></script>
 
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-dialog.css"/>
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-fileinput/css/fileinput.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
-    <style>
-        .col-fixed {
-            width: 200px;
-            position: fixed;
-            height: 100%;
-        }
-
-        .nav-pills {
-            text-align: center;
-            position: absolute;
-            bottom: 0;
-            top: 0;
-            left: 0;
-            right: 0;
-        }
-
-        .col-fluid {
-            margin-top: 15px;
-            margin-left: 200px;
-        }
-
-        .logout-btn {
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-        }
-
-            .logout-btn button {
-                width: 100%;
-            }
-    </style>
+    <link rel="stylesheet" type="text/css" href="~/Content/admin.css" />
 </head>
 <body>
+    <nav class='sidebar sidebar-menu-collapsed'>
+        <a  id='justify-icon'>
+            <span class='glyphicon glyphicon-align-justify'></span>
+        </a>
+        <ul>
+            <li class="active">
+                <a class='expandable'  title='Narudžbe' data-toggle="tab" id="orders-menu"
+                   data-url="@Url.Action("Orders", "Admin")">
+                    <span class='glyphicon glyphicon-certificate collapsed-element'></span>
+                    <span class='expanded-element'>Narudžbe</span>
+                    <span class="badge pull-right" id="orders-badge">0</span>
+                </a>
+            </li>
+
+            <li>
+                <a class='expandable'  title='Jela' data-toggle="tab" id="meal-menu" data-url="@Url.Action("AddEditDelMenu", "Admin")">
+                    <span class='glyphicon glyphicon-cutlery collapsed-element'></span>
+                    <span class='expanded-element'>Jela</span>
+                </a>
+            </li>
+
+
+            @if (Model.AdminRights)
+            {
+                <li>
+                    <a class='expandable'  title='Statistika' data-toggle="tab" id="statistic-menu" data-url="@Url.Action("Statistic", "Admin")">
+                        <span class='glyphicon glyphicon-stats collapsed-element'></span>
+                        <span class='expanded-element'>Statistika</span>
+                    </a>
+                </li>
+                <li>
+                    <a class='expandable'  title='Djelatnici' data-toggle="tab" id="employee-menu" data-url="@Url.Action("EmployeeMenu", "Admin")">
+                        <span class='glyphicon glyphicon-user collapsed-element'></span>
+                        <span class='expanded-element'>Djelatnici</span>
+                    </a>
+                </li>
+                <li>
+                    <a class='expandable' title='Wild8 info' data-toggle="tab" id="static-info-menu" data-url="@Url.Action("StaticInfo","Admin")">
+                        <span class='glyphicon glyphicon-info-sign collapsed-element'></span>
+                        <span class='expanded-element'>Wild8 info</span>
+                    </a>
+                </li>
+
+            }
+
+        </ul>
+        <a  id='logout-icon' title='Odjava' data-toggle="tab" data-url="@Url.Action("Logout", "Admin")" data-index-url="@Url.Action("Index", "Index")">
+            <span class='glyphicon glyphicon-off collapsed-element'></span>
+            <span class='expanded-element'>Odjava</span>
+        </a>
+
+    </nav>
+    
+
+
+
+
+
+
+
+
+
+<!--
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-fixed">
@@ -96,12 +129,22 @@
                 </button>
             </div>
         </div>
-        <div class="container-fluid col-fluid main-content">
+
+
+            -->
+
+        <div id="main-container" class="container-fluid col-fluid main-content">
             @{
                 Html.RenderAction("Orders", "Admin");
             }
         </div>
+
+    <!--
     </div>
 </div>
+        -->
+
+
+    
 </body>
 </html>

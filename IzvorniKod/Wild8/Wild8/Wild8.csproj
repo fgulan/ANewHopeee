@@ -256,6 +256,7 @@
     <Compile Include="Utils\MailUtil.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\admin.css" />
     <Content Include="Content\bootstrap-dialog.css" />
     <Content Include="Content\bootstrap-fileinput\css\fileinput.css" />
     <Content Include="Content\bootstrap-fileinput\css\fileinput.min.css" />
@@ -332,6 +333,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sidebar_expandable.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\admin_view.js" />
     <Content Include="Scripts\ViewScripts\Admin_View_Scripts\orderHub.js" />
     <Content Include="Scripts\ViewScripts\Charts\amcharts.js" />
