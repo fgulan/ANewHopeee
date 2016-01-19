@@ -194,11 +194,11 @@
                     <div class="form-group">
                         <label for="usr">Ime:</label>
                         <input type="hidden" name="ID" value=@Html.DisplayFor(m => m.Meal.MealID)>
-                        <input type="text" class="form-control" id="usr" name="Username" placeholder="Vaše ime..." required autofocus="">
+                        <input type="text" class="form-control" id="usr" name="Username" placeholder="Vaše ime..." maxlength="15" required autofocus="">
                     </div>
                     <div class="form-group">
                         <label for="comment">Komentar:</label>
-                        <textarea class="form-control" rows="5" id="comment" name="Message" placeholder="Recite nam Vaše dojmove..." required></textarea>
+                        <textarea class="form-control" rows="5" id="comment" name="Message" placeholder="Recite nam Vaše dojmove..." maxlength="512" required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="rate">Ocjena: </label>
