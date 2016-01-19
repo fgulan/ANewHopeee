@@ -298,6 +298,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Data\info.dat" />
     <Content Include="Content\bootstrap-dialog.less" />
+    <None Include="Properties\PublishProfiles\Wild8 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\fileinput.js" />
     <Content Include="Scripts\fileinput.min.js" />
@@ -616,13 +617,13 @@
     <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\readme.md" />
     <Content Include="Views\Admin\EditAddOn.cshtml" />
     <Content Include="Views\Admin\AddCategory.cshtml" />
-    <None Include="Views\Admin\AddEditDelMealsPartial.cshtml" />
-    <None Include="Views\Admin\AddEmployeeForm.cshtml" />
+    <Content Include="Views\Admin\AddEditDelMealsPartial.cshtml" />
+    <Content Include="Views\Admin\AddEmployeeForm.cshtml" />
     <Content Include="Content\AddEmployeeFormStyle.css" />
     <Content Include="Views\Admin\AddMeal.cshtml" />
     <Content Include="Views\Admin\EditMeal.cshtml" />
     <Content Include="Views\Admin\DeleteCategory.cshtml" />
-    <None Include="Views\Admin\DelMeals.cshtml" />
+    <Content Include="Views\Admin\DelMeals.cshtml" />
     <Content Include="Views\Admin\EditAddOnList.cshtml" />
     <Content Include="Views\Admin\EditMealList.cshtml" />
     <Content Include="Views\Admin\DelAddOns.cshtml" />
@@ -632,7 +633,7 @@
     <Content Include="Views\Admin\Employee\AddEmployee.cshtml" />
     <Content Include="Views\Admin\Employee\EmployeeMenu.cshtml" />
     <Content Include="Views\Admin\Employee\EditEmployee.cshtml" />
-    <None Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

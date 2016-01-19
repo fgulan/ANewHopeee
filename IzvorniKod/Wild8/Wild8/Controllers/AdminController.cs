@@ -928,11 +928,12 @@ namespace Wild8.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditRestaurauntInfo(string OwnerAddress, string OwnerCity, string OwnerPhone, string RestaurantEmail,
-                                                string RestStartH, string RestStartM, string RestEndH, string RestEndM, string MinimalOrderPrice)
+        public ActionResult EditRestaurauntInfo(string OwnerAddress, string OwnerCity, string OwnerPhone, string RestaurantEmail, string RestStartH,
+                                                string RestauranutHomepageInfo, string RestStartM, string RestEndH, string RestEndM, string MinimalOrderPrice)
         {
             if (LoggedOut()) return HttpNotFound();
             RestaurauntInfo info = RestaurauntInfo.Instance;
+            info.RestauranutHomepageInfo = RestauranutHomepageInfo;
             info.OwnerAddress = OwnerAddress;
             info.OwnerCity = OwnerCity;
             info.OwnerPhone = OwnerPhone;
