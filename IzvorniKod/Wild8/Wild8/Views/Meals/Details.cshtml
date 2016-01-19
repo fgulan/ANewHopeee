@@ -40,138 +40,152 @@
             </div>
 
             <div class="col-md-6">
-                <h3>Opis Jela</h3>
-                <p>@Model.Meal.Description</p>
-                <h2>Dodatci jelu</h2>
-                <ul>
-                    <li>
-                        <div class="addons">
-                            <table style="border-spacing: 5px;border-collapse: separate;">
-                                <tbody>
-                                    @foreach (var mealAddOn in Model.Meal.AddOns)
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Opis jela</h3>
+                    </div>
+                    <div class="panel-body">
+                        @Model.Meal.Description
+                    </div>
+                </div>
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Dodatci jelu</h3>
+                    </div>
+                    <div class="panel-body addons">
+                        <table style="border-spacing: 5px;border-collapse: separate;">
+                            <tbody>
+                                @foreach (var mealAddOn in Model.Meal.AddOns)
+                                {
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" value="@mealAddOn.AddOn.Price"> @mealAddOn.AddOn.AddOnID
+                                        </td>
+                                        <td>+ @mealAddOn.AddOn.Price HRK</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body mealtypes">
+                        <table style="border-spacing: 5px;border-collapse: separate;">
+                            <tbody>
+                                @{
+                                    for (int i = 0, n = Model.Types.Count; i < n; i++)
                                     {
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" value="@mealAddOn.AddOn.Price"> @mealAddOn.AddOn.AddOnID
-                                            </td>
-                                            <td>
-                                                @mealAddOn.AddOn.Price HRK
-                                            </td>
-                                        </tr>
+                                        var type = Model.Types[i];
+                                        if (i == 0)
+                                        {
+                                            <tr><td><input type="radio" name="Type" checked="checked" value="@(type.Price + "#" + type.MealTypeName)"> @type.MealTypeName</td></tr>
+                                        }
+                                        else
+                                        {
+                                            <tr><td><input type="radio" name="Type" value="@(type.Price + "#" + type.MealTypeName)"> @type.MealTypeName</td></tr>
+                                        }
                                     }
-                                </tbody>
-                            </table>
+                                }
+                            </tbody>
+                        </table>
+
+                        <div class="count">
+                            <select name="Count" class="1-10"></select>
                         </div>
 
-                    </li>
-                    
-                </ul>
+                        <div class="addtocart">
+                            <button type="button" class="btn btn-warning pull-right" id="addMealButton">Dodaj</button>
+                            <label id="sum" class="pull-right"></label>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
             </div>
+
+            <div class="col-md-6 pull-right">
+                <h2 id="commentHeader" class="page-header">Komentari</h2>
+                <section class="comment-list">
+                    <div id="comments">
+                        @{
+                            Html.RenderPartial("Comments", Model.Meal.Comments);
+                        }
+                    </div>
+                </section>
+            </div>
+        </div>
     </form>
 
-    </div>
 
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="mealtypes">
-                <table style="border-spacing: 5px;border-collapse: separate;">
-                    <tbody>
-                        @{
-                            for (int i = 0, n = Model.Types.Count; i < n; i++)
-                            {
-                                var type = Model.Types[i];
-                                if (i == 0)
-                                {
-                                    <tr><td><input type="radio" name="Type" checked="checked" value="@(type.Price + "#" + type.MealTypeName)"> @type.MealTypeName</td></tr>
-                                }
-                                else
-                                {
-                                    <tr><td><input type="radio" name="Type" value="@(type.Price + "#" + type.MealTypeName)"> @type.MealTypeName</td></tr>
-                                }
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
 
 
-            <div class="count">
-                <select name="Count" class="1-10"></select>
-            </div>
 
-            <div class="addtocart">
-                <button type="button" class="btn btn-warning pull-right" id="addMealButton">Dodaj</button>
-                <label id="sum" class="pull-right"></label>
-            </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" style="font-size: 100%">
+                    Komentiraj...
+                </a>
+            </h4>
         </div>
-        <div class="col-md-6 pull-right">
-            <h2 id="commentHeader" class="page-header">Komentari</h2>
-            <section class="comment-list">
-                <div id="comments">
-                    @{
-                        Html.RenderPartial("Comments", Model.Meal.Comments);
-                    }
-                </div>
-            </section>
-        </div>
-    </div>
 
+        <div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body commentbox-style">
 
-
-
-
-
-
-
-
-
-
-
-    <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" style="font-size: 100%">
-                        Komentiraj...
-                    </a>
-                </h4>
-            </div>
-
-            <div id="collapseOne" class="panel-collapse collapse">
-                <div class="panel-body commentbox-style">
-
-                    <form id="commentForm" data-url="@Url.Action("AddNewComment","Meals")">
-                        <div class="form-group">
-                            <label for="usr">Ime:</label>
-                            <input type="hidden" name="ID" value=@Html.DisplayFor(m => m.Meal.MealID)>
-                            <input type="text" class="form-control" id="usr" name="Username" placeholder="Vaše ime..." required autofocus="">
-                        </div>
-                        <div class="form-group">
-                            <label for="comment">Komentar:</label>
-                            <textarea class="form-control" rows="5" id="comment" name="Message" placeholder="Recite nam Vaše dojmove..." required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="rate">Ocjena: </label>
-                            <div class="stars-container">
-                                <div class="row lead">
-                                    <div class="acidjs-rating-stars">
-                                        <input type="radio" name="Rating" checked="checked" id="star-1-0" value="5" /><label for="star-1-0"></label>
-                                        <input type="radio" name="Rating" id="star-1-1" value="4" /><label for="star-1-1"></label>
-                                        <input type="radio" name="Rating" id="star-1-2" value="3" /><label for="star-1-2"></label>
-                                        <input type="radio" name="Rating" id="star-1-3" value="2" /><label for="star-1-3"></label>
-                                        <input type="radio" name="Rating" id="star-1-4" value="1" /><label for="star-1-4"></label>
-                                    </div>
+                <form id="commentForm" data-url="@Url.Action("AddNewComment","Meals")">
+                    <div class="form-group">
+                        <label for="usr">Ime:</label>
+                        <input type="hidden" name="ID" value=@Html.DisplayFor(m => m.Meal.MealID)>
+                        <input type="text" class="form-control" id="usr" name="Username" placeholder="Vaše ime..." required autofocus="">
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Komentar:</label>
+                        <textarea class="form-control" rows="5" id="comment" name="Message" placeholder="Recite nam Vaše dojmove..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="rate">Ocjena: </label>
+                        <div class="stars-container">
+                            <div class="row lead">
+                                <div class="acidjs-rating-stars">
+                                    <input type="radio" name="Rating" checked="checked" id="star-1-0" value="5" /><label for="star-1-0"></label>
+                                    <input type="radio" name="Rating" id="star-1-1" value="4" /><label for="star-1-1"></label>
+                                    <input type="radio" name="Rating" id="star-1-2" value="3" /><label for="star-1-2"></label>
+                                    <input type="radio" name="Rating" id="star-1-3" value="2" /><label for="star-1-3"></label>
+                                    <input type="radio" name="Rating" id="star-1-4" value="1" /><label for="star-1-4"></label>
                                 </div>
                             </div>
                         </div>
-                        <input type="submit" id="commentButton" class="btn btn-lg btn-success btn-block" value="Pošalji komentar">
-                    </form>
-                </div>
+                    </div>
+                    <input type="submit" id="commentButton" class="btn btn-lg btn-success btn-block" value="Pošalji komentar">
+                </form>
             </div>
         </div>
     </div>
-
-
-
 </div>

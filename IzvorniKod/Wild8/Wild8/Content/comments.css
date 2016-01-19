@@ -152,21 +152,20 @@ body {
     border-bottom: 1px solid #A9AAAB;
     margin-left: 2%;
 }
-.panel-default > .panel-heading {
+
+#accordion > .panel-default > .panel-heading {
     background: #DCDDDE;
     border: 2px solid #A9AAAB;
     border-bottom: 0px transparent;
-}
-.panel-heading {
     padding: 0;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
-.panel-group .panel {
+#accordion .panel {
     border-radius: 0;
     border: 0px transparent;
 }
-.panel-title a {
+#accordion > .panel-default > .panel-heading > .panel-title a {
     color: #5a5a5a;
     text-align: center;
     width: 100%;
@@ -177,12 +176,15 @@ body {
     outline: none;
     font-weight: 700;
 }
-.panel-title a:hover,
-.panel-title a:focus,
-.panel-title a:active {
+
+#accordion > .panel-default > .panel-heading > .panel-title a:hover,
+#accordion > .panel-default > .panel-heading > .panel-title a:focus,
+#accordion > .panel-default > .panel-heading > .panel-title a:active {
     text-decoration: none;
     outline: none;
 }
+
+
 .lead > p {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
@@ -191,4 +193,10 @@ body {
 .stars-container {
     padding-top: 5px;
     padding-left: 20px;
+}
+
+
+
+#accordion > .panel-default{
+    border-radius: 5px;
 }
