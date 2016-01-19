@@ -7,7 +7,7 @@ th{
     min-width: 30px;
 }
 
-#head-underline > tr{
+#head-underline{
     border-bottom: 3px solid #ddd;
 }
 
