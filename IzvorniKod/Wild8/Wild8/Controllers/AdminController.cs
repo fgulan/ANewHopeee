@@ -283,7 +283,12 @@ namespace Wild8.Controllers
                     meal.ImagePath = UploadPhoto(upload);
                 }
 
-                db.Entry(meal).State = EntityState.Modified;
+                db.Meals.Attach(meal);
+                var entry = db.Entry(meal);
+                entry.State = EntityState.Modified;
+                entry.Property(e => e.NumberOfOrders).IsModified = false;
+                entry.Property(e => e.Grade).IsModified = false;
+
                 db.SaveChanges();
 
                 var mealAddons = db.MealAddOns;
