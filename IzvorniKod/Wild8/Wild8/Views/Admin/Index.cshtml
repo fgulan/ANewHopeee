@@ -35,6 +35,22 @@
         <a  id='justify-icon'>
             <span class='glyphicon glyphicon-align-justify'></span>
         </a>
+        <div id="employee-info" data-employee-id="@Model.EmployeeID">
+            <h6 style="font-size:13px;">@if (Model.AdminRights)
+            {
+                @(Model.FirstName.Substring(0, 1) + ". " + Model.LastName.Substring(0, 1) + ".")
+            }
+            else
+            {
+                @(Model.FirstName.Substring(0, 1) + ". " + Model.LastName.Substring(0, 1) + ".")
+            }                     
+             </h6>                  
+        </div>
+
+
+
+
+
         <ul>
             <li class="active">
                 <a class='expandable'  title='Narudžbe' data-toggle="tab" id="orders-menu"
