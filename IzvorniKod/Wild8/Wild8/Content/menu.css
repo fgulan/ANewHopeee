@@ -100,7 +100,6 @@ ul{
 .btn-warning{
   margin-left:15px;
 }
-
 @media screen and (max-width: 600px){
   /* Force table to not be like tables anymore */
 	table, thead, tbody, th, td, tr {

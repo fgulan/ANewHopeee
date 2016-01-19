@@ -37,6 +37,17 @@ body {
 }
 
 
+.panel-title{
+    font-weight: 600;
+    color: #5a5a5a;
+}
+
+#addon-panel{
+    margin-top: -5px;
+}
+
+
+
 ul{
     padding-left: 0px;
     list-style-type: none;
