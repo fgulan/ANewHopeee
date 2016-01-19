@@ -119,12 +119,6 @@ body {
 .container {
     padding-top: 50px; 
 }
-footer {
-    margin-left: 50px;
-    padding-left: 40px;
-    margin-right: 50px;
-    padding-right: 40px;
-}
 .commentbox-style {
     padding: 10px;
     background-color: #DCDDDE;

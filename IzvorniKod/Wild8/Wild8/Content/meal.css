@@ -45,9 +45,6 @@ ul{
   margin-left: 10px;
 }
 
-footer {
-    margin-left: 50px;
-    padding-left: 40px;
-    margin-right: 50px;
-    padding-right: 40px;
+.portfolio-item {
+    margin-bottom: 25px;
 }
