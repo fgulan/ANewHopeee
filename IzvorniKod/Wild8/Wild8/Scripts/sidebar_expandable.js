@@ -20,7 +20,7 @@
         return $("#justify-icon").click(function (e) {
             if ($(this).parent("nav.sidebar").hasClass("sidebar-menu-collapsed")) {
                 expandMyMenu();
-                $("#main-container").animate({ marginLeft: '+=56px'}, 400);
+                $("#main-container").animate({ marginLeft: '+=56px' }, 400);
                 $(this).css({
                     color: "#000"
                 });

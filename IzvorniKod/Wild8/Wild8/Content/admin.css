@@ -102,6 +102,14 @@ a > span.glyphicon {
     padding-left: 3px;
 }
 
-.container-fluid{
+#main-container{
     margin-left: 40px;
 }
+
+#orders-badge{
+    position: absolute;
+    z-index: 100;
+    left: 2px;
+    top: 110px;
+    background-color: crimson;
+    }
