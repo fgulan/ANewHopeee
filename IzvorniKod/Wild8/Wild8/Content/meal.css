@@ -48,3 +48,11 @@ ul{
 .portfolio-item {
     margin-bottom: 25px;
 }
+.col-md-6 > .panel-default{
+    margin-top: 5px;
+}
+
+.count{
+    margin-top: 15px;
+    margin-left: 5px;
+}
