@@ -34,13 +34,13 @@
                     {
                         <li>
                             <!--Every radio buttton has to have the same name, all names are defirented with meal id-->
-                            <input type="radio" name="@("Type" + item.Meal.MealID)" checked="checked" value="@(type.Price + "#" + type.MealTypeName)">@type.MealTypeName
+                            <input type="radio" name="@("Type" + item.Meal.MealID)" checked="checked" value="@(type.Price + "#" + type.MealTypeName)"> @type.MealTypeName
                         </li>
                     }
                     else
                     {
                         <li>
-                            <input type="radio" name="@("Type" + item.Meal.MealID)" value="@(type.Price + "#" + type.MealTypeName)">@type.MealTypeName
+                            <input type="radio" name="@("Type" + item.Meal.MealID)" value="@(type.Price + "#" + type.MealTypeName)"> @type.MealTypeName
                         </li>
                     }
                 }

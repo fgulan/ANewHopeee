@@ -29,6 +29,7 @@ namespace Wild8.Controllers
             {
                 return HttpNotFound();
             }
+            meal.Comments = meal.Comments.OrderByDescending(item => item.CommentDate).ToList();
             MealWithPrice mwp = new MealWithPrice()
             {
                 Meal = meal,
