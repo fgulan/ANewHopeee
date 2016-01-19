@@ -27,6 +27,16 @@ nav.sidebar a#justify-icon {
     font-size: 24px;
     font-style: normal;
 }
+#meal-menu, #employee-menu, #employee-list, #info-menu{
+    padding-left:0;
+}
+#info-menu{
+    margin-left:0;
+}
+
+#statistic-export-btn{
+    margin-bottom:10px;
+}
 
 nav.sidebar a.logout-icon {
     outline: 0;

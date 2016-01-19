@@ -33,8 +33,11 @@
         
     </script>
 }
+@section Styles{
+    <link rel="stylesheet" type="text/css" href="~/Content/cart.css" />
+}
 
-<div id="dvCategoryResults" class="container" style="padding-top: 75px;">
+<div id="dvCategoryResults" class="container">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -49,7 +52,7 @@
                         <th>Veličina</th>
                         <th>Količina</th>
                         <th>Dodaci</th>
-                        <th align="right">Cijena</th>
+                        <th class="pull-right">Cijena</th>
                     </tr>
                     </thead>
 
@@ -126,7 +129,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="Accept"></label>
                             <div class="trebamiime">
-                                <button name="accept" id="make-order-btn" class="btn btn-primary" data-url="@Url.Action("Order","Admin")">Potvrdi narudžbu</button>
+                                <button name="accept" id="make-order-btn" class="btn btn-success" data-url="@Url.Action("Order","Admin")">Potvrdi narudžbu</button>
                             </div>
                         </div>
                     </fieldset>
