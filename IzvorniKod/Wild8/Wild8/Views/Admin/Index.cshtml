@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin page</title>
+    <title>Upravljačka ploča</title>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="~/images/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="~/Scripts/sidebar_expandable.js"></script>
     <script type='text/javascript' src='//code.jquery.com/ui/1.12.0-beta.1/jquery-ui.min.js'></script>
 
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-dialog.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-dialog.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-fileinput/css/fileinput.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -32,28 +32,24 @@
 </head>
 <body>
     <nav class='sidebar sidebar-menu-collapsed'>
-        <a  id='justify-icon'>
+        <a id='justify-icon'>
             <span class='glyphicon glyphicon-align-justify'></span>
         </a>
         <div id="employee-info" data-employee-id="@Model.EmployeeID">
-            <h6 style="font-size:13px;">@if (Model.AdminRights)
+            <h6 style="font-size:13px;">
+                @if (Model.AdminRights)
             {
-                @(Model.FirstName.Substring(0, 1) + ". " + Model.LastName.Substring(0, 1) + ".")
-            }
-            else
-            {
-                @(Model.FirstName.Substring(0, 1) + ". " + Model.LastName.Substring(0, 1) + ".")
-            }                     
-             </h6>                  
+                    @(Model.FirstName.Substring(0, 1) + ". " + Model.LastName.Substring(0, 1) + ".")
+                }
+                else
+                {
+                    @(Model.FirstName.Substring(0, 1) + ". " + Model.LastName.Substring(0, 1) + ".")
+                }
+            </h6>
         </div>
-
-
-
-
-
         <ul>
             <li class="active">
-                <a class='expandable'  title='Narudžbe' data-toggle="tab" id="orders-menu"
+                <a class='expandable' title='Narudžbe' data-toggle="tab" id="orders-menu"
                    data-url="@Url.Action("Orders", "Admin")">
                     <span class="badge pull-right" id="orders-badge">0</span>
                     <span class='glyphicon glyphicon-tasks collapsed-element'></span>
@@ -63,7 +59,7 @@
             </li>
 
             <li>
-                <a class='expandable'  title='Jela' data-toggle="tab" id="meal-menu" data-url="@Url.Action("AddEditDelMenu", "Admin")">
+                <a class='expandable' title='Jela' data-toggle="tab" id="meal-menu" data-url="@Url.Action("AddEditDelMenu", "Admin")">
                     <span class='glyphicon glyphicon-cutlery collapsed-element'></span>
                     <span class='expanded-element'>Jela</span>
                 </a>
@@ -73,13 +69,13 @@
             @if (Model.AdminRights)
             {
                 <li>
-                    <a class='expandable'  title='Statistika' data-toggle="tab" id="statistic-menu" data-url="@Url.Action("Statistic", "Admin")">
+                    <a class='expandable' title='Statistika' data-toggle="tab" id="statistic-menu" data-url="@Url.Action("Statistic", "Admin")">
                         <span class='glyphicon glyphicon-stats collapsed-element'></span>
                         <span class='expanded-element'>Statistika</span>
                     </a>
                 </li>
                 <li>
-                    <a class='expandable'  title='Djelatnici' data-toggle="tab" id="employee-menu" data-url="@Url.Action("EmployeeMenu", "Admin")">
+                    <a class='expandable' title='Djelatnici' data-toggle="tab" id="employee-menu" data-url="@Url.Action("EmployeeMenu", "Admin")">
                         <span class='glyphicon glyphicon-user collapsed-element'></span>
                         <span class='expanded-element'>Djelatnici</span>
                     </a>
@@ -94,23 +90,18 @@
             }
 
         </ul>
-        <a  id='logout' class="logout-icon" title='Odjava' data-toggle="tab" data-url="@Url.Action("Logout", "Admin")" data-index-url="@Url.Action("Index", "Index")">
+        <a id='logout' class="logout-icon" title='Odjava' data-toggle="tab" data-url="@Url.Action("Logout", "Admin")" data-index-url="@Url.Action("Index", "Index")">
             <span class='glyphicon glyphicon-off collapsed-element'></span>
             <span class='expanded-element'>Odjava</span>
         </a>
 
     </nav>
-    
-
-        <div id="main-container" class="container-fluid col-fluid main-content">
-            @{
-                Html.RenderAction("Orders", "Admin");
-            }
-        </div>
 
 
-
-
-    
+    <div id="main-container" class="container-fluid col-fluid main-content">
+        @{
+            Html.RenderAction("Orders", "Admin");
+        }
+    </div>
 </body>
 </html>

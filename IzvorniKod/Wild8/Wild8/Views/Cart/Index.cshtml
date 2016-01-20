@@ -30,7 +30,7 @@
             max: jQuery.validator.format("Please enter a value less than or equal to {0}."),
             min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
         });
-        
+
     </script>
 }
 @section Styles{
@@ -46,33 +46,33 @@
             <div class="panel-body">
                 <table class="table table-condensed" style="border-collapse: collapse;">
                     <thead id="head-underline">
-                    <tr>
-                        <th>Slika jela</th>
-                        <th>Naziv jela</th>
-                        <th>Veličina</th>
-                        <th>Količina</th>
-                        <th>Dodaci</th>
-                        <th class="pull-right">Cijena</th>
-                    </tr>
+                        <tr>
+                            <th>Slika jela</th>
+                            <th>Naziv jela</th>
+                            <th>Veličina</th>
+                            <th>Količina</th>
+                            <th>Dodaci</th>
+                            <th class="pull-right">Cijena</th>
+                        </tr>
                     </thead>
 
                     <tbody class="displayed" id="orders-list">
-                    @{
-                        Html.RenderPartial("CartItemsList", Model.Cart.Items);
-                    }
+                        @{
+                            Html.RenderPartial("CartItemsList", Model.Cart.Items);
+                        }
                     </tbody>
                 </table>
                 <div class="panel-body">
                     <table class="table table-condensed" style="border-collapse: collapse;">
                         <thead id="head-underline">
-                        <tr>
-                            <th>Ukupno</th>
-                        </tr>
+                            <tr>
+                                <th>Ukupno</th>
+                            </tr>
                         </thead>
                         <tbody class="displayed">
-                        <tr>
-                            <td id="total-price">@Model.Cart.TotalPrice HRK</td>
-                        </tr>
+                            <tr>
+                                <td id="total-price">@Model.Cart.TotalPrice HRK</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
