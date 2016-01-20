@@ -545,9 +545,8 @@ namespace Wild8.Controllers
         //  Statistic File
         ////////////////////////////////////
         [HttpGet]
-        public ActionResult Report(string reportType)
+        public void Report(string reportType)
         {
-            if (LoggedOut()) return HttpNotFound();
             UTF8Encoding encoding = new UTF8Encoding();
             byte[] contentAsBytes = encoding.GetBytes(GenerateReport());
 
@@ -558,8 +557,41 @@ namespace Wild8.Controllers
             this.HttpContext.Response.OutputStream.Write(contentAsBytes, 0, contentAsBytes.Length);
             this.HttpContext.Response.OutputStream.Flush();
             this.HttpContext.Response.End();
+        }
 
-            return View();
+        [HttpPost]
+        public void DownloadOrder(string jsonOrder)
+        {
+            Order order = JsonConvert.DeserializeObject<Order>(jsonOrder);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Klijent: ").Append(order.Name).AppendLine()
+              .Append("Email: ").Append(order.Email).AppendLine()
+              .Append("Adresa: ").Append(order.Address).AppendLine()
+              .Append("Datum narudžbe: ").Append(order.OrderDate).AppendLine()
+              .Append("Ukupna cijena ").Append(order.TotalPrice).AppendLine();
+
+            foreach(var orderDetail in order.OrderDetails)
+            {
+                sb.Append("####################################").AppendLine()
+                    .Append("\tJelo: ").Append(orderDetail.MealName).AppendLine()
+                    .Append("\tVeličina: ").Append(orderDetail.MealType).AppendLine()
+                    .Append("\tKoličina: ").Append(orderDetail.Count).AppendLine()
+                    .Append("Dodaci: ");
+                foreach (var addOn in orderDetail.OrderMealAddOns)
+                {
+                    sb.Append("\t\t + ").Append(addOn.AddOnName).AppendLine();
+                }
+            }
+            
+            this.HttpContext.Response.ContentType = "application/octet-stream";
+            this.HttpContext.Response.AddHeader("Content-Disposition", "filename=" + "statistika.txt");
+            this.HttpContext.Response.AddHeader("Content-Length", sb.Length.ToString());
+            this.HttpContext.Response.Buffer = true;
+            this.HttpContext.Response.Clear();
+            this.HttpContext.Response.Write(sb.ToString());
+            this.HttpContext.Response.Flush();
+            this.HttpContext.Response.End();
         }
 
         private string GenerateReport()
