@@ -1,37 +1,37 @@
-﻿using System;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using Microsoft.AspNet.SignalR;
+using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mime;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.SignalR;
 using Wild8.DAL;
-using Wild8.Models;
-using Wild8.Models.ModelViews;
-using Wild8.Utils;
-using Newtonsoft.Json;
 using Wild8.Hubs;
 using Wild8.Hubs.Util;
+using Wild8.Models;
+using Wild8.Models.ModelViews;
 using Wild8.StaticInfo;
-using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
-using System.Configuration;
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-using System.Text;
+using Wild8.Utils;
 
 namespace Wild8.Controllers
 {
     public class AdminController : Controller
     {
         private RestaurauntContext db = new RestaurauntContext();
-        CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]);
+        private CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]);
 
         private bool LoggedOut()
         {
@@ -583,7 +583,7 @@ namespace Wild8.Controllers
                 builder.Append(", ukupna cijena: ");
                 builder.Append(order.TotalPrice);
                 builder.Append(" kn, zaposlenik: ");
-                builder.Append(order.Employee);
+                builder.Append(order.EmpolyeeID);
                 builder.AppendLine();
             }
 
@@ -797,7 +797,7 @@ namespace Wild8.Controllers
         //  Static info
         ////////////////////////////////////
         [HttpGet]
-        public ActionResult StaticInfo() 
+        public ActionResult StaticInfo()
         {
             if (LoggedOut()) return HttpNotFound();
             return PartialView("StaticInfoViews/StaticInfo", RestaurauntInfo.Instance);
@@ -947,7 +947,7 @@ namespace Wild8.Controllers
             info.RestStartM = RestStartM;
             info.RestEndH = RestEndH;
             info.RestEndM = RestEndM;
-            info.MinimalOrderPrice = Decimal.Parse(MinimalOrderPrice.Replace('.',','));
+            info.MinimalOrderPrice = Decimal.Parse(MinimalOrderPrice.Replace('.', ','));
             info.SaveData();
             return Content("Informacije uspješno spremljene.", MediaTypeNames.Text.Plain);
         }
