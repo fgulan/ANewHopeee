@@ -134,15 +134,6 @@ namespace Wild8.Controllers
         }
 
         [HttpGet]
-        public ActionResult SaveOrder(string order)
-        {
-            Order converted = JsonConvert.DeserializeObject<Order>(order);
-            GenerateFile(order, "nesto.txt");
-
-            return Redirect("/Admin");
-        }
-
-        [HttpGet]
         public ActionResult AddEditDelMenu()
         {
             if (LoggedOut()) return HttpNotFound();
@@ -550,31 +541,77 @@ namespace Wild8.Controllers
             return Content("Kategorija obrisana");
         }
 
-        private ActionResult GenerateFile(string content, string fileName)
+        ////////////////////////////////////
+        //  Statistic File
+        ////////////////////////////////////
+        [HttpGet]
+        public void Report(string reportType)
         {
             UTF8Encoding encoding = new UTF8Encoding();
-            byte[] contentAsBytes = encoding.GetBytes(content);
+            byte[] contentAsBytes = encoding.GetBytes(GenerateReport());
 
             this.HttpContext.Response.ContentType = "application/octet-stream";
-            this.HttpContext.Response.AddHeader("Content-Disposition", "filename=" + fileName);
+            this.HttpContext.Response.AddHeader("Content-Disposition", "filename=" + "statistika.txt");
             this.HttpContext.Response.Buffer = true;
             this.HttpContext.Response.Clear();
             this.HttpContext.Response.OutputStream.Write(contentAsBytes, 0, contentAsBytes.Length);
             this.HttpContext.Response.OutputStream.Flush();
             this.HttpContext.Response.End();
-
-            return View();
         }
 
-        ////////////////////////////////////
-        //  Statistic File
-        ////////////////////////////////////
         [HttpGet]
-        public ActionResult Report(string reportType)
+        public void DownloadOrder(string username, string orderDate)
         {
-            if (LoggedOut()) return HttpNotFound();
+            string strOrder = null;
+            foreach(var ord in OrdersSet.GetInstance().GetSet())
+            {
+                if(ord.Contains(username))
+                {
+                    Order parsedOrder = JsonConvert.DeserializeObject<Order>(ord);
+                    DateTime orderTime = DateTime.Parse(orderDate);
 
-            return GenerateFile(GenerateReport(), "statistika.txt");
+                    if(Equals(orderTime, parsedOrder.OrderDate))
+                    {
+                        strOrder = ord;
+                        break;
+                    }
+                }
+            }
+
+            if (strOrder == null) return;
+
+            Order order = JsonConvert.DeserializeObject<Order>(strOrder);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Klijent: ").Append(order.Name).AppendLine()
+              .Append("Email: ").Append(order.Email).AppendLine()
+              .Append("Adresa: ").Append(order.Address).AppendLine()
+              .Append("Datum narudžbe: ").Append(order.OrderDate).AppendLine()
+              .Append("Ukupna cijena ").Append(order.TotalPrice).AppendLine();
+
+            foreach(var orderDetail in order.OrderDetails)
+            {
+                sb.Append("####################################").AppendLine()
+                    .Append("\tJelo: ").Append(orderDetail.MealName).AppendLine()
+                    .Append("\tVeličina: ").Append(orderDetail.MealType).AppendLine()
+                    .Append("\tKoličina: ").Append(orderDetail.Count).AppendLine()
+                    .Append("\tDodaci: ").AppendLine();
+                foreach (var addOn in orderDetail.OrderMealAddOns)
+                {
+                    sb.Append("\t\t + ").Append(addOn.AddOnName).AppendLine();
+                }
+            }
+
+            UTF8Encoding encoding = new UTF8Encoding();
+            byte[] contentAsBytes = encoding.GetBytes(sb.ToString());
+
+            this.HttpContext.Response.ContentType = "application/octet-stream";
+            this.HttpContext.Response.AddHeader("Content-Disposition", "filename=" + "narudrba.txt");
+            this.HttpContext.Response.Buffer = true;
+            this.HttpContext.Response.Clear();
+            this.HttpContext.Response.OutputStream.Write(contentAsBytes, 0, contentAsBytes.Length);
+            this.HttpContext.Response.OutputStream.Flush();
+            this.HttpContext.Response.End();
         }
 
         private string GenerateReport()

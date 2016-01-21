@@ -58,7 +58,7 @@ function newOrderAdded(order) {
 
 function printOnOrderMenu(order, dsOrder) {
     var hub = $.connection.OrderHub;
-    var orderTemplate = $(generateOrderTemplate(dsOrder));
+    var orderTemplate = $(generateOrderTemplate(dsOrder, order));
     orderTemplate.find(".accept-btn").on('click', function () {
         var url = $(this).data('url');
         var employeeID = $(document).find("#employee-info").data("employee-id");
@@ -152,10 +152,11 @@ function printOnOrderMenu(order, dsOrder) {
             }]
         });
     });
-    orderTemplate.find(".save-btn").on('click', function () {
-        var uri = "/Admin/SaveOrder?order=" + order;
-        encodeURI(uri);
-        window.location = uri;
+    orderTemplate.find(".download-btn").on('click', function () {
+        var date = dsOrder['OrderDate'];
+        date = date.split('\+')[0];
+        var url = "/Admin/DownloadOrder?username=" + dsOrder['Name'] + "&orderDate=" + date;
+        window.location = encodeURI(url);
     });
     orderTemplate.find(".open-btn").on('click', function() {
         var colapsable = orderTemplate.find(".collapse");
@@ -189,10 +190,10 @@ function populateOrderStorage(orders) {
     }
 }
 
-function generateOrderTemplate(order) {
-    var orderTamplate = $(getOrderTemplate()); //Get template
+function generateOrderTemplate(order, stringOrder) {
+    var orderTamplate = $(getOrderTemplate(stringOrder)); //Get template
 
-    var orderHeading = "<h5>Ime i prezime: " + order['Name'] + " | E-Mail: " + order['Email'] + " | Adresa: " + order['Address'] + " | Tel: " + order['PhoneNumber'] + " | Cijena: " + order['TotalPrice'] + "</h5>";
+    var orderHeading = "<h5>Adresa: " + order['Address'] + " | Tel: " + order['PhoneNumber'] + " | Cijena: " + order['TotalPrice'] + " | Klijent: " + order["Name"] + " | Email: " + order["Email"]  + "</h5>";
     var header = orderTamplate.find(".order-heading");
     header.append(orderHeading);
     var orderMealList = orderTamplate.find(".order-details");
@@ -207,7 +208,7 @@ function generateOrderTemplate(order) {
 function fillMealList(meal) {
     var mealTamplate = $(getMealTemplate());
 
-    var mealHeading = "Jelo: " + meal['MealName'] + " | Veličina: " + meal["MealType"] + " | Broj narudžbi: " + meal["Count"];
+    var mealHeading = "Jelo: " + meal["MealName"] + " | Veličina: " + meal["MealType"] + " | Broj narudžbi: " + meal["Count"];
     mealTamplate.find(".order-meal-name").html(mealHeading);
     var addons = meal['OrderMealAddOns'];
     for(var i = 0; i < addons.length; i++){
@@ -216,7 +217,7 @@ function fillMealList(meal) {
     return mealTamplate;
 }
 
-function getOrderTemplate() {
+function getOrderTemplate(order) {
     return '<div class="panel panel-default">' +
         '<div class="panel-heading">' +
         '<div class="panel-title pull-left">' +
@@ -225,7 +226,7 @@ function getOrderTemplate() {
         '<div class="btn-group pull-right">' +
         '<button type="button" class="btn btn-sm btn-success accept-btn" data-url="/Admin/AcceptOrder">Potvrdi</button>' +
         '<button type="button" class="btn btn-sm btn-danger refuse-btn" data-url="/Admin/RefuseOrder">Odbij</button>' +
-        '<button type="button" class="btn btn-sm btn-primary save-btn" data-url="/Admin/SaveOrder">Spremi Podatke Narudžbe</button>' +
+        '   <button type="submit" class="btn btn-sm btn-default download-btn" data-url="/Admin/DownloadOrder">Spremi</button>' +
         '<button type="button" class="btn btn-sm btn-default open-btn">' +
         '<span class="glyphicon glyphicon-menu-down open-icon"></span>&nbsp;' +
         '</button>' +
@@ -240,6 +241,7 @@ function getOrderTemplate() {
         '</div>' +
         '<div class="panel-footer user-order-note">' +
         '</div>' +
+        '<iframe class="orderIframe" style="display:none;"></iframe>'+
         '</div>';
 }
 
