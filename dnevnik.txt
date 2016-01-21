@@ -1,2 +1,18 @@
-Dnevnik sastajanja
-
+Sastanak br.1: 16.10.2015.
+Prisutni: Šariæ Fredi, Gulan Filip, Janjiæ Matej, Kelemen Jan, Kostreševiæ Kenneth, Lateèki Domagoj, Trèak Tin.
+Sadržaj sastanka: upoznavanje èlanova tima, razgovor o zadatku i okvirna podjela poslova.
+Sastanak br. 2: 24.10.2015.
+Prisutni: Šariæ Fredi, Gulan Filip, Janjiæ Matej, Kostreševiæ Kenneth, Lateèki Domagoj, Trèak Tin.
+Sadržaj sastanka: definiranje projektnog zadatka, izrada baze podataka.
+Sastanak br. 3: 31.10.2015.
+Prisutni: Šariæ Fredi, Kostreševiæ Kenneth, Lateèki Domagoj, Trèak Tin.
+Sadržaj sastanka: pisanje funkcionalnih zahtjeva, dogovor oko izgleda stranice i osnovnih funkcionalnosti.
+Sastanak br. 4: 04.11.2015.
+Prisutni: Šariæ Fredi, Gulan Filip, Janjiæ Matej, Kelemen Jan, Kostreševiæ Kenneth, Lateèki Domagoj, Trèak Tin.
+Sadržaj sastanka: detaljan opis web stranice i usluga sustava. 
+Sastanak br. 5: 15.12.2015.
+Prisutni: Šariæ Fredi, Gulan Filip, Janjiæ Matej, Kelemen Jan, Kostreševiæ Kenneth, Lateèki Domagoj, Trèak Tin.
+Sadržaj sastanka: dogovor oko poglavlja 6.4. do 7.6. dokumentacije.
+Sastanak br. 6: 08.01.2016.
+Prisutni: Šariæ Fredi, Gulan Filip, Janjiæ Matej, Kelemen Jan, Kostreševiæ Kenneth, Lateèki Domagoj, Trèak Tin.
+Sadržaj sastanka: završni dogovori i izmjene.
