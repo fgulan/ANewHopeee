@@ -30,7 +30,7 @@ namespace Wild8.Controllers
             RestaurauntInfo instance = RestaurauntInfo.Instance;
             if (instance.RestourantGrade == -1)
             {
-                instance.RestourantGrade = Convert.ToDecimal(db.Comments.Average(c => c.Grade));
+                instance.RestourantGrade = Math.Round(Convert.ToDecimal(db.Comments.Average(c => c.Grade)), 2);
                 instance.SaveData();
             }
 

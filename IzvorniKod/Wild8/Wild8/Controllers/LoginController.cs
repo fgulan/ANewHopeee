@@ -39,6 +39,11 @@ namespace Wild8.Controllers
                 return false;
             }
 
+            if (!employee.isEmployed)
+            {
+                return false;
+            }
+
             if (TextUtils.SHA256Hash(password) != employee.Password)
             {
                 return false;
