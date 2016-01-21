@@ -134,6 +134,15 @@ namespace Wild8.Controllers
         }
 
         [HttpGet]
+        public ActionResult SaveOrder(string order)
+        {
+            Order converted = JsonConvert.DeserializeObject<Order>(order);
+            GenerateFile(order, "nesto.txt");
+
+            return Redirect("/Admin");
+        }
+
+        [HttpGet]
         public ActionResult AddEditDelMenu()
         {
             if (LoggedOut()) return HttpNotFound();
@@ -541,18 +550,13 @@ namespace Wild8.Controllers
             return Content("Kategorija obrisana");
         }
 
-        ////////////////////////////////////
-        //  Statistic File
-        ////////////////////////////////////
-        [HttpGet]
-        public ActionResult Report(string reportType)
+        private ActionResult GenerateFile(string content, string fileName)
         {
-            if (LoggedOut()) return HttpNotFound();
             UTF8Encoding encoding = new UTF8Encoding();
-            byte[] contentAsBytes = encoding.GetBytes(GenerateReport());
+            byte[] contentAsBytes = encoding.GetBytes(content);
 
             this.HttpContext.Response.ContentType = "application/octet-stream";
-            this.HttpContext.Response.AddHeader("Content-Disposition", "filename=" + "statistika.txt");
+            this.HttpContext.Response.AddHeader("Content-Disposition", "filename=" + fileName);
             this.HttpContext.Response.Buffer = true;
             this.HttpContext.Response.Clear();
             this.HttpContext.Response.OutputStream.Write(contentAsBytes, 0, contentAsBytes.Length);
@@ -560,6 +564,17 @@ namespace Wild8.Controllers
             this.HttpContext.Response.End();
 
             return View();
+        }
+
+        ////////////////////////////////////
+        //  Statistic File
+        ////////////////////////////////////
+        [HttpGet]
+        public ActionResult Report(string reportType)
+        {
+            if (LoggedOut()) return HttpNotFound();
+
+            return GenerateFile(GenerateReport(), "statistika.txt");
         }
 
         private string GenerateReport()

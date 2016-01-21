@@ -152,6 +152,11 @@ function printOnOrderMenu(order, dsOrder) {
             }]
         });
     });
+    orderTemplate.find(".save-btn").on('click', function () {
+        var uri = "/Admin/SaveOrder?order=" + order;
+        encodeURI(uri);
+        window.location = uri;
+    });
     orderTemplate.find(".open-btn").on('click', function() {
         var colapsable = orderTemplate.find(".collapse");
         var icon = orderTemplate.find(".open-icon");
@@ -187,7 +192,7 @@ function populateOrderStorage(orders) {
 function generateOrderTemplate(order) {
     var orderTamplate = $(getOrderTemplate()); //Get template
 
-    var orderHeading = "<h5>Adresa: " + order['Address'] + " | Tel: " + order['PhoneNumber'] + " | Cijena: " + order['TotalPrice'] + "</h5>";
+    var orderHeading = "<h5>Ime i prezime: " + order['Name'] + " | E-Mail: " + order['Email'] + " | Adresa: " + order['Address'] + " | Tel: " + order['PhoneNumber'] + " | Cijena: " + order['TotalPrice'] + "</h5>";
     var header = orderTamplate.find(".order-heading");
     header.append(orderHeading);
     var orderMealList = orderTamplate.find(".order-details");
@@ -220,6 +225,7 @@ function getOrderTemplate() {
         '<div class="btn-group pull-right">' +
         '<button type="button" class="btn btn-sm btn-success accept-btn" data-url="/Admin/AcceptOrder">Potvrdi</button>' +
         '<button type="button" class="btn btn-sm btn-danger refuse-btn" data-url="/Admin/RefuseOrder">Odbij</button>' +
+        '<button type="button" class="btn btn-sm btn-primary save-btn" data-url="/Admin/SaveOrder">Spremi Podatke Narudžbe</button>' +
         '<button type="button" class="btn btn-sm btn-default open-btn">' +
         '<span class="glyphicon glyphicon-menu-down open-icon"></span>&nbsp;' +
         '</button>' +
