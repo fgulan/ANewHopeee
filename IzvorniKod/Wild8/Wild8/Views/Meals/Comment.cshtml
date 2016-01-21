@@ -1,0 +1,47 @@
+﻿@model Comment
+
+<article class="row">
+    <div class="col-md-10 col-sm-10">
+        <div class="panel panel-default arrow left">
+            <div class="panel-body">
+                <header class="text-right">
+                    <div class="comment-user">
+                        <i class="fa fa-user">@Html.DisplayFor(m => m.Username)</i>
+                    </div>
+                    <time class="comment-date" datetime="16-12-2014 01:05">
+                        <i class="fa fa-clock-o">@Html.DisplayFor(m => m.CommentDate)</i>
+                    </time>
+                </header>
+                <div class="comment-post">
+                    <p style="word-wrap:break-word;">
+                        @Html.DisplayFor(m => m.Message)
+                    </p>
+                </div>
+                <div class="pull-right">
+                    <div class="acidjs-rating-stars acidjs-rating-disabled">
+                        @if (Model.Grade == 5)
+                        {<input disabled="disabled" checked type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-0" value="5" /><label for="group-@Model.CommentID-0"></label> }
+                        else
+                        { <input disabled="disabled" type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-0" value="5" /><label for="group-@Model.CommentID-0"></label> }
+                        @if (Model.Grade == 4)
+                        {<input disabled="disabled" checked type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-1" value="4" /><label for="group-@Model.CommentID-1"></label> }
+                        else
+                        { <input disabled="disabled" type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-1" value="4" /><label for="group-@Model.CommentID-1"></label> }
+                        @if (Model.Grade == 3)
+                        {<input disabled="disabled" checked type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-2" value="3" /><label for="group-@Model.CommentID-2"></label> }
+                        else
+                        { <input disabled="disabled" type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-2" value="3" /><label for="group-@Model.CommentID-2"></label> }
+                        @if (Model.Grade == 2)
+                        {<input disabled="disabled" checked type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-3" value="2" /><label for="group-@Model.CommentID-3"></label> }
+                        else
+                        { <input disabled="disabled" type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-3" value="2" /><label for="group-@Model.CommentID-3"></label> }
+                        @if (Model.Grade == 1)
+                        {<input disabled="disabled" checked type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-4" value="1" /><label for="group-@Model.CommentID-4"></label> }
+                        else
+                        { <input disabled="disabled" type="radio" name="group-@Model.CommentID" id="group-@Model.CommentID-4" value="1" /><label for="group-@Model.CommentID-4"></label> }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

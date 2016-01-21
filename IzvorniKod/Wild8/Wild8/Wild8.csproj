@@ -1,0 +1,727 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8852848A-5392-4142-8AE8-0093011EDE20}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Wild8</RootNamespace>
+    <AssemblyName>Wild8</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CloudinaryDotNet, Version=1.0.23.0, Culture=neutral, PublicKeyToken=c8234dc617ae7841, processorArchitecture=MSIL">
+      <HintPath>..\packages\CloudinaryDotNet.1.0.23\lib\net40\CloudinaryDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.Triggers, Version=5.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.Triggers.5.4.0\lib\net45\EntityFramework.Triggers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.TypedOriginalValues, Version=0.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.TypedOriginalValues.0.3.1\lib\net40\EntityFramework.TypedOriginalValues.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=6.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.6.2.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGrid, Version=6.3.4.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.6.3.4\lib\SendGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGrid.SmtpApi, Version=1.3.1.0, Culture=neutral, PublicKeyToken=2ae73662c35d80e4, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.SmtpApi.1.3.1\lib\net40\SendGrid.SmtpApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGridMail, Version=6.3.4.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.6.3.4\lib\SendGridMail.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\ContactsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndexController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MealsController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="DAL\RestaurauntContext.cs" />
+    <Compile Include="DAL\RestaurauntInitializer.cs" />
+    <Compile Include="DAL\SessionExtension.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Hubs\OrderHub.cs" />
+    <Compile Include="DAL\OrdersSet.cs" />
+    <Compile Include="Hubs\Utils\ErrorHandlingPipelineModule.cs" />
+    <Compile Include="Models\AddOn.cs" />
+    <Compile Include="Models\AdminModels\OrderModelView.cs" />
+    <Compile Include="Models\Cart\Cart.cs" />
+    <Compile Include="Models\Cart\CartItem.cs" />
+    <Compile Include="Models\Cart\CartViewModel.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Meal.cs" />
+    <Compile Include="Models\MealAddOn.cs" />
+    <Compile Include="Models\MealType.cs" />
+    <Compile Include="Models\ModelViews\AddEditMealModelView.cs" />
+    <Compile Include="Models\ModelViews\HomePageModelView.cs" />
+    <Compile Include="Models\ModelViews\MenuModelView.cs" />
+    <Compile Include="Models\ModelViews\ModalViewModel.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\OrderInfo.cs" />
+    <Compile Include="Models\OrderMealAddOn.cs" />
+    <Compile Include="Models\StatisticsModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="StaticInfo\RestaurauntInfo.cs" />
+    <Compile Include="Utils\MealUtils.cs" />
+    <Compile Include="Utils\TextUtils.cs" />
+    <Compile Include="Utils\MailUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\admin.css" />
+    <Content Include="Content\bootstrap-dialog.css" />
+    <Content Include="Content\bootstrap-fileinput\css\fileinput.css" />
+    <Content Include="Content\bootstrap-fileinput\css\fileinput.min.css" />
+    <Content Include="Content\bootstrap-fileinput\img\loading-sm.gif" />
+    <Content Include="Content\bootstrap-fileinput\img\loading.gif" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cart.css" />
+    <Content Include="Content\contact_us.css" />
+    <Content Include="Content\login.css" />
+    <Content Include="Content\meal.css" />
+    <Content Include="Content\menu.css" />
+    <Content Include="Content\menu.min.css" />
+    <Content Include="Content\SharedLayout.css" />
+    <Content Include="Content\StarRating.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="images\carousel_images\Wild8_delivery.jpg" />
+    <Content Include="images\carousel_images\Wild8_interior.jpg" />
+    <Content Include="images\carousel_images\Wild8_sample_food.jpg" />
+    <Content Include="images\favicon.png" />
+    <Content Include="images\featurette_optional.jpg" />
+    <Content Include="images\featurette_restaurant.jpg" />
+    <Content Include="images\marketing_images\marketing_30min.jpg" />
+    <Content Include="images\marketing_images\marketing_satisfaction.png" />
+    <Content Include="images\marketing_images\marketing_veggie.jpg" />
+    <Content Include="images\owner.jpeg" />
+    <Content Include="images\owner_signature.png" />
+    <Content Include="images\owner_small.jpg" />
+    <Content Include="images\page-loader.gif" />
+    <Content Include="images\Spinners\coffieLoading.gif" />
+    <Content Include="images\wild8logo.png" />
+    <Content Include="images\wild8_favicon.png" />
+    <Content Include="Scripts\AddToCart.js" />
+    <Content Include="Scripts\bootstrap-dialog.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="App_Data\info.dat" />
+    <Content Include="Content\bootstrap-dialog.less" />
+    <None Include="Properties\PublishProfiles\Wild8 - Web Deploy.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\fileinput.js" />
+    <Content Include="Scripts\fileinput.min.js" />
+    <Content Include="Scripts\fileinput_locale_de.js" />
+    <Content Include="Scripts\fileinput_locale_es.js" />
+    <Content Include="Scripts\fileinput_locale_fr.js" />
+    <Content Include="Scripts\fileinput_locale_hu.js" />
+    <Content Include="Scripts\fileinput_locale_it.js" />
+    <Content Include="Scripts\fileinput_locale_LANG.js" />
+    <Content Include="Scripts\fileinput_locale_ru.js" />
+    <Content Include="Scripts\fileinput_locale_sr.js" />
+    <Content Include="Scripts\fileinput_locale_th.js" />
+    <Content Include="Scripts\fileinput_locale_uk.js" />
+    <Content Include="Scripts\fileinput_locale_zh.js" />
+    <Content Include="Scripts\HubScripts\ClientOrderScript.js" />
+    <Content Include="Scripts\HubScripts\LoginHub.js" />
+    <Content Include="Scripts\HubScripts\LogOutHub.js" />
+    <Content Include="Scripts\HubScripts\WorkerOrderScript.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.bootstrap-autohidingnavbar.min.js" />
+    <Content Include="Scripts\jquery.form.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\meal_view.js" />
+    <Content Include="Scripts\menu_view.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sidebar_expandable.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\admin_view.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\orderHub.js" />
+    <Content Include="Scripts\ViewScripts\Charts\amcharts.js" />
+    <Content Include="Scripts\ViewScripts\Charts\funnel.js" />
+    <Content Include="Scripts\ViewScripts\Charts\gantt.js" />
+    <Content Include="Scripts\ViewScripts\Charts\gauge.js" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIcon.gif" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconBlack.gif" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconH.gif" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconHBlack.gif" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectBig.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectBigBlack.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectBigBlackH.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectBigH.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectSmall.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectSmallBlack.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectSmallBlackH.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectSmallH.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundBig.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundBigBlack.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundBigBlackH.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundBigH.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundSmall.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundSmallBlack.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundSmallBlackH.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundSmallH.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\export.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\exportWhite.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\lens.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\lensWhite.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\lensWhite_old.png" />
+    <Content Include="Scripts\ViewScripts\Charts\images\lens_old.png" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\az.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\bg.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\de.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\es.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\fi.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\fo.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\fr.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\hr.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\hu.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\id.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\is.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\it.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\ja.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\lt.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\lv.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\mk.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\mn.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\mt.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\nl.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\no.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\pl.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\pt.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\ro.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\ru.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\rw.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\sk.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\so.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\th.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\tr.js" />
+    <Content Include="Scripts\ViewScripts\Charts\lang\zh.js" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern1.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern10.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern11.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern12.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern13.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern14.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern15.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern16.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern17.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern18.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern19.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern2.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern20.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern21.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern3.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern4.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern5.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern6.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern7.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern8.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\black\pattern9.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\chalk\pattern1.jpg" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\chalk\pattern1r.jpg" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\chalk\pattern2.jpg" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\chalk\pattern3.jpg" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\chalk\pattern4.jpg" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\chalk\pattern5.jpg" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\chalk\pattern6.jpg" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern1.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern10.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern11.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern12.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern13.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern14.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern15.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern16.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern17.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern18.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern19.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern2.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern20.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern21.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern3.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern4.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern5.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern6.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern7.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern8.png" />
+    <Content Include="Scripts\ViewScripts\Charts\patterns\white\pattern9.png" />
+    <Content Include="Scripts\ViewScripts\Charts\pie.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\dataloader.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\dataloader.min.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\gantt_json.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\gauge_json.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\map_json.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\pie_csv.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\pie_json.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\serial2_json.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\serial_csv.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\serial_json.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\serial_with_dynamic_graphs.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\stock_csv_data_and_events.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\lang\en.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\lang\fr.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\lang\lt.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\license.txt" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\export.config.advanced.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\export.config.default.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\funnel.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\gantt.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\gauge.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\images\bicycle.png" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\images\car.png" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\images\motorcycle.png" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\index.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\map.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\pie1.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\pie2.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\pie3.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\pie4.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\radar.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\serial1.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\serial2.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\serial3.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\stock.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\examples\xy.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\export.css" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\export.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\export.min.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\lang\de.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\lang\en.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\lang\fr.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\lang\lt.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\lang\pl.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\libs\blob.js\blob.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\libs\fabric.js\fabric.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\libs\fabric.js\fabric.min.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\libs\FileSaver.js\FileSaver.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\libs\FileSaver.js\FileSaver.min.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\libs\jszip\jszip.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\libs\jszip\jszip.min.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\libs\pdfmake\pdfmake.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\libs\pdfmake\pdfmake.min.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\libs\pdfmake\vfs_fonts.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\libs\xlsx\xlsx.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\libs\xlsx\xlsx.min.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\funnel.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\gantt.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\gauge.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\images\bicycle.png" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\images\car.png" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\images\motorcycle.png" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\index.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\map.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\pie1.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\pie2.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\pie3.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\radar.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\serial1.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\serial2.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\serial3.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\stock.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\examples\xy.html" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\license.txt" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\responsive.js" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\responsive.min.js" />
+    <Content Include="Scripts\ViewScripts\Charts\radar.js" />
+    <Content Include="Scripts\ViewScripts\Charts\serial.js" />
+    <Content Include="Scripts\ViewScripts\Charts\themes\black.js" />
+    <Content Include="Scripts\ViewScripts\Charts\themes\chalk.js" />
+    <Content Include="Scripts\ViewScripts\Charts\themes\dark.js" />
+    <Content Include="Scripts\ViewScripts\Charts\themes\light.js" />
+    <Content Include="Scripts\ViewScripts\Charts\themes\patterns.js" />
+    <Content Include="Scripts\ViewScripts\Charts\xy.js" />
+    <Content Include="Scripts\ViewScripts\Cart_View.js" />
+    <Content Include="Scripts\ViewScripts\Admin_View_Scripts\PhotoUploadPreview.js" />
+    <Content Include="Scripts\ViewScripts\login.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Content\comments.css" />
+    <Content Include="Content\comments.min.css" />
+    <Content Include="Content\homepage.css" />
+    <Content Include="Scripts\navbar_hide.js" />
+    <Content Include="Views\Admin\AddAddOn.cshtml" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectBig.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectBigBlack.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectBigBlackH.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectBigH.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectSmall.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectSmallBlack.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectSmallBlackH.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRectSmallH.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundBig.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundBigBlack.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundBigBlackH.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundBigH.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundSmall.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundSmallBlack.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundSmallBlackH.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\dragIconRoundSmallH.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\eraserIcon.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\eraserIconH.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\lens.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\lensWhite.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\pencilIcon.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\pencilIconH.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\xIcon.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\images\xIconH.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\readme.md" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\responsive\responsive.min.js.map" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\libs\pdfmake\pdfmake.min.js.map" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\libs\xlsx\LICENSE" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\libs\xlsx\xlsx.min.map" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\LICENSE" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\README.md" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\1.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\10.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\11.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\12.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\13.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\14.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\15.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\16.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\17.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\18.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\19.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\2.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\20.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\21.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\22.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\23.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\24.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\25.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\26.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\27.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\28.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\29.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\3.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\30.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\31.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\4.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\5.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\6.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\7.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\8.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\export\shapes\9.svg" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\data\gantt.json" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\data\gauge.json" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\data\map.json" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\data\MSFT.csv" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\data\MSFT_events.csv" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\data\pie.csv" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\data\pie.json" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\data\serial.csv" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\data\serial.json" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\data\serial2.json" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\examples\data\TXN.csv" />
+    <Content Include="Scripts\ViewScripts\Charts\plugins\dataloader\readme.md" />
+    <Content Include="Views\Admin\EditAddOn.cshtml" />
+    <Content Include="Views\Admin\AddCategory.cshtml" />
+    <Content Include="Views\Admin\AddEditDelMealsPartial.cshtml" />
+    <Content Include="Views\Admin\AddEmployeeForm.cshtml" />
+    <Content Include="Content\AddEmployeeFormStyle.css" />
+    <Content Include="Views\Admin\AddMeal.cshtml" />
+    <Content Include="Views\Admin\EditMeal.cshtml" />
+    <Content Include="Views\Admin\DeleteCategory.cshtml" />
+    <Content Include="Views\Admin\DelMeals.cshtml" />
+    <Content Include="Views\Admin\EditAddOnList.cshtml" />
+    <Content Include="Views\Admin\EditMealList.cshtml" />
+    <Content Include="Views\Admin\DelAddOns.cshtml" />
+    <Content Include="Views\Admin\EditCategory.cshtml" />
+    <Content Include="Views\Admin\EditCategoryList.cshtml" />
+    <Content Include="Views\Admin\Employee\EmployeeList.cshtml" />
+    <Content Include="Views\Admin\Employee\AddEmployee.cshtml" />
+    <Content Include="Views\Admin\Employee\EmployeeMenu.cshtml" />
+    <Content Include="Views\Admin\Employee\EditEmployee.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Comments\Index.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Meals\Details.cshtml" />
+    <Content Include="Views\Contacts\Index.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Meals\Comment.cshtml" />
+    <Content Include="Views\Menu\MealsList.cshtml" />
+    <Content Include="Views\Meals\Comments.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Cart\CartItemsList.cshtml" />
+    <Content Include="Views\Admin\Orders\Orders.cshtml" />
+    <Content Include="Views\Admin\Receipt.cshtml" />
+    <Content Include="Views\Admin\Statistic.cshtml" />
+    <Content Include="Views\Admin\DeleteModal.cshtml" />
+    <Content Include="Views\Cart\ThankYouMsg.cshtml" />
+    <Content Include="Views\Admin\StaticInfoViews\StaticInfo.cshtml" />
+    <Content Include="Views\Admin\StaticInfoViews\OwnerInfoForm.cshtml" />
+    <Content Include="Views\Admin\StaticInfoViews\RestaurantInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="images\Meals\" />
+    <Folder Include="Scripts\SharedScripts\" />
+    <Folder Include="Views\Index\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3028</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:3028/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

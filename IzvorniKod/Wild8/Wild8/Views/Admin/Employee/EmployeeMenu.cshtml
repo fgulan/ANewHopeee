@@ -1,0 +1,22 @@
+﻿<div class="container-fluid" id="employee-menu">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="btn-group">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        Djelatnici
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a class="employee-submenu" data-url="@Url.Action("AddEmployee", "Admin")" id="add-employee-menu">Dodaj djelatnika</a></li>
+                        <li><a class="employee-submenu" data-url="@Url.Action("EmployeeList","Admin")" id="employee-list-menu">Popis djelatnika</a></li>
+                        <li><a class="employee-submenu" data-url="@Url.Action("UnemployedList","Admin")" id="unemployed-list-menu">Bivši djelatnici</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body container-fluid" id="employee-content">
+            @{ Html.RenderAction("EmployeeList", "Admin"); }
+        </div>
+    </div>
+</div>

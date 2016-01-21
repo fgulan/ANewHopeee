@@ -1,0 +1,73 @@
+﻿@using Wild8.StaticInfo
+@model Wild8.Models.OrderInfo
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<body style="font-family: sans-serif;">
+    <div style="font-size: 12pt;">@RestaurauntInfo.Instance.RestaurauntName, @RestaurauntInfo.Instance.OwnerAddress, @RestaurauntInfo.Instance.OwnerCity</div><br>
+    <div style="font-size: 30pt; border-bottom: solid 1px darkgray;">Potvrda o narudžbi</div>
+    <br>
+    <p style="font-size: 18pt;">Poruka od restorana:<br>@Model.Message</p>
+
+    <div style="font-size: 25pt;">Sadržaj narudžbe:</div><br>
+
+    <table style="width: 100%; border-spacing: 0px;">
+        <tr>
+            <td style="border-bottom: solid 1px black;">Naziv</td>
+            <td style="border-bottom: solid 1px black; text-align: right;">Količina</td>
+        </tr>
+        @{bool lightColor = true; }
+        @foreach (var details in Model.Order.OrderDetails)
+            {
+                if (lightColor)
+                {
+                <tr style="background-color: lightgray;">
+                    <td>@(details.MealName) - @(details.MealType)</td>
+                    <td style="text-align: right;">@(details.Count)</td>
+                </tr>
+            }
+            else
+            {
+                <tr style="background-color: darkgray;">
+                    <td>@(details.MealName)</td>
+                    <td style="text-align: right;">@(details.Count)</td>
+                </tr>
+            }
+
+            lightColor = !lightColor;
+
+            foreach (var addon in details.OrderMealAddOns)
+            {
+                if (lightColor)
+                {
+                    <tr style="background-color: lightgray;">
+                        <td>+ @(addon.AddOnName)</td>
+                        <td style="text-align: right;">1</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr style="background-color: darkgray;">
+                        <td>+ @(addon.AddOnName)</td>
+                        <td style="text-align: right;">1</td>
+                    </tr>
+                }
+
+                lightColor = !lightColor;
+            }
+        }
+    </table>
+
+    <h3>Ukupno: @Model.Order.TotalPrice kn</h3>
+    <h3>Način plaćanja: Gotovina (dostavljaču)</h3>
+
+    <p><i>Napomena restoranu: @Model.Order.UserNote</i></p>
+    <br>
+    <p style="font-size: 15pt;">Adresa za dostavu:</p>
+    @Model.Order.Address<br>
+    <br>
+    <p style="font-size: 15pt;">Kontakt s restoranom:</p>
+    @RestaurauntInfo.Instance.OwnerPhone
+</body>
+</html>

@@ -1,0 +1,119 @@
+﻿@model Employee
+
+<div class="container-fluid">
+    @using (Html.BeginForm("EditEmployee", "Admin", FormMethod.Post, new { id = "edit-employee-form" }))
+    {
+        <div class="container-fluid">
+            <div class="form-horizontal">
+                <div class="row">
+                    @Html.HiddenFor(model => model.EmployeeID)
+
+                    <div class="form-group">
+                        @Html.Label("Lozinka:", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input name="Password" class="form-control text-box single-line" id="Password" type="password" value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Ime:", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Prezime:", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Email adresa:", new { @class = "control-label col-md-2", type = "email" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Telefonski broj:", new { @class = "control-label col-md-2", type = "tel" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Adresa:", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Grad:", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Poštanski broj:", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.PostCode, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Radno mjesto:", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Zaposlen:", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.isEmployed)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Administrator:", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.AdminRights)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"></label>
+                        <div class="text-center col-sm-10">
+                            <input class="btn btn-lg btn-success btn-block" id="editEmployeeBtn" type="submit" value="Spremi djelatnika">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="modal fade" id="modalInfoView" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 id="modal-header-label"></h4>
+                </div>
+                <div class="modal-body">
+                    <h5 id="modal-body-label"></h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Uredu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

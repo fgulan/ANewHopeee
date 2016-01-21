@@ -1,0 +1,94 @@
+﻿@model Wild8.StaticInfo.RestaurauntInfo
+@{ 
+    ViewBag.Title = Model.RestaurauntName + " | Kontaktirajte nas";
+}
+
+@section Scripts
+{
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript">
+            jQuery(function($)
+            {
+                function init_map1()
+                {
+                    var myLocation = new google.maps.LatLng(45.845660, 15.970159);
+                    var mapOptions = {
+                        center: myLocation,
+                        zoom: 16
+                    };
+                    var marker = new google.maps.Marker(
+                    {
+                        position: myLocation,
+                        title: "Restaurant Location"
+                    });
+                    var map = new google.maps.Map(document.getElementById("map1"),
+                        mapOptions);
+                    marker.setMap(map);
+                }
+                init_map1();
+            });
+    </script>
+    <script type="text/javascript">
+            $(function() {
+            $(".TimeDiv").each(function(index) {
+                var timeFrom = new Date();
+                timeFrom.setHours(@Model.RestStartH, @Model.RestStartM, 0, 0);
+
+                var timeTo = new Date();
+                timeTo.setHours(@Model.RestEndH, @Model.RestEndM, 0, 0);
+                var timeNow = new Date();
+                if (timeNow >= timeFrom && timeNow <= timeTo){
+                    $(this).show();
+                    $('#not_working').hide();
+                    }
+            });
+        });
+    </script>
+}
+
+@section Styles
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/contact_us.css" />
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <div class="panel panel-default">
+                    <div class="text-center header">Wild8</div>
+                    <div class="panel-body text-center">
+                        <h4>Lokacija</h4>
+                        <div>
+                            @Model.OwnerAddress
+                            <br /> @Model.OwnerCity
+                            <br /> @Model.OwnerPhone
+                            <br /> @Model.RestaurantEmail
+                            <br /> @Model.RestStartH:@Model.RestStartM
+                            - @Model.RestEndH:@Model.RestEndM
+                            <br />
+                            <div class="TimeDiv">Otvoreno</div>
+                            <div id="not_working">
+                                Zatvoreno
+                            </div>
+                        </div>
+                        <hr />
+                        <div id="map1" class="map">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="well well-sm">
+                <fieldset>
+                    <p class="lead" style="display: inline-block">
+                        <img id="owner-picture" class="img-responsive" src="images/owner_small.jpg">
+                        @Model.OwnerContactInfo
+                </fieldset>
+                <img id="owner-signature" class="img-responsive pull-right" src="images/owner_signature.png">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Meal>
+
+@{
+    Layout = null;
+}
+<div class="container-fluid" id="edit-meal-list">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>Popis jela</h3>
+        </div>
+        <div class="panel-body">
+            <div class="list-group">
+                @foreach (var item in Model)
+            {
+                    <button type="button" class="list-group-item edit-meal-btn" data-url="@Url.Action("EditMeal","Admin")" data-meal-id="@item.MealID">
+                        <span class="glyphicon glyphicon-edit pull-right" style="color:cornflowerblue;font-size:1.2em;"></span>
+                        @item.Name
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Wild8.Models.Comment>
+
+@{
+    ViewBag.Title = "Wild8 | Komentari";
+}
+
+@section Scripts
+{
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/meal_view.js"></script>
+    <script>
+        $('#collapseOne').on('show.bs.collapse', function () {
+            $('.panel-heading').animate(
+            {
+                backgroundColor: "#515151"
+            }, 500);
+        });
+
+        $('#collapseOne').on('hide.bs.collapse', function () {
+            $('.panel-heading').animate(
+            {
+                backgroundColor: "#00B4FF"
+            }, 500);
+        });
+
+    </script>
+}
+@section Styles
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/comments.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/StarRating.css" />
+}
+<!-- COMMENT SECTION -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="page-header" id="commentHeader">Komentari</h2>
+            <section class="comment-list">
+                <div id="comments">
+                    @{
+                        Html.RenderPartial("~/Views/Meals/Comments.cshtml", Model);
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" style="font-size: 100%">
+                    Komentiraj...
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body commentbox-style">
+                <form id="commentForm" data-url="@Url.Action("AddNewComment","Comments")">
+                    <div class="form-group">
+                        <label for="usr">Ime:</label>
+                        <input type="text" class="form-control" id="usr" name="Username" placeholder="Vaše ime..." maxlength="15" required autofocus="">
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Komentar:</label>
+                        <textarea class="form-control" rows="5" id="comment" name="Message" placeholder="Recite nam Vaše dojmove..."maxlength="512" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="rate">Ocjena: </label>
+                        <div class="stars-container">
+                            <div class="row lead">
+                                <div class="acidjs-rating-stars">
+                                    <input type="radio" name="Rating" checked="checked" id="star-1-0" value="5" /><label for="star-1-0"></label>
+                                    <input type="radio" name="Rating" id="star-1-1" value="4" /><label for="star-1-1"></label>
+                                    <input type="radio" name="Rating" id="star-1-2" value="3" /><label for="star-1-2"></label>
+                                    <input type="radio" name="Rating" id="star-1-3" value="2" /><label for="star-1-3"></label>
+                                    <input type="radio" name="Rating" id="star-1-4" value="1" /><label for="star-1-4"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" id="commentButton" data-toggle="collapse" data-target="#collapseOne" class="btn btn-lg btn-success btn-block" value="Pošalji komentar">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
