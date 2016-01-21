@@ -78,20 +78,20 @@ function printOnOrderMenu(order, dsOrder) {
                     if (msg == undefined || msg === "") {
                         dialogRef.getModalHeader().html("<h5 style='color: White'>Napišite neku poruku klijenut");
                     } else {
+                        //First remove modal and notify other employees then do the rest
+                        hub.server.orderProcessed(order); //Let the server know that order has been processed
+
+                        dialogRef.close();
+                        orderTemplate.slideUp(600, function () { orderTemplate.remove() });
+                        var oldOrderCount = parseInt($('#orders-badge').text());
+                        if (oldOrderCount > 0) {
+                            $("#orders-badge").html(oldOrderCount - 1);
+                        }
+
                         $.ajax({
                             type: 'POST',
                             url: url,
                             data: { orderJSON: order, employeeId: employeeID, message: msg },
-                            success: function() {
-                                dialogRef.close();
-                                hub.server.orderProcessed(order); //Let the server know that order has been processed
-                                orderTemplate.slideUp(600, function() { orderTemplate.remove() });
-                                var oldOrderCount = parseInt($('#orders-badge').text());
-                                if (oldOrderCount > 0) {
-                                    $("#orders-badge").html(oldOrderCount - 1);
-                                }
-
-                            }, //Remove order from order list
                             error: function() { window.alert('error while sending order to controller') }
                         });
                     }
@@ -124,20 +124,18 @@ function printOnOrderMenu(order, dsOrder) {
                     if (msg == undefined || msg === "") {
                         dialogRef.getModalHeader().html("<h5 style='color: White'>Napišite neku poruku klijenut");
                     } else {
+                        hub.server.orderProcessed(order);   //Let the server know that order has been processed
+                        dialogRef.close();
+                        orderTemplate.slideUp(600, function () { orderTemplate.remove() });
+                        var oldOrderCount = parseInt($('#orders-badge').text());
+                        if (oldOrderCount > 0) {
+                            $("#orders-badge").html(oldOrderCount - 1);
+                        }
+
                         $.ajax({
                             type: 'POST',
                             url: url,
                             data: { email: dsOrder['Email'], message: msg },
-                            success: function () {
-                                dialogRef.close();
-                                hub.server.orderProcessed(order);   //Let the server know that order has been processed
-                                orderTemplate.slideUp(600, function () { orderTemplate.remove() });
-                                var oldOrderCount = parseInt($('#orders-badge').text());
-                                if (oldOrderCount > 0) {
-                                    $("#orders-badge").html(oldOrderCount - 1);
-                                }
-
-                            },   //Remove order from order list
                             error: function () { window.alert('error while sending order to controller') }
                         });
                     }

@@ -919,6 +919,8 @@ namespace Wild8.Controllers
             if (LoggedOut()) return HttpNotFound();
             try
             {
+                employee.EmployeeID = employee.EmployeeID.Trim();
+
                 if (ModelState.IsValid)
                 {
                     db.Employees.Add(employee);

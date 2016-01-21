@@ -33,7 +33,7 @@ namespace Wild8.Controllers
             username = TextUtils.sanitize(username);
             password = TextUtils.sanitize(password);
 
-            Employee employee = db.Employees.Find(username);
+            Employee employee = db.Employees.Find(username.Trim());
             if (employee == null)
             {
                 return false;
