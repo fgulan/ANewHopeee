@@ -16,14 +16,8 @@
     <link rel="stylesheet" type="text/css" href="~/Content/StarRating.css" />
 }
 
-
-
-
-
 <div class="container">
     <form action="@Url.Action("AddToCart","Meals")" id="meal-form">
-
-
         <div class="row">
             <input type="hidden" id="mealID" value="@Model.Meal.MealID" />
             <div class="col-lg-12">
@@ -34,13 +28,10 @@
         </div>
 
         <div class="row">
-
             <div class="col-md-6">
                 <img class="img-responsive" src="@Model.Meal.ImagePath" alt="">
             </div>
-
             <div class="col-md-6">
-
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Opis jela</h3>
@@ -49,15 +40,11 @@
                         @Model.Meal.Description
                     </div>
                 </div>
-
                 <div class="panel panel-default">
-
                     <div class="panel-heading">
                         <h3 class="panel-title">Narudžba</h3>
                     </div>
-
                     <div class="panel-body mealtypes">
-
                         <table style="border-spacing: 5px;border-collapse: separate;">
                             <tbody>
                                 @{
@@ -66,11 +53,11 @@
                                         var type = Model.Types[i];
                                         if (i == 0)
                                         {
-                                            <tr><td><input type="radio" name="Type" checked="checked" value="@(type.Price + "#" + type.MealTypeName)"> @type.MealTypeName</td></tr>
+                                <tr><td><input type="radio" name="Type" checked="checked" value="@(type.Price + "#" + type.MealTypeName)"> @type.MealTypeName</td></tr>
                                         }
                                         else
                                         {
-                                            <tr><td><input type="radio" name="Type" value="@(type.Price + "#" + type.MealTypeName)"> @type.MealTypeName</td></tr>
+                                <tr><td><input type="radio" name="Type" value="@(type.Price + "#" + type.MealTypeName)"> @type.MealTypeName</td></tr>
                                         }
                                     }
                                 }
@@ -86,18 +73,10 @@
                             <button type="button" class="btn btn-warning pull-right" id="addMealButton">Dodaj</button>
                             <label id="sum" class="pull-right"></label>
                         </div>
-                        
-
-
                     </div>
                 </div>
-
-
-
-                
             </div>
         </div>
-
 
         <div class="row">
             <div class="col-md-6">
@@ -110,12 +89,6 @@
                     </div>
                 </section>
             </div>
-
-
-
-
-
-
             <div class="col-md-6">
 
                 <div class="panel panel-default" id="addon-panel">
@@ -127,55 +100,21 @@
                             <tbody>
                                 @foreach (var mealAddOn in Model.Meal.AddOns)
                                 {
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" value="@mealAddOn.AddOn.Price"> @mealAddOn.AddOn.AddOnID
-                                        </td>
-                                        <td>+ @mealAddOn.AddOn.Price HRK</td>
-                                    </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="AddOn" value="@(mealAddOn.AddOn.Price + "#" + mealAddOn.AddOn.AddOnID)"> @mealAddOn.AddOn.AddOnID
+                                    </td>
+                                    <td>+ @mealAddOn.AddOn.Price HRK</td>
+                                </tr>
                                 }
                             </tbody>
                         </table>
-
                     </div>
                 </div>
-
             </div>
-
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </form>
-
-
-
-
-
-
 </div>
-
-
-
-
-
-
-
-
-
-
-
 
 <div class="panel-group" id="accordion">
     <div class="panel panel-default">
