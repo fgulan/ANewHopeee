@@ -68,7 +68,7 @@ namespace Wild8.StaticInfo
 				+ " Kuhanje ne doživljavam kao rad, više kao neku vrstu osobnog zadovoljstva. Kroz kuhanje sam upoznao mnoštvo divnih ljudi koji dijele slične interese,"
 				+ " te s nekima postao i jako dobar izvan tog kuharskog svijeta, što je jedna od ljepših stvari koje mi je kuhanje donijelo. A kada dobivate pohvale od vjernih gostiju,"
 				+ " to zadovoljstvo ne može zamijeniti ništa. Na kraju dana legnete u krevet napunjeni pozitivnom energijom, koja vam daje snage za nove radne pobjede!”";
-            RestauranutHomepageInfo = "dgfdsfds";
+            RestauranutHomepageInfo = "Najbolji restoran u gradu";
             RestStartH = "08";
             RestStartM = "00";
             RestEndH = "23";
@@ -124,7 +124,7 @@ namespace Wild8.StaticInfo
 
         private static RestaurauntInfo LoadJSONData()
         {
-            string JSON = null;
+            string JSON = LoadJSON();
             RestaurauntInfo obj;
             if (JSON == null)
             {

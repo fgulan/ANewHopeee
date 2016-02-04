@@ -20,12 +20,7 @@ function setCommentListener() {
             return;
         }
 
-      
         $('.collapse').collapse('hide');
-
-
-
-
         var url = f.attr('data-url');
         var data = f.serialize();
 
@@ -100,15 +95,15 @@ function setAddToCartListener() {
         var mealID = $("#mealID").val();
         var mealTypeName = $(".mealtypes>table>tbody>tr>td>input[checked ='checked']").val().split("#")[1];
         var count = $(".1-10 option:selected").val();
-        var addons = [];
-        $(".AddOn[checked ='checked']").each(function (index) {
-            addons[index] = $(this).val();
-        });
-        
+
+        var addOns = [];
+        $('input[name=AddOn]:checked:enabled').each(function (i) {
+            addOns[i] = $(this).val().split("#")[1];
+        })
         $.ajax({
             type: 'POST',
             url: url,
-            data: { count: count,mealID: mealID ,mealTypeName: mealTypeName, addOnNames: addons },
+            data: { count: count, mealID: mealID, mealTypeName: mealTypeName, addOnNames: addOns },
             success: function(count) {
                 $("#cartCount").html('<span class="glyphicon glyphicon-shopping-cart"></span> ' + count);
             },
