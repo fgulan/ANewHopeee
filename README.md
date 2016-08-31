@@ -8,7 +8,7 @@ Web-App written in C#/ASP.NET for restauraunt and food ordering with complete Ad
 Contributors:
 ------------
 * Fredi Šarić
-* Jan Kelement
+* Jan Kelemen
 * Matej Janjić
 * Tin Trčak
 * Kenneth Kostrešević
